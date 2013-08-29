@@ -1,0 +1,32 @@
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0&sensor=true&libraries=geometry"></script>
+<script src="/resources/js/mapas.js" th:src="@{/resources/js/mapas.js}"></script> 
+
+<script>
+  
+    $(window).load(function () {
+        
+        console.info("Cargando mapa...");  
+
+        var mapOptions = { 
+        //CHINCHILLA
+        //center: new google.maps.LatLng(37.32637, -5.20889),
+        //RANCHO
+        //center: new google.maps.LatLng(37.319063,-5.185826),
+        center: new google.maps.LatLng(37.328292,-5.215223),
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.SATELLITE  
+        };
+
+        var map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
+
+        insertarPoligonos(map, ${parcelas_json}, ${coordenadas_json});
+
+        console.info("Mapa cargado."); 
+        
+    });
+    
+</script> 
+
+<h2 th:text="mapa">Mapa</h2>
+<div id="map_canvas" ></div>
+

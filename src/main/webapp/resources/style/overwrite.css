@@ -1,0 +1,17 @@
+/* 
+    Document   : overwrite
+    Created on : Feb 19, 2013, 15:07:00 PM
+    Author     : Pepe
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+/*
+* jQuery UI
+*/
+
+.ui-widget {
+    font-family:  'Helvetica Neue', HelveticaNeue, Helvetica, Arial, 'Lucida Grande', sans-serif;
+}
+.ui-menu { width: 250px; }

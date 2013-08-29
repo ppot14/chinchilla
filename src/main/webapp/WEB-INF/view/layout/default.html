@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <script src="/resources/js/jquery-1.9.1.js" th:src="@{}"></script>
+        <script src="/resources/js/jquery-ui-1.10.1.custom.js" th:src="@{}"></script> 
+        <script src="/resources/js/jquery.dataTables.js" th:src="@{}"></script> 
+        <script src="/resources/js/jquery.validate.js" th:src="@{}"></script> 
+        <script src="/resources/js/additional-methods.js" th:src="@{}"></script> 
+        <script src="/resources/js/globalize.js" th:src="@{}"></script> 
+        <script src="/resources/js/globalize.culture.es-ES.js" th:src="@{}"></script>
+        
+        <link rel="stylesheet" type="text/css" href="/resources/style/generic.css" th:href="@{}"/>
+        <link rel="stylesheet" type="text/css" href="/resources/style/jquery.kwicks.css" th:href="@{}"/>
+        <link rel="stylesheet" type="text/css" href="/resources/style/le-frog/jquery-ui-1.10.1.custom.css" th:href="@{}"/>
+        <link rel="stylesheet" type="text/css" href="/resources/style/layout.css" th:href="@{}"/>
+        <link rel="stylesheet" type="text/css" href="/resources/style/overwrite.css" th:href="@{}"/>
+        <link rel="stylesheet" type="text/css" href="/resources/style/specific.css" th:href="@{}"/>
+        <link rel="icon" type="image/vnd.microsoft.icon" href="/resources/favicon.ico" />
+        
+        
+        <script type="text/javascript">
+            
+//            $(window).load(function () {
+//                console.info("Efecto menu kwicks cargado: "+menuKwicks());
+//                console.info("Mapa cargado: "+cargaMapa()); 
+//            });
+            
+        </script>
+        <title><fmt:message key="chinchilla"/></title>
+    </head>
+    <body>
+        <div id="layout">
+            <div id="layout_header"  class="layout">
+                <div id="layout_title"  class="layout">
+                    <div id="layout_title_left"  class="layout" layout:substitueby="layout_title_left">
+                        Insertar Cabecera Izquierda Aqui
+                    </div>
+                    <div id="layout_title_right"  class="layout" layout:substitueby="layout_title_right">
+                        Insertar Cabecera Derecha Aqui
+                    </div>
+                </div>
+                <div id="layout_menu"  class="layout" layout:substitueby="menu">
+                    Insertar Menu Aqui
+                </div>
+            </div>
+            <div id="layout_body"  class="layout">
+                <div id="layout_leftpanel"  class="layout" layout:substitueby="layout_leftpanel">
+                    Insertar Panel Izquierdo Aqui
+                </div>
+                <div id="layout_rightpanel"  class="layout" layout:substitueby="layout_rightpanel">
+                    Insertar Panel Derecho Aqui
+                </div>
+                <div id="layout_content"  class="layout" layout:substitueby="layout_content">
+                    Insertar Panel Principal Aqui  
+                </div>
+            </div>
+            <div id="layout_footer"  class="layout" layout:substitueby="layout_footer">
+                Insertar Pie Aqui
+            </div>
+        </div>
+            <div id="layout_notification"  class="layout" hidden="true">
+        </div>
+        <div id="layout_hidden"  class="layout" hidden="true">
+        </div>
+    </body>
+</html>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    <!-- 
+        Allow the use of properties from application.properties 
+	throughout this configuration file
+    -->
+    <bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location"><value>classpath:config.properties</value></property>
+        <property name="systemPropertiesModeName"><value>SYSTEM_PROPERTIES_MODE_OVERRIDE</value></property>
+    </bean>
+
+    <!--data source definition-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName"><value>${db.driver}</value></property>
+        <property name="url"><value>${db.url}</value></property>
+        <property name="username"><value>${db.user}</value></property>
+        <property name="password"><value>${db.pass}</value></property>
+    </bean>
+    
+    <!--tunneling ssh definition-->
+    <bean id="tunnelingSSH" class="com.chinchilla.persistence.connection.TunnelingSSH" init-method="connectionSSH" destroy-method="disconnectionSSH">
+        <property name="sshHost"><value>${ssh.host}</value></property>
+        <property name="sshPort"><value>${ssh.port}</value></property>
+        <property name="sshUser"><value>${ssh.user}</value></property>
+        <property name="sshPassword"><value>${ssh.password}</value></property>
+        <property name="sshLocalPort"><value>${ssh.local.port}</value></property>
+        <property name="sshRemoteHost"><value>${ssh.remote.host}</value></property>
+        <property name="sshRemotePort"><value>${ssh.remote.port}</value></property>
+        <property name="sshTimeOut"><value>${ssh.timeout}</value></property>
+    </bean>    
+    
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:sqlMapConfig.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="basePackage" value="com.chinchilla.persistence.mappers" />
+  </bean>-->
+
+    <!-- setup dao implemations -->
+<!--    <bean id="myBatisDAO" class="com.chinchilla.persistence.MyBatisDAO">
+        <property name="sqlMapClient" ref="sqlMapClient"/>
+      </bean>-->
+      <bean id="parcelaDAO" class="com.chinchilla.persistence.dao.ParcelaDAO">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+      </bean>
+      <bean id="coordenadaDAO" class="com.chinchilla.persistence.dao.CoordenadaDAO">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+      </bean>
+      <bean id="cultivoDAO" class="com.chinchilla.persistence.dao.CultivoDAO">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+      </bean>
+      <bean id="produccionDAO" class="com.chinchilla.persistence.dao.ProduccionDAO">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+      </bean>
+
+    <!-- setup transaction manager	-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+</beans>

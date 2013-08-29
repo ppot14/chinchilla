@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <display-name>Chinchilla Web App</display-name>
+    
+    <description>Aplicacion web para el control de costes de produccion del campo</description>
+    
+    <!--
+            Key of the system property that should specify the root directory of this
+            web app. Applied by WebAppRootListener or Log4jConfigListener.
+    -->
+    <context-param>
+        <param-name>webAppRootKey</param-name>
+        <param-value>chinchilla.root</param-value>
+    </context-param>
+    
+    <!--
+            Location of the Log4J config file, for initialization and refresh checks.
+            Applied by Log4jConfigListener.
+    -->
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/classes/log4j.properties</param-value>
+    </context-param>
+    
+<!--    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>-->
+    
+        <servlet-mapping>
+        <servlet-name>default</servlet-name>
+	<url-pattern>/static/*</url-pattern>
+    </servlet-mapping>
+   
+    
+    <!-- Processes application requests -->
+    <servlet>
+        <servlet-name>spring</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>spring</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+    
+    <welcome-file-list>
+        <welcome-file></welcome-file>
+    </welcome-file-list>
+    
+</web-app>

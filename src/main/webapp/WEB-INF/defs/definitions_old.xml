@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<!-- DEFAULT MAIN TEMPLATE -->
+	<definition name="template" template="/WEB-INF/jsp/layout/default.jsp">
+            <put-attribute name="title" value="Tiles tutorial homepage" />
+            <put-attribute name="title_left" value="/WEB-INF/jsp/header/title.jsp" />
+            <put-attribute name="title_right" value="/WEB-INF/jsp/header/title2.jsp" />
+            <put-attribute name="menu" value="/WEB-INF/jsp/menu/menu.jsp" />
+            <put-attribute name="leftpanel" value="/WEB-INF/jsp/left/about.jsp" />
+            <put-attribute name="rightpanel" value="/WEB-INF/jsp/right/default.jsp" />
+            <put-attribute name="footer" value="/WEB-INF/jsp/footer/contact.jsp" />
+	</definition>
+
+	<definition name="parcelas-mapa" extends="template">
+		<put-attribute name="content_main" value="/WEB-INF/jsp/content/mapa-parcelas.jsp"/>
+	</definition>
+        
+        <definition name="parcelas-mapa-form-insertar-labor" extends="parcelas-mapa">
+		<put-attribute name="rightpanel" value="/WEB-INF/jsp/right/form-insertar-labor.jsp"/>
+	</definition>
+        
+        <definition name="labores-tabla" extends="template">
+		<put-attribute name="content_main" value="/WEB-INF/jsp/content/tabla-labores.jsp"/>
+	</definition>
+        
+        <definition name="producciones-tabla" extends="template">
+		<put-attribute name="content_main" value="/WEB-INF/jsp/content/tabla-producciones.jsp"/>
+	</definition>
+        
+        <definition name="producciones-tabla-form-insertar-produccion" extends="producciones-tabla">
+		<put-attribute name="rightpanel" value="/WEB-INF/jsp/right/form-insertar-produccion.jsp"/>
+	</definition>
+        
+        <definition name="index4" extends="template">
+		<put-attribute name="content_main" value="/WEB-INF/jsp/content/tabla-labores.jsp"/>
+	</definition>
+        
+        <definition name="index5" extends="template">
+		<put-attribute name="content_main" value="/WEB-INF/jsp/content/tabla-labores.jsp"/>
+	</definition>
+        
+        <definition name="index6" extends="template">
+		<put-attribute name="content_main" value="/WEB-INF/jsp/content/tabla-labores.jsp" />
+	</definition>
+        
+        <definition name="index7" extends="template">
+		<put-attribute name="content_main" value="/WEB-INF/jsp/content/tabla-labores.jsp" />
+	</definition>
+        
+        <definition name="index8" extends="template">
+		<put-attribute name="content_main" value="/WEB-INF/jsp/content/tabla-labores.jsp"/>
+	</definition>
+        
+        <definition name="index9" extends="template">
+		<put-attribute name="content_main" value="/WEB-INF/jsp/content/tabla-labores.jsp" />
+	</definition>
+
+</tiles-definitions>

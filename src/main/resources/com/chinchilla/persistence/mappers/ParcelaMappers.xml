@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chinchilla.persistence.mappers.ParcelaMappers">
+	
+    <select id="getParcela" parameterType="java.lang.Integer" resultType="com.chinchilla.persistence.objects.Parcela">
+        select 
+        id_parcela as "id_parcela",
+        nombre as "nombre",
+        nombre_corto as "nombre_corto",
+        zona as "zona",
+        extension as "extension",
+        cultivo_fijo as "cultivo_fijo"
+        from gonzalol_chinchilla.t_parcelas 
+        where id_parcela = #{id_parcela}
+    </select>
+	
+    <select id="getAllParcela" parameterType="int" resultType="com.chinchilla.persistence.objects.Parcela">
+        select 
+        id_parcela as "id_parcela",
+        nombre as "nombre",
+        nombre_corto as "nombre_corto",
+        zona as "zona",
+        extension as "extension",
+        cultivo_fijo as "cultivo_fijo"
+        from gonzalol_chinchilla.t_parcelas 
+        order by id_parcela
+    </select>
+	
+    <select id="getParcelaPorNombre" parameterType="int" resultType="com.chinchilla.persistence.objects.Parcela">
+        select 
+        id_parcela as "id_parcela",
+        nombre as "nombre",
+        nombre_corto as "nombre_corto",
+        zona as "zona",
+        extension as "extension",
+        cultivo_fijo as "cultivo_fijo"
+        from gonzalol_chinchilla.t_parcelas 
+        where nombre = #{nombre}
+    </select>
+	
+    <insert id="createParcela" keyColumn="id_parcela" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.Parcela">
+        insert into gonzalol_chinchilla.t_parcelas (nombre,nombre_corto,zona,extension,cultivo_fijo)
+        values (#{nombre},#{nombre_corto},#{zona},#{extension},#{cultivo_fijo})		
+    </insert>
+	
+    <update id="updateParcela" parameterType="com.chinchilla.persistence.objects.Parcela">
+        update gonzalol_chinchilla.t_parcelas set nombre = #{nombre},
+        nombre_corto = #{nombre_corto},
+        zona =#{zona},
+        extension = #{extension},
+        cultivo_fijo = #{cultivo_fijo} 
+        where id_parcela = #{id_parcela}		
+    </update>
+	
+    <delete id="deleteParcela" parameterType="java.lang.Integer">
+        delete from gonzalol_chinchilla.t_parcelas where id_parcela = #{id_parcela}		
+    </delete>
+	
+	
+</mapper>
+

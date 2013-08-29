@@ -1,0 +1,23 @@
+/* 
+    Document   : specific
+    Created on : Feb 19, 2013, 15:07:00 PM
+    Author     : Pepe
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/*
+* Google maps
+*/
+
+#map_canvas{
+    height:400px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #888;
+    width:100%;
+    min-width: 580px;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px #888;
+    box-shadow: 0 0 5px #888;
+}

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chinchilla.persistence.mappers.ProduccionMappers">
+	
+    <select id="getProduccion" parameterType="java.lang.Integer" resultType="com.chinchilla.persistence.objects.Produccion">
+        select 
+        id_produccion as "id_produccion",
+        id_cultivo as "id_cultivo",
+        id_parcela as "id_parcela",
+        fecha as "fecha",
+        kilos as "kilos",
+        precio_kilo as "precio_kilo"
+        from gonzalol_chinchilla.t_producciones 
+        where id_produccion = #{id_produccion}
+    </select>
+	
+    <select id="getAllProduccion" parameterType="int" resultType="com.chinchilla.persistence.objects.Produccion">
+        select 
+        id_produccion as "id_produccion",
+        id_cultivo as "id_cultivo",
+        id_parcela as "id_parcela",
+        fecha as "fecha",
+        kilos as "kilos",
+        precio_kilo as "precio_kilo"
+        from gonzalol_chinchilla.t_producciones 
+        order by id_produccion
+    </select>
+	
+    <select id="getProduccionPorNombre" parameterType="int" resultType="com.chinchilla.persistence.objects.Produccion">
+        select 
+        id_produccion as "id_produccion",
+        id_cultivo as "id_cultivo",
+        id_parcela as "id_parcela",
+        fecha as "fecha",
+        kilos as "kilos",
+        precio_kilo as "precio_kilo"
+        from gonzalol_chinchilla.t_producciones 
+        where fecha = #{fecha}
+    </select>
+	
+    <insert id="createProduccion" keyColumn="id_produccion" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.Produccion">
+        insert into gonzalol_chinchilla.t_producciones (id_cultivo,id_parcela,fecha,kilos,precio_kilo)
+        values (#{id_cultivo},#{id_parcela},#{fecha},#{kilos},#{precio_kilo})		
+    </insert>
+	
+    <update id="updateProduccion" parameterType="com.chinchilla.persistence.objects.Produccion">
+        update gonzalol_chinchilla.t_producciones set id_cultivo = #{id_cultivo},
+        id_parcela = #{id_parcela},
+        fecha =#{fecha},
+        kilos = #{kilos},
+        precio_kilo = #{precio_kilo} 
+        where id_produccion = #{id_produccion}		
+    </update>
+	
+    <delete id="deleteProduccion" parameterType="java.lang.Integer">
+        delete from gonzalol_chinchilla.t_producciones where id_produccion = #{id_produccion}		
+    </delete>
+	
+	
+</mapper>
+

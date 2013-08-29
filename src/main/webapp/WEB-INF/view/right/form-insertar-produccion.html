@@ -1,0 +1,105 @@
+<script>
+  $(function() {
+    $( "#submit-insertar" ).button({
+      icons: {
+        primary: "ui-icon-disk"
+      }
+    });
+    $( "#submit-modificar" ).button({
+      icons: {
+        primary: "ui-icon-pencil"
+      }
+    });
+    $( "#submit-eliminar" ).button({
+      icons: {
+        primary: "ui-icon-trash"
+      }
+    });
+    
+    $( "#precio_kilo" ).spinner({
+      min: 0,
+      max: 9999,
+      step: 25,
+      page: 1,
+      numberFormat: "C",
+      culture: "es-ES"
+    });
+    
+    $( "#kilos" ).spinner({
+      min: 0,
+      max: 999999,
+      step: 1,
+      page: 100,
+      numberFormat: "n",
+      culture: "es-ES"
+    });
+    
+     $( "#fecha" ).datepicker($.datepicker.regional[ "es-ES" ]);
+    
+    //$("#produccion").validate();
+    
+    if(${produccion.id_produccion}>0){
+        
+        $('#id_produccion').val(${produccion.id_produccion});
+
+        $('#id_cultivo').val(${produccion.id_cultivo});
+
+        $('#id_parcela').val(${produccion.id_parcela});
+
+        $('#fecha').val(${produccion.fecha});
+
+        $('#kilos').val(${produccion.kilos});
+
+        $('#precio_kilo').val(${produccion.precio_kilo});
+    
+    }
+  });
+  </script>
+
+  <h1 th:text="${produccion.id_produccion}>0? #messages.msg('produccion', ${produccion.id_produccion}) : #messages.msg('nueva-produccion')">Producci&oacute;n</h1>
+
+
+
+  <form method="post" action="${pageContext.request.contextPath}/producciones/tabla/form/procesar/produccion.html" id="form_produccion" commandName="cn_form_produccion" modelAttribute="model_produccion">
+
+    <label path="id_produccion"><fmt:message key="id_produccion"/></label>
+    <input path="id_produccion" id="id_produccion" disabled="true"/>
+    <errors path="id_produccion" cssClass="error" />
+    
+    <label path="id_cultivo"><fmt:message key="id_cultivo"/></label>
+    <select path="id_cultivo" id="id_cultivo">
+        <option value="-1" label="--- Seleccionar ---"/>
+        <options items="${cultivos}" itemValue="id_cultivo" itemLabel="variedad"/>
+     </select>
+    <errors path="id_cultivo" cssClass="error" />
+    
+    <label path="id_parcela"><fmt:message key="id_parcela"/></label>
+    <select path="id_parcela" id="id_parcela">
+        <option value="-1" label="--- Seleccionar ---"/>
+        <options items="${parcelas}" itemValue="id_parcela" itemLabel="nombre"/>
+     </select>
+    <errors path="id_parcela" cssClass="error" />
+    
+    <label path="fecha"><fmt:message key="fecha"/></label>
+    <input path="fecha" id="fecha" cssClass="required"/>
+    <errors path="fecha" cssClass="error" />
+    
+    <label path="kilos"><fmt:message key="kilos"/></label>
+    <input path="kilos" id="kilos" cssClass="required"/>
+    <errors path="kilos" cssClass="error" />
+    
+    <label path="precio_kilo"><fmt:message key="precio_kilo"/></label>
+    <input path="precio_kilo" id="precio_kilo" cssClass="required"/>
+    <errors path="precio_kilo" cssClass="error" />
+    
+    
+    <input type="submit" id="submit-insertar"/>
+    <c:if test="${produccion.id_produccion}>0">
+        <input type="submit" id="submit-modificar"/>
+        <input type="submit" id="submit-eliminar"/>
+    </c:if>
+    
+    
+</form>
+
+

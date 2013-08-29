@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chinchilla.persistence.mappers.CoordenadaMappers">
+	
+    <select id="getCoordenada" parameterType="com.chinchilla.persistence.objects.Coordenada" resultType="com.chinchilla.persistence.objects.Coordenada">
+        SELECT `id_parcela`, 
+        `orden`, 
+        `latitud`, 
+        `longitud` 
+        FROM `t_coordenadas_parcela` 
+        WHERE id_parcela = #{id_parcela}
+        and orden = #{orden}
+    </select>
+	
+    <select id="getAllCoordenada" parameterType="int" resultType="com.chinchilla.persistence.objects.Coordenada">
+        SELECT `id_parcela`, 
+        `orden`, 
+        `latitud`, 
+        `longitud` 
+        FROM `t_coordenadas_parcela` 
+    </select>
+	
+    <select id="getFilteredCoordenada" parameterType="com.chinchilla.persistence.objects.Coordenada" resultType="com.chinchilla.persistence.objects.Coordenada">
+        SELECT `id_parcela`, 
+        `orden`, 
+        `latitud`, 
+        `longitud` 
+        FROM `t_coordenadas_parcela` 
+        WHERE id_parcela = #{id_parcela}
+    </select>
+	
+    <insert id="createCoordenada" keyColumn="id_parcela" parameterType="com.chinchilla.persistence.objects.Coordenada">
+        INSERT INTO `t_coordenadas_parcela`(`id_parcela`, `orden`, `latitud`, `longitud`) 
+        VALUES (#{id_parcela},#{orden},#{latitud},#{longitud})		
+    </insert>
+	
+    <update id="updateCoordenada" parameterType="com.chinchilla.persistence.objects.Coordenada">
+        UPDATE `t_coordenadas_parcela` 
+        SET `orden`=#{orden},`latitud`=#{latitud},`longitud`=#{longitud} 
+        WHERE `id_parcela`=#{id_parcela}		
+    </update>
+	
+    <delete id="deleteCoordenada" parameterType="com.chinchilla.persistence.objects.Coordenada">
+        DELETE FROM `t_coordenadas_parcela` 
+        WHERE id_parcela = #{id_parcela} and orden = #{orden}		
+    </delete>
+	
+	
+</mapper>
+
