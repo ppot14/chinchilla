@@ -2,20 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <head>
-        <script src="/resources/js/jquery-1.9.1.js" th:src="@{}"></script>
-        <script src="/resources/js/jquery-ui-1.10.1.custom.js" th:src="@{}"></script> 
-        <script src="/resources/js/jquery.dataTables.js" th:src="@{}"></script> 
-        <script src="/resources/js/jquery.validate.js" th:src="@{}"></script> 
-        <script src="/resources/js/additional-methods.js" th:src="@{}"></script> 
-        <script src="/resources/js/globalize.js" th:src="@{}"></script> 
-        <script src="/resources/js/globalize.culture.es-ES.js" th:src="@{}"></script>
+        <script src="/resources/js/jquery-1.9.1.js" th:src="@{/resources/js/jquery-1.9.1.js}"></script>
+        <script src="/resources/js/jquery-ui-1.10.1.custom.js" th:src="@{/resources/js/jquery-ui-1.10.1.custom.js}"></script> 
+        <script src="/resources/js/jquery.dataTables.js" th:src="@{/resources/js/jquery.dataTables.js}"></script> 
+        <script src="/resources/js/jquery.validate.js" th:src="@{/resources/js/jquery.validate.js}"></script> 
+        <script src="/resources/js/additional-methods.js" th:src="@{/resources/js/additional-methods.js}"></script> 
+        <script src="/resources/js/globalize.js" th:src="@{/resources/js/globalize.js}"></script> 
+        <script src="/resources/js/globalize.culture.es-ES.js" th:src="@{/resources/js/globalize.culture.es-ES.js}"></script>
         
-        <link rel="stylesheet" type="text/css" href="/resources/style/generic.css" th:href="@{}"/>
-        <link rel="stylesheet" type="text/css" href="/resources/style/jquery.kwicks.css" th:href="@{}"/>
-        <link rel="stylesheet" type="text/css" href="/resources/style/le-frog/jquery-ui-1.10.1.custom.css" th:href="@{}"/>
-        <link rel="stylesheet" type="text/css" href="/resources/style/layout.css" th:href="@{}"/>
-        <link rel="stylesheet" type="text/css" href="/resources/style/overwrite.css" th:href="@{}"/>
-        <link rel="stylesheet" type="text/css" href="/resources/style/specific.css" th:href="@{}"/>
+        <link rel="stylesheet" type="text/css" href="/resources/style/generic.css" th:href="@{/resources/style/generic.css}"/>
+        <link rel="stylesheet" type="text/css" href="/resources/style/le-frog/jquery-ui-1.10.1.custom.css" th:href="@{/resources/style/le-frog/jquery-ui-1.10.1.custom.css}"/>
+        <link rel="stylesheet" type="text/css" href="/resources/style/layout.css" th:href="@{/resources/style/layout.css}"/>
+        <link rel="stylesheet" type="text/css" href="/resources/style/overwrite.css" th:href="@{/resources/style/overwrite.css}"/>
+        <link rel="stylesheet" type="text/css" href="/resources/style/specific.css" th:href="@{/resources/style/specific.css}"/>
         <link rel="icon" type="image/vnd.microsoft.icon" href="/resources/favicon.ico" />
         
         
@@ -27,35 +26,35 @@
 //            });
             
         </script>
-        <title><fmt:message key="chinchilla"/></title>
+        <title>Chinchilla</title>
     </head>
     <body>
         <div id="layout">
             <div id="layout_header"  class="layout">
                 <div id="layout_title"  class="layout">
-                    <div id="layout_title_left"  class="layout" layout:substitueby="layout_title_left">
+                    <div id="layout_title_left"  class="layout" th:include="header/title">
                         Insertar Cabecera Izquierda Aqui
                     </div>
-                    <div id="layout_title_right"  class="layout" layout:substitueby="layout_title_right">
+                    <div id="layout_title_right"  class="layout" th:include="header/title2">
                         Insertar Cabecera Derecha Aqui
                     </div>
                 </div>
-                <div id="layout_menu"  class="layout" layout:substitueby="menu">
+                <div id="layout_menu"  class="layout" th:include="menu/menu">
                     Insertar Menu Aqui
                 </div>
             </div>
             <div id="layout_body"  class="layout">
-                <div id="layout_leftpanel"  class="layout" layout:substitueby="layout_leftpanel">
+                <div id="layout_leftpanel"  class="layout" th:include="left/about">
                     Insertar Panel Izquierdo Aqui
                 </div>
-                <div id="layout_rightpanel"  class="layout" layout:substitueby="layout_rightpanel">
+                <div id="layout_rightpanel"  class="layout" th:include="right/default">
                     Insertar Panel Derecho Aqui
                 </div>
-                <div id="layout_content"  class="layout" layout:substitueby="layout_content">
+                <div id="layout_content"  class="layout" th:include="content/default">
                     Insertar Panel Principal Aqui  
                 </div>
             </div>
-            <div id="layout_footer"  class="layout" layout:substitueby="layout_footer">
+            <div id="layout_footer"  class="layout" th:include="footer/contact">
                 Insertar Pie Aqui
             </div>
         </div>

@@ -21,10 +21,10 @@ private static Logger log = (Logger) LoggerFactory.getLogger(IndexController.cla
 	
     //@RequestMapping("/index.html")
     @RequestMapping(method=RequestMethod.GET)
-    public ModelAndView index(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+    public String index(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         //throw new UnsupportedOperationException("Not supported yet.");
          log.info("Received request to show IndexController index: parcelas-mapa");
-        return new ModelAndView("layout/default");
+        return "layout/default";
     }
 
 }
