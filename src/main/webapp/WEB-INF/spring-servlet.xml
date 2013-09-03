@@ -35,11 +35,31 @@
         <!-- These lines add the LayoutDialect to Thymeleaf -->
         <property name="additionalDialects">
             <set>
+                <!-- These lines add the LayoutDialect to Thymeleaf -->
                 <bean class="nz.net.ultraq.thymeleaf.LayoutDialect"/>
+                <!-- Adds the Tiles dialect -->
+                <bean class="org.thymeleaf.extras.tiles2.dialect.TilesDialect"/>
+
             </set>
         </property>
     </bean>
-    <bean class="org.thymeleaf.spring3.view.ThymeleafViewResolver">
+    
+    <!-- Configures the Tiles layout system using a specific thymeleaf-enabled Tiles Configurer -->
+    <bean id="tilesConfigurer" class="org.thymeleaf.extras.tiles2.spring.web.configurer.ThymeleafTilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/defs/definitions.xml</value>
+            </list>
+        </property>
+    </bean>
+
+<!-- Configures view resolver using AJAX and Tyles -->
+<!--<bean id="tilesViewResolver" class="org.thymeleaf.spring3.view.AjaxThymeleafViewResolver">
+    <property name="viewClass" value="org.thymeleaf.extras.tiles2.spring.web.view.FlowAjaxThymeleafTilesView"/>-->
+
+    <bean id="viewResolver"  class="org.thymeleaf.spring3.view.ThymeleafViewResolver">
+    <!-- Configures the Tiles view class -->
+        <property name="viewClass" value="org.thymeleaf.extras.tiles2.spring.web.view.ThymeleafTilesView"/>
         <property name="templateEngine" ref="templateEngine" />
         <property name="order" value="1" />
         <property name="viewNames" value="*" />
