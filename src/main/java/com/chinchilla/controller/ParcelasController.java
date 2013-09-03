@@ -68,7 +68,7 @@ public class ParcelasController{
 
         log.info("Received request to show ParcelasController mapa: parcelas-mapa");
 
-        return new ModelAndView("content/mapa-parcelas", modelMap);
+        return new ModelAndView("parcelas-mapa", modelMap);
     }
     
      @RequestMapping(value = "/mapa/form/insertar/labor.html",params = {"id"})
@@ -80,7 +80,7 @@ public class ParcelasController{
          
          modelMap.put("parcela-"+id_parcela, parcela);
          
-        return new ModelAndView("right/form-insertar-labor", modelMap);
+        return new ModelAndView("parcelas-mapa-form-insertar-labor", modelMap);
          
      }
 }

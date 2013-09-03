@@ -67,7 +67,7 @@ public class ProduccionesController{
 
         log.info("Received request to show ProduccionesController tabla: producciones-tabla");
 
-        return new ModelAndView("content/tabla-producciones", modelMap);
+        return new ModelAndView("producciones-tabla", modelMap);
     }
     
     @RequestMapping("/tabla/form/insertar/produccion.html")
@@ -81,7 +81,7 @@ public class ProduccionesController{
 
         log.info("Received request to show tablaFormInsertarProduccion form: producciones-tabla-form-insertar-produccion");
         
-        return new ModelAndView("right/form-insertar-produccion");
+        return new ModelAndView("producciones-tabla-form-insertar-produccion");
     }
     
     @RequestMapping(value = "/tabla/form/insertar/produccion.html",params = {"id"})
