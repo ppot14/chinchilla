@@ -24,7 +24,7 @@ private static Logger log = (Logger) LoggerFactory.getLogger(IndexController.cla
     public String index(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         //throw new UnsupportedOperationException("Not supported yet.");
          log.info("Received request to show IndexController index: parcelas-mapa");
-        return "layout/default";
+        return "layout/home";
     }
 
 }

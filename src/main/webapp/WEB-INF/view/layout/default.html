@@ -32,29 +32,29 @@
         <div id="layout">
             <div id="layout_header"  class="layout">
                 <div id="layout_title"  class="layout">
-                    <div id="layout_title_left"  class="layout" th:include="header/title">
+                    <div id="layout_title_left"  class="layout" layout:fragment="header/title" layout:include="header/title">
                         Insertar Cabecera Izquierda Aqui
                     </div>
-                    <div id="layout_title_right"  class="layout" th:include="header/title2">
+                    <div id="layout_title_right"  class="layout" layout:fragment="header/title2" layout:include="header/title2">
                         Insertar Cabecera Derecha Aqui
                     </div>
                 </div>
-                <div id="layout_menu"  class="layout" th:include="menu/menu">
+                <div id="layout_menu"  class="layout" layout:fragment="menu/menu" layout:include="menu/menu">
                     Insertar Menu Aqui
                 </div>
             </div>
             <div id="layout_body"  class="layout">
-                <div id="layout_leftpanel"  class="layout" th:include="left/about">
+                <div id="layout_leftpanel"  class="layout" layout:fragment="left/about" layout:include="left/about">
                     Insertar Panel Izquierdo Aqui
                 </div>
-                <div id="layout_rightpanel"  class="layout" th:include="right/default">
+                <div id="layout_rightpanel"  class="layout" layout:fragment="right/default" layout:include="right/default">
                     Insertar Panel Derecho Aqui
                 </div>
-                <div id="layout_content"  class="layout" th:include="content/default">
+                <div id="layout_content"  class="layout" layout:fragment="content/default" layout:include="content/default">
                     Insertar Panel Principal Aqui  
                 </div>
             </div>
-            <div id="layout_footer"  class="layout" th:include="footer/contact">
+            <div id="layout_footer"  class="layout" layout:fragment="footer/contact" layout:include="footer/contact">
                 Insertar Pie Aqui
             </div>
         </div>

@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,13 +39,13 @@ public class ParcelasController{
     private CoordenadaDAO coordenadaDAO;    
     
     @RequestMapping("/")
-    public ModelAndView index(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+    public String index(Model model) throws Exception {
 
-        return mapa(hsr, hsr1); 
+        return mapa(model); 
     }
     
     @RequestMapping("/mapa.html")
-    public ModelAndView mapa(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+    public String mapa(Model model) throws Exception {
 
         List<Parcela> parcelas = parcelaDAO.getAll();
         
@@ -65,22 +66,25 @@ public class ParcelasController{
         modelMap.put("parcelas_json", gson.toJson(parcelas));
         
         modelMap.put("coordenadas_json", gson.toJson(coordenadas));
+        
+        model.addAllAttributes(modelMap);
 
         log.info("Received request to show ParcelasController mapa: parcelas-mapa");
 
-        return new ModelAndView("content/mapa-parcelas", modelMap);
+        return "content/mapa-parcelas";
     }
     
      @RequestMapping(value = "/mapa/form/insertar/labor.html",params = {"id"})
-    public ModelAndView mapaFormInsertarLabor(@RequestParam(value = "id") Integer id_parcela, HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+    public String mapaFormInsertarLabor(@RequestParam(value = "id") Integer id_parcela, Model model) throws Exception {
          
          Parcela parcela = parcelaDAO.get(id_parcela);
          
          Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
          
          modelMap.put("parcela-"+id_parcela, parcela);
+        model.addAllAttributes(modelMap);
          
-        return new ModelAndView("right/form-insertar-labor", modelMap);
+        return "right/form-insertar-labor";
          
      }
 }

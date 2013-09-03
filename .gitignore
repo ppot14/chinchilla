@@ -1,2 +1,3 @@
 /src/main/resources/config.properties
 /src/test/resources/com/chinchilla/persistence/config.properties
+/target/

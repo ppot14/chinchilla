@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,52 +52,56 @@ public class ProduccionesController{
     private ParcelaDAO parcelaDAO;          
         
     @RequestMapping("/")
-    public ModelAndView index(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+    public String index(Model model) throws Exception {
 
-        return tabla(hsr, hsr1); 
+        return tabla(model); 
     }
     
     @RequestMapping("/tabla.html")
-    public ModelAndView tabla(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+    public String tabla(Model model) throws Exception {
 
         List<Produccion> producciones = produccionDAO.getAll();
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
         modelMap.put("producciones", producciones);
+        
+        model.addAllAttributes(modelMap);
 
         log.info("Received request to show ProduccionesController tabla: producciones-tabla");
 
-        return new ModelAndView("content/tabla-producciones", modelMap);
+        return "content/tabla-producciones";
     }
     
     @RequestMapping("/tabla/form/insertar/produccion.html")
-    public ModelAndView tablaFormInsertarProduccion(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+    public String tablaFormInsertarProduccion(Model model) throws Exception {
 
         Produccion produccion = new Produccion();
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
         modelMap.put("produccion", produccion);
+        
+        model.addAllAttributes(modelMap);
 
         log.info("Received request to show tablaFormInsertarProduccion form: producciones-tabla-form-insertar-produccion");
         
-        return new ModelAndView("right/form-insertar-produccion");
+        return "right/form-insertar-produccion";
     }
     
     @RequestMapping(value = "/tabla/form/insertar/produccion.html",params = {"id"})
-    public ModelAndView tablaFormInsertarProduccion(@RequestParam(value = "id") String id_produccion,HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+    public String tablaFormInsertarProduccion(@RequestParam(value = "id") String id_produccion, Model model) throws Exception {
         
         log.info("Received request to show tablaFormInsertarProduccion form: redirect to tablaFormModificarProduccion");
         
-        return tablaFormModificarProduccion(id_produccion, hsr, hsr1);
+        return tablaFormModificarProduccion(id_produccion, model);
     }
     
 //    @RequestMapping(value = "/tabla/form/modificar/produccion.html",params = {"id"}, method=RequestMethod.GET)
 //    public void tablaFormModificarProduccion() {}
     
     @RequestMapping(value = "/tabla/form/modificar/produccion.html",params = {"id"}, method=RequestMethod.GET)
-    public ModelAndView tablaFormModificarProduccion(@RequestParam(value = "id") String id_produccion,HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+    public String tablaFormModificarProduccion(@RequestParam(value = "id") String id_produccion, Model model) throws Exception {
         
         log.info("Received request to show tablaFormModificarProduccion form");
 
@@ -117,16 +122,17 @@ public class ProduccionesController{
         modelMap.put("producciones", producciones);
 
         modelMap.put("produccion", produccion);
+        
+        model.addAllAttributes(modelMap);
 
         log.info("Response to producciones-tabla-form-modificar-produccion");
         
-        return new ModelAndView("right/form-insertar-produccion", modelMap);
+        return "right/form-insertar-produccion";
     }
     
     @RequestMapping(value = "/tabla/form/procesar/produccion.html",method = RequestMethod.POST)
-   public ModelAndView tablaFormProcesarProduccion(HttpServletRequest hsr, HttpServletResponse hsr1, 
-   @ ModelAttribute("model_produccion") 
-            Produccion model_produccion) throws Exception {
+   public String tablaFormProcesarProduccion(@ModelAttribute("model_produccion") 
+            Produccion model_produccion, Model model) throws Exception {
         
         int created = produccionDAO.create(model_produccion);
         
@@ -152,8 +158,10 @@ public class ProduccionesController{
 
         modelMap.put("notificacion", notificacion);
         
+        model.addAllAttributes(modelMap);
+        
         log.info("Received request to show tablaFormProcesarProduccion: producciones-tabla");
 
-        return new ModelAndView("content/tabla-producciones", modelMap);
+        return "content/tabla-producciones";
     }
 }
