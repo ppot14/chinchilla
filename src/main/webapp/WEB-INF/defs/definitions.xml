@@ -7,57 +7,61 @@
 
 	<!-- DEFAULT MAIN TEMPLATE -->
 	<definition name="template" template="/WEB-INF/view/layout/default.html">
-            <put-attribute name="title" value="Tiles tutorial homepage"  type="thymeleaf"/>
-            <put-attribute name="title_left" value="/WEB-INF/view/header/title.html"  type="thymeleaf"/>
-            <put-attribute name="title_right" value="/WEB-INF/view/header/title2.html"  type="thymeleaf"/>
-            <put-attribute name="menu" value="/WEB-INF/view/menu/menu.html"  type="thymeleaf"/>
-            <put-attribute name="leftpanel" value="/WEB-INF/view/left/about.html"  type="thymeleaf"/>
-            <put-attribute name="rightpanel" value="/WEB-INF/view/right/default.html"  type="thymeleaf"/>
-            <put-attribute name="footer" value="/WEB-INF/view/footer/contact.html"  type="thymeleaf"/>
+            <put-attribute name="title" value="Tiles tutorial homepage" />
+            <put-attribute name="title_left" value="/WEB-INF/view/header/title.html" />
+            <put-attribute name="title_right" value="/WEB-INF/view/header/title2.html" />
+            <put-attribute name="menu" value="/WEB-INF/view/menu/menu.html" />
+            <put-attribute name="leftpanel" value="/WEB-INF/view/left/about.html" />
+            <put-attribute name="rightpanel" value="/WEB-INF/view/right/default.html" />
+            <put-attribute name="footer" value="/WEB-INF/view/footer/contact.html" />
+	</definition>
+
+	<definition name="layout/default" extends="template">
+		<put-attribute name="content_main" value="/WEB-INF/view/content/default.html"/>
 	</definition>
 
 	<definition name="parcelas-mapa" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/mapa-parcelas.html" type="thymeleaf"/>
+		<put-attribute name="content_main" value="/WEB-INF/view/content/mapa-parcelas.html"/>
 	</definition>
         
         <definition name="parcelas-mapa-form-insertar-labor" extends="parcelas-mapa">
-		<put-attribute name="rightpanel" value="/WEB-INF/view/right/form-insertar-labor.html" type="thymeleaf"/>
+		<put-attribute name="rightpanel" value="/WEB-INF/view/right/form-insertar-labor.html"/>
 	</definition>
         
         <definition name="labores-tabla" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html" type="thymeleaf"/>
+		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html"/>
 	</definition>
         
         <definition name="producciones-tabla" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-producciones.html" type="thymeleaf"/>
+		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-producciones.html"/>
 	</definition>
         
         <definition name="producciones-tabla-form-insertar-produccion" extends="producciones-tabla">
-		<put-attribute name="rightpanel" value="/WEB-INF/view/right/form-insertar-produccion.html" type="thymeleaf"/>
+		<put-attribute name="rightpanel" value="/WEB-INF/view/right/form-insertar-produccion.html"/>
 	</definition>
         
         <definition name="index4" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html" type="thymeleaf"/>
+		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html"/>
 	</definition>
         
         <definition name="index5" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html" type="thymeleaf"/>
+		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html"/>
 	</definition>
         
         <definition name="index6" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html"  type="thymeleaf"/>
+		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html" />
 	</definition>
         
         <definition name="index7" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html"  type="thymeleaf"/>
+		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html" />
 	</definition>
         
         <definition name="index8" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html" type="thymeleaf"/>
+		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html"/>
 	</definition>
         
         <definition name="index9" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html"  type="thymeleaf"/>
+		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html" />
 	</definition>
 
 </tiles-definitions>
