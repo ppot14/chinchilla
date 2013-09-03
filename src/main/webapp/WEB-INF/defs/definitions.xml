@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE tiles-definitions PUBLIC
-       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
-       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
 <tiles-definitions>
 
 	<!-- DEFAULT MAIN TEMPLATE -->
-	<definition name="template" template="/WEB-INF/view/layout/default.html">
+	<definition name="template" template="layout/default">
             <put-attribute name="title" value="Tiles tutorial homepage" />
-            <put-attribute name="title_left" value="/WEB-INF/view/header/title.html" />
-            <put-attribute name="title_right" value="/WEB-INF/view/header/title2.html" />
-            <put-attribute name="menu" value="/WEB-INF/view/menu/menu.html" />
-            <put-attribute name="leftpanel" value="/WEB-INF/view/left/about.html" />
-            <put-attribute name="rightpanel" value="/WEB-INF/view/right/default.html" />
-            <put-attribute name="footer" value="/WEB-INF/view/footer/contact.html" />
+            <put-attribute name="title_left" value="header/title" />
+            <put-attribute name="title_right" value="header/title2" />
+            <put-attribute name="menu" value="menu/menu" />
+            <put-attribute name="leftpanel" value="left/about" />
+            <put-attribute name="rightpanel" value="right/default" />
+            <put-attribute name="footer" value="footer/contact" />
 	</definition>
 
-	<definition name="layout/default" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/default.html"/>
+	<definition name="inicio" extends="template">
+		<put-attribute name="content_main" value="content/default"/>
 	</definition>
 
 	<definition name="parcelas-mapa" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/mapa-parcelas.html"/>
+		<put-attribute name="content_main" value="content/mapa-parcelas"/>
 	</definition>
         
         <definition name="parcelas-mapa-form-insertar-labor" extends="parcelas-mapa">
-		<put-attribute name="rightpanel" value="/WEB-INF/view/right/form-insertar-labor.html"/>
+		<put-attribute name="rightpanel" value="right/form-insertar-labor"/>
 	</definition>
         
         <definition name="labores-tabla" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html"/>
+		<put-attribute name="content_main" value="content/tabla-labores"/>
 	</definition>
         
         <definition name="producciones-tabla" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-producciones.html"/>
+		<put-attribute name="content_main" value="content/tabla-producciones"/>
 	</definition>
         
         <definition name="producciones-tabla-form-insertar-produccion" extends="producciones-tabla">
-		<put-attribute name="rightpanel" value="/WEB-INF/view/right/form-insertar-produccion.html"/>
+		<put-attribute name="rightpanel" value="right/form-insertar-produccion"/>
 	</definition>
         
         <definition name="index4" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html"/>
+		<put-attribute name="content_main" value="content/tabla-labores"/>
 	</definition>
         
         <definition name="index5" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html"/>
+		<put-attribute name="content_main" value="content/tabla-labores"/>
 	</definition>
         
         <definition name="index6" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html" />
+		<put-attribute name="content_main" value="content/tabla-labores" />
 	</definition>
         
         <definition name="index7" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html" />
+		<put-attribute name="content_main" value="content/tabla-labores" />
 	</definition>
         
         <definition name="index8" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html"/>
+		<put-attribute name="content_main" value="content/tabla-labores"/>
 	</definition>
         
         <definition name="index9" extends="template">
-		<put-attribute name="content_main" value="/WEB-INF/view/content/tabla-labores.html" />
+		<put-attribute name="content_main" value="content/tabla-labores" />
 	</definition>
 
 </tiles-definitions>
