@@ -15,3 +15,16 @@
     font-family:  'Helvetica Neue', HelveticaNeue, Helvetica, Arial, 'Lucida Grande', sans-serif;
 }
 /*.ui-menu { width: 250px; }*/
+
+/*
+* Bootstrap
+*/
+.navbar {
+    margin-bottom: 0px;
+    min-height: 20px;
+}
+
+.navbar-nav > li > a {
+    padding-bottom: 5px;
+    padding-top: 5px;
+}

@@ -33,16 +33,16 @@
     background-image: url('../../resources/images/cabecera_fondo.png') ;
     background-repeat:no-repeat;
     background-position: right;
-    border-top-left-radius:20px;
-    border-top-right-radius:20px;
-    border-bottom-left-radius:2px;
-    border-bottom-right-radius:2px;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 1px 5px rgba(0, 0, 0, 0.075);
+    border-color: #E7E7E7;
 }
 
 #layout_title_left {
     width:40%;
     float:left;
     display:inline;
+    margin: 10px 0 0 30px;
     /*background-color:#dfffdf;*/
 }
 
@@ -54,17 +54,17 @@
 }
 
 #layout_menu {
-    height:31px;
+    /*height:31px;*/
     float:left;
     width:100%;
     /*background-color:#bfffff;*/
-    margin:4px 0 0 3px;
+    margin:4px 0;
 }
 
 #layout_body {
     float:left;
     background-color:#bfdfdf;
-    margin:5px 0;
+    margin:0 0 5px 0;
 }
 
 #layout_content {

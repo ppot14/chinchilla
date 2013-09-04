@@ -22,7 +22,7 @@ public class LaboresController{
     public ModelAndView tabla(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         //throw new UnsupportedOperationException("Not supported yet.");
          log.info("Received request to show LaboresController tabla: labores-tabla");
-        return new ModelAndView("content/tabla-labores");
+        return new ModelAndView("labores-tabla");
     }
 
 }
