@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller("parcelasController")
 @RequestMapping("/parcelas")
+@SessionAttributes({"parcelas_json","coordenadas_json","parcelas","coordenadas"})
 public class ParcelasController{
 
     private static Logger log = (Logger) LoggerFactory.getLogger(ParcelasController.class);
@@ -36,7 +38,7 @@ public class ParcelasController{
     
     @Autowired
     @Qualifier("coordenadaDAO")
-    private CoordenadaDAO coordenadaDAO;    
+    private CoordenadaDAO coordenadaDAO;  
     
     @RequestMapping("/")
     public String index(Model model) throws Exception {
@@ -66,6 +68,10 @@ public class ParcelasController{
         modelMap.put("parcelas_json", gson.toJson(parcelas));
         
         modelMap.put("coordenadas_json", gson.toJson(coordenadas));
+
+        modelMap.put("parcelas", parcelas);
+        
+        modelMap.put("coordenadas", coordenadas);
         
         model.addAllAttributes(modelMap);
 

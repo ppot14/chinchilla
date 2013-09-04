@@ -23,9 +23,9 @@ function get_random_color() {
 
 function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux){
 
-    parcelas_json = parcelas_json_aux;
+    parcelas_json = $.parseJSON(parcelas_json_aux);
 
-    coordenadas_json = coordenadas_json_aux;
+    coordenadas_json = $.parseJSON(coordenadas_json_aux);
 
     var parcela;
 

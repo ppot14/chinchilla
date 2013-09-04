@@ -11,7 +11,7 @@
 */
 
 #layout {
-    min-width:1200px;
+    min-width:300px;
     max-width:1600px;
 }
 
@@ -19,16 +19,13 @@
     /*float:left;*/
 }
 
-#layout_header {
+/*#layout_header {
     width:100%;
     float:left;
-    /*background-color:black;*/
-}
+}*/
 
-#layout_title {
+#layout_header {
     height:80px;
-    width:100%;
-    float:left;
     background-color:#D4F870;
     background-image: url('../../resources/images/cabecera_fondo.png') ;
     background-repeat:no-repeat;
@@ -38,42 +35,37 @@
     border-color: #E7E7E7;
 }
 
-#layout_title_left {
+/*#layout_title_left {
     width:40%;
     float:left;
     display:inline;
     margin: 0 0 0 30px;
-    /*background-color:#dfffdf;*/
 }
 
 #layout_title_right {
     width:40%;
     float:right;
     display:inline;
-    /*background-color:#dfdfbf;*/
-}
+}*/
 
-#layout_menu {
-    /*height:31px;*/
+/*#layout_menu {
     float:left;
     width:100%;
-    /*background-color:#bfffff;*/
     margin:4px 0;
-}
+}*/
 
 #layout_body {
-    float:left;
     background-color:#bfdfdf;
-    margin:0 0 5px 0;
+    margin:0 0 0 0;
 }
 
-#layout_content {
+/*#layout_content {
     float:none;
     padding: 10px;
     margin:0 420px 0 220px;
     background-color:#bfffbf;
     width:auto;
-}
+}*/
 
 /*#layout_content_main {
 float:left;
@@ -82,10 +74,9 @@ padding: 10px;
 background-color:#bfbfdf;
 }*/
 
-#layout_leftpanel {
+/*#layout_leftpanel {
     float:left;
     width:200px;
-    /*margin-left:-100%;*/
     padding: 10px;
     background-color:#ffbfff;
 }
@@ -94,17 +85,16 @@ background-color:#bfbfdf;
     float:right;
     width:400px;
     padding: 10px;
-    /*margin-left:-400px;*/
     background-color:#ffbfbf;
-}
+}*/
 
-#layout_footer {
+/*#layout_footer {
     width: 100%;
     height:200px;
     background-color:#bfffdf;
     float:left;
     margin: 0 0 4px;
-}
+}*/
 
 #layout_hidden {
     float:left;

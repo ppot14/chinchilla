@@ -6,7 +6,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gU
 <!--th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0(sensor=true)(libraries=geometry)}"></script>-->
 <script src="/resources/js/mapas.js" th:src="@{/resources/js/mapas.js}"></script> 
 
-<script>/*<![CDATA[*/
+<script th:inline="javascript">/*<![CDATA[*/
   
     $(window).load(function () {
         
@@ -23,8 +23,16 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gU
         };
 
         var map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
+        
+        var parcelas = /*[[${parcelas_json}]]*/null;
+        var parcelas2 = /*[[${parcelas}]]*/null;
+        var coordenadas = /*[[${coordenadas_json}]]*/null;
+        
+        console.info("parcelas_json "+parcelas); 
+        console.info("parcelas "+parcelas2); 
+        console.info("coordenadas "+coordenadas); 
 
-        insertarPoligonos(map, /*[[${parcelas_json}]]*/null, /*[[${coordenadas_json}]]*/null);
+        insertarPoligonos(map, parcelas, coordenadas);
 
         console.info("Mapa cargado."); 
         
@@ -35,4 +43,28 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gU
 <h2 th:text="#{mapa}">Mapa</h2>
 <div id="map_canvas" ></div>
 
+<!--
+<table class="table table-stripped table-bordered table-hover table-condensed">
+        <thead>
+        <tr>
+            <th>id_parcela</th>
+            <th>nombre</th>
+            <th>nombre_corto</th>
+            <th>zona</th>
+            <th>extension</th>
+            <th>cultivo_fijo</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="parcela : ${parcelas}">
+                <td th:text="${parcela.id_parcela}">[id_parcela]</td>
+                <td th:text="${parcela.nombre}">[nombre]</td>
+                <td th:text="${parcela.nombre_corto}">[nombre_corto]</td>
+                <td th:text="${parcela.zona}">[zona]</td>
+                <td th:text="${parcela.extension}">[extension]</td>
+                <td th:text="${parcela.cultivo_fijo}">[cultivo_fijo]</td>
+            </tr>
+        </tbody>
+    </table>
+-->
 </html>
