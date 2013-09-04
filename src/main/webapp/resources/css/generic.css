@@ -19,13 +19,12 @@ jquery ui "le frog" usar como base
 * Main elements
 */
 
+
 body {
     background-color:#fcfcfc;
     padding:3px;
-    font-family:   'Helvetica Neue', HelveticaNeue, Helvetica, Arial, 'Lucida Grande', sans-serif;
-    font-size: 0.8em;
 }
-
+/*
 a:hover{
     text-decoration: none;
 }
@@ -52,4 +51,6 @@ span#titulo{
     color: #739D00;
     font-weight: bold;
 }
+
+*/
 

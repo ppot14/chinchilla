@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <script type="text/javascript" 
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0&sensor=true&libraries=geometry"
-th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0&sensor=true&libraries=geometry}"></script>
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0&amp;sensor=true&amp;libraries=geometry"></script>
+<!--th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0(sensor=true)(libraries=geometry)}"></script>-->
 <script src="/resources/js/mapas.js" th:src="@{/resources/js/mapas.js}"></script> 
 
-<script>
+<script>/*<![CDATA[*/
   
     $(window).load(function () {
         
@@ -24,13 +24,13 @@ th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp
 
         var map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
 
-        insertarPoligonos(map, ${parcelas_json}, ${coordenadas_json});
+        insertarPoligonos(map, /*[[${parcelas_json}]]*/null, /*[[${coordenadas_json}]]*/null);
 
         console.info("Mapa cargado."); 
         
     });
     
-</script> 
+/*]]>*/</script> 
 
 <h2 th:text="#{mapa}">Mapa</h2>
 <div id="map_canvas" ></div>
