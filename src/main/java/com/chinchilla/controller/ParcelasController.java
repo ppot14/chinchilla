@@ -1,22 +1,25 @@
 package com.chinchilla.controller;
 
+import com.chinchilla.form.LaborForm;
 import com.chinchilla.persistence.dao.CoordenadaDAO;
 import com.chinchilla.persistence.dao.ParcelaDAO;
+import com.chinchilla.persistence.dao.TipoLaborDAO;
 import com.chinchilla.persistence.objects.Coordenada;
 import com.chinchilla.persistence.objects.Parcela;
+import com.chinchilla.persistence.objects.TipoLabor;
 import com.google.gson.Gson;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,6 +42,10 @@ public class ParcelasController{
     @Autowired
     @Qualifier("coordenadaDAO")
     private CoordenadaDAO coordenadaDAO;  
+    
+    @Autowired
+    @Qualifier("tipoLaborDAO")
+    private TipoLaborDAO tipoLaborDAO;  
     
     @RequestMapping("/")
     public String index(Model model) throws Exception {
@@ -80,16 +87,39 @@ public class ParcelasController{
         return "parcelas-mapa";
     }
     
-     @RequestMapping(value = "/mapa/form/insertar/labor.html",params = {"id"})
-    public ModelAndView mapaFormInsertarLabor(@RequestParam(value = "id") Integer id_parcela, HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+     @RequestMapping(value = "/mapa/form/labor.html",params = {"id"}, method=RequestMethod.GET)
+    public ModelAndView mapaFormLabor(@RequestParam(value = "id") Integer id_parcela) throws Exception {
          
          Parcela parcela = parcelaDAO.get(id_parcela);
          
+         List<TipoLabor> tipoLabores = tipoLaborDAO.getAll();
+         
          Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
          
-         modelMap.put("parcela-"+id_parcela, parcela);
+         modelMap.put("parcela", parcela);
          
-        return new ModelAndView("parcelas-mapa-form-insertar-labor", modelMap);
+         modelMap.put("tipoLabores", tipoLabores);
+         
+         
+        log.info("parcela "+parcela);
+
+        log.info("Received request to show ParcelasController mapa: parcelas-mapa-form-labor");
+         
+        return new ModelAndView("parcelas-mapa-form-labor", modelMap);
+         
+     }
+     
+     @RequestMapping(value = "/mapa/form/insertar/labor.html",params = {"id"}, method=RequestMethod.POST)
+    public ModelAndView mapaFormInsertarLabor(
+		@ModelAttribute("LaborForm") LaborForm laborForm ) throws Exception {
+         
+         
+         
+         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
+
+        log.info("Received request to insert/modify ParcelasController mapa: parcelas-mapa-form-labor");
+         
+        return new ModelAndView("parcelas-mapa", modelMap);
          
      }
 }

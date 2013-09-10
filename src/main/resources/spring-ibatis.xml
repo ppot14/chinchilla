@@ -57,6 +57,12 @@
       <bean id="produccionDAO" class="com.chinchilla.persistence.dao.ProduccionDAO">
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
       </bean>
+      <bean id="laborDAO" class="com.chinchilla.persistence.dao.LaborDAO">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+      </bean>
+      <bean id="tipoLaborDAO" class="com.chinchilla.persistence.dao.TipoLaborDAO">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+      </bean>
 
     <!-- setup transaction manager	-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

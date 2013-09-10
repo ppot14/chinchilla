@@ -24,8 +24,8 @@
 		<put-attribute name="content_main" value="content/mapa-parcelas"/>
 	</definition>
         
-        <definition name="parcelas-mapa-form-insertar-labor" extends="parcelas-mapa">
-		<put-attribute name="rightpanel" value="right/form-insertar-labor"/>
+        <definition name="parcelas-mapa-form-labor" extends="parcelas-mapa">
+		<put-attribute name="rightpanel" value="right/form-labor"/>
 	</definition>
         
         <definition name="labores-tabla" extends="template">

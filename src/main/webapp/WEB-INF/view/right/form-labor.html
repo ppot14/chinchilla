@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <form class="form-horizontal" id="formulario-labor" role="form" action="/mapa/form/insertar/labor.html" th:attr="action=@{/mapa/form/insertar/labor}">
+    <div class="form-group">
+        <label for="id_parcela" class="col-lg-6 control-label">Id Labor</label>
+        <div class="col-lg-6">
+            <input id="id_parcela" type="text" class="form-control input-sm" placeholder="XXXXXXXXXX"></input>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="parcelas" class="col-lg-6 control-label">Tipo Labor</label>
+        <div class="col-lg-6">
+            <select id="tipolabores" class="form-control input-sm" placeholder="Seleccionar tipo labor...">
+                <option  th:each="tipoLabor : ${tipoLabores}" value="${tipoLabor.id_tipo_labor}" th:text="${tipoLabor.nombre}">Tipo Labor</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="parcelas_form" class="col-lg-6 control-label">Parcelas</label>
+        <div class="col-lg-6">
+            <select multiple="multiple" id="parcelas_form" class="form-control input-sm" placeholder="Seleccionar parcela(s)...">
+                <option  th:each="parcelaOpcion : ${parcelas}" value="${parcelaOpcion.id_parcela}" th:text="${parcelaOpcion.nombre}" selected="${parcelaOpcion.id_parcela}=${parcela.id_parcela}?true:false">Nombre Parcela</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="personal" class="col-lg-6 control-label">Personal</label>
+        <div class="col-lg-6">
+            <select multiple="multiple" id="personal" class="form-control input-sm" placeholder="Seleccionar personal...">
+                <option  th:each="puesto : ${personal}" value="${puesto.id_coste_personal}" th:text="${puesto.funcion}">Nombre Puesto</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="fecha_comienzo" class="col-lg-6 control-label">Fecha Comienzo</label>
+        <div class="col-lg-6">
+            <input id="fecha_comienzo" type="text" class="form-control input-sm" placeholder="01/01/1999"></input>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="cantidad-dosis_por_ha" class="col-lg-6 control-label">Cantidad o dosis (por HA)</label>
+        <div class="col-lg-6">
+            <input id="cantidad-dosis_por_ha" type="text" class="form-control input-sm" placeholder="9.50"></input>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="duracion" class="col-lg-6 control-label">Duracion (horas)</label>
+        <div class="col-lg-6">
+            <input id="duracion" type="text" class="form-control input-sm" placeholder="5"></input>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="litros_gasoil" class="col-lg-6 control-label">Gasoil (l)</label>
+        <div class="col-lg-6">
+            <input id="litros_gasoil" type="text" class="form-control input-sm" placeholder="20"></input>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-6">
+            <button type="button" id="boton_crear" class="btn btn-default">Nueva</button>
+            <button type="button" id="boton_modificar" class="btn btn-default">Modificar</button>
+            <button type="reset" class="btn btn-default">Limpiar</button>
+        </div>
+    </div>
+    
+    <input id="insertar_modificar" type="hidden"/>
+        
+</form>
+    
+    <script>
+        //Modificar hidden cuando click en nuevo o modificar
+        $('#boton_crear').click(function() {
+            $('#insertar_modificar').val('insertar');
+            $('#formulario-labor').submit();
+          });
+          
+        $('#boton_modificar').click(function() {
+            $('#insertar_modificar').val('modificar');
+            $('#formulario-labor').submit();
+          });
+        
+    </script>
+    
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chinchilla.persistence.mappers.LaborMappers">
+	
+    <select id="getLabor" parameterType="java.lang.Integer" resultType="com.chinchilla.persistence.objects.Labor">
+        select 
+        id_labor as "id_labor", 
+        id_tipo_labor as "id_tipo_labor", 
+        fecha_comienzo as "fecha_comienzo", 
+        cantidad_dosis_por_ha as "cantidad-dosis_por_ha", 
+        duracion as "duracion", 
+        litros_gasoil as "litros_gasoil"
+        from gonzalol_chinchilla.t_labores 
+        where id_labor = #{id_labor}
+    </select>
+	
+    <select id="getAllLabor" parameterType="int" resultType="com.chinchilla.persistence.objects.Labor">
+        select 
+        id_labor as "id_labor", 
+        id_tipo_labor as "id_tipo_labor", 
+        fecha_comienzo as "fecha_comienzo", 
+        cantidad_dosis_por_ha as "cantidad-dosis_por_ha", 
+        duracion as "duracion", 
+        litros_gasoil as "litros_gasoil"
+        from gonzalol_chinchilla.t_labores 
+        order by id_labor
+    </select>
+	
+    <select id="getLaborPorNombre" parameterType="int" resultType="com.chinchilla.persistence.objects.Labor">
+        select 
+        id_labor as "id_labor", 
+        id_tipo_labor as "id_tipo_labor", 
+        fecha_comienzo as "fecha_comienzo", 
+        cantidad_dosis_por_ha as "cantidad-dosis_por_ha", 
+        duracion as "duracion", 
+        extension as "litros_gasoil"
+        from gonzalol_chinchilla.t_labores 
+        where nombre = #{nombre}
+    </select>
+	
+    <insert id="createLabor" keyColumn="id_labor" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.Labor">
+        insert into gonzalol_chinchilla.t_labores (id_tipo_labor, fecha_comienzo, cantidad-dosis_por_ha, duracion, extension)
+        values (#{id_tipo_labor}, #{fecha_comienzo}, #{cantidad_dosis_por_ha}, #{extension}, #{extension})		
+    </insert>
+	
+    <update id="updateLabor" parameterType="com.chinchilla.persistence.objects.Labor">
+        update gonzalol_chinchilla.t_labores set id_tipo_labor = #{id_tipo_labor}, 
+        fecha_comienzo = #{fecha_comienzo}, 
+        cantidad-dosis_por_ha =#{cantidad_dosis_por_ha}, 
+        duracion = #{duracion}, 
+        extension = #{extension} 
+        where id_labor = #{id_labor}		
+    </update>
+	
+    <delete id="deleteLabor" parameterType="java.lang.Integer">
+        delete from gonzalol_chinchilla.t_labores where id_labor = #{id_labor}		
+    </delete>
+	
+	
+</mapper>
+

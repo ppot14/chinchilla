@@ -2,7 +2,7 @@
  * Variables
  */
 var parcelas_json = null;
-	
+
 var coordenadas_json = null;
 
 var menuOverlay = null;
@@ -12,16 +12,33 @@ var menuOverlayParcela = null;
 var parcelasCoordenadas = new Array();
 
 
-function get_random_color() {
+function getValidColor(c) {
+
+    var color;
+    
+    var colorRegex = /[0-9a-fA-F]{6}/g;
+    
+    if (c && colorRegex.exec(c)) {
+        
+        color = '#' + c;
+        
+    } else {
+        
         var letters = '0123456789ABCDEF'.split('');
-        var color = '#';
-        for (var i = 0; i < 6; i++ ) {
-                color += letters[Math.round(Math.random() * 15)];
+        
+        color = '#';
+        
+        for (var i = 0; i < 6; i++) {
+            
+            color += letters[Math.round(Math.random() * 15)];
+            
         }
-        return color;
+    }
+    
+    return color;
 }
 
-function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux){
+function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
     parcelas_json = $.parseJSON(parcelas_json_aux);
 
@@ -29,28 +46,24 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux){
 
     var parcela;
 
-    console.debug("parcelas_json.length "+parcelas_json.length);
+    console.debug("parcelas_json.length " + parcelas_json.length);
 
-    for (i=0;i<parcelas_json.length;i++){
+    for (i = 0; i < parcelas_json.length; i++) {
 
         parcela = parcelas_json[i];
 
         parcela.coordenadas = extraerCoordenadas(parcela);
 
-        console.debug("Parcela coordenadas extraidas: "+parcela.coordenadas);
-
-        var color = get_random_color();
-
-        console.debug("Color "+color+" generado para parcela "+parcela.nombre);
+        var color = getValidColor(parcela.color);
 
         parcela.poligono = new google.maps.Polygon({
-                paths: parcela.coordenadas,
-                strokeColor: color ,
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: color,
-                fillOpacity: 0.35
-          });
+            paths: parcela.coordenadas,
+            strokeColor: color,
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: color,
+            fillOpacity: 0.35
+        });
 
         parcela.poligono.setMap(map);
 
@@ -58,43 +71,43 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux){
 
         parcela.perimetro = google.maps.geometry.spherical.computeLength(parcela.coordenadas);
 
-        console.debug(parcela.nombre+": Superficie "+(Math.round(parcela.area,2) / 10000) + " he. Perimetro: "+(Math.round(parcela.perimetro,2) / 1000) + " km");
+        console.debug(parcela.nombre + ": Superficie " + (Math.round(parcela.area, 2) / 10000) + " he. Perimetro: " + (Math.round(parcela.perimetro, 2) / 1000) + " km");
 
-        console.debug(parcela.nombre+": Superficie "+ parcela.extension + " he");
+        console.debug(parcela.nombre + ": Superficie " + parcela.extension + " he");
 
         parcela.menu = crearMenuParcela(parcela);
 
-        console.debug("menu: "+parcela.menu);
+        console.debug("menu: " + parcela.menu);
 
         google.maps.event.addListener(parcela.poligono, 'click', function(event) {
 
-            console.debug("menuOverlay "+menuOverlay);
+            console.debug("menuOverlay " + menuOverlay);
 
-            console.debug("menuOverlayParcela "+menuOverlayParcela);
+            console.debug("menuOverlayParcela " + menuOverlayParcela);
 
-            console.debug("this "+this);
+            console.debug("this " + this);
 
             var temp;
 
-            for (k=0;k<parcelasCoordenadas.length;k++){
+            for (k = 0; k < parcelasCoordenadas.length; k++) {
 
                 temp = parcelasCoordenadas[k];
 
-                console.debug("parcelasCoordenadas "+k+" "+temp.nombre+" "+temp.id_parcela);
+                console.debug("parcelasCoordenadas " + k + " " + temp.nombre + " " + temp.id_parcela);
 
-                if(temp.poligono==this){
+                if (temp.poligono == this) {
 
-                        break;
+                    break;
 
                 }
 
             }
 
-            console.debug("temp.id_parcela "+temp.id_parcela);
+            console.debug("temp.id_parcela " + temp.id_parcela);
 
-            if( menuOverlay == null || menuOverlayParcela != temp.id_parcela){
+            if (menuOverlay == null || menuOverlayParcela != temp.id_parcela) {
 
-                if( menuOverlayParcela != null && menuOverlayParcela != temp.id_parcela ){
+                if (menuOverlayParcela != null && menuOverlayParcela != temp.id_parcela) {
 
                     menuOverlay.hide();
 
@@ -108,29 +121,29 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux){
 
                 $('#menu').menu();
 
-                console.debug("menu filled: "+$('#menu').html());
+                console.debug("menu filled: " + $('#menu').html());
 
                 var posicionM = posicionMenu(temp.coordenadas);
 
-                console.debug("posicion menu: "+posicionM);
+                console.debug("posicion menu: " + posicionM);
 
                 menuOverlay = new MenuOverlay(document.getElementById('menu'), /*posicionM*/event.latLng, map);
 
                 menuOverlayParcela = temp.id_parcela;
 
                 /*google.maps.event.addListener(menuOverlay, 'mouseout', function() {
-
-                        menuOverlay.hide();
-
-                        google.maps.event.clearListeners(menuOverlay,'mouseout');
-
-                });*/
+                 
+                 menuOverlay.hide();
+                 
+                 google.maps.event.clearListeners(menuOverlay,'mouseout');
+                 
+                 });*/
 
                 console.debug("menu showing...");
 
                 menuOverlay.show();
 
-            }else{
+            } else {
 
                 console.debug("menu hiding...");
 
@@ -154,19 +167,19 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux){
 
 }
 
-function extraerCoordenadas(parcela){
+function extraerCoordenadas(parcela) {
 
     var coordenada;
 
     var coordenadas = new Array();
 
-    for (j=0;j<coordenadas_json.length;j++){
+    for (j = 0; j < coordenadas_json.length; j++) {
 
-        coordenada = coordenadas_json[j];		
+        coordenada = coordenadas_json[j];
 
-        if(coordenada.id_parcela==parcela.id_parcela){
+        if (coordenada.id_parcela == parcela.id_parcela) {
 
-            coordenadas[coordenada.orden-1]=new google.maps.LatLng(coordenada.latitud,coordenada.longitud);
+            coordenadas[coordenada.orden - 1] = new google.maps.LatLng(coordenada.latitud, coordenada.longitud);
 
         }
 
@@ -176,15 +189,19 @@ function extraerCoordenadas(parcela){
 
 }
 
-function crearMenuParcela(parcela){
+function crearMenuParcela(parcela) {
 
     //var menuUl = $("<ul></ul>").attr({ id : "menu",display : "none"});
     //var menuUl = $("<ul/>");
-    var menuString = "<ul id='menu' style='display:none'>";
+    var menuString = "<ul class='dropdown-menu' role='menu' id='menu' style='display:none'>";
 
-    menuString += "<li><a href='${pageContext.request.contextPath}/parcelas/mapa/form/insertar/labor.html?id="+parcela.id_parcela+"'>A&ntilde;adir labor a "+parcela.nombre+"</a></li>";
-    menuString += "<li><a href='${pageContext.request.contextPath}/labores/tabla.html?id="+parcela.id_parcela+"'>Ver labores de "+parcela.nombre+"</a></li>";
-    menuString += "<li><a href='${pageContext.request.contextPath}/producciones/tabla.html?id="+parcela.id_parcela+"'>Ver producciones de "+parcela.nombre+"</a></li>";
+    menuString += "<li role='presentation' class='dropdown-header'>" + parcela.nombre + "</li>";
+    menuString += "<li role='presentation'><a role='menuitem' href='./mapa/form/labor.html?id=" + parcela.id_parcela + "'>A&ntilde;adir labor</a></li>";
+    menuString += "<li role='presentation'><a role='menuitem' href='../labores/tabla.html?id=" + parcela.id_parcela + "'>Ver labores</a></li>";
+    menuString += "<li role='presentation'><a role='menuitem' href='../producciones/tabla.html?id=" + parcela.id_parcela + "'>Ver producciones</a></li>";
+//    menuString += "<li role='presentation'><a role='menuitem' th:href='@{/parcelas/mapa/form/insertar/labor.html(id="+parcela.id_parcela+")}' >A&ntilde;adir labor</a></li>";
+//    menuString += "<li role='presentation'><a role='menuitem' th:href='@{/labores/tabla.html(id="+parcela.id_parcela+")}' >Ver labores</a></li>";
+//    menuString += "<li role='presentation'><a role='menuitem' th:href='@{/producciones/tabla.html(id="+parcela.id_parcela+")}' >Ver producciones</a></li>";
 
     menuString += "</ul>";
 
@@ -192,17 +209,19 @@ function crearMenuParcela(parcela){
 
 }
 
-function posicionMenu(coordenadas){
+function posicionMenu(coordenadas) {
 
-    var lat=-999.999999, lng=-999.9999999;
+    var lat = -999.999999, lng = -999.9999999;
 
-    for (i=0;i<coordenadas.length;i++){
+    for (i = 0; i < coordenadas.length; i++) {
 
         var latlon = coordenadas[i];
 
-        if(latlon.lat()>lat) lat = latlon.lat();
+        if (latlon.lat() > lat)
+            lat = latlon.lat();
 
-        if(latlon.lng()>lng) lng = latlon.lng();
+        if (latlon.lng() > lng)
+            lng = latlon.lng();
 
     }
 
@@ -215,80 +234,81 @@ function posicionMenu(coordenadas){
  */
 function MenuOverlay(menu, position, map) {
 
-        console.info('MenuOverlay');
+    console.info('MenuOverlay');
 
-        this.menu_ = menu;
+    this.menu_ = menu;
 
-        this.position_ = position;
+    this.position_ = position;
 
-        this.div_ = null;
+    this.div_ = null;
 
-        this.setMap(map);
+    this.setMap(map);
 }
 
 MenuOverlay.prototype = new google.maps.OverlayView();
 
-MenuOverlay.prototype.onAdd = function () {
+MenuOverlay.prototype.onAdd = function() {
 
-        console.info('MenuOverlay.prototype.onAdd');
+    console.info('MenuOverlay.prototype.onAdd');
 
-        var div = document.createElement('div');
-        div.style.border = "none";
-        div.style.borderWidth = "0px";
-        div.style.position = "absolute";
+    var div = document.createElement('div');
+    div.style.border = "none";
+    div.style.borderWidth = "0px";
+    div.style.position = "absolute";
+    div.class = "dropdown";
 
-        div.appendChild(this.menu_);
+    div.appendChild(this.menu_);
 
-        this.div_ = div;
+    this.div_ = div;
 
-        var panes = this.getPanes();
-        panes.overlayMouseTarget.appendChild(div);
+    var panes = this.getPanes();
+    panes.overlayMouseTarget.appendChild(div);
 }
 
-MenuOverlay.prototype.draw = function () {
+MenuOverlay.prototype.draw = function() {
 
-        console.info('MenuOverlay.prototype.draw');
+    console.info('MenuOverlay.prototype.draw');
 
-        var overlayProjection = this.getProjection();
+    var overlayProjection = this.getProjection();
 
-        var ne = overlayProjection.fromLatLngToDivPixel(this.position_);
+    var ne = overlayProjection.fromLatLngToDivPixel(this.position_);
 
-        var div = this.div_;
-        div.style.left = ne.x + 'px';
-        div.style.top = ne.y + 'px';
-        div.style.display = 'block';
+    var div = this.div_;
+    div.style.left = ne.x + 'px';
+    div.style.top = ne.y + 'px';
+    div.style.display = 'block';
 
-        $("#menu").show();
+    $("#menu").show();
 }
 
-MenuOverlay.prototype.onRemove = function () {
-        console.info('MenuOverlay.prototype.onRemove');
-        this.div_.parentNode.removeChild(this.div_);
+MenuOverlay.prototype.onRemove = function() {
+    console.info('MenuOverlay.prototype.onRemove');
+    this.div_.parentNode.removeChild(this.div_);
 }
 
-MenuOverlay.prototype.hide = function () {
+MenuOverlay.prototype.hide = function() {
 
-        console.info('MenuOverlay.prototype.hide');
-        if (this.div_) {
-                this.div_.style.visibility = 'hidden';
+    console.info('MenuOverlay.prototype.hide');
+    if (this.div_) {
+        this.div_.style.visibility = 'hidden';
+    }
+}
+
+MenuOverlay.prototype.show = function() {
+
+    console.info('MenuOverlay.prototype.show');
+    if (this.div_) {
+        this.div_.style.visibility = 'visible';
+    }
+}
+
+MenuOverlay.prototype.toggle = function() {
+    console.info('MenuOverlay.prototype.toggle');
+    if (this.div_) {
+        if (this.div_.style.visibility == 'hidden') {
+            this.show();
+        } else {
+            this.hide();
         }
-}
-
-MenuOverlay.prototype.show = function () {
-
-        console.info('MenuOverlay.prototype.show');
-        if (this.div_) {
-                this.div_.style.visibility = 'visible';
-        }
-}
-
-MenuOverlay.prototype.toggle = function () {
-        console.info('MenuOverlay.prototype.toggle');
-        if (this.div_) {
-                if (this.div_.style.visibility == 'hidden') {
-                        this.show();
-                } else {
-                        this.hide();
-                }
-        }
+    }
 }

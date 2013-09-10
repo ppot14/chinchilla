@@ -13,7 +13,7 @@ public class Parcela {
     private String zona;
     private Double extension;
     private String cultivo_fijo;
-
+    private String color;
     
 
     /**
@@ -99,6 +99,15 @@ public class Parcela {
     public void setCultivo_fijo(String cultivo_fijo) {
         this.cultivo_fijo = cultivo_fijo;
     }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
 
     @Override
     public int hashCode() {
