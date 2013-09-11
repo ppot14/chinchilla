@@ -100,8 +100,9 @@ public class ParcelasController{
          
          modelMap.put("tipoLabores", tipoLabores);
          
-         
         log.info("parcela "+parcela);
+         
+        log.info("tipoLabores "+tipoLabores);
 
         log.info("Received request to show ParcelasController mapa: parcelas-mapa-form-labor");
          

@@ -67,49 +67,65 @@ public class Produccion {
         this.precio_kilo = precio_kilo;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + this.id_produccion;
-        hash = 97 * hash + this.id_cultivo;
-        hash = 97 * hash + this.id_parcela;
-        return hash;
-    }
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((fecha == null) ? 0 : fecha.hashCode());
+		result = prime * result + id_cultivo;
+		result = prime * result + id_parcela;
+		result = prime * result + id_produccion;
+		result = prime * result + kilos;
+		long temp;
+		temp = Double.doubleToLongBits(precio_kilo);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Produccion other = (Produccion) obj;
-        if (this.id_produccion != other.id_produccion) {
-            return false;
-        }
-        if (this.id_cultivo != other.id_cultivo) {
-            return false;
-        }
-        if (this.id_parcela != other.id_parcela) {
-            return false;
-        }
-        if (this.fecha != other.fecha && (this.fecha == null || !this.fecha.equals(other.fecha))) {
-            return false;
-        }
-        if (this.kilos != other.kilos) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.precio_kilo) != Double.doubleToLongBits(other.precio_kilo)) {
-            return false;
-        }
-        return true;
-    }
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Produccion))
+			return false;
+		Produccion other = (Produccion) obj;
+		if (fecha == null) {
+			if (other.fecha != null)
+				return false;
+		} else if (!fecha.equals(other.fecha))
+			return false;
+		if (id_cultivo != other.id_cultivo)
+			return false;
+		if (id_parcela != other.id_parcela)
+			return false;
+		if (id_produccion != other.id_produccion)
+			return false;
+		if (kilos != other.kilos)
+			return false;
+		if (Double.doubleToLongBits(precio_kilo) != Double
+				.doubleToLongBits(other.precio_kilo))
+			return false;
+		return true;
+	}
 
-    @Override
-    public String toString() {
-        return "Produccion{" + "id_produccion=" + id_produccion + ", id_cultivo=" + id_cultivo + ", id_parcela=" + id_parcela + ", fecha=" + fecha + ", kilos=" + kilos + ", precio_kilo=" + precio_kilo + '}';
-    }
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Produccion [id_produccion=" + id_produccion + ", id_cultivo="
+				+ id_cultivo + ", id_parcela=" + id_parcela + ", fecha="
+				+ fecha + ", kilos=" + kilos + ", precio_kilo=" + precio_kilo
+				+ "]";
+	}
     
     
     

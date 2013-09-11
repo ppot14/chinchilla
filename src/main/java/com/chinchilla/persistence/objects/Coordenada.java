@@ -15,11 +15,6 @@ public class Coordenada {
     private double latitud;
     private double longitud;
 
-    @Override
-    public String toString() {
-        return "[Coordenada] " + "(" + getId_parcela() + ") " + getId_parcela() + " (" + getLatitud() + "," + getLongitud() + ")";
-    }
-
     /**
      * @return the id_parcela
      */
@@ -75,37 +70,57 @@ public class Coordenada {
     public void setLongitud(double longitud) {
         this.longitud = longitud;
     }
+    
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id_parcela;
+		long temp;
+		temp = Double.doubleToLongBits(latitud);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(longitud);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + orden;
+		return result;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + this.id_parcela;
-        return hash;
-    }
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Coordenada))
+			return false;
+		Coordenada other = (Coordenada) obj;
+		if (id_parcela != other.id_parcela)
+			return false;
+		if (Double.doubleToLongBits(latitud) != Double
+				.doubleToLongBits(other.latitud))
+			return false;
+		if (Double.doubleToLongBits(longitud) != Double
+				.doubleToLongBits(other.longitud))
+			return false;
+		if (orden != other.orden)
+			return false;
+		return true;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Coordenada other = (Coordenada) obj;
-        if (this.id_parcela != other.id_parcela) {
-            return false;
-        }
-        if (this.orden != other.orden) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.latitud) != Double.doubleToLongBits(other.latitud)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.longitud) != Double.doubleToLongBits(other.longitud)) {
-            return false;
-        }
-        return true;
-    }
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Coordenada [id_parcela=" + id_parcela + ", orden=" + orden
+				+ ", latitud=" + latitud + ", longitud=" + longitud + "]";
+	}
     
     
 }
