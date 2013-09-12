@@ -10,7 +10,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gU
   
     $(window).load(function () {
         
-        console.info("Cargando mapa...");  
+//        console.info("Cargando mapa...");  
 
         var mapOptions = { 
         //CHINCHILLA
@@ -28,13 +28,13 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gU
         var parcelas2 = /*[[${parcelas}]]*/null;
         var coordenadas = /*[[${coordenadas_json}]]*/null;
         
-        console.info("parcelas_json "+parcelas); 
-        console.info("parcelas "+parcelas2); 
-        console.info("coordenadas "+coordenadas); 
+//        console.info("parcelas_json "+parcelas); 
+//        console.info("parcelas "+parcelas2); 
+//        console.info("coordenadas "+coordenadas); 
 
         insertarPoligonos(map, parcelas, coordenadas);
 
-        console.info("Mapa cargado."); 
+//        console.info("Mapa cargado."); 
         
     });
     

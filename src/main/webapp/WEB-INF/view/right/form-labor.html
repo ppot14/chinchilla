@@ -6,14 +6,14 @@
     <form class="form-horizontal" id="formulario-labor" role="form" action="/mapa/form/insertar/labor.html" th:attr="action=@{/mapa/form/insertar/labor}">
     <div class="form-group">
         <label for="id_parcela" class="col-lg-6 control-label">Id Labor</label>
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <input id="id_parcela" type="text" class="form-control input-sm" placeholder="XXXXXXXXXX"></input>
         </div>
     </div>
     <div class="form-group">
         <label for="parcelas" class="col-lg-6 control-label">Tipo Labor</label>
         <div class="col-lg-6">
-            <select id="tipolabores" class="form-control input-sm" placeholder="Seleccionar tipo labor...">
+            <select id="tipolabores" data-live-search="true" class="selectpicker" placeholder="Seleccionar tipo labor...">
                 <option  th:each="tipoLabor : ${tipoLabores}" value="${tipoLabor.id_tipo_labor}" th:text="${tipoLabor.nombre}">Tipo Labor</option>
             </select>
         </div>
@@ -21,48 +21,48 @@
     <div class="form-group">
         <label for="parcelas_form" class="col-lg-6 control-label">Parcelas</label>
         <div class="col-lg-6">
-            <select multiple="multiple" id="parcelas_form" class="form-control input-sm" placeholder="Seleccionar parcela(s)...">
-                <option  th:each="parcelaOpcion : ${parcelas}" value="${parcelaOpcion.id_parcela}" th:text="${parcelaOpcion.nombre}" selected="${parcelaOpcion.id_parcela}=${parcela.id_parcela}?true:false">Nombre Parcela</option>
+            <select  id="parcelas_form" multiple="multiple" data-selected-text-format="count>2" class="selectpicker" placeholder="Seleccionar parcela(s)...">
+                <option  th:each="parcelaOpcion : ${parcelas}" value="${parcelaOpcion.id_parcela}" th:text="${parcelaOpcion.nombre}">Nombre Parcela</option>
             </select>
         </div>
     </div>
     <div class="form-group">
         <label for="personal" class="col-lg-6 control-label">Personal</label>
         <div class="col-lg-6">
-            <select multiple="multiple" id="personal" class="form-control input-sm" placeholder="Seleccionar personal...">
+            <select multiple="multiple" id="personal" class="selectpicker" placeholder="Seleccionar personal...">
                 <option  th:each="puesto : ${personal}" value="${puesto.id_coste_personal}" th:text="${puesto.funcion}">Nombre Puesto</option>
             </select>
         </div>
     </div>
     <div class="form-group">
         <label for="fecha_comienzo" class="col-lg-6 control-label">Fecha Comienzo</label>
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <input id="fecha_comienzo" type="date" class="form-control input-sm" placeholder="01/01/1999"></input>
         </div>
     </div>
     <div class="form-group">
         <label for="cantidad-dosis_por_ha" class="col-lg-6 control-label">Cantidad o dosis (por HA)</label>
-        <div class="col-lg-6">
+        <div class="col-lg-2">
             <input id="cantidad-dosis_por_ha" type="number" class="form-control input-sm" placeholder="9.50"></input>
         </div>
     </div>
     <div class="form-group">
         <label for="duracion" class="col-lg-6 control-label">Duracion (horas)</label>
-        <div class="col-lg-6">
+        <div class="col-lg-2">
             <input id="duracion" type="number" class="form-control input-sm" placeholder="5"></input>
         </div>
     </div>
     <div class="form-group">
         <label for="litros_gasoil" class="col-lg-6 control-label">Gasoil (l)</label>
-        <div class="col-lg-6">
+        <div class="col-lg-2">
             <input id="litros_gasoil" type="number" class="form-control input-sm" placeholder="20"></input>
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-lg-12 btn-group btn-group-justified">
-            <button type="button" id="boton_crear" class="btn btn-default">Nueva</button>
-            <button type="button" id="boton_modificar" class="btn btn-default">Modificar</button>
-            <button type="reset" class="btn btn-default">Limpiar</button>
+    <div class="">
+        <div class="btn-group">
+            <button type="button" id="boton_crear" class="btn btn-default col-lg-4">Nueva</button>
+            <button type="button" id="boton_modificar" class="btn btn-default col-lg-4">Modificar</button>
+            <button type="reset" class="btn btn-default col-lg-4">Limpiar</button>
         </div>
     </div>
     
@@ -71,6 +71,8 @@
 </form>
     
     <script>
+        
+    $(document).ready(function(){
         //Modificar hidden cuando click en nuevo o modificar
         $('#boton_crear').click(function() {
             $('#insertar_modificar').val('insertar');
@@ -81,6 +83,29 @@
             $('#insertar_modificar').val('modificar');
             $('#formulario-labor').submit();
           });
+          
+        //Sustituye a
+        //selected="${parcelaOpcion.id_parcela} == ${parcela.id_parcela} ? 'selected' : 'false' "
+        var id_parcela = /*[[${parcela.id_parcela}]]*/null;
+        var nombre = /*[[${parcela.nombre}]]*/null;
+        var parcela = /*[[${parcela}]]*/null;
+        var tipoLabores = /*[[${tipoLabores}]]*/null;
+        
+        console.debug("Estableciendo id de parcela "+parcela+" in el campo");
+        console.debug("Estableciendo parcela "+id_parcela+" in el campo");
+        console.debug("Estableciendo nombre "+nombre+" in el campo");
+        console.debug("Estableciendo tipoLabores"+tipoLabores+" in el campo");
+          
+        $('select#parcelas_form').selectpicker('val', id_parcela);  
+          
+//        $("select#parcelas_form option").each(function(){
+//            console.debug($(this).val()+" - "+$(this).attr("selected"));
+//            if($(this).val()==id_parcela){
+//                console.debug("Changing "+$(this).val()+" to selected");
+//                $(this).attr("selected","selected");    
+//            }
+//        });
+    });
         
     </script>
     

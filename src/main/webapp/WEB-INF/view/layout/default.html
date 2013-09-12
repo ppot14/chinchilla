@@ -7,18 +7,26 @@
         <script src="/resources/js/jquery.dataTables.js" th:src="@{/resources/js/jquery.dataTables.js}"></script> 
         <script src="/resources/js/jquery.validate.js" th:src="@{/resources/js/jquery.validate.js}"></script> 
         <script src="/resources/js/bootstrap.js" th:src="@{/resources/js/bootstrap.js}"></script> 
+        <script src="/resources/js/bootstrap-select.js" th:src="@{/resources/js/bootstrap-select.js}"></script> 
         <script src="/resources/js/additional-methods.js" th:src="@{/resources/js/additional-methods.js}"></script> 
         <script src="/resources/js/globalize.js" th:src="@{/resources/js/globalize.js}"></script> 
         <script src="/resources/js/globalize.culture.es-ES.js" th:src="@{/resources/js/globalize.culture.es-ES.js}"></script>
+        
+        <script>
+            $(function() {
+                $('.selectpicker').selectpicker();
+            });
+        </script>
         
         <link rel="stylesheet" type="text/css" href="/resources/css/generic.css" th:href="@{/resources/css/generic.css}"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/le-frog/jquery-ui-1.10.1.custom.css" th:href="@{/resources/css/le-frog/jquery-ui-1.10.1.custom.css}"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.css" th:href="@{/resources/css/bootstrap.css}"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap-theme.css" th:href="@{/resources/css/bootstrap-theme.css}"/>
+        <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap-select.css" th:href="@{/resources/css/bootstrap-select.css}"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/layout.css" th:href="@{/resources/css/layout.css}"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/overwrite.css" th:href="@{/resources/css/overwrite.css}"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/specific.css" th:href="@{/resources/css/specific.css}"/>
-        <link rel="icon" type="image/vnd.microsoft.icon" href="/resources/favicon.ico" />
+        <link rel="icon" type="image/ico" href="/resources/favicon.ico"  th:href="@{/resources/favicon.ico}"/>
         
         <title>Chinchilla</title>
     </head>
