@@ -1,11 +1,15 @@
 package com.chinchilla.persistence.objects;
 
+import java.io.Serializable;
+
 /**
  * A simple DTO (Data Transfer Object) class that provides the mapping of data
  * to a table similar to this: table: status columns: status_id
  * (INT),status_name (VARCHAR)
  */
-public class Parcela {
+public class Parcela implements Serializable{
+    
+    private static final long serialVersionUID = 7863262235394607247L;
 
     private int id_parcela;
     private String nombre;

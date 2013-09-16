@@ -40,8 +40,10 @@
                     Insertar Cabecera Derecha Aqui
                 </div>
             </div>
-            <div id="layout_menu"  class="layout row" tiles:include="menu">
-                Insertar Menu Aqui
+            <div class="layout row">
+                <div id="layout_menu"  class="layout col-md-12" tiles:include="menu">
+                    Insertar Menu Aqui
+                </div>
             </div>
             <div id="layout_body"  class="layout row">
                 <div id="layout_leftpanel"  class="layout col-md-2" tiles:include="leftpanel">
@@ -54,13 +56,18 @@
                     Insertar Panel Derecho Aqui
                 </div>
             </div>
-            <div id="layout_footer"  class="layout row" tiles:include="footer">
-                Insertar Pie Aqui
+            <div class="layout row">
+                <div id="layout_footer" class="layout col-md-12" tiles:include="footer">
+                    Insertar Pie Aqui
+                </div>
             </div>
         </div>
-            <div id="layout_notification"  class="layout" hidden="true">
+        
+        <div id="layout_notification"  class="layout" hidden="true">
         </div>
+        
         <div id="layout_hidden"  class="layout" hidden="true">
         </div>
+        
     </body>
 </html>

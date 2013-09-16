@@ -4,11 +4,15 @@
  */
 package com.chinchilla.persistence.objects;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Pepe
  */
-public class Coordenada {
+public class Coordenada implements Serializable{
+    
+    private static final long serialVersionUID = 6192083578192387598L;
 
     private int id_parcela;
     private int orden;

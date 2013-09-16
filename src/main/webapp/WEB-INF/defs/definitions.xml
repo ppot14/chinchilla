@@ -11,7 +11,7 @@
             <put-attribute name="title_left" value="header/title" />
             <put-attribute name="title_right" value="header/title2" />
             <put-attribute name="menu" value="menu/menu" />
-            <put-attribute name="leftpanel" value="left/about" />
+            <put-attribute name="leftpanel" value="left/default" />
             <put-attribute name="rightpanel" value="right/default" />
             <put-attribute name="footer" value="footer/contact" />
 	</definition>
@@ -22,6 +22,7 @@
 
 	<definition name="parcelas-mapa" extends="template">
 		<put-attribute name="content_main" value="content/mapa-parcelas"/>
+		<put-attribute name="rightpanel" value="right/tabla-parcelas"/>
 	</definition>
         
         <definition name="parcelas-mapa-form-labor" extends="parcelas-mapa">

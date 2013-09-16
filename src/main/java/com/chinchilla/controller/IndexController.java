@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,10 +22,15 @@ private static Logger log = (Logger) LoggerFactory.getLogger(IndexController.cla
 	
     //@RequestMapping("/index.html")
     @RequestMapping(method=RequestMethod.GET)
-    public String index(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+    public String index(Model model) throws Exception {
         //throw new UnsupportedOperationException("Not supported yet.");
          log.info("Received request to show IndexController index: parcelas-mapa");
-        return "inicio";
+        
+         String ret = null;
+         
+         //ret = new ParcelasController().mapa(model);
+         
+         return ret!=null && !ret.equals("") ? ret : "inicio";
     }
 
 }
