@@ -1,57 +1,54 @@
-
-<script>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script>/*<![CDATA[*/
   
     $(window).load(function () {
-        
-        $('#producciones').dataTable({
-            "bJQueryUI": true,
-            "sPaginationType": "full_numbers"
-//            "oLanguage": {
-//                "sUrl": "../../../resources/json/dataTables.spanish.txt"
-//            }
-        });
-        
-        $( "#anadir-produccion-link" ).button();
+    
+        $('#tabla_producciones').dataTable(tabla_opciones);
         
     });
     
     
-</script> 
-<h2><fmt:message key="producciones"/></h2>
-<a id="anadir-produccion-link" class="button" href="${pageContext.request.contextPath}/producciones/tabla/form/insertar/produccion.html?id=-1"><fmt:message key="anadir-produccion"/></a>
-<table id="producciones">
+/*]]>*/</script> 
+<div class="row">
+<h2 th:text="#{producciones}">[producciones]</h2>
+</div>
+<div class="row text-right">
+<a id="anadir-produccion-link" 
+   class="btn btn-default btn-sm" 
+   th:href="@{/producciones/tabla/form/produccion.html(id=-1)}" >
+    <span class="glyphicon glyphicon-plus"></span> <span th:text="#{anadir-produccion}">[anadir-produccion]</span></a>
+</div>
+<div class="row">
+<table id="tabla_producciones" class="tabla-jqueryui">
+    <!--class="table table-stripped table-bordered table-hover table-condensed"-->
     <thead>
         <tr>
-          <th><fmt:message key="id_produccion"/></th>
-          <th><fmt:message key="id_cultivo"/></th>
-          <th><fmt:message key="id_parcela"/></th>
-          <th><fmt:message key="fecha"/></th>
-          <th><fmt:message key="kilos"/></th>
-          <th><fmt:message key="precio_kilo"/></th>
+          <th th:text="#{id-produccion}"></th>
+          <th th:text="#{cultivo}"></th>
+          <th th:text="#{parcela}"></th>
+          <th th:text="#{fecha}"></th>
+          <th th:text="#{kilos}"></th>
+          <th th:text="#{precio-kilo}"></th>
         </tr>
     </thead>
     <tbody>
-      <c:forEach var="producciones_item" items="${producciones}">
-        <tr>
-          <td><a href="${pageContext.request.contextPath}/producciones/tabla/form/modificar/produccion.html?id=${producciones_item.id_produccion}" class="table-link"/>${producciones_item.id_produccion}</a></td>
-          <td>
-              <c:forEach var="cultivos_item" items="${cultivos}">
-                  <c:if test="${cultivos_item.id_cultivo}=${producciones_item.id_cultivo}">
-                      ${cultivos_item.especie} - ${cultivos_item.variedad}
-                  </c:if>
-              </c:forEach>
+        <tr  th:each="producciones_item : ${producciones}">
+          <td><a th:href="@{/producciones/tabla/form/produccion.html(id=${producciones_item.id_produccion})}" th:text="${producciones_item.id_produccion}">[id_produccion]</a></td>
+          <td th:each="cultivos_item : ${cultivos}" 
+              th:if="${cultivos_item.id_cultivo == producciones_item.id_cultivo}">
+              <a th:href="@{/cultivos/tabla/form/cultivo.html(id=${cultivos_item.id_cultivo})}" 
+                 th:text="${cultivos_item.especie+' - '+cultivos_item.variedad}">[id_cultivo]</a>
           </td>
-          <td>
-              <c:forEach var="parcelas_item" items="${parcelas}">
-                  <c:if test="${parcelas_item.id_cultivo}=${producciones_item.id_parcela}">
-                      ${parcelas_item.zona} - ${parcelas_item.nombre}
-                  </c:if>
-              </c:forEach>
+          <td th:each="parcelas_item : ${parcelas}" 
+              th:text="${parcelas_item.zona+' - '+parcelas_item.nombre}"
+              th:if="${parcelas_item.id_parcela == producciones_item.id_parcela}">[id_parcela]
           </td>
-          <td>${producciones_item.fecha}</td>
-          <td>${producciones_item.kilos}</td>
-          <td>${producciones_item.precio_kilo}</td>
+          <td th:text="${#dates.format(producciones_item.fecha,'dd/MM/yyyy')}">[fecha]</td>
+          <td th:text="${producciones_item.kilos}">[kilos]</td>
+          <td th:text="${#numbers.formatDecimal(producciones_item.precio_kilo,1,'POINT',3,'COMMA')}">[precio_kilo]</td>
         </tr>
-      </c:forEach>
     </tbody>
 </table>
+</div>
+</html>

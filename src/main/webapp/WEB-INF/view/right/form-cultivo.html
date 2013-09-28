@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div class="well">
+ <legend th:text="${cultivo.id_cultivo} ? #{cultivo-id(${#numbers.formatInteger(cultivo.id_cultivo,3,'NONE')})} : #{nuevo-cultivo}">Producci&oacute;n</legend>
+
+  <form id="formulario-cultivo" class="form-horizontal"  method="post" th:object="${cultivo}" role="form" action="/cultivos/tabla/form/procesar/cultivo.html" th:attr="action=@{/cultivos/tabla/form/procesar/cultivo.html}">
+
+<!--    <div class="form-group">
+    <label for="id_cultivo" class="col-lg-4 control-label" th:text="#{id-cultivo}">[id_cultivo]</label>
+    <div class="col-lg-8">-->
+        <input th:field="*{id_cultivo}" 
+               id="id_cultivo"  
+                type="hidden"/>
+<!--    </div>
+    </div>-->
+      
+    <div class="form-group">
+    <label for="variedad" class="col-lg-4 control-label" th:text="#{variedad}">[variedad]</label>
+        <div class="col-lg-8">
+            <input id="variedad" name="variedad" 
+                    class="form-control input-sm"  
+                   placeholder="Hojiblancas" 
+                   th:value="*{variedad}"></input>
+        </div>
+    </div>
+      
+    <div class="form-group">
+    <label for="especie" class="col-lg-4 control-label" th:text="#{especie}">especie</label>
+        <div class="col-lg-8">
+            <input id="especie" 
+                    class="form-control input-sm" placeholder="Aceituna" th:field="*{especie}"></input>
+        </div>
+    </div>
+      
+    <div class="form-group">
+    <label for="destino" class="col-lg-4 control-label" th:text="#{destino}">destino</label>
+        <div class="col-lg-8">
+            <input id="destino" 
+                    class="form-control input-sm" placeholder="Molino" th:field="*{destino}"></input>
+        </div>
+    </div>
+    
+    
+    <div class="form-group">
+        <div class="col-lg-12 text-center">
+            <button type="button" id="boton_crear" class="btn btn-default btn-sm">Insertar</button>
+            <button type="button" id="boton_modificar" class="btn btn-default btn-sm">Modificar</button>
+            <button type="button" id="boton_eliminar" class="btn btn-default btn-sm">Eliminar</button>
+            <button type="reset" class="btn btn-default btn-sm">Limpiar</button>
+        </div>
+    </div>
+    
+    <input id="insertar_modificar_eliminar" name="insertar_modificar_eliminar" type="hidden"/>
+    
+</form>
+    </div>
+
+<script  th:inline="javascript">/*<![CDATA[*/
+    
+$(window).load(function () { 
+        //Modificar hidden cuando click en nuevo o modificar
+        $('#boton_crear').click(function() {
+            $('#insertar_modificar_eliminar').val('insertar');
+            $('#formulario-cultivo').submit();
+          });
+          
+        $('#boton_modificar').click(function() {
+            $('#insertar_modificar_eliminar').val('modificar');
+            $('#formulario-cultivo').submit();
+          });
+          
+        $('#boton_eliminar').click(function() {
+            $('#insertar_modificar_eliminar').val('eliminar');
+            $('#formulario-cultivo').submit();
+          });
+          
+          
+        var cultivo = /*[[${cultivo}]]*/null;
+        
+        if(!cultivo || cultivo.id_cultivo < 1){
+            $('#boton_modificar').attr('disabled','disabled');
+            $('#boton_eliminar').attr('disabled','disabled');
+        }
+    
+  });
+  /*]]>*/</script>
+
+</html>

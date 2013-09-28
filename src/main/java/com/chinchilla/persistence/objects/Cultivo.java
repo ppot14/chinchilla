@@ -4,11 +4,13 @@
  */
 package com.chinchilla.persistence.objects;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Pepe
  */
-public class Cultivo {
+public class Cultivo implements Serializable{
     
     private int id_cultivo;
     private String variedad;

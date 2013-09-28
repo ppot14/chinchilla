@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div class="well">
+ <legend th:text="${produccion.id_produccion} ? #{produccion-id(${#numbers.formatInteger(produccion.id_produccion,3,'NONE')})} : #{nueva-produccion}">Producci&oacute;n</legend>
+
+  <form id="formulario-produccion" class="form-horizontal"  method="post" th:object="${produccion}" role="form" action="/producciones/tabla/form/procesar/produccion.html" th:attr="action=@{/producciones/tabla/form/procesar/produccion.html}">
+
+<!--    <div class="form-group">
+    <label for="id_produccion" class="col-lg-4 control-label" th:text="#{id-produccion}">[id_produccion]</label>
+    <div class="col-lg-8">-->
+        <input th:field="*{id_produccion}" 
+               id="id_produccion"  
+                type="hidden"/>
+<!--    </div>
+    </div>-->
+      
+    <div class="form-group">
+    <label for="id_cultivo" class="col-lg-4 control-label" th:text="#{cultivo}">[cultivo]</label>
+        <div class="col-lg-8">
+            <select id="id_cultivo" 
+                    class="form-control input-sm" 
+                    placeholder="Seleccionar tipo de cultivo..."
+                    th:field="*{id_cultivo}">
+                <option  th:each="cultivo : ${cultivos}" 
+                         th:value="${cultivo.id_cultivo}" 
+                         th:text="${cultivo.especie} + ' - ' + ${cultivo.variedad}">[cultivo]</option>
+            </select>
+        </div>
+    </div>
+      
+    <div class="form-group">
+    <label for="id_parcela" class="col-lg-4 control-label" th:text="#{parcela}">[parcela]</label>
+        <div class="col-lg-8">
+            <select id="id_parcela"  
+                    class="form-control input-sm" 
+                    placeholder="Seleccionar parcela..."
+                    th:field="*{id_parcela}">
+                <option  th:each="parcela : ${parcelas}" 
+                         th:value="${parcela.id_parcela}" 
+                         th:text="${parcela.nombre}">[parcela]</option>
+            </select>
+        </div>
+    </div>
+      
+    <div class="form-group">
+    <label for="fecha" class="col-lg-4 control-label" th:text="#{fecha}">[fecha]</label>
+        <div class="col-lg-8">
+            <input id="fecha" name="fecha" 
+                    class="form-control input-sm"  
+                   placeholder="01/01/1999" 
+                   th:value="*{fecha}? ${#dates.format(produccion.fecha,'dd/MM/yyyy')} : ''"></input><!--th:field="*{fecha}" th:value="${produccion.fecha}? ${#dates.format(produccion.fecha,'dd/MM/yyyy')} : ''"-->
+        </div>
+    </div>
+      
+    <div class="form-group">
+    <label for="kilos" class="col-lg-4 control-label" th:text="#{kilos}">kilos</label>
+        <div class="col-lg-8">
+            <input id="kilos" 
+                    class="form-control input-sm" placeholder="250.50" th:field="*{kilos}"></input>
+        </div>
+    </div>
+      
+    <div class="form-group">
+    <label for="precio_kilo" class="col-lg-4 control-label" th:text="#{precio-kilo}">precio-kilo</label>
+        <div class="col-lg-8">
+            <input id="precio_kilo" 
+                    class="form-control input-sm" placeholder="1.25" th:field="*{precio_kilo}"></input>
+        </div>
+    </div>
+    
+    
+    <div class="form-group">
+        <div class="col-lg-12 text-center">
+            <button type="button" id="boton_crear" class="btn btn-default btn-sm">Insertar</button>
+            <button type="button" id="boton_modificar" class="btn btn-default btn-sm">Modificar</button>
+            <button type="button" id="boton_eliminar" class="btn btn-default btn-sm">Eliminar</button>
+            <button type="reset" class="btn btn-default btn-sm">Limpiar</button>
+        </div>
+    </div>
+    
+    <input id="insertar_modificar_eliminar" name="insertar_modificar_eliminar" type="hidden"/>
+    
+</form>
+    </div>
+
+<script  th:inline="javascript">/*<![CDATA[*/
+    
+$(window).load(function () { 
+        //Modificar hidden cuando click en nuevo o modificar
+        $('#boton_crear').click(function() {
+            $('#insertar_modificar_eliminar').val('insertar');
+            $('#formulario-produccion').submit();
+          });
+          
+        $('#boton_modificar').click(function() {
+            $('#insertar_modificar_eliminar').val('modificar');
+            $('#formulario-produccion').submit();
+          });
+          
+        $('#boton_eliminar').click(function() {
+            $('#insertar_modificar_eliminar').val('eliminar');
+            $('#formulario-produccion').submit();
+          });
+          
+          
+        var produccion = /*[[${produccion}]]*/null;
+        
+        if(!produccion || produccion.id_produccion < 1){
+            $('#boton_modificar').attr('disabled','disabled');
+            $('#boton_eliminar').attr('disabled','disabled');
+        }
+          
+//        $( "#precio_kilo" ).spinner({
+//          min: 0,
+//          max: 9999,
+//          step: 25,
+//          page: 1,
+//          numberFormat: "n",
+//          culture: "es"
+//        });
+//
+//        $( "#kilos" ).spinner({
+//          min: 0,
+//          max: 999999,
+//          step: 1,
+//          page: 100,
+//          numberFormat: "n",
+//          culture: "es"
+//        });
+
+         $( "#fecha" ).datepicker($.datepicker.regional[ "es" ] );
+    
+  });
+  /*]]>*/</script>
+
+</html>

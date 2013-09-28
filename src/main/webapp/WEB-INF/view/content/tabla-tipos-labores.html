@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script>/*<![CDATA[*/
+  
+    $(window).load(function () {
+    
+        $('#tabla_tipos_labores').dataTable(tabla_opciones);
+        
+    });
+    
+    
+/*]]>*/</script> 
+<div class="row">
+<h2 th:text="#{tiposlabores}">[tiposLabores]</h2>
+</div>
+<div class="row text-right">
+<a id="anadir-tipo-labor-link" 
+   class="btn btn-default btn-sm disabled" 
+   th:href="@{/labores/tipos/tabla/form/tipoLabor.html(id=-1)}" >
+    <span class="glyphicon glyphicon-plus"></span> <span th:text="#{anadir-tipo-labor}">[anadir-tipoLabor]</span></a>
+</div>
+<div class="row">
+<table id="tabla_tipos_labores" class="tabla-jqueryui">
+    <!--class="table table-stripped table-bordered table-hover table-condensed"-->
+    <thead>
+        <tr>
+          <th th:text="#{id-tipo-labor}"></th>
+          <th th:text="#{tipo}"></th>
+          <th th:text="#{nombre}"></th>
+          <th th:text="#{descripcion}"></th>
+          <th th:text="#{id-formula}"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr  th:each="tiposLabores_item : ${tiposLabores}">
+          <td th:text="${tiposLabores_item.id_tipo_labor}"><a th:href="@{/labores/tipos/tabla/form/tipoLabor.html(id=${tiposLabores_item.id_tipo_labor})}" th:text="${tiposLabores_item.id_tipo_labor}">[id_tipoLabor]</a></td>
+          <td th:text="${tiposLabores_item.tipo}">[tipo]</td>
+          <td th:text="${tiposLabores_item.nombre}">[nombre]</td>
+          <td th:text="${tiposLabores_item.descripcion}">[descripcion]</td>
+<!--          <td th:each="formulas_item : ${formulas}" 
+              th:text="${formulas_item.zona+' - '+formulas_item.nombre}"
+              th:if="${formulas_item.id_formula == tiposLabores_item.id_formula}">[id_formula]
+          </td>-->
+          <td th:text="${tiposLabores_item.id_formula}">[id_formula]</td>
+       </tr>
+    </tbody>
+</table>
+</div>
+</html>

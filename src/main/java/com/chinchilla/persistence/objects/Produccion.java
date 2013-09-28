@@ -4,13 +4,14 @@
  */
 package com.chinchilla.persistence.objects;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Pepe
  */
-public class Produccion {
+public class Produccion  implements Serializable{
     
     private int id_produccion;
     private int id_cultivo;
@@ -18,6 +19,19 @@ public class Produccion {
     private Date fecha;
     private int kilos;
     private double precio_kilo;
+    
+    public Produccion(){
+        
+    }
+    
+    public Produccion(Produccion produccion){
+        id_produccion = produccion.getId_produccion();
+        id_cultivo = produccion.getId_cultivo();
+        id_parcela = produccion.getId_parcela();
+        fecha = produccion.getFecha();
+        kilos = produccion.getKilos();
+        precio_kilo = produccion.getPrecio_kilo();
+    }
 
     public int getId_produccion() {
         return id_produccion;

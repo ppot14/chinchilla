@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script>/*<![CDATA[*/
+  
+    $(window).load(function () {
+    
+        $('#tabla_cultivos').dataTable(tabla_opciones);
+        
+    });
+    
+    
+/*]]>*/</script> 
+<div class="row">
+<h2 th:text="#{cultivos}">[cultivos]</h2>
+</div>
+<div class="row text-right">
+<a id="anadir-cultivo-link" 
+   class="btn btn-default btn-sm" 
+   th:href="@{/cultivos/tabla/form/cultivo.html(id=-1)}" >
+    <span class="glyphicon glyphicon-plus"></span> <span th:text="#{anadir-cultivo}">[anadir-cultivo]</span></a>
+</div>
+<div class="row">
+<table id="tabla_cultivos" class="tabla-jqueryui">
+    <!--class="table table-stripped table-bordered table-hover table-condensed"-->
+    <thead>
+        <tr>
+          <th th:text="#{id-cultivo}"></th>
+          <th th:text="#{variedad}"></th>
+          <th th:text="#{especie}"></th>
+          <th th:text="#{destino}"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="cultivos_item : ${cultivos}">
+          <td><a th:href="@{/cultivos/tabla/form/cultivo.html(id=${cultivos_item.id_cultivo})}" th:text="${cultivos_item.id_cultivo}">[id_cultivo]</a></td>
+          <td th:text="${cultivos_item.variedad}">[fecha]</td>
+          <td th:text="${cultivos_item.especie}">[kilos]</td>
+          <td th:text="${cultivos_item.destino}">[precio_kilo]</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+</html>

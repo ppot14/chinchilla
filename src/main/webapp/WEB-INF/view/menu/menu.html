@@ -1,9 +1,20 @@
 <div class="navbar navbar-default" id="menudiv"  role="navigation">
-    <!--<div class="navbar" style="width: 601px;" id="menudiv" layout:decorator="layout.html" layout:fragment="layout_menu">-->
-    <div class="navbar-inner">
-        <ul class="nav navbar-nav navbar-left">
+    
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <span class="sr-only">Alternar navegaci&oacute;n</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" th:href="@{/}" id="menu-principal" ><span class="glyphicon glyphicon-home"></span></a>
 
-            <li><a th:href="@{/parcelas/mapa.html}" id="menu-parcelas" th:text="#{principal}">principal</a></li>
+    </div>
+    
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav navbar-left">
+            <li><a th:href="@{/parcelas/mapa.html}" id="menu-parcelas" th:text="#{parcelas}">parcelas</a></li>
             <li><a th:href="@{/labores/tabla.html}" id="menu-labores" th:text="#{labores}">labores</a></li>
             <li><a th:href="@{/producciones/tabla.html}" id="menu-producciones" th:text="#{producciones}">producciones</a></li>
             <li><a th:href="@{/riegos/tabla.html}" id="menu-riegos" th:text="#{riegos}">riegos</a></li>
@@ -12,18 +23,58 @@
             <li><a th:href="@{/maquinarias/tabla.html}" id="menu-maquinarias" th:text="#{maquinarias}">maquinarias</a></li>
             <li><a th:href="@{/productos/tabla.html}" id="menu-productos" th:text="#{productos}">productos</a></li>
             <li><a th:href="@{/registros/tabla.html}" id="menu-registros" th:text="#{registros}">registros</a></li>
-            <li><a th:href="@{/tiposlabores/tabla.html}" id="menu-tiposlabores" th:text="#{tiposlabores}">tiposlabores</a></li>
-            <li><a th:href="@{/meteorologia/calendario.html}" id="menu-meteorologia" th:text="#{meteorologia}">meteorologia</a></li>
+            <!--<li><a th:href="@{/tiposLabores/tabla.html}" id="menu-tiposlabores" th:text="#{tiposlabores}">tiposlabores</a></li>-->
+            <!--<li><a th:href="@{/meteorologia/calendario.html}" id="menu-meteorologia" th:text="#{meteorologia}">meteorologia</a></li>-->
         </ul>
         
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown"><a th:href="@{/configuracion/formulario.html}" id="menu-configuracion"  class="dropdown-toggle" data-toggle="dropdown" th:text="#{configuracion}"><span class="glyphicon glyphicon-cog"></span> configuracion <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#" th:text="#{propiedades-sistema}">Propiedades de Sistema</a></li>
-                  <li><a href="#" th:text="#{auditoria}">Auditoria</a></li>
-                  <li><a href="#" th:text="#{sobre-chinchilla-webapp}">Sobre Chinchilla Webapp</a></li>
-                </ul>
-            </li>
+            <li><a id="menu-configuracion" th:href="@{/configuracion.html}"><span class="glyphicon glyphicon-cog"></span></a></li>
         </ul>
     </div>
 </div>
+
+
+<script th:inline="javascript">/*<![CDATA[*/
+
+$(window).load(function () {
+
+    var ruta = window.location.pathname;
+
+    console.info('ruta '+ruta);
+
+//    var rutaArray = ruta.split('/');
+//    
+//    console.info('rutaArray '+rutaArray);
+    
+    $('#menudiv li').each(function(){
+        var enlace = $( this ).find('a');
+        if(enlace){
+            var href = enlace.attr('href');
+            console.info('#menudiv li a href '+href);
+            if(ruta.indexOf(href.replace('.html','')) >= 0 && href.indexOf('.html') >= 0){
+               $( this ).addClass("active");
+            }else if(ruta.indexOf(href) >= 0 && ruta.indexOf('.html') < 0){
+               $( this ).addClass("active");
+            }else{
+               $( this ).removeClass("active");
+            }
+        }
+    });
+        
+    $('#submenudiv li').each(function(){
+        var enlace = $( this ).find('a');
+        if(typeof enlace.html() !== 'undefined'){
+            var href = enlace.attr('href').replace('.html','');
+            console.info('#submenudiv li a href '+href);
+            if(ruta.indexOf(href) >= 0 ){
+               $( this ).addClass("active");
+            }else{
+               $( this ).removeClass("active");
+            }
+        }
+    });
+    
+
+});
+
+/*]]>*/</script>

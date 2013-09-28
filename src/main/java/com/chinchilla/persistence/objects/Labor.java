@@ -23,13 +23,14 @@
  */
 package com.chinchilla.persistence.objects;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Pepe
  */
-public class Labor {
+public class Labor implements Serializable{
 
     private int id_labor;
     private int id_tipo_labor;

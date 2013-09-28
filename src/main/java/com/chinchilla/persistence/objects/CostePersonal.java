@@ -23,10 +23,12 @@
  */
 package com.chinchilla.persistence.objects;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Pepe
  */
-public class CostePersonal {
+public class CostePersonal implements Serializable{
     
 }

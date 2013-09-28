@@ -4,11 +4,13 @@
  */
 package com.chinchilla.persistence.objects;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Pepe
  */
-public class Coordenada {
+public class Coordenada implements Serializable{
 
     private int id_parcela;
     private int orden;

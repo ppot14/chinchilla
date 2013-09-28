@@ -11,7 +11,7 @@
             <put-attribute name="title_left" value="header/title" />
             <put-attribute name="title_right" value="header/title2" />
             <put-attribute name="menu" value="menu/menu" />
-            <put-attribute name="leftpanel" value="left/about" />
+            <put-attribute name="leftpanel" value="left/default" />
             <put-attribute name="rightpanel" value="right/default" />
             <put-attribute name="footer" value="footer/contact" />
 	</definition>
@@ -29,39 +29,36 @@
 	</definition>
         
         <definition name="labores-tabla" extends="template">
+		<put-attribute name="leftpanel" value="left/submenu-labor"/>
 		<put-attribute name="content_main" value="content/tabla-labores"/>
+	</definition>
+        
+        <definition name="tipos-labores-tabla" extends="template">
+		<put-attribute name="leftpanel" value="left/submenu-labor"/>
+		<put-attribute name="content_main" value="content/tabla-tipos-labores"/>
 	</definition>
         
         <definition name="producciones-tabla" extends="template">
+		<put-attribute name="leftpanel" value="left/submenu-produccion"/>
 		<put-attribute name="content_main" value="content/tabla-producciones"/>
 	</definition>
         
-        <definition name="producciones-tabla-form-insertar-produccion" extends="producciones-tabla">
-		<put-attribute name="rightpanel" value="right/form-insertar-produccion"/>
+        <definition name="producciones-tabla-form-produccion" extends="producciones-tabla">
+		<put-attribute name="rightpanel" value="right/form-produccion"/>
 	</definition>
         
-        <definition name="index4" extends="template">
-		<put-attribute name="content_main" value="content/tabla-labores"/>
+        <definition name="cultivos-tabla" extends="template">
+		<put-attribute name="leftpanel" value="left/submenu-cultivo"/>
+		<put-attribute name="content_main" value="content/tabla-cultivos"/>
 	</definition>
         
-        <definition name="index5" extends="template">
-		<put-attribute name="content_main" value="content/tabla-labores"/>
+        <definition name="cultivos-tabla-form-cultivo" extends="cultivos-tabla">
+		<put-attribute name="rightpanel" value="right/form-cultivo"/>
 	</definition>
         
-        <definition name="index6" extends="template">
-		<put-attribute name="content_main" value="content/tabla-labores" />
-	</definition>
-        
-        <definition name="index7" extends="template">
-		<put-attribute name="content_main" value="content/tabla-labores" />
-	</definition>
-        
-        <definition name="index8" extends="template">
-		<put-attribute name="content_main" value="content/tabla-labores"/>
-	</definition>
-        
-        <definition name="index9" extends="template">
-		<put-attribute name="content_main" value="content/tabla-labores" />
+        <definition name="configuracion-submenu" extends="template">
+		<put-attribute name="content_main" value="content/default"/>
+		<put-attribute name="leftpanel" value="left/submenu-configuracion"/>
 	</definition>
 
 </tiles-definitions>
