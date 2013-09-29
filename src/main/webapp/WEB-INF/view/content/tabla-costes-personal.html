@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script>/*<![CDATA[*/
+  
+    $(window).load(function () {
+    
+        $('#tabla_coste_personal').dataTable(tabla_opciones);
+        
+    });
+    
+    
+/*]]>*/</script> 
+<div class="row">
+<h2 th:text="#{costes-personal}">[costes-personal]</h2>
+</div>
+<div class="row text-right">
+<a id="anadir-tipo-costePersonal-link" 
+   class="btn btn-default btn-sm disabled" 
+   th:href="@{/personal/tabla/form/coste-personal.html(id=-1)}" >
+    <span class="glyphicon glyphicon-plus"></span> <span th:text="#{anadir-coste-personal}">[anadir-coste-personal]</span></a>
+</div>
+<div class="row">
+<table id="tabla_coste_personal" class="tabla-jqueryui">
+    <!--class="table table-stripped table-bordered table-hover table-condensed"-->
+    <thead>
+        <tr>
+            <th th:text="#{id-coste-personal}"></th>
+            <th th:text="#{tipo}"></th>
+            <th th:text="#{funcion}"></th>
+            <th th:text="#{salario-base}"></th>
+            <th th:text="#{paga-extra}"></th>
+            <th th:text="#{horas-anuales}"></th>
+            <th th:text="#{base-ssp}"></th>
+            <th th:text="#{desempleo-pc}"></th>
+            <th th:text="#{plus-distancia}"></th>
+            <th th:text="#{km}"></th>
+            <th th:text="#{horas-dia}"></th>
+            <th th:text="#{validez-inicio}"></th>
+            <th th:text="#{validez-fin}"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr  th:each="coste_personal_item : ${costesPersonal}">
+            <td th:text="${coste_personal_item.id_coste_personal}"><a th:href="@{/costePersonal/tabla/form/costePersonal.html(id=${coste_personal_item.id_coste_personal})}" th:text="${coste_personal_item.id_coste_personal}">[id_coste_personal]</a></td>
+            <td th:text="${coste_personal_item.tipo}"></td>
+            <td th:text="${coste_personal_item.funcion}"></td>
+            <td th:text="${#numbers.formatDecimal(coste_personal_item.salario_base,1,'POINT',2,'COMMA')}"></td>
+            <td th:text="${#numbers.formatDecimal(coste_personal_item.paga_extra,1,'POINT',2,'COMMA')}"></td>
+            <td th:text="${coste_personal_item.horas_anuales}"></td>
+            <td th:text="${#numbers.formatDecimal(coste_personal_item.base_ssp,1,'POINT',2,'COMMA')}"></td>
+            <td th:text="${#numbers.formatDecimal(coste_personal_item.desempleo_pc,1,'POINT',3,'COMMA')}"></td>
+            <td th:text="${#numbers.formatDecimal(coste_personal_item.plus_distancia,1,'POINT',2,'COMMA')}"></td>
+            <td th:text="${#numbers.formatDecimal(coste_personal_item.km,1,'POINT',2,'COMMA')}"></td>
+            <td th:text="${#numbers.formatDecimal(coste_personal_item.horas_dia,1,'POINT',2,'COMMA')}"></td>
+            <td th:text="${#dates.format(coste_personal_item.validez_inicio,'dd/MM/yyyy')}"></td>
+            <td th:text="${#dates.format(coste_personal_item.validez_fin,'dd/MM/yyyy')}"></td>
+       </tr>
+    </tbody>
+</table>
+</div>
+</html>

@@ -1,5 +1,6 @@
 package com.chinchilla.controller;
 
+import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.persistence.objects.TipoLabor;
 import com.chinchilla.util.Notificador;
 import java.util.HashMap;
@@ -37,6 +38,17 @@ public class LaboresController extends AbstractController{
      
     @RequestMapping("/tabla.html")
     public String tabla(Model model) throws Exception {
+
+        List<Labor> labores = laborDAO.getAll();
+
+        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
+        
+        log.info("labores "+labores);
+
+        modelMap.put("labores", labores);
+        
+        model.addAllAttributes(modelMap);
+        
         return "labores-tabla";
     }
     

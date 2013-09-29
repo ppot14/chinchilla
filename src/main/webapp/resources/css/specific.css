@@ -43,6 +43,12 @@
 table.tabla-jqueryui{
     width: 100%;
 }
+table.tabla-jqueryui thead {
+}
+table.tabla-jqueryui thead tr{
+}
+table.tabla-jqueryui thead tr th{
+}
 
 .paging_two_button .ui-button {
     cursor: pointer;

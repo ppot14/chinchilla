@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chinchilla.persistence.mappers.MaquinariaMappers">
+	
+    <select id="getMaquinaria" parameterType="java.lang.Integer" resultType="com.chinchilla.persistence.objects.Maquinaria">
+        select 
+        id_coste_maquinaria as "id_coste_maquinaria",         
+        nombre	as	"nombre"	,
+        tipo	as	"tipo"	,
+        valor_compra	as	"valor_compra"	,
+        valor_desecho	as	"valor_desecho"	,
+        horas_trabajo	as	"horas_trabajo"	,
+        interes	as	"interes"	,
+        anyos_mas_1	as	"anyos_mas_1"	,
+        reparacion_variable	as	"reparacion_variable"	,
+        alojamiento_variable	as	"alojamiento_variable"	,
+        prima_seguro	as	"prima_seguro"	,
+        cv	as	"cv"	,
+        litros_cv_y_hora	as	"litros_cv_y_hora"	,
+        horas_cambio_aceite	as	"horas_cambio_aceite"	,
+        litros_aceite	as	"litros_aceite"	
+        from gonzalol_chinchilla.t_costes_maquinaria 
+        where id_coste_maquinaria = #{id_coste_maquinaria}
+    </select>
+	
+    <select id="getAllMaquinaria" parameterType="int" resultType="com.chinchilla.persistence.objects.Maquinaria">
+        select 
+        id_coste_maquinaria as "id_coste_maquinaria",         
+        nombre	as	"nombre"	,
+        tipo	as	"tipo"	,
+        valor_compra	as	"valor_compra"	,
+        valor_desecho	as	"valor_desecho"	,
+        horas_trabajo	as	"horas_trabajo"	,
+        interes	as	"interes"	,
+        anyos_mas_1	as	"anyos_mas_1"	,
+        reparacion_variable	as	"reparacion_variable"	,
+        alojamiento_variable	as	"alojamiento_variable"	,
+        prima_seguro	as	"prima_seguro"	,
+        cv	as	"cv"	,
+        litros_cv_y_hora	as	"litros_cv_y_hora"	,
+        horas_cambio_aceite	as	"horas_cambio_aceite"	,
+        litros_aceite	as	"litros_aceite"	
+        from gonzalol_chinchilla.t_costes_maquinaria 
+        order by id_coste_maquinaria
+    </select>
+	
+    <select id="getMaquinariaPorNombre" parameterType="int" resultType="com.chinchilla.persistence.objects.Maquinaria">
+        select 
+        id_coste_maquinaria as "id_coste_maquinaria",         
+        nombre	as	"nombre"	,
+        tipo	as	"tipo"	,
+        valor_compra	as	"valor_compra"	,
+        valor_desecho	as	"valor_desecho"	,
+        horas_trabajo	as	"horas_trabajo"	,
+        interes	as	"interes"	,
+        anyos_mas_1	as	"anyos_mas_1"	,
+        reparacion_variable	as	"reparacion_variable"	,
+        alojamiento_variable	as	"alojamiento_variable"	,
+        prima_seguro	as	"prima_seguro"	,
+        cv	as	"cv"	,
+        litros_cv_y_hora	as	"litros_cv_y_hora"	,
+        horas_cambio_aceite	as	"horas_cambio_aceite"	,
+        litros_aceite	as	"litros_aceite"	
+        from gonzalol_chinchilla.t_costes_maquinaria 
+        where nombre = #{nombre}
+    </select>
+	
+    <insert id="createMaquinaria" keyColumn="id_coste_maquinaria" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.Maquinaria">
+        insert into gonzalol_chinchilla.t_costes_maquinaria (id_tipo_coste_maquinaria, nombre, tipo, valor_compra, valor_desecho, horas_trabajo, interes, anyos_mas_1, reparacion_variable, alojamiento_variable, prima_seguro, cv, litros_cv_y_hora, horas_cambio_aceite, litros_aceite)
+        values (#{id_tipo_coste_maquinaria}, #{nombre}, #{tipo}, #{valor_compra}, #{valor_desecho}, #{horas_trabajo}, #{interes}, #{anyos_mas_1}, #{reparacion_variable}, #{alojamiento_variable}, #{prima_seguro}, #{cv}, #{litros_cv_y_hora}, #{horas_cambio_aceite}, #{litros_aceite})		
+    </insert>
+	
+    <update id="updateMaquinaria" parameterType="com.chinchilla.persistence.objects.Maquinaria">
+        update gonzalol_chinchilla.t_costes_maquinaria set 
+        nombre	=	#{nombre}, 
+        tipo	=	#{tipo}, 
+        valor_compra	=	#{valor_compra}, 
+        valor_desecho	=	#{valor_desecho}, 
+        horas_trabajo	=	#{horas_trabajo}, 
+        interes	=	#{interes}, 
+        anyos_mas_1	=	#{anyos_mas_1}, 
+        reparacion_variable	=	#{reparacion_variable}, 
+        alojamiento_variable	=	#{alojamiento_variable}, 
+        prima_seguro	=	#{prima_seguro}, 
+        cv	=	#{cv}, 
+        litros_cv_y_hora	=	#{litros_cv_y_hora}, 
+        horas_cambio_aceite	=	#{horas_cambio_aceite}, 
+        litros_aceite	=	#{litros_aceite}
+        where id_coste_maquinaria = #{id_coste_maquinaria}		
+    </update>
+	
+    <delete id="deleteMaquinaria" parameterType="java.lang.Integer">
+        delete from gonzalol_chinchilla.t_costes_maquinaria where id_coste_maquinaria = #{id_coste_maquinaria}		
+    </delete>
+	
+	
+</mapper>
+

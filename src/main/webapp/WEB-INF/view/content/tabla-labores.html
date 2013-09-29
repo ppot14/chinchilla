@@ -1,1 +1,47 @@
-<h2><span class="glyphicon glyphicon-wrench"></span> En construcci&oacute;n</h2>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script>/*<![CDATA[*/
+  
+    $(window).load(function () {
+    
+        $('#tabla_labores').dataTable(tabla_opciones);
+        
+    });
+    
+    
+/*]]>*/</script> 
+<div class="row">
+<h2 th:text="#{labores}">[labores]</h2>
+</div>
+<div class="row text-right">
+<a id="anadir-tipo-labor-link" 
+   class="btn btn-default btn-sm disabled" 
+   th:href="@{/labores/tabla/form/labor.html(id=-1)}" >
+    <span class="glyphicon glyphicon-plus"></span> <span th:text="#{anadir-tipo-labor}">[anadir-labor]</span></a>
+</div>
+<div class="row">
+<table id="tabla_labores" class="tabla-jqueryui">
+    <!--class="table table-stripped table-bordered table-hover table-condensed"-->
+    <thead>
+        <tr>
+          <th th:text="#{id-labor}"></th>
+          <th th:text="#{id-tipo-labor}"></th>
+          <th th:text="#{fecha-comienzo}"></th>
+          <!--<th th:text="#{cantidad-dosis-por-ha}"></th>-->
+          <th th:text="#{litros-gasoil}"></th>
+          <th th:text="#{duracion}"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr  th:each="labores_item : ${labores}">
+          <td th:text="${labores_item.id_labor}"><a th:href="@{/labores/tabla/form/labor.html(id=${labores_item.id_labor})}" th:text="${labores_item.id_labor}">[id_labor]</a></td>
+          <td th:text="${labores_item.id_tipo_labor}"><a th:href="@{/labores/tipo/tabla/form/labor.html(id=${labores_item.id_tipo_labor})}" th:text="${labores_item.id_tipo_labor}">[id_tipo_labor]</a></td>
+          <td th:text="${#dates.format(labores_item.fecha_comienzo,'dd/MM/yyyy')}">[fecha_comienzo]</td>
+          <!--<td th:text="${#numbers.formatDecimal(labores_item.cantidad_dosis_por_ha,1,'POINT',0,'COMMA')}">[cantidad_dosis_por_ha]</td>-->
+          <td th:text="${#numbers.formatDecimal(labores_item.litros_gasoil,1,'POINT',2,'COMMA')}">[litros_gasoil]</td>
+          <td th:text="${#numbers.formatDecimal(labores_item.duracion,1,'POINT',2,'COMMA')}">[duracion]</td>
+       </tr>
+    </tbody>
+</table>
+</div>
+</html>

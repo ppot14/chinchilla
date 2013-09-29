@@ -30,6 +30,12 @@
     padding-top: 5px;
 }
 
+.navbar-default .navbar-nav > .disabled > a, 
+.navbar-default .navbar-nav > .disabled > a:hover, 
+.navbar-default .navbar-nav > .disabled > a:focus {
+    color: #CCCCCC;
+}
+
 .navbar-brand {
     padding: 4px 15px;
 }

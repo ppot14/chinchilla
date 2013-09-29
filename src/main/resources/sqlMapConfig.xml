@@ -19,5 +19,7 @@
         <mapper resource="com/chinchilla/persistence/mappers/CultivoMappers.xml" />
         <mapper resource="com/chinchilla/persistence/mappers/LaborMappers.xml" />
         <mapper resource="com/chinchilla/persistence/mappers/TipoLaborMappers.xml" />
+        <mapper resource="com/chinchilla/persistence/mappers/MaquinariaMappers.xml" />
+        <mapper resource="com/chinchilla/persistence/mappers/CostePersonalMappers.xml" />
     </mappers>
 </configuration>

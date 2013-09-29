@@ -56,6 +56,16 @@
 		<put-attribute name="rightpanel" value="right/form-cultivo"/>
 	</definition>
         
+        <definition name="maquinaria-tabla" extends="template">
+		<!--<put-attribute name="leftpanel" value="left/submenu-maquinaria"/>-->
+		<put-attribute name="content_main" value="content/tabla-maquinaria"/>
+	</definition>
+        
+        <definition name="coste-personal-tabla" extends="template">
+		<put-attribute name="leftpanel" value="left/submenu-personal"/>
+		<put-attribute name="content_main" value="content/tabla-costes-personal"/>
+	</definition>
+        
         <definition name="configuracion-submenu" extends="template">
 		<put-attribute name="content_main" value="content/default"/>
 		<put-attribute name="leftpanel" value="left/submenu-configuracion"/>
