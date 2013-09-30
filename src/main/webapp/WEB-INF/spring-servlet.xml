@@ -88,6 +88,7 @@
     <bean id="cultivosController" class="com.chinchilla.controller.CultivosController" />
     <bean id="maquinariaController" class="com.chinchilla.controller.MaquinariaController" />
     <bean id="personalController" class="com.chinchilla.controller.PersonalController" />
+    <bean id="productosController" class="com.chinchilla.controller.ProductosController" />
     <bean id="configuracionController" class="com.chinchilla.controller.ConfiguracionController" />
     
     <mvc:resources mapping="/resources/**" location="/resources/" />

@@ -30,6 +30,7 @@ import com.chinchilla.persistence.dao.LaborDAO;
 import com.chinchilla.persistence.dao.MaquinariaDAO;
 import com.chinchilla.persistence.dao.ParcelaDAO;
 import com.chinchilla.persistence.dao.ProduccionDAO;
+import com.chinchilla.persistence.dao.ProductoDAO;
 import com.chinchilla.persistence.dao.TipoLaborDAO;
 import java.beans.PropertyEditorSupport;
 import java.text.NumberFormat;
@@ -48,7 +49,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  * @author Pepe
  */
 @SessionAttributes({"parcelas_json","coordenadas_json","parcelas","coordenadas","producciones","cultivos",
-                    "tiposLabores","labores","maquinaria","costesPersonal"})
+                    "tiposLabores","labores","maquinaria","costesPersonal","productos"})
 public abstract class AbstractController {
     
     @Autowired
@@ -82,6 +83,10 @@ public abstract class AbstractController {
     @Autowired
     @Qualifier("costePersonalDAO")
     protected CostePersonalDAO costePersonalDAO; 
+    
+    @Autowired
+    @Qualifier("productoDAO")
+    protected ProductoDAO productoDAO;       
     
     @InitBinder
     public void binder(WebDataBinder binder) {

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script>/*<![CDATA[*/
+  
+    $(window).load(function () {
+    
+        $('#tabla_productos').dataTable(tabla_opciones);
+        
+    });
+    
+    
+/*]]>*/</script> 
+<div class="row">
+<h2 th:text="#{productos}">[productos]</h2>
+</div>
+<div class="row text-right">
+<a id="anadir-producto-link" 
+   class="btn btn-default btn-sm disabled" 
+   th:href="@{/productos/tabla/form/producto.html(id=-1)}" >
+    <span class="glyphicon glyphicon-plus"></span> <span th:text="#{anadir-producto}">[anadir-producto]</span></a>
+</div>
+<div class="row">
+<table id="tabla_productos" class="tabla-jqueryui">
+    <!--class="table table-stripped table-bordered table-hover table-condensed"-->
+    <thead>
+        <tr>
+          <th th:text="#{id-producto}"></th>
+          <th th:text="#{grupo}"></th>
+          <th th:text="#{tipo}"></th>
+          <th th:text="#{nombre}"></th>
+          <th th:text="#{descripcion}"></th>
+          <th th:text="#{num-reg-ma}"></th>
+          <th th:text="#{plazo-seguridad}"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr  th:each="productos_item : ${productos}">
+          <td th:text="${productos_item.id_producto}"><a th:href="@{/productos/tabla/form/producto.html(id=${productos_item.id_producto})}" th:text="${productos_item.id_producto}">[id_producto]</a></td>
+          <td th:text="${productos_item.grupo}">[grupo]</td>
+          <td th:text="${productos_item.tipo}">[tipo]</td>
+          <td th:text="${productos_item.nombre}">[nombre]</td>
+          <td th:text="${productos_item.descripcion}">[descripcion]</td>
+          <td th:text="${productos_item.num_reg_ma}">[num_reg_ma]</td>
+          <td th:text="${productos_item.plazo_seguridad}">[plazo_seguridad]</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+</html>

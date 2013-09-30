@@ -75,6 +75,9 @@
       <bean id="costePersonalDAO" class="com.chinchilla.persistence.dao.CostePersonalDAO">
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
       </bean>
+      <bean id="productoDAO" class="com.chinchilla.persistence.dao.ProductoDAO">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+      </bean>
       
 <!--      <tx:jta-transaction-manager />
 	<tx:annotation-driven />-->

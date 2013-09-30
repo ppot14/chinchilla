@@ -61,9 +61,19 @@
 		<put-attribute name="content_main" value="content/tabla-maquinaria"/>
 	</definition>
         
+        <definition name="personal-tabla" extends="template">
+		<put-attribute name="leftpanel" value="left/submenu-personal"/>
+		<put-attribute name="content_main" value="content/default"/>
+	</definition>
+        
         <definition name="coste-personal-tabla" extends="template">
 		<put-attribute name="leftpanel" value="left/submenu-personal"/>
 		<put-attribute name="content_main" value="content/tabla-costes-personal"/>
+	</definition>
+        
+        <definition name="productos-tabla" extends="template">
+		<put-attribute name="leftpanel" value="left/submenu-producto"/>
+		<put-attribute name="content_main" value="content/tabla-productos"/>
 	</definition>
         
         <definition name="configuracion-submenu" extends="template">

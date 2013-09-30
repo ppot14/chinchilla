@@ -1,9 +1,6 @@
 package com.chinchilla.controller;
 
-import com.chinchilla.form.ProduccionForm;
-import com.chinchilla.persistence.objects.Cultivo;
-import com.chinchilla.persistence.objects.Parcela;
-import com.chinchilla.persistence.objects.Produccion;
+import com.chinchilla.persistence.objects.Producto;
 import com.chinchilla.util.Notificador;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -23,12 +20,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  *
  * @author Pepe
  */
-@Controller("produccionesController")
-@RequestMapping("/producciones")
-@SessionAttributes({"produccion"})
-public class ProduccionesController extends AbstractController{
+@Controller("productosController")
+@RequestMapping("/productos")
+@SessionAttributes({"producto"})
+public class ProductosController extends AbstractController{
 
-    private static Logger log = (Logger) LoggerFactory.getLogger(ProduccionesController.class);
+    private static Logger log = (Logger) LoggerFactory.getLogger(ProductosController.class);
         
     @RequestMapping("/")
     public String index(Model model) throws Exception {
@@ -38,63 +35,58 @@ public class ProduccionesController extends AbstractController{
     
     @RequestMapping("/tabla.html")
     public String tabla(Model model) throws Exception {
-
-        List<Produccion> producciones = produccionDAO.getAll();
-
-        List<Cultivo> cultivos = cultivoDAO.getAll();
-
-        List<Parcela> parcelas = parcelaDAO.getAll();
+        
+       List<Producto> productos = productoDAO.getAll();
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
-        modelMap.put("producciones", producciones);
-        modelMap.put("cultivos", cultivos);
-        modelMap.put("parcelas", parcelas);
+        modelMap.put("productos", productos);
         
         model.addAllAttributes(modelMap);
 
-        log.info("Received request to show ProduccionesController tabla: producciones-tabla");
+        log.info("Received request to show ProductoesController tabla: productos-tabla");
 
-        return "producciones-tabla";
+        return "productos-tabla";
     }
     
-    @RequestMapping(value = "/tabla/form/produccion.html",params = {"id"}, method=RequestMethod.GET)
-    public String tablaFormProduccion(@RequestParam(value = "id") Integer id_produccion, Model model) throws Exception {
+    @RequestMapping(value = "/tabla/form/producto.html",params = {"id"}, method=RequestMethod.GET)
+    public String tablaFormProducto(@RequestParam(value = "id") Integer id_producto, Model model) throws Exception {
 
-        Produccion produccion = null;
+        Producto producto = null;
         
-        if(id_produccion.intValue()>0){
+        if(id_producto.intValue()>0){
         
-            produccion = produccionDAO.get(id_produccion);
+            producto = productoDAO.get(id_producto);
         
         }else{
         
-            produccion = new Produccion();
+            producto = new Producto();
         
         }
         
-        log.info("produccion "+produccion);
+        log.info("producto "+producto);
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
-        modelMap.put("produccion", produccion);
+        modelMap.put("producto", producto);
         
         model.addAllAttributes(modelMap);
 
-        log.info("Received request to show tablaFormInsertarProduccion form: producciones-tabla-form-produccion");
+        log.info("Received request to show tablaFormInsertarProducto form: productos-tabla-form-producto");
         
-        return "producciones-tabla-form-produccion";
+        return "productos-tabla-form-producto";
     }
     
-    @RequestMapping(value = "/tabla/form/procesar/produccion.html",method = RequestMethod.POST)
-   public String tablaFormProcesarProduccion(
-            @ ModelAttribute("model_produccion") ProduccionForm model_produccion, Model model) throws Exception {
+    @RequestMapping(value = "/tabla/form/procesar/producto.html",method = RequestMethod.POST)
+   public String tablaFormProcesarProducto(
+            @ ModelAttribute("model_producto") Producto model_producto, 
+            @ModelAttribute("insertar_modificar_eliminar") String insertar_modificar_eliminar, Model model) throws Exception {
         
-        log.info(""+model_produccion);
+        log.info(""+model_producto);
         
-        String tipoOperacion = model_produccion.getInsertar_modificar_eliminar();
+        String tipoOperacion = insertar_modificar_eliminar;
         
-        Produccion produccion = new Produccion((Produccion)model_produccion);
+        Producto producto = model_producto;
         
         Map<String, Object> modelMap = new HashMap<String, Object>();
         
@@ -106,7 +98,7 @@ public class ProduccionesController extends AbstractController{
         
         if(tipoOperacion!=null&&tipoOperacion.equals("insertar")){
             
-            created = produccionDAO.create(produccion);
+            created = productoDAO.create(producto);
             
             if(created==1){
         
@@ -114,13 +106,13 @@ public class ProduccionesController extends AbstractController{
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo produccion");
+                Notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo producto");
                 
             }
             
         }else if(tipoOperacion!=null&&tipoOperacion.equals("modificar")){
             
-            updated = produccionDAO.update(produccion);
+            updated = productoDAO.update(producto);
             
             if(updated==1){
         
@@ -128,13 +120,13 @@ public class ProduccionesController extends AbstractController{
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando produccion");
+                Notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando producto");
                 
             }
             
         }else if(tipoOperacion!=null&&tipoOperacion.equals("eliminar")){
             
-            deleted = produccionDAO.delete(produccion.getId_produccion());
+            deleted = productoDAO.delete(producto.getId_producto());
             
             if(deleted==1){
         
@@ -142,7 +134,7 @@ public class ProduccionesController extends AbstractController{
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando produccion");
+                Notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando producto");
                 
             }
             
@@ -155,16 +147,16 @@ public class ProduccionesController extends AbstractController{
         
         if(created>0 || updated>0 || deleted>0){
 
-            List<Produccion> producciones = produccionDAO.getAll();
+            List<Producto> productos = productoDAO.getAll();
 
-            modelMap.put("producciones", producciones);
+            modelMap.put("productos", productos);
         
         }
         
         model.addAllAttributes(modelMap);
         
-        log.info("Received request to show tablaFormProcesarProduccion: producciones-tabla");
+        log.info("Received request to show tablaFormProcesarProducto: productos-tabla");
 
-        return "producciones-tabla";
+        return "productos-tabla";
     }
 }

@@ -36,8 +36,8 @@ public class PersonalController extends AbstractController{
     
     @RequestMapping("/tabla.html")
     public String tabla(Model model) throws Exception {
-        
-        return tablaCostes(model); 
+
+        return "personal-tabla";
     }
     
     @RequestMapping("/costes/tabla.html")

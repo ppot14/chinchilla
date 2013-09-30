@@ -30,5 +30,110 @@ import java.io.Serializable;
  * @author Pepe
  */
 public class Producto implements Serializable{
-    
+    private	int	id_producto	;
+private	String	grupo	;
+private	String	tipo	;
+private	String	nombre	;
+private	String	descripcion	;
+private	String	num_reg_ma	;
+private	Integer	plazo_seguridad	;
+
+    /**
+     * @return the id_producto
+     */
+    public int getId_producto() {
+        return id_producto;
+    }
+
+    /**
+     * @param id_producto the id_producto to set
+     */
+    public void setId_producto(int id_producto) {
+        this.id_producto = id_producto;
+    }
+
+    /**
+     * @return the grupo
+     */
+    public String getGrupo() {
+        return grupo;
+    }
+
+    /**
+     * @param grupo the grupo to set
+     */
+    public void setGrupo(String grupo) {
+        this.grupo = grupo;
+    }
+
+    /**
+     * @return the tipo
+     */
+    public String getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    /**
+     * @return the descripcion
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    /**
+     * @param descripcion the descripcion to set
+     */
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    /**
+     * @return the num_reg_ma
+     */
+    public String getNum_reg_ma() {
+        return num_reg_ma;
+    }
+
+    /**
+     * @param num_reg_ma the num_reg_ma to set
+     */
+    public void setNum_reg_ma(String num_reg_ma) {
+        this.num_reg_ma = num_reg_ma;
+    }
+
+    /**
+     * @return the plazo_seguridad
+     */
+    public Integer getPlazo_seguridad() {
+        return plazo_seguridad;
+    }
+
+    /**
+     * @param plazo_seguridad the plazo_seguridad to set
+     */
+    public void setPlazo_seguridad(Integer plazo_seguridad) {
+        this.plazo_seguridad = plazo_seguridad;
+    }
+
 }
