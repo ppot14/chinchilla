@@ -24,6 +24,10 @@ body {
     background-color:#fcfcfc;
     padding:3px;
 }
+
+h1#titulo{
+    margin-left: 15px;
+}
 /*
 a:hover{
     text-decoration: none;
@@ -45,12 +49,7 @@ h3{
 
 }
 
-span#titulo{
-    font-size: 3em;
-    text-shadow:rgba(0, 0, 0, 0.0980392) 2px 2px;
-    color: #739D00;
-    font-weight: bold;
-}
+
 
 */
 

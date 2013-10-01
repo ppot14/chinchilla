@@ -86,6 +86,72 @@ public class Labor implements Serializable{
     public void setLitros_gasoil(double litros_gasoil) {
         this.litros_gasoil = litros_gasoil;
     }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(cantidad_dosis_por_ha);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(duracion);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result
+				+ ((fecha_comienzo == null) ? 0 : fecha_comienzo.hashCode());
+		result = prime * result + id_labor;
+		result = prime * result + id_tipo_labor;
+		temp = Double.doubleToLongBits(litros_gasoil);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Labor))
+			return false;
+		Labor other = (Labor) obj;
+		if (Double.doubleToLongBits(cantidad_dosis_por_ha) != Double
+				.doubleToLongBits(other.cantidad_dosis_por_ha))
+			return false;
+		if (Double.doubleToLongBits(duracion) != Double
+				.doubleToLongBits(other.duracion))
+			return false;
+		if (fecha_comienzo == null) {
+			if (other.fecha_comienzo != null)
+				return false;
+		} else if (!fecha_comienzo.equals(other.fecha_comienzo))
+			return false;
+		if (id_labor != other.id_labor)
+			return false;
+		if (id_tipo_labor != other.id_tipo_labor)
+			return false;
+		if (Double.doubleToLongBits(litros_gasoil) != Double
+				.doubleToLongBits(other.litros_gasoil))
+			return false;
+		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Labor [id_labor=" + id_labor + ", id_tipo_labor="
+				+ id_tipo_labor + ", fecha_comienzo=" + fecha_comienzo
+				+ ", cantidad_dosis_por_ha=" + cantidad_dosis_por_ha
+				+ ", duracion=" + duracion + ", litros_gasoil=" + litros_gasoil
+				+ "]";
+	}
     
     
 }

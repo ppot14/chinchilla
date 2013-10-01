@@ -14,7 +14,6 @@
 .ui-widget {
     font-family:  'Helvetica Neue', HelveticaNeue, Helvetica, Arial, 'Lucida Grande', sans-serif;
 }
-/*.ui-menu { width: 250px; }*/
 
 /*
 * Bootstrap
@@ -70,6 +69,10 @@
 .form-horizontal .control-label {
     text-align: right;
     padding-top: 5px;
+}
+
+.jumbotron {
+    margin-bottom: 0px;
 }
 
 /*

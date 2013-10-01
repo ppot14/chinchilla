@@ -23,7 +23,6 @@
             <li><a th:href="@{/maquinaria/tabla.html}" id="menu-maquinaria" th:text="#{maquinaria}">maquinaria</a></li>
             <li><a th:href="@{/productos/tabla.html}" id="menu-productos" th:text="#{productos}">productos</a></li>
             <li class="disabled"><a th:href="@{/registros/tabla.html}" id="menu-registros" th:text="#{registros}">registros</a></li>
-            <!--<li><a th:href="@{/tiposLabores/tabla.html}" id="menu-tiposlabores" th:text="#{tiposlabores}">tiposlabores</a></li>-->
             <!--<li><a th:href="@{/meteorologia/calendario.html}" id="menu-meteorologia" th:text="#{meteorologia}">meteorologia</a></li>-->
         </ul>
         
@@ -39,42 +38,53 @@
 $(window).load(function () {
 
     var ruta = window.location.pathname;
-
-    console.info('ruta '+ruta);
-
-//    var rutaArray = ruta.split('/');
-//    
-//    console.info('rutaArray '+rutaArray);
     
     $('#menudiv li').each(function(){
+        
         var enlace = $( this ).find('a');
+        
         if(enlace){
+            
             var href = enlace.attr('href');
-            console.info('#menudiv li a href '+href);
+            
             if(ruta.indexOf(href.replace('.html','')) >= 0 && href.indexOf('.html') >= 0){
+                
                $( this ).addClass("active");
+               
             }else if(ruta.indexOf(href) >= 0 && ruta.indexOf('.html') < 0){
+                
                $( this ).addClass("active");
+               
             }else{
+                
                $( this ).removeClass("active");
+               
             }
         }
+        
     });
         
     $('#submenudiv li').each(function(){
+        
         var enlace = $( this ).find('a');
+        
         if(typeof enlace.html() !== 'undefined'){
+            
             var href = enlace.attr('href').replace('.html','');
-            console.info('#submenudiv li a href '+href);
+            
             if(ruta.indexOf(href) >= 0 ){
+                
                $( this ).addClass("active");
+               
             }else{
+                
                $( this ).removeClass("active");
+               
             }
         }
+        
     });
     
-
 });
 
 /*]]>*/</script>

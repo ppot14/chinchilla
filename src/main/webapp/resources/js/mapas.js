@@ -40,19 +40,29 @@ function getValidColor(c) {
 
 function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
-    parcelas_json = $.parseJSON(parcelas_json_aux);
+//    parcelas_json = $.parseJSON(parcelas_json_aux);
+//
+//    coordenadas_json = $.parseJSON(coordenadas_json_aux);
 
-    coordenadas_json = $.parseJSON(coordenadas_json_aux);
+    parcelas_json = parcelas_json_aux;
+
+    coordenadas_json = coordenadas_json_aux;
 
     var parcela;
 
-    console.debug("parcelas_json.length " + parcelas_json.length);
+//    console.debug("parcelas_json.length " + parcelas_json.length);
 
     for (i = 0; i < parcelas_json.length; i++) {
 
         parcela = parcelas_json[i];
 
+//        console.debug("parcela.nombre " + parcela.nombre);
+
         parcela.coordenadas = extraerCoordenadas(parcela);
+
+//        console.debug("parcela.coordenadas.length " + parcela.coordenadas.length);
+
+//        console.debug("parcela.color " + parcela.color);
 
         var color = getValidColor(parcela.color);
 
@@ -71,21 +81,21 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
         parcela.perimetro = google.maps.geometry.spherical.computeLength(parcela.coordenadas);
 
-        console.debug(parcela.nombre + ": Superficie " + (Math.round(parcela.area, 2) / 10000) + " he. Perimetro: " + (Math.round(parcela.perimetro, 2) / 1000) + " km");
+//        console.debug(parcela.nombre + ": Superficie " + (Math.round(parcela.area, 2) / 10000) + " he. Perimetro: " + (Math.round(parcela.perimetro, 2) / 1000) + " km");
 
-        console.debug(parcela.nombre + ": Superficie " + parcela.extension + " he");
+//        console.debug(parcela.nombre + ": Superficie " + parcela.extension + " he");
 
         parcela.menu = crearMenuParcela(parcela);
 
-        console.debug("menu: " + parcela.menu);
+//        console.debug("menu: " + parcela.menu);
 
         google.maps.event.addListener(parcela.poligono, 'click', function(event) {
 
-            console.debug("menuOverlay " + menuOverlay);
+//            console.debug("menuOverlay " + menuOverlay);
 
-            console.debug("menuOverlayParcela " + menuOverlayParcela);
+//            console.debug("menuOverlayParcela " + menuOverlayParcela);
 
-            console.debug("this " + this);
+//            console.debug("this " + this);
 
             var temp;
 
@@ -93,9 +103,9 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
                 temp = parcelasCoordenadas[k];
 
-                console.debug("parcelasCoordenadas " + k + " " + temp.nombre + " " + temp.id_parcela);
+//                console.debug("parcelasCoordenadas " + k + " " + temp.nombre + " " + temp.id_parcela);
 
-                if (temp.poligono == this) {
+                if (temp.poligono === this) {
 
                     break;
 
@@ -103,11 +113,11 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
             }
 
-            console.debug("temp.id_parcela " + temp.id_parcela);
+//            console.debug("temp.id_parcela " + temp.id_parcela);
 
-            if (menuOverlay == null || menuOverlayParcela != temp.id_parcela) {
+            if (menuOverlay === null || menuOverlayParcela !== temp.id_parcela) {
 
-                if (menuOverlayParcela != null && menuOverlayParcela != temp.id_parcela) {
+                if (menuOverlayParcela !== null && menuOverlayParcela !== temp.id_parcela) {
 
                     menuOverlay.hide();
 
@@ -119,13 +129,13 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
                 $('body').append(temp.menu);
 
-                $('#menu').menu();
+                //$('#menu').menu();
 
-                console.debug("menu filled: " + $('#menu').html());
+//                console.debug("menu filled: " + $('#menu').html());
 
                 var posicionM = posicionMenu(temp.coordenadas);
 
-                console.debug("posicion menu: " + posicionM);
+//                console.debug("posicion menu: " + posicionM);
 
                 menuOverlay = new MenuOverlay(document.getElementById('menu'), /*posicionM*/event.latLng, map);
 
@@ -139,13 +149,13 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
                  
                  });*/
 
-                console.debug("menu showing...");
+//                console.debug("menu showing...");
 
                 menuOverlay.show();
 
             } else {
 
-                console.debug("menu hiding...");
+//                console.debug("menu hiding...");
 
                 menuOverlay.hide();
 
@@ -177,7 +187,7 @@ function extraerCoordenadas(parcela) {
 
         coordenada = coordenadas_json[j];
 
-        if (coordenada.id_parcela == parcela.id_parcela) {
+        if (coordenada.id_parcela === parcela.id_parcela) {
 
             coordenadas[coordenada.orden - 1] = new google.maps.LatLng(coordenada.latitud, coordenada.longitud);
 
@@ -234,7 +244,7 @@ function posicionMenu(coordenadas) {
  */
 function MenuOverlay(menu, position, map) {
 
-    console.info('MenuOverlay');
+//    console.info('MenuOverlay');
 
     this.menu_ = menu;
 
@@ -249,13 +259,13 @@ MenuOverlay.prototype = new google.maps.OverlayView();
 
 MenuOverlay.prototype.onAdd = function() {
 
-    console.info('MenuOverlay.prototype.onAdd');
+//    console.info('MenuOverlay.prototype.onAdd');
 
     var div = document.createElement('div');
     div.style.border = "none";
     div.style.borderWidth = "0px";
     div.style.position = "absolute";
-    div.class = "dropdown";
+    div.className = "dropdown";
 
     div.appendChild(this.menu_);
 
@@ -263,11 +273,11 @@ MenuOverlay.prototype.onAdd = function() {
 
     var panes = this.getPanes();
     panes.overlayMouseTarget.appendChild(div);
-}
+};
 
 MenuOverlay.prototype.draw = function() {
 
-    console.info('MenuOverlay.prototype.draw');
+//    console.info('MenuOverlay.prototype.draw');
 
     var overlayProjection = this.getProjection();
 
@@ -279,31 +289,31 @@ MenuOverlay.prototype.draw = function() {
     div.style.display = 'block';
 
     $("#menu").show();
-}
+};
 
 MenuOverlay.prototype.onRemove = function() {
-    console.info('MenuOverlay.prototype.onRemove');
+//    console.info('MenuOverlay.prototype.onRemove');
     this.div_.parentNode.removeChild(this.div_);
-}
+};
 
 MenuOverlay.prototype.hide = function() {
 
-    console.info('MenuOverlay.prototype.hide');
+//    console.info('MenuOverlay.prototype.hide');
     if (this.div_) {
         this.div_.style.visibility = 'hidden';
     }
-}
+};
 
 MenuOverlay.prototype.show = function() {
 
-    console.info('MenuOverlay.prototype.show');
+//    console.info('MenuOverlay.prototype.show');
     if (this.div_) {
         this.div_.style.visibility = 'visible';
     }
-}
+};
 
 MenuOverlay.prototype.toggle = function() {
-    console.info('MenuOverlay.prototype.toggle');
+//    console.info('MenuOverlay.prototype.toggle');
     if (this.div_) {
         if (this.div_.style.visibility == 'hidden') {
             this.show();
@@ -311,4 +321,4 @@ MenuOverlay.prototype.toggle = function() {
             this.hide();
         }
     }
-}
+};

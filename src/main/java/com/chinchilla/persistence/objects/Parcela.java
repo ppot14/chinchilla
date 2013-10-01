@@ -110,44 +110,83 @@ public class Parcela implements Serializable{
         this.color = color;
     }
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		result = prime * result
+				+ ((cultivo_fijo == null) ? 0 : cultivo_fijo.hashCode());
+		result = prime * result
+				+ ((extension == null) ? 0 : extension.hashCode());
+		result = prime * result + id_parcela;
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result
+				+ ((nombre_corto == null) ? 0 : nombre_corto.hashCode());
+		result = prime * result + ((zona == null) ? 0 : zona.hashCode());
+		return result;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 67 * hash + (this.nombre != null ? this.nombre.hashCode() : 0);
-        hash = 67 * hash + (this.nombre_corto != null ? this.nombre_corto.hashCode() : 0);
-        hash = 67 * hash + (this.zona != null ? this.zona.hashCode() : 0);
-        hash = 67 * hash + (this.extension != null ? this.extension.hashCode() : 0);
-        hash = 67 * hash + (this.cultivo_fijo != null ? this.cultivo_fijo.hashCode() : 0);
-        return hash;
-    }
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Parcela))
+			return false;
+		Parcela other = (Parcela) obj;
+		if (color == null) {
+			if (other.color != null)
+				return false;
+		} else if (!color.equals(other.color))
+			return false;
+		if (cultivo_fijo == null) {
+			if (other.cultivo_fijo != null)
+				return false;
+		} else if (!cultivo_fijo.equals(other.cultivo_fijo))
+			return false;
+		if (extension == null) {
+			if (other.extension != null)
+				return false;
+		} else if (!extension.equals(other.extension))
+			return false;
+		if (id_parcela != other.id_parcela)
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (nombre_corto == null) {
+			if (other.nombre_corto != null)
+				return false;
+		} else if (!nombre_corto.equals(other.nombre_corto))
+			return false;
+		if (zona == null) {
+			if (other.zona != null)
+				return false;
+		} else if (!zona.equals(other.zona))
+			return false;
+		return true;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Parcela other = (Parcela) obj;
-        if ((this.nombre == null) ? (other.nombre != null) : !this.nombre.equals(other.nombre)) {
-            return false;
-        }
-        if ((this.nombre_corto == null) ? (other.nombre_corto != null) : !this.nombre_corto.equals(other.nombre_corto)) {
-            return false;
-        }
-        if ((this.zona == null) ? (other.zona != null) : !this.zona.equals(other.zona)) {
-            return false;
-        }
-        if (this.extension != other.extension && (this.extension == null || !this.extension.equals(other.extension))) {
-            return false;
-        }
-        if ((this.cultivo_fijo == null) ? (other.cultivo_fijo != null) : !this.cultivo_fijo.equals(other.cultivo_fijo)) {
-            return false;
-        }
-        return true;
-    }
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Parcela [id_parcela=" + id_parcela + ", nombre=" + nombre
+				+ ", nombre_corto=" + nombre_corto + ", zona=" + zona
+				+ ", extension=" + extension + ", cultivo_fijo=" + cultivo_fijo
+				+ ", color=" + color + "]";
+	}
     
     
 }

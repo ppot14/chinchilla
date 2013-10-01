@@ -33,6 +33,8 @@
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 1px 5px rgba(0, 0, 0, 0.075);
     
     border: 1px solid #D5D5D5;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 /*#layout_title_left {
@@ -54,9 +56,10 @@
     margin:4px 0;
 }*/
 
-#layout_body {
+ /*#layout_body {
+   background-color:#bfdfdf;
     margin:0 0 0 0;
-}
+}*/
 
 /*#layout_content {
     float:none;

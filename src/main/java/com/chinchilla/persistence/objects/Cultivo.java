@@ -16,12 +16,7 @@ public class Cultivo implements Serializable{
     private String variedad;
     private String especie;
     private String destino;
-
-    @Override
-    public String toString() {
-        return "Cultivo{" + "id_cultivo=" + id_cultivo + ", variedad=" + variedad + ", especie=" + especie + ", destino=" + destino + '}';
-    }
-
+    
     public int getId_cultivo() {
         return id_cultivo;
     }
@@ -54,37 +49,60 @@ public class Cultivo implements Serializable{
         this.destino = destino;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 73 * hash + (this.especie != null ? this.especie.hashCode() : 0);
-        return hash;
-    }
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((destino == null) ? 0 : destino.hashCode());
+		result = prime * result + ((especie == null) ? 0 : especie.hashCode());
+		result = prime * result + id_cultivo;
+		result = prime * result
+				+ ((variedad == null) ? 0 : variedad.hashCode());
+		return result;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Cultivo other = (Cultivo) obj;
-        if (this.id_cultivo != other.id_cultivo) {
-            return false;
-        }
-        if ((this.variedad == null) ? (other.variedad != null) : !this.variedad.equals(other.variedad)) {
-            return false;
-        }
-        if ((this.especie == null) ? (other.especie != null) : !this.especie.equals(other.especie)) {
-            return false;
-        }
-        if ((this.destino == null) ? (other.destino != null) : !this.destino.equals(other.destino)) {
-            return false;
-        }
-        return true;
-    }
-    
-    
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Cultivo))
+			return false;
+		Cultivo other = (Cultivo) obj;
+		if (destino == null) {
+			if (other.destino != null)
+				return false;
+		} else if (!destino.equals(other.destino))
+			return false;
+		if (especie == null) {
+			if (other.especie != null)
+				return false;
+		} else if (!especie.equals(other.especie))
+			return false;
+		if (id_cultivo != other.id_cultivo)
+			return false;
+		if (variedad == null) {
+			if (other.variedad != null)
+				return false;
+		} else if (!variedad.equals(other.variedad))
+			return false;
+		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Cultivo [id_cultivo=" + id_cultivo + ", variedad=" + variedad
+				+ ", especie=" + especie + ", destino=" + destino + "]";
+	}
     
 }

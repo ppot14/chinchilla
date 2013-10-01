@@ -10,31 +10,33 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gU
   
     $(window).load(function () {
         
-        console.info("Cargando mapa...");  
+//        console.info("Cargando mapa...");  
 
         var mapOptions = { 
-        //CHINCHILLA
-        //center: new google.maps.LatLng(37.32637, -5.20889),
-        //RANCHO
-        //center: new google.maps.LatLng(37.319063,-5.185826),
-        center: new google.maps.LatLng(37.328292,-5.215223),
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.SATELLITE  
+            //CHINCHILLA
+            //center: new google.maps.LatLng(37.32637, -5.20889),
+            //RANCHO
+            //center: new google.maps.LatLng(37.319063,-5.185826),
+            center: new google.maps.LatLng(37.328292,-5.215223),
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.SATELLITE  
         };
 
         var map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
         
-        var parcelas = /*[[${parcelas_json}]]*/null;
-        var parcelas2 = /*[[${parcelas}]]*/null;
-        var coordenadas = /*[[${coordenadas_json}]]*/null;
+//        var parcelas = /*[[${parcelas_json}]]*/null;
+        var parcelas = /*[[${parcelas}]]*/null;
+//        var coordenadas = /*[[${coordenadas_json}]]*/null;
+        var coordenadas = /*[[${coordenadas}]]*/null;
         
-        console.info("parcelas_json "+parcelas); 
-        console.info("parcelas "+parcelas2); 
-        console.info("coordenadas "+coordenadas); 
+//        console.info("parcelas_json "+parcelas); 
+//        console.info("parcelas "+parcelas2); 
+//        console.info("coordenadas_json "+coordenadas); 
+//        console.info("coordenadas "+coordenadas2);
 
         insertarPoligonos(map, parcelas, coordenadas);
 
-        console.info("Mapa cargado."); 
+//        console.info("Mapa cargado."); 
         
     });
     
@@ -42,38 +44,5 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gU
 
 <h2 th:text="#{mapa}">Mapa</h2>
 <div id="map_canvas" ></div>
-
-<!--
-<table class="table table-stripped table-bordered table-hover table-condensed">
-        <thead>
-        <tr>
-            <th>id_parcela</th>
-            <th>nombre</th>
-            <th>nombre_corto</th>
-            <th>zona</th>
-            <th>extension</th>
-            <th>cultivo_fijo</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr th:each="parcela : ${parcelas}">
-                <td th:text="${parcela.id_parcela}">[id_parcela]</td>
-                <td th:text="${parcela.nombre}">[nombre]</td>
-                <td th:text="${parcela.nombre_corto}">[nombre_corto]</td>
-                <td th:text="${parcela.zona}">[zona]</td>
-                <td th:text="${parcela.extension}">[extension]</td>
-                <td th:text="${parcela.cultivo_fijo}">[cultivo_fijo]</td>
-            </tr>
-        </tbody>
-    </table>
--->
-
-<!--<div class='dropdown' id='menu'>
-<ul class='dropdown-menu' role='menu'>
-<li role='presentation'><a role='menuitem' tabindex="-1" href='@{/parcelas/mapa/form/insertar/labor.html(id=parcela.id_parcela)}' >A&ntilde;adir labor a parcela.nombre</a></li>
-<li role='presentation'><a role='menuitem' tabindex="-1" href='@{/labores/tabla.html(id=parcela.id_parcela)}' >Ver labores de parcela.nombre</a></li>
-<li role='presentation'><a role='menuitem' tabindex="-1" href='@{/producciones/tabla.html(id=parcela.id_parcela)}' >Ver producciones de parcela.nombre</a></li>
-</ul>
-</div>-->
 
 </html>

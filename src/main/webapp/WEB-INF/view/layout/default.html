@@ -22,22 +22,24 @@
         <link rel="stylesheet" type="text/css" href="/resources/css/jquery.pnotify.default.icons.css" th:href="@{/resources/css/jquery.pnotify.default.icons.css}"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/specific.css" th:href="@{/resources/css/specific.css}"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/overwrite.css" th:href="@{/resources/css/overwrite.css}"/>
-        <link rel="icon" type="image/png" href="/resources/favicon.ico" />
+        <link rel="icon" type="image/ico" href="/resources/favicon.ico"  th:href="@{/resources/favicon.ico}"/>
         
         <title>Chinchilla</title>
     </head>
     <body>
         <div id="layout">
             <div id="layout_header"  class="layout row">
-                <div id="layout_title_left"  class="layout col-md-4" tiles:include="title_left">
+                <div id="layout_title_left"  class="layout col-md-6" tiles:include="title_left">
                     Insertar Cabecera Izquierda Aqui
                 </div>
-                <div id="layout_title_right"  class="layout col-md-4 col-md-offset-4" tiles:include="title_right">
+                <div id="layout_title_right"  class="layout col-md-6" tiles:include="title_right">
                     Insertar Cabecera Derecha Aqui
                 </div>
             </div>
-            <div id="layout_menu"  class="layout row" tiles:include="menu">
-                Insertar Menu Aqui
+            <div class="layout row">
+                <div id="layout_menu"  class="layout col-md-12" tiles:include="menu">
+                    Insertar Menu Aqui
+                </div>
             </div>
             <div id="layout_body"  class="layout row">
                 <div id="layout_leftpanel"  class="layout col-md-2" tiles:include="leftpanel">
@@ -50,8 +52,10 @@
                     Insertar Panel Derecho Aqui
                 </div>
             </div>
-            <div id="layout_footer"  class="layout row" tiles:include="footer">
-                Insertar Pie Aqui
+            <div class="layout row">
+                <div id="layout_footer" class="layout col-md-12" tiles:include="footer">
+                    Insertar Pie Aqui
+                </div>
             </div>
         </div>
             <div id="layout_notification"  class="layout" hidden="true">
