@@ -22,6 +22,7 @@
 
 	<definition name="parcelas-mapa" extends="template">
 		<put-attribute name="content_main" value="content/mapa-parcelas"/>
+		<put-attribute name="rightpanel" value="right/tabla-parcelas"/>
 	</definition>
         
         <definition name="parcelas-mapa-form-labor" extends="parcelas-mapa">
