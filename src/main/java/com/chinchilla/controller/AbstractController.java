@@ -48,7 +48,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  *
  * @author Pepe
  */
-@SessionAttributes({"parcelas_json","coordenadas_json","parcelas","coordenadas","producciones","cultivos",
+@SessionAttributes({"parcelas","coordenadas","producciones","cultivos",
                     "tiposLabores","labores","maquinaria","costesPersonal","productos"})
 public abstract class AbstractController {
     

@@ -133,7 +133,7 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
 //                console.debug("menu filled: " + $('#menu').html());
 
-                var posicionM = posicionMenu(temp.coordenadas);
+//                var posicionM = posicionMenu(temp.coordenadas);
 
 //                console.debug("posicion menu: " + posicionM);
 
@@ -205,7 +205,7 @@ function crearMenuParcela(parcela) {
     //var menuUl = $("<ul/>");
     var menuString = "<ul class='dropdown-menu' role='menu' id='menu' style='display:none'>";
 
-    menuString += "<li role='presentation' class='dropdown-header'>" + parcela.nombre + "</li>";
+    menuString += "<li role='presentation' class='dropdown-header'>" + parcela.nombre + " (" + parcela.extension + " ha)</li>";
     menuString += "<li role='presentation'><a role='menuitem' href='./mapa/form/labor.html?id=" + parcela.id_parcela + "'>A&ntilde;adir labor</a></li>";
     menuString += "<li role='presentation'><a role='menuitem' href='../labores/tabla.html?id=" + parcela.id_parcela + "'>Ver labores</a></li>";
     menuString += "<li role='presentation'><a role='menuitem' href='../producciones/tabla.html?id=" + parcela.id_parcela + "'>Ver producciones</a></li>";
@@ -315,7 +315,7 @@ MenuOverlay.prototype.show = function() {
 MenuOverlay.prototype.toggle = function() {
 //    console.info('MenuOverlay.prototype.toggle');
     if (this.div_) {
-        if (this.div_.style.visibility == 'hidden') {
+        if (this.div_.style.visibility === 'hidden') {
             this.show();
         } else {
             this.hide();

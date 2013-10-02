@@ -43,21 +43,21 @@ public class ParcelasController extends AbstractController{
         
         List<Coordenada> coordenadas = coordenadaDAO.getAll();
         
-        Gson gson = new Gson();  
+//        Gson gson = new Gson();  
         
         //log.info("result "+parcelas);
         
-        log.info("result-gson "+gson.toJson(parcelas));
-        
-        log.info("result-gson "+gson.toJson(coordenadas));
+//        log.info("result-gson "+gson.toJson(parcelas));
+//        
+//        log.info("result-gson "+gson.toJson(coordenadas));
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
         //modelMap.put("parcelas", parcelas);
 
-        modelMap.put("parcelas_json", gson.toJson(parcelas));
-        
-        modelMap.put("coordenadas_json", gson.toJson(coordenadas));
+//        modelMap.put("parcelas_json", gson.toJson(parcelas));
+//        
+//        modelMap.put("coordenadas_json", gson.toJson(coordenadas));
 
         modelMap.put("parcelas", parcelas);
         
@@ -68,6 +68,26 @@ public class ParcelasController extends AbstractController{
         log.info("Received request to show ParcelasController mapa: parcelas-mapa");
 
         return "parcelas-mapa";
+    }
+    
+    @RequestMapping("/tabla.html")
+    public String tabla(Model model) throws Exception {
+
+        List<Parcela> parcelas = parcelaDAO.getAll();
+        
+        List<Coordenada> coordenadas = coordenadaDAO.getAll();
+
+        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
+
+        modelMap.put("parcelas", parcelas);
+        
+        modelMap.put("coordenadas", coordenadas);
+        
+        model.addAllAttributes(modelMap);
+
+        log.info("Received request to show ParcelasController tabla: parcelas-tabla");
+
+        return "parcelas-tabla";
     }
     
      @RequestMapping(value = "/mapa/form/labor.html",params = {"id"}, method=RequestMethod.GET)

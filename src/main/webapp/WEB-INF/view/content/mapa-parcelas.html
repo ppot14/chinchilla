@@ -21,28 +21,61 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gU
             zoom: 15,
             mapTypeId: google.maps.MapTypeId.SATELLITE  
         };
+        
+        $('#ir-chinchilla-link').addClass("active");
 
         var map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
         
-//        var parcelas = /*[[${parcelas_json}]]*/null;
         var parcelas = /*[[${parcelas}]]*/null;
-//        var coordenadas = /*[[${coordenadas_json}]]*/null;
         var coordenadas = /*[[${coordenadas}]]*/null;
         
-//        console.info("parcelas_json "+parcelas); 
-//        console.info("parcelas "+parcelas2); 
-//        console.info("coordenadas_json "+coordenadas); 
-//        console.info("coordenadas "+coordenadas2);
+//        console.info("parcelas "+parcelas); 
+//        console.info("coordenadas "+coordenadas);
 
         insertarPoligonos(map, parcelas, coordenadas);
 
 //        console.info("Mapa cargado."); 
+
+        $('#ir-chinchilla-link, #ir-rancho-link').click(function (){
+            
+            var idLink = this.id;
+            
+            if(idLink === 'ir-chinchilla-link'){
+                
+               $( this ).addClass("active");
+                
+               $('#ir-rancho-link').removeClass("active");
+                
+                map.setCenter(new google.maps.LatLng(37.328292,-5.215223));
+                
+            }else if(idLink === 'ir-rancho-link'){
+                
+               $( this ).addClass("active");
+                
+               $('#ir-chinchilla-link').removeClass("active");
+                
+                map.setCenter(new google.maps.LatLng(37.319063,-5.185826));
+                
+            }else{
+                
+                console.error('Error modificando centro');
+                
+            }
+        });
         
     });
     
 /*]]>*/</script> 
 
 <h2 th:text="#{mapa}">Mapa</h2>
+<div class="row text-right">
+    <div class="btn-group">
+        <a id="ir-chinchilla-link" 
+           class="btn btn-default btn-sm" href="#">Chinchilla</a>
+        <a id="ir-rancho-link" 
+           class="btn btn-default btn-sm" href="#">Rancho</a>
+    </div>
+</div>
 <div id="map_canvas" ></div>
 
 </html>

@@ -26,7 +26,6 @@
         cultivo_fijo as "cultivo_fijo",
         color as "color"
         from gonzalol_chinchilla.t_parcelas 
-        order by id_parcela
     </select>
 	
     <select id="getParcelaPorNombre" parameterType="int" resultType="com.chinchilla.persistence.objects.Parcela">

@@ -8,7 +8,6 @@
         <script src="/resources/js/jquery.dataTables.js" th:src="@{/resources/js/jquery.dataTables.js}"></script> 
         <script src="/resources/js/jquery.validate.js" th:src="@{/resources/js/jquery.validate.js}"></script> 
         <script src="/resources/js/bootstrap.js" th:src="@{/resources/js/bootstrap.js}"></script> 
-        <script src="/resources/js/bootstrap-select.js" th:src="@{/resources/js/bootstrap-select.js}"></script> 
         <script src="/resources/js/additional-methods.js" th:src="@{/resources/js/additional-methods.js}"></script> 
         <script src="/resources/js/globalize.js" th:src="@{/resources/js/globalize.js}"></script> 
         <script src="/resources/js/globalize.culture.es-ES.js" th:src="@{/resources/js/globalize.culture.es-ES.js}"></script>
@@ -155,6 +154,10 @@
             var contenidoDerecho = layout_rightpanel.html();
             
             var contenidoIzquierdo = layout_leftpanel.html();
+            
+//            console.debug('contenidoDerecho '+contenidoDerecho);
+//            
+//            console.debug('contenidoIzquierdo '+contenidoIzquierdo);
             
             if((!contenidoDerecho || 
                 contenidoDerecho === '' || 
