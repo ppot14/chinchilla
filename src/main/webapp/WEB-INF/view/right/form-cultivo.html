@@ -4,7 +4,10 @@
 <div class="well">
  <legend th:text="${cultivo.id_cultivo} ? #{cultivo-id(${#numbers.formatInteger(cultivo.id_cultivo,3,'NONE')})} : #{nuevo-cultivo}">Producci&oacute;n</legend>
 
-  <form id="formulario-cultivo" class="form-horizontal"  method="post" th:object="${cultivo}" role="form" action="/cultivos/tabla/form/procesar/cultivo.html" th:attr="action=@{/cultivos/tabla/form/procesar/cultivo.html}">
+  <form id="formulario-cultivo" class="form-horizontal"  
+        method="post" th:object="${cultivo}" role="form" 
+        action="/cultivos/tabla/form/procesar/cultivo.html" 
+        th:attr="action=@{/cultivos/tabla/form/procesar/cultivo.html}">
 
 <!--    <div class="form-group">
     <label for="id_cultivo" class="col-lg-4 control-label" th:text="#{id-cultivo}">[id_cultivo]</label>

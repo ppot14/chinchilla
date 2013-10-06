@@ -28,6 +28,7 @@
           <th th:text="#{tipo}"></th>
           <th th:text="#{nombre}"></th>
           <th th:text="#{descripcion}"></th>
+          <th th:text="#{maquinaria}"></th>
           <th th:text="#{id-formula}"></th>
         </tr>
     </thead>
@@ -37,10 +38,14 @@
           <td th:text="${tiposLabores_item.tipo}">[tipo]</td>
           <td th:text="${tiposLabores_item.nombre}">[nombre]</td>
           <td th:text="${tiposLabores_item.descripcion}">[descripcion]</td>
-<!--          <td th:each="formulas_item : ${formulas}" 
-              th:text="${formulas_item.zona+' - '+formulas_item.nombre}"
-              th:if="${formulas_item.id_formula == tiposLabores_item.id_formula}">[id_formula]
-          </td>-->
+          <td>
+            <a th:each="tipoLaborMaquinaria_item : ${tiposLaboresMaquinaria}" 
+                th:text="${tipoLaborMaquinaria_item.maquinaria.nombre}"
+                th:if="${tiposLabores_item.id_tipo_labor == tipoLaborMaquinaria_item.id_tipo_labor}"
+                ref="#">
+                [maquinaria]
+            </a>
+          </td>
           <td th:text="${tiposLabores_item.id_formula}">[id_formula]</td>
        </tr>
     </tbody>

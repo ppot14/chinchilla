@@ -35,7 +35,13 @@
     <tbody>
         <tr  th:each="labores_item : ${labores}">
           <td th:text="${labores_item.id_labor}"><a th:href="@{/labores/tabla/form/labor.html(id=${labores_item.id_labor})}" th:text="${labores_item.id_labor}">[id_labor]</a></td>
-          <td th:text="${labores_item.id_tipo_labor}"><a th:href="@{/labores/tipo/tabla/form/labor.html(id=${labores_item.id_tipo_labor})}" th:text="${labores_item.id_tipo_labor}">[id_tipo_labor]</a></td>
+          <!--<td th:text="${labores_item.id_tipo_labor}"><a th:href="@{/labores/tipo/tabla/form/labor.html(id=${labores_item.id_tipo_labor})}" th:text="${labores_item.id_tipo_labor}">[id_tipo_labor]</a></td>-->
+          <td th:each="tipoLabor_item : ${tiposLabores}" 
+              th:if="${tipoLabor_item.id_tipo_labor == labores_item.id_tipo_labor}"
+              th:text="${tipoLabor_item.nombre}">
+              <a th:href="@{/labores/tipos/tabla/form/tipoLabor.html(id=${labores_item.id_tipo_labor})}" 
+                 th:text="${tipoLabor_item.nombre}">[tipolabor]</a>
+          </td>
           <td th:text="${#dates.format(labores_item.fecha_comienzo,'dd/MM/yyyy')}">[fecha_comienzo]</td>
           <!--<td th:text="${#numbers.formatDecimal(labores_item.cantidad_dosis_por_ha,1,'POINT',0,'COMMA')}">[cantidad_dosis_por_ha]</td>-->
           <td th:text="${#numbers.formatDecimal(labores_item.litros_gasoil,1,'POINT',2,'COMMA')}">[litros_gasoil]</td>

@@ -18,6 +18,8 @@ public interface TipoLaborMappers {
     ArrayList getAllTipoLabor();
 
     TipoLabor getTipoLaborPorNombre();
+    
+    ArrayList getAllMapMaquinariaTipoLabor();
 
     int createTipoLabor(TipoLabor labor);
 

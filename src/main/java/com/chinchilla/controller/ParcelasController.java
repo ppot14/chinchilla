@@ -1,10 +1,9 @@
 package com.chinchilla.controller;
 
-import com.chinchilla.form.LaborForm;
 import com.chinchilla.persistence.objects.Coordenada;
+import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.persistence.objects.Parcela;
 import com.chinchilla.persistence.objects.TipoLabor;
-import com.google.gson.Gson;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -25,7 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller("parcelasController")
 @RequestMapping("/parcelas")
-//@SessionAttributes({"parcelas_json","coordenadas_json"})
+@SessionAttributes({"labor"})
 public class ParcelasController extends AbstractController{
 
     private static Logger log = (Logger) LoggerFactory.getLogger(ParcelasController.class);
@@ -42,22 +40,8 @@ public class ParcelasController extends AbstractController{
         List<Parcela> parcelas = parcelaDAO.getAll();
         
         List<Coordenada> coordenadas = coordenadaDAO.getAll();
-        
-//        Gson gson = new Gson();  
-        
-        //log.info("result "+parcelas);
-        
-//        log.info("result-gson "+gson.toJson(parcelas));
-//        
-//        log.info("result-gson "+gson.toJson(coordenadas));
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
-
-        //modelMap.put("parcelas", parcelas);
-
-//        modelMap.put("parcelas_json", gson.toJson(parcelas));
-//        
-//        modelMap.put("coordenadas_json", gson.toJson(coordenadas));
 
         modelMap.put("parcelas", parcelas);
         
@@ -65,7 +49,7 @@ public class ParcelasController extends AbstractController{
         
         model.addAllAttributes(modelMap);
 
-        log.info("Received request to show ParcelasController mapa: parcelas-mapa");
+//        log.info("Received request to show ParcelasController mapa: parcelas-mapa");
 
         return "parcelas-mapa";
     }
@@ -85,45 +69,69 @@ public class ParcelasController extends AbstractController{
         
         model.addAllAttributes(modelMap);
 
-        log.info("Received request to show ParcelasController tabla: parcelas-tabla");
+//        log.info("Received request to show ParcelasController tabla: parcelas-tabla");
 
         return "parcelas-tabla";
     }
     
      @RequestMapping(value = "/mapa/form/labor.html",params = {"id"}, method=RequestMethod.GET)
-    public ModelAndView mapaFormLabor(@RequestParam(value = "id") Integer id_parcela) throws Exception {
+    public String mapaFormLabor(@RequestParam(value = "id") Integer id_parcela, Model model) throws Exception {
          
          Parcela parcela = parcelaDAO.get(id_parcela);
          
          List<TipoLabor> tipoLabores = tipoLaborDAO.getAll();
          
+         Labor labor = new Labor();
+
+        log.info("parcela "+parcela);
+
+        log.info("labor "+labor);
+
+        log.info("tipoLabores "+tipoLabores);
+         
          Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
          
          modelMap.put("parcela", parcela);
          
+         modelMap.put("labor", labor);
+         
          modelMap.put("tipoLabores", tipoLabores);
+        
+        model.addAllAttributes(modelMap);
          
-        log.info("parcela "+parcela);
+//        log.info("parcela "+parcela);
          
-        log.info("tipoLabores "+tipoLabores);
+//        log.info("tipoLabores "+tipoLabores);
 
-        log.info("Received request to show ParcelasController mapa: parcelas-mapa-form-labor");
+//        log.info("Received request to show ParcelasController mapa: parcelas-mapa-form-labor");
          
-        return new ModelAndView("parcelas-mapa-form-labor", modelMap);
+        return "parcelas-mapa-form-labor";
          
      }
      
-     @RequestMapping(value = "/mapa/form/insertar/labor.html",params = {"id"}, method=RequestMethod.POST)
-    public ModelAndView mapaFormInsertarLabor(
-		@ModelAttribute("LaborForm") LaborForm laborForm ) throws Exception {
+     @RequestMapping(value = "/mapa/form/procesar/labor.html", method=RequestMethod.POST)
+    public String mapaFormProcesarLabor(
+            @ModelAttribute("labor") Labor labor ,
+            @ModelAttribute("parcelas") Map<String,String> parcelas ,
+            @ModelAttribute("personal") Map<String,String> personal ,
+            @ModelAttribute("insertar_modificar_eliminar") String insertar_modificar_eliminar,
+            Model model) throws Exception {
          
-         
+        log.info("labor "+labor);
+
+        log.info("parcelas "+parcelas);
+
+        log.info("personal "+personal);
+
+        log.info("insertar_modificar_eliminar "+insertar_modificar_eliminar);
          
          Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
+        
+        model.addAllAttributes(modelMap);
 
-        log.info("Received request to insert/modify ParcelasController mapa: parcelas-mapa-form-labor");
+//        log.info("Received request to insert/modify ParcelasController mapa: parcelas-mapa-form-labor");
          
-        return new ModelAndView("parcelas-mapa", modelMap);
+        return "parcelas-mapa";
          
      }
 }
