@@ -8,8 +8,8 @@
         <id property="posicion_formula" column="posicion_formula"/>
         <result property="multiplicador" column="multiplicador"/>
         <result property="constante" column="constante"/>
-        <collection property="maquinaria" column="id_t_l_coste_maquinaria" 
-                    ofType="com.chinchilla.persistence.objects.Maquinaria" 
+        <association property="maquinaria" column="id_t_l_coste_maquinaria" 
+                    javaType="com.chinchilla.persistence.objects.Maquinaria" 
                     resultMap="maquinaria"/>
     </resultMap>
       
