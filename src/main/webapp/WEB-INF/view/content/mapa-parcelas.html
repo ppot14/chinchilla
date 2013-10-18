@@ -12,6 +12,8 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gU
         
 //        console.info("Cargando mapa...");  
 
+      try{
+
         var mapOptions = { 
             //CHINCHILLA
             //center: new google.maps.LatLng(37.32637, -5.20889),
@@ -62,6 +64,12 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gU
                 
             }
         });
+        
+      }catch (e){
+          
+          alert("Error al cargar mapa");
+          
+      }
         
     });
     

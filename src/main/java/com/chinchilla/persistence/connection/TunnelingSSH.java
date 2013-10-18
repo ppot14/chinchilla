@@ -29,6 +29,8 @@ public class TunnelingSSH {
     private String sshRemoteHost;
     private int sshRemotePort;
     private int sshTimeOut;
+    
+    private boolean sshDbEnabled;
 
     public TunnelingSSH() {
     }
@@ -58,81 +60,89 @@ public class TunnelingSSH {
 
     public void connectionSSH() throws JSchException, IOException {
         
-        log.info("Inicializando conexion SSH...");
+        if(isSshDbEnabled()){
         
-        if(getSession()==null||!getSession().isConnected()){
-        
-            log.info("Sesion activada? "+(getSession()!=null));
+            log.info("Inicializando conexion SSH...");
 
-            log.info("SSH HOST: "+getSshHost());
+            if(getSession()==null||!getSession().isConnected()){
 
-            log.info("SSH PORT: "+getSshPort());
+                log.info("Sesion activada? "+(getSession()!=null));
 
-            log.info("SSH USER: "+getSshUser());
+                log.info("SSH HOST: "+getSshHost());
 
-            if(this.jsch ==null) {
+                log.info("SSH PORT: "+getSshPort());
 
-                this.jsch = new JSch();
+                log.info("SSH USER: "+getSshUser());
 
-            }
+                if(this.jsch ==null) {
 
-            setSession(getJsch().getSession(getSshUser(), getSshHost(), getSshPort()));
+                    this.jsch = new JSch();
 
-            getSession().setPassword(getSshPassword());
-
-            log.info("Sesion activada? "+(getSession()!=null));
-
-            final Properties config = new Properties();
-
-            config.put("StrictHostKeyChecking", "no");
-
-            getSession().setConfig(config);
-
-            getSession().connect();
-
-            //session.connect(time_out);
-
-            log.info("Estableciendo reenvio de puerto...");
-            
-            boolean portforwardingreutilizado = false;
-            
-            if(getSession().getPortForwardingL()!=null&&getSession().getPortForwardingL().length>1){
-                
-                for(String portforwadings : getSession().getPortForwardingL()){
-                    
-                    log.debug("Buscando reenvio de puerto: "+portforwadings);
-                    
-                    if(portforwadings.contains(String.valueOf(getSshLocalPort()))){
-                        
-                        portforwardingreutilizado=true;
-                        
-                        log.debug("Reutilizano reenvio de puerto: "+portforwadings);
-                        
-                        break;
-                        
-                    }
-                    
                 }
-                
+
+                setSession(getJsch().getSession(getSshUser(), getSshHost(), getSshPort()));
+
+                getSession().setPassword(getSshPassword());
+
+                log.info("Sesion activada? "+(getSession()!=null));
+
+                final Properties config = new Properties();
+
+                config.put("StrictHostKeyChecking", "no");
+
+                getSession().setConfig(config);
+
+                getSession().connect();
+
+                //session.connect(time_out);
+
+                log.info("Estableciendo reenvio de puerto...");
+
+                boolean portforwardingreutilizado = false;
+
+                if(getSession().getPortForwardingL()!=null&&getSession().getPortForwardingL().length>1){
+
+                    for(String portforwadings : getSession().getPortForwardingL()){
+
+                        log.debug("Buscando reenvio de puerto: "+portforwadings);
+
+                        if(portforwadings.contains(String.valueOf(getSshLocalPort()))){
+
+                            portforwardingreutilizado=true;
+
+                            log.debug("Reutilizano reenvio de puerto: "+portforwadings);
+
+                            break;
+
+                        }
+
+                    }
+
+                }
+
+                if(!portforwardingreutilizado){
+
+                    log.info("SSH Local port: "+getSshLocalPort());
+
+                    log.info("SSH Remote host: "+getSshRemoteHost());
+
+                    log.info("SSH Remote port: "+getSshRemotePort());
+
+                    getSession().setPortForwardingL(getSshLocalPort(), getSshRemoteHost(), getSshRemotePort());
+
+                }
+
+                log.info("Conexion SSH establecida");
+
+            }else{
+
+                log.info("Reutilizando conexion SSH establecida anteriormente");
+
             }
-            
-            if(!portforwardingreutilizado){
-                
-                log.info("SSH Local port: "+getSshLocalPort());
-
-                log.info("SSH Remote host: "+getSshRemoteHost());
-
-                log.info("SSH Remote port: "+getSshRemotePort());
-                
-                getSession().setPortForwardingL(getSshLocalPort(), getSshRemoteHost(), getSshRemotePort());
-                
-            }
-
-            log.info("Conexion SSH establecida");
 
         }else{
             
-            log.info("Reutilizando conexion SSH establecida anteriormente");
+            log.info("Tunneling SSH desactivado");
             
         }
 
@@ -140,27 +150,31 @@ public class TunnelingSSH {
 
     public void disconnectionSSH() {
         
-        log.info("Inicializando desconexion SSH...");
+        if(isSshDbEnabled()){
+        
+            log.info("Inicializando desconexion SSH...");
 
-        if (getSession() != null) {
-            
-            log.info("Eliminando reenvio de puerto: "+getSshLocalPort());
-            
-            try {
-                
-                getSession().delPortForwardingL(getSshLocalPort());
-                
-            } catch (JSchException ex) {
-                
-                log.error("No se pudo eliminar el reenvio de puerto local: "+getSshLocalPort());
-                
+            if (getSession() != null) {
+
+                log.info("Eliminando reenvio de puerto: "+getSshLocalPort());
+
+                try {
+
+                    getSession().delPortForwardingL(getSshLocalPort());
+
+                } catch (JSchException ex) {
+
+                    log.error("No se pudo eliminar el reenvio de puerto local: "+getSshLocalPort());
+
+                }
+
+                getSession().disconnect();
+
             }
 
-            getSession().disconnect();
-
+            log.info("Desconexion SSH realizada con exito");
+        
         }
-
-        log.info("Desconexion SSH realizada con exito");
     }
 
     /**
@@ -301,5 +315,19 @@ public class TunnelingSSH {
      */
     public void setSshTimeOut(int sshTimeOut) {
         this.sshTimeOut = sshTimeOut;
+    }
+
+    /**
+     * @return the sshDbEnabled
+     */
+    public boolean isSshDbEnabled() {
+        return sshDbEnabled;
+    }
+
+    /**
+     * @param sshDbEnabled the sshDbEnabled to set
+     */
+    public void setSshDbEnabled(boolean sshDbEnabled) {
+        this.sshDbEnabled = sshDbEnabled;
     }
 }
