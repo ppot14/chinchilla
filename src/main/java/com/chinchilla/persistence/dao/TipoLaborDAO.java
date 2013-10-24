@@ -33,17 +33,17 @@ public class TipoLaborDAO extends MyBatisDAO<TipoLabor, Integer> {
 //        super(type, containerSessionFactory);
 //    }
     
-    public ArrayList<Object> getAllMapMaquinariaTipoLabor() {
+    public ArrayList<?> getAllMapMaquinariaTipoLabor() {
 
        long startTime = System.currentTimeMillis();
        
 //       log.debug("Parameters: " + suffixSelectedMapper);
 
-        ArrayList<Object> list = null;
+        ArrayList<?> list = null;
 
         String query = NAMESPACE + DOT + this.getType().getSimpleName() + "Mappers" +  DOT +  PREFIX_SELECT_QUERY + "AllMapMaquinaria" + this.getType().getSimpleName();
         
-        list = (ArrayList<Object>) getSqlSession().selectList(query);
+        list = (ArrayList<?>) getSqlSession().selectList(query);
        
        log.debug("Result: " + list);
        

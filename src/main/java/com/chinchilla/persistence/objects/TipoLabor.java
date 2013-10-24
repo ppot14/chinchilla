@@ -24,6 +24,7 @@
 package com.chinchilla.persistence.objects;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -36,6 +37,8 @@ public class TipoLabor implements Serializable{
     private String nombre;
     private String descripcion;
     private int id_formula;
+    private List<TipoLaborMaquinaria> tipo_labor_maquinaria;
+    private List<TipoLaborProducto> tipo_labor_producto;
     
 
     public int getId_tipo_labor() {
@@ -135,8 +138,38 @@ public class TipoLabor implements Serializable{
 	public String toString() {
 		return "TipoLabor [id_tipo_labor=" + id_tipo_labor + ", tipo=" + tipo
 				+ ", nombre=" + nombre + ", descripcion=" + descripcion
-				+ ", id_formula=" + id_formula + "]";
+				+ ", id_formula=" + id_formula 
+				+ ", tipo_labor_maquinaria=" + tipo_labor_maquinaria 
+				+ ", tipo_labor_producto=" + tipo_labor_producto +  "]";
 	}
+
+    /**
+     * @return the tipo_labor_maquinaria
+     */
+    public List<TipoLaborMaquinaria> getTipo_labor_maquinaria() {
+        return tipo_labor_maquinaria;
+    }
+
+    /**
+     * @param tipo_labor_maquinaria the tipo_labor_maquinaria to set
+     */
+    public void setTipo_labor_maquinaria(List<TipoLaborMaquinaria> tipo_labor_maquinaria) {
+        this.tipo_labor_maquinaria = tipo_labor_maquinaria;
+    }
+
+    /**
+     * @return the tipo_labor_producto
+     */
+    public List<TipoLaborProducto> getTipo_labor_producto() {
+        return tipo_labor_producto;
+    }
+
+    /**
+     * @param tipo_labor_producto the tipo_labor_producto to set
+     */
+    public void setTipo_labor_producto(List<TipoLaborProducto> tipo_labor_producto) {
+        this.tipo_labor_producto = tipo_labor_producto;
+    }
     
     
 }

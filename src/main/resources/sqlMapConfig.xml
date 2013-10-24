@@ -11,6 +11,9 @@
     </settings>
     
     <typeAliases>
+        <typeAlias type="com.chinchilla.persistence.objects.TipoLabor" alias="TipoLabor"/>
+        <typeAlias type="com.chinchilla.persistence.objects.TipoLaborProducto" alias="TipoLaborProducto"/>
+        <typeAlias type="com.chinchilla.persistence.objects.Producto" alias="Producto"/>
         <typeAlias type="com.chinchilla.persistence.objects.TipoLaborMaquinaria" alias="TipoLaborMaquinaria"/>
         <typeAlias type="com.chinchilla.persistence.objects.Maquinaria" alias="Maquinaria"/>
     </typeAliases>

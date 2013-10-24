@@ -48,7 +48,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gU
                 
                $('#ir-rancho-link').removeClass("active");
                 
-                map.setCenter(new google.maps.LatLng(37.328292,-5.215223));
+                map.panTo(new google.maps.LatLng(37.328292,-5.215223));
                 
             }else if(idLink === 'ir-rancho-link'){
                 
@@ -56,7 +56,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gU
                 
                $('#ir-chinchilla-link').removeClass("active");
                 
-                map.setCenter(new google.maps.LatLng(37.319063,-5.185826));
+                map.panTo(new google.maps.LatLng(37.319063,-5.185826));
                 
             }else{
                 
@@ -75,7 +75,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gU
     
 /*]]>*/</script> 
 
-<h2 th:text="#{mapa}">Mapa</h2>
+<h2><span class="icon-map"></span> <span th:text="#{mapa}">[parcelas]</span></h2>
 <div class="row text-right">
     <div class="btn-group">
         <a id="ir-chinchilla-link" 

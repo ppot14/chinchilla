@@ -39,9 +39,9 @@
           <td th:text="${tiposLabores_item.nombre}">[nombre]</td>
           <td th:text="${tiposLabores_item.descripcion}">[descripcion]</td>
           <td>
-              <ul>
-                <li th:each="tipoLaborMaquinaria_item,iterStat : ${tiposLaboresMaquinaria}" 
-                     th:if="${tiposLabores_item.id_tipo_labor == tipoLaborMaquinaria_item.id_tipo_labor}">
+              <ul  th:if="${not #lists.isEmpty(tiposLabores_item.tipo_labor_maquinaria)}"
+                    class="nav nav-pills">
+                <li th:each="tipoLaborMaquinaria_item,iterStat : ${tiposLabores_item.tipo_labor_maquinaria}">
                   <a th:text="${tipoLaborMaquinaria_item.maquinaria.nombre}" ref="#">[maquinaria]</a>
                 </li>
               </ul>
