@@ -39,10 +39,19 @@
           <td th:text="${tiposLabores_item.nombre}">[nombre]</td>
           <td th:text="${tiposLabores_item.descripcion}">[descripcion]</td>
           <td>
+              <!--
+    <li class="nav nav-pills"><ul th:each="tipoLaborMaquinaria_item : ${tiposLaboresMaquinaria}"
+            th:if="${tiposLabores_item.id_tipo_labor == tipoLaborMaquinaria_item.id_tipo_labor}">
+            <a  th:text="${tipoLaborMaquinaria_item.maquinaria.nombre}" ref="#"
+                 class="btn btn-default btn-xs">
+                [maquinaria]
+            </a>
+        </ul></li>-->
+              
             <a th:each="tipoLaborMaquinaria_item : ${tiposLaboresMaquinaria}" 
-                th:text="${tipoLaborMaquinaria_item.maquinaria.nombre}"
+                th:text="${tipoLaborMaquinaria_item.maquinaria.nombre + ' '}"
                 th:if="${tiposLabores_item.id_tipo_labor == tipoLaborMaquinaria_item.id_tipo_labor}"
-                ref="#">
+                ref="#" >
                 [maquinaria]
             </a>
           </td>

@@ -207,7 +207,7 @@ function crearMenuParcela(parcela) {
 
     menuString += "<li role='presentation' class='dropdown-header'>" + parcela.nombre + " (" + parcela.extension + " ha)</li>";
     menuString += "<li role='presentation'><a role='menuitem' href='./mapa/form/labor.html?id=" + parcela.id_parcela + "'>A&ntilde;adir labor</a></li>";
-    menuString += "<li role='presentation'><a role='menuitem' href='../labores/tabla.html?id=" + parcela.id_parcela + "'>Ver labores</a></li>";
+    menuString += "<li role='presentation'><a role='menuitem' href='./mapa/tabla/labores.html?id=" + parcela.id_parcela + "'>Ver labores</a></li>";
     menuString += "<li role='presentation'><a role='menuitem' href='../producciones/tabla.html?id=" + parcela.id_parcela + "'>Ver producciones</a></li>";
 //    menuString += "<li role='presentation'><a role='menuitem' th:href='@{/parcelas/mapa/form/insertar/labor.html(id="+parcela.id_parcela+")}' >A&ntilde;adir labor</a></li>";
 //    menuString += "<li role='presentation'><a role='menuitem' th:href='@{/labores/tabla.html(id="+parcela.id_parcela+")}' >Ver labores</a></li>";

@@ -20,6 +20,7 @@
 		<put-attribute name="content_main" value="content/default"/>
 	</definition>
 
+        <!--Parcelas-->
 	<definition name="parcelas-mapa" extends="template">
 		<put-attribute name="leftpanel" value="left/submenu-parcela"/>
 		<put-attribute name="content_main" value="content/mapa-parcelas"/>
@@ -34,6 +35,11 @@
 		<put-attribute name="rightpanel" value="right/form-labor"/>
 	</definition>
         
+        <definition name="parcelas-tabla-labores" extends="parcelas-mapa">
+		<put-attribute name="rightpanel" value="content/tabla-labores"/>
+	</definition>
+        
+        <!--Labores-->
         <definition name="labores-tabla" extends="template">
 		<put-attribute name="leftpanel" value="left/submenu-labor"/>
 		<put-attribute name="content_main" value="content/tabla-labores"/>

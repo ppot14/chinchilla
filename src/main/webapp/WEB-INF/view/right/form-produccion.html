@@ -7,8 +7,8 @@
   <form id="formulario-produccion" class="form-horizontal"  method="post" th:object="${produccion}" role="form" action="/producciones/tabla/form/procesar/produccion.html" th:attr="action=@{/producciones/tabla/form/procesar/produccion.html}">
 
 <!--    <div class="form-group">
-    <label for="id_produccion" class="col-lg-4 control-label" th:text="#{id-produccion}">[id_produccion]</label>
-    <div class="col-lg-8">-->
+    <label for="id_produccion" class="col-md-4 control-label" th:text="#{id-produccion}">[id_produccion]</label>
+    <div class="col-md-8">-->
         <input th:field="*{id_produccion}" 
                id="id_produccion"  
                 type="hidden"/>
@@ -16,8 +16,8 @@
     </div>-->
       
     <div class="form-group">
-    <label for="id_cultivo" class="col-lg-4 control-label" th:text="#{cultivo}">[cultivo]</label>
-        <div class="col-lg-8">
+    <label for="id_cultivo" class="col-md-4 control-label" th:text="#{cultivo}">[cultivo]</label>
+        <div class="col-md-8">
             <select id="id_cultivo" 
                     class="form-control input-sm" 
                     placeholder="Seleccionar tipo de cultivo..."
@@ -30,8 +30,8 @@
     </div>
       
     <div class="form-group">
-    <label for="id_parcela" class="col-lg-4 control-label" th:text="#{parcela}">[parcela]</label>
-        <div class="col-lg-8">
+    <label for="id_parcela" class="col-md-4 control-label" th:text="#{parcela}">[parcela]</label>
+        <div class="col-md-8">
             <select id="id_parcela"  
                     class="form-control input-sm" 
                     placeholder="Seleccionar parcela..."
@@ -44,8 +44,8 @@
     </div>
       
     <div class="form-group">
-    <label for="fecha" class="col-lg-4 control-label" th:text="#{fecha}">[fecha]</label>
-        <div class="col-lg-8">
+    <label for="fecha" class="col-md-4 control-label" th:text="#{fecha}">[fecha]</label>
+        <div class="col-md-8">
             <input id="fecha" name="fecha" 
                     class="form-control input-sm"  
                    placeholder="01/01/1999" 
@@ -54,16 +54,16 @@
     </div>
       
     <div class="form-group">
-    <label for="kilos" class="col-lg-4 control-label" th:text="#{kilos}">kilos</label>
-        <div class="col-lg-8">
+    <label for="kilos" class="col-md-4 control-label" th:text="#{kilos}">kilos</label>
+        <div class="col-md-8">
             <input id="kilos" 
                     class="form-control input-sm" placeholder="250,50" th:field="*{kilos}"></input>
         </div>
     </div>
       
     <div class="form-group">
-    <label for="precio_kilo" class="col-lg-4 control-label" th:text="#{precio-kilo}">precio-kilo</label>
-        <div class="col-lg-8">
+    <label for="precio_kilo" class="col-md-4 control-label" th:text="#{precio-kilo}">precio-kilo</label>
+        <div class="col-md-8">
             <input id="precio_kilo" 
                     class="form-control input-sm" placeholder="1,25" th:field="*{precio_kilo}"></input>
         </div>
@@ -71,7 +71,7 @@
     
     
     <div class="form-group">
-        <div class="col-lg-12 text-center">
+        <div class="col-md-12 text-center">
             <button type="button" id="boton_crear" class="btn btn-default btn-sm">Insertar</button>
             <button type="button" id="boton_modificar" class="btn btn-default btn-sm">Modificar</button>
             <button type="button" id="boton_eliminar" class="btn btn-default btn-sm">Eliminar</button>

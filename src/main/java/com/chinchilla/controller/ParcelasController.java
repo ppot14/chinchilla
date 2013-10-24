@@ -78,16 +78,12 @@ public class ParcelasController extends AbstractController{
     public String mapaFormLabor(@RequestParam(value = "id") Integer id_parcela, Model model) throws Exception {
          
          Parcela parcela = parcelaDAO.get(id_parcela);
+
+        List<Parcela> parcelas = parcelaDAO.getAll();
          
          List<TipoLabor> tipoLabores = tipoLaborDAO.getAll();
          
          Labor labor = new Labor();
-
-        log.info("parcela "+parcela);
-
-        log.info("labor "+labor);
-
-        log.info("tipoLabores "+tipoLabores);
          
          Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
          
@@ -96,6 +92,8 @@ public class ParcelasController extends AbstractController{
          modelMap.put("labor", labor);
          
          modelMap.put("tipoLabores", tipoLabores);
+
+        modelMap.put("parcelas", parcelas);
         
         model.addAllAttributes(modelMap);
          
@@ -134,4 +132,30 @@ public class ParcelasController extends AbstractController{
         return "parcelas-mapa";
          
      }
+     
+    @RequestMapping(value = "/mapa/tabla/labores.html",params = {"id"}, method=RequestMethod.GET)
+    public String tablaLabor(@RequestParam(value = "id") Integer id_parcela, Model model) throws Exception {
+                
+        List<Labor> labores = laborDAO.getFilteredById(Parcela.class, id_parcela);
+         
+         List<TipoLabor> tipoLabores = tipoLaborDAO.getAll();
+
+        List<Parcela> parcelas = parcelaDAO.getAll();
+        
+        List<Coordenada> coordenadas = coordenadaDAO.getAll();
+
+        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
+
+        modelMap.put("labores", labores);
+
+        modelMap.put("parcelas", parcelas);
+        
+        modelMap.put("coordenadas", coordenadas);
+         
+         modelMap.put("tipoLabores", tipoLabores);
+        
+        model.addAllAttributes(modelMap);
+        
+        return "parcelas-tabla-labores";
+    }
 }

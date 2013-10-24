@@ -27,6 +27,20 @@
         order by id_labor
     </select>
 	
+    <select id="getLaborFilteredByIdParcela" parameterType="int" resultType="com.chinchilla.persistence.objects.Labor">
+        select 
+        tl.id_labor as "id_labor", 
+        id_tipo_labor as "id_tipo_labor", 
+        fecha_comienzo as "fecha_comienzo", 
+        cantidad_dosis_por_ha as "cantidad_dosis_por_ha", 
+        duracion as "duracion", 
+        litros_gasoil as "litros_gasoil"
+        FROM gonzalol_chinchilla.t_labores tl
+        LEFT JOIN gonzalol_chinchilla.t_labores_parcelas tlp 
+        ON tl.id_labor = tlp.id_labor
+        WHERE id_parcela =  #{id_parcela}
+    </select>
+	
     <select id="getLaborPorNombre" parameterType="int" resultType="com.chinchilla.persistence.objects.Labor">
         select 
         id_labor as "id_labor", 

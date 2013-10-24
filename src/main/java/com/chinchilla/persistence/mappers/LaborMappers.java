@@ -5,6 +5,7 @@
 package com.chinchilla.persistence.mappers;
 
 import com.chinchilla.persistence.objects.Labor;
+import com.chinchilla.persistence.objects.Parcela;
 import java.util.ArrayList;
 
 /**
@@ -24,4 +25,6 @@ public interface LaborMappers {
     int updateLabor(Labor labor);
 
     int deleteLabor(Integer id_labor);
+    
+    ArrayList getLaborFilteredByParcela(Integer id_parcela);
 }

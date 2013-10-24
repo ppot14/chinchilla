@@ -18,19 +18,28 @@
     <div class="form-group">
         <label for="tipolabores" class="col-md-4 control-label" th:text="#{tipo-labor}">[Tipo Labor]</label>
         <div class="col-md-8">
-            <select id="tipolabores" th:field="*{id_tipo_labor}" placeholder="Seleccionar tipo labor...">
-<!--                <option  th:each="tipoLabor_item : ${tipoLabores}" value="${tipoLabor_item.id_tipo_labor}" 
-                         th:text="${tipoLabor_item.nombre}">[Tipo Labor]</option>-->
+            <select id="tipolabores" 
+                    class="form-control input-sm" 
+                    placeholder="Seleccionar tipo labor...">
+                <option  th:each="tipoLabor_item : ${tipoLabores}" 
+                        value="${tipoLabor_item.id_tipo_labor}" 
+                         th:text="${tipoLabor_item.nombre}">[Tipo Labor]</option>
             </select>
+                    <!--th:field="*{id_tipo_labor}"-->
         </div>
     </div>
     <div class="form-group">
         <label for="parcelas" class="col-md-4 control-label" th:text="#{parcelas}">[parcelas]</label>
         <div class="col-md-8">
-            <select  id="parcelas" multiple="multiple" name="parcelas" placeholder="Seleccionar parcela(s)...">
-                <option  th:each="parcela_item : ${parcelas}" value="${parcela_item.id_parcela}" 
-                         th:text="${parcela_item.nombre}" th:selected="${parcela.id_parcela}">[Nombre Parcela]</option>
+            <select  id="parcelas" 
+                    class="form-control input-sm"
+                     placeholder="Seleccionar parcela(s)...">
+                <option  th:each="parcela_item : ${parcelas}" 
+                         value="${parcela_item.id_parcela}" 
+                         th:text="${parcela_item.nombre}" 
+                         th:selected="${parcela.id_parcela=parcela_item.id_parcela}? 'selected'">[Nombre Parcela]</option>
             </select>
+                     <!--multiple="multiple"--> 
         </div>
     </div>
     <div class="form-group">
@@ -61,7 +70,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="litros_gasoil" class="col-md-4 control-label" th:text="#{gasoil}">[Gasoil (l)]</label>
+        <label for="litros_gasoil" class="col-md-4 control-label" th:text="#{litros-gasoil}">[Gasoil (l)]</label>
         <div class="col-md-8">
             <input id="litros_gasoil" class="form-control input-sm" placeholder="20"></input>
         </div>
