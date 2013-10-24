@@ -2,6 +2,7 @@ package com.chinchilla.controller;
 
 import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.persistence.objects.TipoLabor;
+import com.chinchilla.persistence.objects.TipoLaborMaquinaria;
 import com.chinchilla.util.Notificador;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -26,7 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller("laboresController")
 @RequestMapping("/labores")
-@SessionAttributes({"tiposLaboresMaquinaria"})
+//@SessionAttributes({"tiposLaboresMaquinaria"})
 public class LaboresController extends AbstractController{
     
     private static Logger log = (Logger) LoggerFactory.getLogger(LaboresController.class);
@@ -62,20 +63,12 @@ public class LaboresController extends AbstractController{
     public String tiposTabla(Model model) throws Exception {
 
         List<TipoLabor> tiposLabores = tipoLaborDAO.getAll();
-        
-        List<Object> tiposLaboresMaquinaria = tipoLaborDAO.getAllMapMaquinariaTipoLabor();
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
         
         log.info("tiposLabores "+tiposLabores);
 
         modelMap.put("tiposLabores", tiposLabores);
-        
-        log.info("tiposLaboresMaquinaria "+tiposLaboresMaquinaria);
-        
-        log.info("tiposLaboresMaquinaria.size() "+tiposLaboresMaquinaria.size());
-
-        modelMap.put("tiposLaboresMaquinaria", tiposLaboresMaquinaria);
         
         model.addAllAttributes(modelMap);
 

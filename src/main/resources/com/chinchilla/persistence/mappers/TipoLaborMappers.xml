@@ -3,17 +3,38 @@
 
 <mapper namespace="com.chinchilla.persistence.mappers.TipoLaborMappers">
     
-    <resultMap id="maquinaria-tipo-labor" type="TipoLaborMaquinaria">
+    <resultMap id="tipoLaborResultMap" type="TipoLabor">
+        <id property="id_tipo_labor" column="tl_id_tipo_labor"/>
+        <result property="tipo" column="tl_tipo"/>
+        <result property="nombre" column="tl_nombre"/>
+        <result property="descripcion" column="tl_descripcion"/>
+        <result property="id_formula" column="tl_id_formula"/>
+        <collection property="tipo_labor_maquinaria" 
+                    javaType="ArrayList"  
+                    columnPrefix="tlcm_" 
+                    column="id_tipo_labor"
+                    ofType="TipoLaborMaquinaria" 
+                    resultMap="tipoLaborMaquinariaResultMap"/>
+        <collection property="tipo_labor_producto" 
+                    javaType="ArrayList"  columnPrefix="tlp_" 
+                    column="id_tipo_labor"
+                    ofType="TipoLaborProducto" 
+                    resultMap="tipoLaboProductoResultMap"/>
+    </resultMap>
+      
+    <resultMap id="tipoLaborMaquinariaResultMap" type="TipoLaborMaquinaria">
         <id property="id_tipo_labor" column="id_tipo_labor"/>
         <id property="posicion_formula" column="posicion_formula"/>
         <result property="multiplicador" column="multiplicador"/>
         <result property="constante" column="constante"/>
-        <collection property="maquinaria" column="id_t_l_coste_maquinaria" 
-                    ofType="com.chinchilla.persistence.objects.Maquinaria" 
-                    resultMap="maquinaria"/>
-    </resultMap>
+        <association property="maquinaria" 
+                     column="id_coste_maquinaria" 
+                     columnPrefix="cm_"
+                    javaType="Maquinaria" 
+                    resultMap="maquinariaResultMap"/>
+    </resultMap>      
       
-    <resultMap  id="maquinaria" type="Maquinaria">
+    <resultMap  id="maquinariaResultMap" type="Maquinaria">
         <id property="id_coste_maquinaria" column="id_coste_maquinaria"/>
         <result property="nombre" column="nombre"/>
         <result property="tipo" column="tipo"/>
@@ -30,6 +51,28 @@
         <result property="horas_cambio_aceite" column="horas_cambio_aceite"/>
         <result property="litros_aceite" column="litros_aceite"/>
     </resultMap>
+    
+    <resultMap id="tipoLaboProductoResultMap" type="TipoLaborProducto">
+        <id property="id_tipo_labor" column="id_tipo_labor"/>
+        <id property="posicion_formula" column="posicion_formula"/>
+        <result property="multiplicador" column="multiplicador"/>
+        <result property="constante" column="constante"/>
+        <association property="producto" 
+                     column="id_producto" 
+                     columnPrefix="tp_"
+                    javaType="Producto" 
+                    resultMap="productoResultMap"/>
+    </resultMap>
+      
+    <resultMap  id="productoResultMap" type="Producto">
+        <id property="id_producto" column="id_producto"/>
+        <result property="grupo" column="grupo"/>
+        <result property="tipo" column="tipo"/>
+        <result property="nombre" column="nombre"/>
+        <result property="descripcion" column="descripcion"/>
+        <result property="num_reg_ma" column="num_reg_ma"/>
+        <result property="plazo_seguridad" column="plazo_seguridad"/>
+    </resultMap>
 	
     <select id="getTipoLabor" parameterType="java.lang.Integer" resultType="com.chinchilla.persistence.objects.TipoLabor">
         select 
@@ -42,15 +85,61 @@
         where id_tipo_labor = #{id_tipo_labor}
     </select>
 	
-    <select id="getAllTipoLabor" parameterType="int" resultType="com.chinchilla.persistence.objects.TipoLabor">
+    <select id="getAllTipoLabor" parameterType="int" resultMap="tipoLaborResultMap">
         select 
-        id_tipo_labor as "id_tipo_labor",
-        nombre as "nombre",
-        tipo as "tipo",
-        descripcion as "descripcion",
-        id_formula as "id_formula"
-        from gonzalol_chinchilla.t_tipos_labores 
-        order by id_tipo_labor
+        tl.id_tipo_labor as "tl_id_tipo_labor",
+        tl.nombre as "tl_nombre",
+        tl.tipo as "tl_tipo",
+        tl.descripcion as "tl_descripcion",
+        tl.id_formula as "tl_id_formula",
+        
+        tlcm.id_tipo_labor as "tlcm_id_tipo_labor",
+        tlcm.id_coste_maquinaria as "tlcm_id_coste_maquinaria",
+        tlcm.multiplicador as "tlcm_multiplicador",
+        tlcm.constante as "tlcm_constante",
+        tlcm.posicion_formula as "tlcm_posicion_formula",
+        
+        cm.id_coste_maquinaria as "tlcm_cm_id_coste_maquinaria",         
+        cm.nombre	as	"tlcm_cm_nombre"	,
+        cm.tipo	as	"tlcm_cm_tipo"	,
+        cm.valor_compra	as	"tlcm_cm_valor_compra"	,
+        cm.valor_desecho	as	"tlcm_cm_valor_desecho"	,
+        cm.horas_trabajo	as	"tlcm_cm_horas_trabajo"	,
+        cm.interes	as	"tlcm_cm_interes"	,
+        cm.anyos_mas_1	as	"tlcm_cm_anyos_mas_1"	,
+        cm.reparacion_variable	as	"tlcm_cm_reparacion_variable"	,
+        cm.alojamiento_variable	as	"tlcm_cm_alojamiento_variable"	,
+        cm.prima_seguro	as	"tlcm_cm_prima_seguro"	,
+        cm.cv	as	"tlcm_cm_cv"	,
+        cm.litros_cv_y_hora	as	"tlcm_cm_litros_cv_y_hora"	,
+        cm.horas_cambio_aceite	as	"tlcm_cm_horas_cambio_aceite"	,
+        cm.litros_aceite	as	"tlcm_cm_litros_aceite"	,
+        
+        tlp.id_tipo_labor as "tlp_id_tipo_labor",
+        tlp.id_producto as "tlp_id_producto",
+        tlp.multiplicador as "tlp_multiplicador",
+        tlp.constante as "tlp_constante",
+        tlp.posicion_formula as "tlp_posicion_formula",
+        
+        tp.id_producto	as "tlp_tp_id_producto",
+        tp.grupo	as "tlp_tp_grupo",
+        tp.tipo	as "tlp_tp_tipo",
+        tp.nombre	as "tlp_tp_nombre",
+        tp.descripcion	as "tlp_tp_descripcion",
+        tp.num_reg_ma	as "tlp_tp_num_reg_ma",
+        tp.plazo_seguridad	as "tlp_tp_plazo_seguridad"
+        
+        from gonzalol_chinchilla.t_tipos_labores  tl
+            left join gonzalol_chinchilla.t_t_l_costes_maquinaria tlcm
+                on tl.id_tipo_labor = tlcm.id_tipo_labor
+            left join gonzalol_chinchilla.t_costes_maquinaria cm
+                on tlcm.id_coste_maquinaria = cm.id_coste_maquinaria
+            left join gonzalol_chinchilla.t_t_l_productos tlp
+                on tl.id_tipo_labor = tlp.id_tipo_labor
+            left join gonzalol_chinchilla.t_productos tp
+                on tlp.id_producto = tp.id_producto
+        
+        order by tl.id_tipo_labor
     </select>
 	
     <select id="getTipoLaborPorNombre" parameterType="int" resultType="com.chinchilla.persistence.objects.TipoLabor">
@@ -64,31 +153,34 @@
         where nombre = #{nombre}
     </select>
 	
-    <select id="getAllMapMaquinariaTipoLabor" resultMap="maquinaria-tipo-labor">
+    <select id="getAllMapMaquinariaTipoLabor" resultMap="tipoLaborMaquinariaResultMap">
         select 	
-        id_tipo_labor as "id_tipo_labor",
-        tlcm.id_coste_maquinaria as "id_t_l_coste_maquinaria",
-        multiplicador as "multiplicador",
-        constante as "constante",
-        posicion_formula as "posicion_formula",
-        cm.id_coste_maquinaria as "id_coste_maquinaria",         
-        nombre	as	"nombre"	,
-        tipo	as	"tipo"	,
-        valor_compra	as	"valor_compra"	,
-        valor_desecho	as	"valor_desecho"	,
-        horas_trabajo	as	"horas_trabajo"	,
-        interes	as	"interes"	,
-        anyos_mas_1	as	"anyos_mas_1"	,
-        reparacion_variable	as	"reparacion_variable"	,
-        alojamiento_variable	as	"alojamiento_variable"	,
-        prima_seguro	as	"prima_seguro"	,
-        cv	as	"cv"	,
-        litros_cv_y_hora	as	"litros_cv_y_hora"	,
-        horas_cambio_aceite	as	"horas_cambio_aceite"	,
-        litros_aceite	as	"litros_aceite"	
+        tlcm.id_tipo_labor as "id_tipo_labor",
+        tlcm.id_coste_maquinaria as "id_coste_maquinaria",
+        tlcm.multiplicador as "multiplicador",
+        tlcm.constante as "constante",
+        tlcm.posicion_formula as "posicion_formula",
+        
+        cm.id_coste_maquinaria as "cm_id_coste_maquinaria",         
+        cm.nombre	as	"cm_nombre"	,
+        cm.tipo	as	"cm_tipo"	,
+        cm.valor_compra	as	"cm_valor_compra"	,
+        cm.valor_desecho	as	"cm_valor_desecho"	,
+        cm.horas_trabajo	as	"cm_horas_trabajo"	,
+        cm.interes	as	"cm_interes"	,
+        cm.anyos_mas_1	as	"cm_anyos_mas_1"	,
+        cm.reparacion_variable	as	"cm_reparacion_variable"	,
+        cm.alojamiento_variable	as	"cm_alojamiento_variable"	,
+        cm.prima_seguro	as	"cm_prima_seguro"	,
+        cm.cv	as	"cm_cv"	,
+        cm.litros_cv_y_hora	as	"cm_litros_cv_y_hora"	,
+        cm.horas_cambio_aceite	as	"cm_horas_cambio_aceite"	,
+        cm.litros_aceite	as	"cm_litros_aceite"	
+        
         from gonzalol_chinchilla.t_t_l_costes_maquinaria tlcm
             left join gonzalol_chinchilla.t_costes_maquinaria cm
                 on tlcm.id_coste_maquinaria = cm.id_coste_maquinaria
+        
         order by id_tipo_labor, posicion_formula        
     </select>
 	

@@ -33,6 +33,7 @@
         <property name="sshRemoteHost"><value>${ssh.remote.host}</value></property>
         <property name="sshRemotePort"><value>${ssh.remote.port}</value></property>
         <property name="sshTimeOut"><value>${ssh.timeout}</value></property>
+        <property name="sshDbEnabled"><value>${ssh.db.enabled}</value></property>
     </bean>    
     
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

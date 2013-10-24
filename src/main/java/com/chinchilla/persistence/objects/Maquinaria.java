@@ -168,5 +168,13 @@ public class Maquinaria implements Serializable{
     }
     
     
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Maquinaria [id_coste_maquinaria=" + id_coste_maquinaria + ", nombre=" + nombre
+				+ ", tipo=" + tipo + "]";
+	}
     
 }
