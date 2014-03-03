@@ -1,9 +1,10 @@
 package com.chinchilla.controller;
 
 import com.chinchilla.persistence.objects.Coordenada;
+import com.chinchilla.persistence.objects.CostePersonal;
 import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.persistence.objects.Parcela;
-import com.chinchilla.persistence.objects.TipoLabor;
+//import com.chinchilla.persistence.objects.TipoLabor;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,7 +82,11 @@ public class ParcelasController extends AbstractController{
 
         List<Parcela> parcelas = parcelaDAO.getAll();
          
-         List<TipoLabor> tipoLabores = tipoLaborDAO.getAll();
+//         List<TipoLabor> tipoLabores = tipoLaborDAO.getAll();
+        
+        List<Coordenada> coordenadas = coordenadaDAO.getAll();
+        
+        List<CostePersonal> costesPersonal = costePersonalDAO.getAll();
          
          Labor labor = new Labor();
          
@@ -91,9 +96,13 @@ public class ParcelasController extends AbstractController{
          
          modelMap.put("labor", labor);
          
-         modelMap.put("tipoLabores", tipoLabores);
+//         modelMap.put("tipoLabores", tipoLabores);
 
         modelMap.put("parcelas", parcelas);
+        
+        modelMap.put("coordenadas", coordenadas);
+        
+        modelMap.put("costesPersonal", costesPersonal);
         
         model.addAllAttributes(modelMap);
          
@@ -138,7 +147,7 @@ public class ParcelasController extends AbstractController{
                 
         List<Labor> labores = laborDAO.getFilteredById(Parcela.class, id_parcela);
          
-         List<TipoLabor> tipoLabores = tipoLaborDAO.getAll();
+//         List<TipoLabor> tipoLabores = tipoLaborDAO.getAll();
 
         List<Parcela> parcelas = parcelaDAO.getAll();
         
@@ -152,7 +161,7 @@ public class ParcelasController extends AbstractController{
         
         modelMap.put("coordenadas", coordenadas);
          
-         modelMap.put("tipoLabores", tipoLabores);
+//         modelMap.put("tipoLabores", tipoLabores);
         
         model.addAllAttributes(modelMap);
         

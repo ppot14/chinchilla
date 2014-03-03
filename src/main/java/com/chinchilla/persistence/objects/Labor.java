@@ -25,6 +25,7 @@ package com.chinchilla.persistence.objects;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -33,11 +34,14 @@ import java.util.Date;
 public class Labor implements Serializable{
 
     private int id_labor;
-    private int id_tipo_labor;
+    private String grupo;
+    private String nombre;
     private Date fecha_comienzo;
     private double cantidad_dosis_por_ha;
     private double duracion;
     private double litros_gasoil;
+    private List<LaborMaquinaria> labor_maquinaria;
+    private List<LaborProducto> labor_producto;
 
     public int getId_labor() {
         return id_labor;
@@ -45,14 +49,6 @@ public class Labor implements Serializable{
 
     public void setId_labor(int id_labor) {
         this.id_labor = id_labor;
-    }
-
-    public int getId_tipo_labor() {
-        return id_tipo_labor;
-    }
-
-    public void setId_tipo_labor(int id_tipo_labor) {
-        this.id_tipo_labor = id_tipo_labor;
     }
 
     public Date getFecha_comienzo() {
@@ -102,7 +98,6 @@ public class Labor implements Serializable{
 		result = prime * result
 				+ ((fecha_comienzo == null) ? 0 : fecha_comienzo.hashCode());
 		result = prime * result + id_labor;
-		result = prime * result + id_tipo_labor;
 		temp = Double.doubleToLongBits(litros_gasoil);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
@@ -133,8 +128,6 @@ public class Labor implements Serializable{
 			return false;
 		if (id_labor != other.id_labor)
 			return false;
-		if (id_tipo_labor != other.id_tipo_labor)
-			return false;
 		if (Double.doubleToLongBits(litros_gasoil) != Double
 				.doubleToLongBits(other.litros_gasoil))
 			return false;
@@ -146,12 +139,66 @@ public class Labor implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "Labor [id_labor=" + id_labor + ", id_tipo_labor="
-				+ id_tipo_labor + ", fecha_comienzo=" + fecha_comienzo
+		return "Labor [id_labor=" + id_labor + ", fecha_comienzo=" + fecha_comienzo
 				+ ", cantidad_dosis_por_ha=" + cantidad_dosis_por_ha
 				+ ", duracion=" + duracion + ", litros_gasoil=" + litros_gasoil
 				+ "]";
 	}
     
+    /**
+     * @return the labor_maquinaria
+     */
+    public List<LaborMaquinaria> getLabor_maquinaria() {
+        return labor_maquinaria;
+    }
+
+    /**
+     * @param labor_maquinaria the labor_maquinaria to set
+     */
+    public void setLabor_maquinaria(List<LaborMaquinaria> labor_maquinaria) {
+        this.labor_maquinaria = labor_maquinaria;
+    }
+
+    /**
+     * @return the labor_producto
+     */
+    public List<LaborProducto> getLabor_producto() {
+        return labor_producto;
+    }
+
+    /**
+     * @param labor_producto the labor_producto to set
+     */
+    public void setLabor_producto(List<LaborProducto> labor_producto) {
+        this.labor_producto = labor_producto;
+    }
+
+    /**
+     * @return the grupo
+     */
+    public String getGrupo() {
+        return grupo;
+    }
+
+    /**
+     * @param grupo the grupo to set
+     */
+    public void setGrupo(String grupo) {
+        this.grupo = grupo;
+    }
+
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
     
 }

@@ -3,7 +3,7 @@ package com.chinchilla.persistence.dao;
 import com.chinchilla.persistence.MyBatisDAO;
 import static com.chinchilla.persistence.MyBatisDAO.PREFIX_SELECT_QUERY;
 import com.chinchilla.persistence.objects.TipoLabor;
-import com.chinchilla.persistence.objects.TipoLaborMaquinaria;
+import com.chinchilla.persistence.objects.LaborMaquinaria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.IOException;

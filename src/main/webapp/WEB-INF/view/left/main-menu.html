@@ -1,0 +1,161 @@
+<!--
+The MIT License
+
+Copyright 2014 Pepe.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <aside id="left-panel">
+    <div class="login-info">
+        <span>
+            <!-- User image size is adjusted inside CSS, it should stay as it -->
+            <a href="javascript:void(0);" id="show-shortcut">
+                 <img alt="TODO" class="online" src="img/avatars/sunny.png"/>
+                 <span>Jose Maria Valle</span>
+            </a>
+        </span>
+    </div>
+     <nav>
+         <ul>
+             <li>
+                 <a href="#" id="menu-parcelas">
+                     <span class="icon-fence"></span> <span th:text="#{parcelas}">[parcelas]</span>
+                 </a>
+                 <ul style="display: none;">
+                    <li><a th:href="@{/parcelas/mapa.html}"><span th:text="#{mapa}">[parcelas]</span></a></li>
+                    <li><a th:href="@{/parcelas/tabla.html}"><span th:text="#{tabla}">[parcelas]</span></a></li>
+                 </ul>
+             </li>
+             <li>
+                 <a href="#" id="menu-labores">
+                     <span class="glyphicon glyphicon-tag"></span> <span th:text="#{labores}">[labores]</span>
+                 </a>
+                 <ul style="display: none;">
+                    <li><a th:href="@{/labores/tabla.html}" th:text="#{tabla}">Tabla</a></li>
+                 </ul>
+             </li>
+             <li>
+                 <a href="#" id="menu-producciones">
+                     <span class="glyphicon glyphicon-inbox"></span> <span th:text="#{produccion}">[produccion]</span>
+                 </a>
+                 <ul style="display: none;">
+                    <li><a th:href="@{/producciones/tabla.html}" th:text="#{tabla}">Tabla</a></li>
+                 </ul>
+             </li>
+<!--             <li class="disabled">
+                 <a th:href="@{/riegos/tabla.html}" id="menu-riegos" th:text="#{riegos}">riegos</a>
+             </li>-->
+             <li>
+                 <a href="#" id="menu-cultivos">
+                     <span class="glyphicon glyphicon-leaf"></span> <span th:text="#{cultivos}">[cultivos]</span>
+                 </a>
+                 <ul style="display: none;">
+                    <li><a th:href="@{/cultivos/tabla.html}" th:text="#{tabla}">Tabla</a></li>
+                 </ul>
+             </li>
+             <li>
+                 <a href="#" id="menu-personal">
+                     <span class="glyphicon glyphicon-user"></span> <span th:text="#{personal}">[personal]</span>
+                 </a>
+                 <ul style="display: none;">
+                    <li class="disabled"><a th:href="@{/personal/tabla.html}" th:text="#{tabla}">Tabla</a></li>
+                    <li><a th:href="@{/personal/costes/tabla.html}" th:text="#{tabla}">Tabla</a></li>
+                 </ul>
+             </li>
+             <li>
+                 <a th:href="@{/maquinaria/tabla.html}" id="menu-maquinaria" th:text="#{maquinaria}">maquinaria</a>
+             </li>
+             <li>
+                 <a href="#" id="menu-productos">
+                     <span class="glyphicon glyphicon-barcode"></span> <span th:text="#{producto}">[producto]</span>
+                 </a>
+                 <ul style="display: none;">
+                    <li><a th:href="@{/productos/tabla.html}" th:text="#{tabla}">Tabla</a></li>
+                 </ul>
+             </li>
+<!--             <li class="disabled">
+                 <a th:href="@{/registros/tabla.html}" id="menu-registros" th:text="#{registros}">registros</a>
+             </li>-->
+             <!--<li>
+                <a th:href="@{/meteorologia/calendario.html}" id="menu-meteorologia" th:text="#{meteorologia}">meteorologia</a>
+             </li>-->
+         </ul>
+     </nav>
+  </aside>
+    
+    
+<script th:inline="javascript">/*<![CDATA[*/
+
+$(window).load(function () {
+
+    var ruta = window.location.pathname;
+    
+    $('#menudiv li').each(function(){
+        
+        var enlace = $( this ).find('a');
+        
+        if(enlace){
+            
+            var href = enlace.attr('href');
+            
+            if(ruta.indexOf(href.replace('.html','')) >= 0 && href.indexOf('.html') >= 0){
+                
+               $( this ).addClass("active");
+               
+            }else if(ruta.indexOf(href) >= 0 && ruta.indexOf('.html') < 0){
+                
+               $( this ).addClass("active");
+               
+            }else{
+                
+               $( this ).removeClass("active");
+               
+            }
+        }
+        
+    });
+        
+    $('#submenudiv li').each(function(){
+        
+        var enlace = $( this ).find('a');
+        
+        if(typeof enlace.html() !== 'undefined'){
+            
+            var href = enlace.attr('href').replace('.html','');
+            
+            if(ruta.indexOf(href) >= 0 ){
+                
+               $( this ).addClass("active");
+               
+            }else{
+                
+               $( this ).removeClass("active");
+               
+            }
+        }
+        
+    });
+    
+});
+
+/*]]>*/</script>
+</html>
+

@@ -11,10 +11,11 @@
     </settings>
     
     <typeAliases>
-        <typeAlias type="com.chinchilla.persistence.objects.TipoLabor" alias="TipoLabor"/>
-        <typeAlias type="com.chinchilla.persistence.objects.TipoLaborProducto" alias="TipoLaborProducto"/>
+        <typeAlias type="com.chinchilla.persistence.objects.Labor" alias="Labor"/>
+        <!--<typeAlias type="com.chinchilla.persistence.objects.TipoLabor" alias="TipoLabor"/>-->
+        <typeAlias type="com.chinchilla.persistence.objects.LaborProducto" alias="LaborProducto"/>
         <typeAlias type="com.chinchilla.persistence.objects.Producto" alias="Producto"/>
-        <typeAlias type="com.chinchilla.persistence.objects.TipoLaborMaquinaria" alias="TipoLaborMaquinaria"/>
+        <typeAlias type="com.chinchilla.persistence.objects.LaborMaquinaria" alias="LaborMaquinaria"/>
         <typeAlias type="com.chinchilla.persistence.objects.Maquinaria" alias="Maquinaria"/>
     </typeAliases>
 
@@ -26,7 +27,7 @@
         <mapper resource="com/chinchilla/persistence/mappers/ProduccionMappers.xml" />
         <mapper resource="com/chinchilla/persistence/mappers/CultivoMappers.xml" />
         <mapper resource="com/chinchilla/persistence/mappers/LaborMappers.xml" />
-        <mapper resource="com/chinchilla/persistence/mappers/TipoLaborMappers.xml" />
+        <!--<mapper resource="com/chinchilla/persistence/mappers/TipoLaborMappers.xml" />-->
         <mapper resource="com/chinchilla/persistence/mappers/MaquinariaMappers.xml" />
         <mapper resource="com/chinchilla/persistence/mappers/CostePersonalMappers.xml" />
         <mapper resource="com/chinchilla/persistence/mappers/ProductoMappers.xml" />

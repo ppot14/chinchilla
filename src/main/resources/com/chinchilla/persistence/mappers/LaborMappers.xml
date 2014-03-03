@@ -2,11 +2,86 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.chinchilla.persistence.mappers.LaborMappers">
+    
+    <resultMap id="laborResultMap" type="Labor">
+        <id property="id_labor" column="l_id_labor"/>
+        <result property="grupo" column="l_grupo"/>
+        <result property="nombre" column="l_nombre"/>
+        <result property="fecha_comienzo" column="l_fecha_comienzo"/>
+        <result property="cantidad_dosis_por_ha" column="l_cantidad_dosis_por_ha"/>
+        <result property="duracion" column="l_duracion"/>
+        <result property="litros_gasoil" column="l_litros_gasoil"/>
+        <collection property="labor_maquinaria" 
+                    javaType="ArrayList"  
+                    columnPrefix="lcm_" 
+                    column="id_labor"
+                    ofType="LaborMaquinaria" 
+                    resultMap="laborMaquinariaResultMap"/>
+        <collection property="labor_producto" 
+                    javaType="ArrayList"  
+                    columnPrefix="lp_" 
+                    column="id_labor"
+                    ofType="LaborProducto" 
+                    resultMap="laborProductoResultMap"/>
+    </resultMap>
+      
+    <resultMap id="laborMaquinariaResultMap" type="LaborMaquinaria">
+        <id property="id_labor" column="id_labor"/>
+        <id property="posicion_formula" column="posicion_formula"/>
+        <result property="multiplicador" column="multiplicador"/>
+        <result property="constante" column="constante"/>
+        <association property="maquinaria" 
+                     column="id_coste_maquinaria" 
+                     columnPrefix="cm_"
+                    javaType="Maquinaria" 
+                    resultMap="maquinariaResultMap"/>
+    </resultMap>      
+      
+    <resultMap  id="maquinariaResultMap" type="Maquinaria">
+        <id property="id_coste_maquinaria" column="id_coste_maquinaria"/>
+        <result property="nombre" column="nombre"/>
+        <result property="tipo" column="tipo"/>
+        <result property="valor_compra" column="valor_compra"/>
+        <result property="valor_desecho" column="valor_desecho"/>
+        <result property="horas_trabajo" column="horas_trabajo"/>
+        <result property="interes" column="interes"/>
+        <result property="anyos_mas_1" column="anyos_mas_1"/>
+        <result property="reparacion_variable" column="reparacion_variable"/>
+        <result property="alojamiento_variable" column="alojamiento_variable"/>
+        <result property="prima_seguro" column="prima_seguro"/>
+        <result property="cv" column="cv"/>
+        <result property="litros_cv_y_hora" column="litros_cv_y_hora"/>
+        <result property="horas_cambio_aceite" column="horas_cambio_aceite"/>
+        <result property="litros_aceite" column="litros_aceite"/>
+    </resultMap>
+    
+    <resultMap id="laborProductoResultMap" type="LaborProducto">
+        <id property="id_labor" column="id_labor"/>
+        <id property="posicion_formula" column="posicion_formula"/>
+        <result property="multiplicador" column="multiplicador"/>
+        <result property="constante" column="constante"/>
+        <association property="producto" 
+                     column="id_producto" 
+                     columnPrefix="tp_"
+                    javaType="Producto" 
+                    resultMap="productoResultMap"/>
+    </resultMap>
+      
+    <resultMap  id="productoResultMap" type="Producto">
+        <id property="id_producto" column="id_producto"/>
+        <result property="grupo" column="grupo"/>
+        <result property="tipo" column="tipo"/>
+        <result property="nombre" column="nombre"/>
+        <result property="descripcion" column="descripcion"/>
+        <result property="num_reg_ma" column="num_reg_ma"/>
+        <result property="plazo_seguridad" column="plazo_seguridad"/>
+    </resultMap>
 	
     <select id="getLabor" parameterType="java.lang.Integer" resultType="com.chinchilla.persistence.objects.Labor">
         select 
         id_labor as "id_labor", 
-        id_tipo_labor as "id_tipo_labor", 
+        grupo as "grupo",
+        nombre as "nombre",
         fecha_comienzo as "fecha_comienzo", 
         cantidad_dosis_por_ha as "cantidad_dosis_por_ha", 
         duracion as "duracion", 
@@ -15,36 +90,98 @@
         where id_labor = #{id_labor}
     </select>
 	
-    <select id="getAllLabor" parameterType="int" resultType="com.chinchilla.persistence.objects.Labor">
+    <!--<select id="getAllLabor" parameterType="int" resultType="com.chinchilla.persistence.objects.Labor">
         select 
         id_labor as "id_labor", 
-        id_tipo_labor as "id_tipo_labor", 
+        grupo as "grupo",
+        nombre as "nombre", 
         fecha_comienzo as "fecha_comienzo", 
         cantidad_dosis_por_ha as "cantidad_dosis_por_ha", 
         duracion as "duracion", 
         litros_gasoil as "litros_gasoil"
         from gonzalol_chinchilla.t_labores 
         order by id_labor
+    </select>-->
+    
+    <select id="getAllLabor" parameterType="int" resultMap="laborResultMap">
+        select 
+        l.id_labor as "l_id_labor", 
+        l.grupo as "l_grupo",
+        l.nombre as "l_nombre", 
+        l.fecha_comienzo as "l_fecha_comienzo", 
+        l.cantidad_dosis_por_ha as "l_cantidad_dosis_por_ha", 
+        l.duracion as "l_duracion", 
+        l.litros_gasoil as "l_litros_gasoil",
+        
+        lcm.id_labor as "lcm_id_labor",
+        lcm.id_coste_maquinaria as "lcm_id_coste_maquinaria",
+        lcm.multiplicador as "lcm_multiplicador",
+        lcm.constante as "lcm_constante",
+        lcm.posicion_formula as "lcm_posicion_formula",
+        
+        cm.id_coste_maquinaria as "lcm_cm_id_coste_maquinaria",         
+        cm.nombre	as	"lcm_cm_nombre"	,
+        cm.tipo	as	"lcm_cm_tipo"	,
+        cm.valor_compra	as	"lcm_cm_valor_compra"	,
+        cm.valor_desecho	as	"lcm_cm_valor_desecho"	,
+        cm.horas_trabajo	as	"lcm_cm_horas_trabajo"	,
+        cm.interes	as	"lcm_cm_interes"	,
+        cm.anyos_mas_1	as	"lcm_cm_anyos_mas_1"	,
+        cm.reparacion_variable	as	"lcm_cm_reparacion_variable"	,
+        cm.alojamiento_variable	as	"lcm_cm_alojamiento_variable"	,
+        cm.prima_seguro	as	"lcm_cm_prima_seguro"	,
+        cm.cv	as	"lcm_cm_cv"	,
+        cm.litros_cv_y_hora	as	"lcm_cm_litros_cv_y_hora"	,
+        cm.horas_cambio_aceite	as	"lcm_cm_horas_cambio_aceite"	,
+        cm.litros_aceite	as	"lcm_cm_litros_aceite"	,
+        
+        lp.id_labor as "lp_id_labor",
+        lp.id_producto as "lp_id_producto",
+        lp.multiplicador as "lp_multiplicador",
+        lp.constante as "lp_constante",
+        lp.posicion_formula as "lp_posicion_formula",
+        
+        tp.id_producto	as "lp_tp_id_producto",
+        tp.grupo	as "lp_tp_grupo",
+        tp.tipo	as "lp_tp_tipo",
+        tp.nombre	as "lp_tp_nombre",
+        tp.descripcion	as "lp_tp_descripcion",
+        tp.num_reg_ma	as "lp_tp_num_reg_ma",
+        tp.plazo_seguridad	as "lp_tp_plazo_seguridad"
+        
+        from gonzalol_chinchilla.t_labores  l
+            left join gonzalol_chinchilla.t_l_costes_maquinaria lcm
+                on l.id_labor = lcm.id_labor
+            left join gonzalol_chinchilla.t_costes_maquinaria cm
+                on lcm.id_coste_maquinaria = cm.id_coste_maquinaria
+            left join gonzalol_chinchilla.t_l_productos lp
+                on l.id_labor = lp.id_labor
+            left join gonzalol_chinchilla.t_productos tp
+                on lp.id_producto = tp.id_producto
+        
+        order by l.id_labor
     </select>
 	
     <select id="getLaborFilteredByIdParcela" parameterType="int" resultType="com.chinchilla.persistence.objects.Labor">
         select 
         tl.id_labor as "id_labor", 
-        id_tipo_labor as "id_tipo_labor", 
+        grupo as "grupo",
+        nombre as "nombre",
         fecha_comienzo as "fecha_comienzo", 
         cantidad_dosis_por_ha as "cantidad_dosis_por_ha", 
         duracion as "duracion", 
         litros_gasoil as "litros_gasoil"
         FROM gonzalol_chinchilla.t_labores tl
-        LEFT JOIN gonzalol_chinchilla.t_labores_parcelas tlp 
-        ON tl.id_labor = tlp.id_labor
+        LEFT JOIN gonzalol_chinchilla.t_labores_parcelas lp 
+        ON tl.id_labor = lp.id_labor
         WHERE id_parcela =  #{id_parcela}
     </select>
 	
     <select id="getLaborPorNombre" parameterType="int" resultType="com.chinchilla.persistence.objects.Labor">
         select 
         id_labor as "id_labor", 
-        id_tipo_labor as "id_tipo_labor", 
+        grupo as "grupo",
+        nombre as "nombre",
         fecha_comienzo as "fecha_comienzo", 
         cantidad_dosis_por_ha as "cantidad_dosis_por_ha", 
         duracion as "duracion", 
@@ -53,14 +190,46 @@
         where nombre = #{nombre}
     </select>
 	
+<!--    <select id="getAllMapMaquinariaTipoLabor" resultMap="tipoLaborMaquinariaResultMap">
+        select 	
+        lcm.id_labor as "id_labor",
+        lcm.id_coste_maquinaria as "id_coste_maquinaria",
+        lcm.multiplicador as "multiplicador",
+        lcm.constante as "constante",
+        lcm.posicion_formula as "posicion_formula",
+        
+        cm.id_coste_maquinaria as "cm_id_coste_maquinaria",         
+        cm.nombre	as	"cm_nombre"	,
+        cm.tipo	as	"cm_tipo"	,
+        cm.valor_compra	as	"cm_valor_compra"	,
+        cm.valor_desecho	as	"cm_valor_desecho"	,
+        cm.horas_trabajo	as	"cm_horas_trabajo"	,
+        cm.interes	as	"cm_interes"	,
+        cm.anyos_mas_1	as	"cm_anyos_mas_1"	,
+        cm.reparacion_variable	as	"cm_reparacion_variable"	,
+        cm.alojamiento_variable	as	"cm_alojamiento_variable"	,
+        cm.prima_seguro	as	"cm_prima_seguro"	,
+        cm.cv	as	"cm_cv"	,
+        cm.litros_cv_y_hora	as	"cm_litros_cv_y_hora"	,
+        cm.horas_cambio_aceite	as	"cm_horas_cambio_aceite"	,
+        cm.litros_aceite	as	"cm_litros_aceite"	
+        
+        from gonzalol_chinchilla.t_l_costes_maquinaria lcm
+            left join gonzalol_chinchilla.t_costes_maquinaria cm
+                on lcm.id_coste_maquinaria = cm.id_coste_maquinaria
+        
+        order by id_labor, posicion_formula        
+    </select>    -->
+	
     <insert id="createLabor" keyColumn="id_labor" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.Labor">
-        insert into gonzalol_chinchilla.t_labores (id_tipo_labor, fecha_comienzo, cantidad_dosis_por_ha, duracion, extension)
-        values (#{id_tipo_labor}, #{fecha_comienzo}, #{cantidad_dosis_por_ha}, #{extension}, #{extension})		
+        insert into gonzalol_chinchilla.t_labores (grupo, nombre, fecha_comienzo, cantidad_dosis_por_ha, duracion, extension)
+        values (#{grupo}, #{nombre}, #{fecha_comienzo}, #{cantidad_dosis_por_ha}, #{extension}, #{extension})		
     </insert>
 	
     <update id="updateLabor" parameterType="com.chinchilla.persistence.objects.Labor">
         update gonzalol_chinchilla.t_labores set 
-        id_tipo_labor = #{id_tipo_labor}, 
+        grupo = #{grupo}, 
+        nombre = #{nombre}, 
         fecha_comienzo = #{fecha_comienzo}, 
         cantidad_dosis_por_ha =#{cantidad_dosis_por_ha}, 
         duracion = #{duracion}, 

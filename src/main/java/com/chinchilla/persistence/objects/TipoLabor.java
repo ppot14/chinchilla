@@ -37,8 +37,8 @@ public class TipoLabor implements Serializable{
     private String nombre;
     private String descripcion;
     private int id_formula;
-    private List<TipoLaborMaquinaria> tipo_labor_maquinaria;
-    private List<TipoLaborProducto> tipo_labor_producto;
+    private List<LaborMaquinaria> tipo_labor_maquinaria;
+    private List<LaborProducto> tipo_labor_producto;
     
 
     public int getId_tipo_labor() {
@@ -146,28 +146,28 @@ public class TipoLabor implements Serializable{
     /**
      * @return the tipo_labor_maquinaria
      */
-    public List<TipoLaborMaquinaria> getTipo_labor_maquinaria() {
+    public List<LaborMaquinaria> getTipo_labor_maquinaria() {
         return tipo_labor_maquinaria;
     }
 
     /**
      * @param tipo_labor_maquinaria the tipo_labor_maquinaria to set
      */
-    public void setTipo_labor_maquinaria(List<TipoLaborMaquinaria> tipo_labor_maquinaria) {
+    public void setTipo_labor_maquinaria(List<LaborMaquinaria> tipo_labor_maquinaria) {
         this.tipo_labor_maquinaria = tipo_labor_maquinaria;
     }
 
     /**
      * @return the tipo_labor_producto
      */
-    public List<TipoLaborProducto> getTipo_labor_producto() {
+    public List<LaborProducto> getTipo_labor_producto() {
         return tipo_labor_producto;
     }
 
     /**
      * @param tipo_labor_producto the tipo_labor_producto to set
      */
-    public void setTipo_labor_producto(List<TipoLaborProducto> tipo_labor_producto) {
+    public void setTipo_labor_producto(List<LaborProducto> tipo_labor_producto) {
         this.tipo_labor_producto = tipo_labor_producto;
     }
     

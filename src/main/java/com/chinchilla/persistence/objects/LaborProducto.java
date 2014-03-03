@@ -29,11 +29,11 @@ import java.io.Serializable;
  *
  * @author Pepe
  */
-public class TipoLaborMaquinaria  implements Serializable{
+public class LaborProducto  implements Serializable{
     
 //private TipoLabor tipoLabor;
- private int id_tipo_labor;
-private Maquinaria maquinaria;
+ private int id_labor;
+private Producto producto;
 private Double multiplicador;
 private Double constante;
 private Integer posicion_formula;
@@ -53,17 +53,17 @@ private Integer posicion_formula;
 //    }
 
     /**
-     * @return the maquinaria
+     * @return the producto
      */
-    public Maquinaria getMaquinaria() {
-        return maquinaria;
+    public Producto getProducto() {
+        return producto;
     }
 
     /**
-     * @param maquinaria the maquinaria to set
+     * @param producto the producto to set
      */
-    public void setMaquinaria(Maquinaria maquinaria) {
-        this.maquinaria = maquinaria;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     /**
@@ -109,17 +109,17 @@ private Integer posicion_formula;
     }
 
     /**
-     * @return the id_tipo_labor
+     * @return the id_labor
      */
-    public int getId_tipo_labor() {
-        return id_tipo_labor;
+    public int getId_labor() {
+        return id_labor;
     }
 
     /**
-     * @param id_tipo_labor the id_tipo_labor to set
+     * @param id_labor the id_labor to set
      */
-    public void setId_tipo_labor(int id_tipo_labor) {
-        this.id_tipo_labor = id_tipo_labor;
+    public void setId_labor(int id_labor) {
+        this.id_labor = id_labor;
     }
 
 	/* (non-Javadoc)
@@ -127,7 +127,7 @@ private Integer posicion_formula;
 	 */
 	@Override
 	public String toString() {
-		return "TipoLaborMaquinaria [id_tipo_labor=" + id_tipo_labor + ", maquinaria=" + maquinaria
+		return "TipoLaborMaquinaria [id_labor=" + id_labor + ", producto=" + producto
 				+ ", multiplicador=" + multiplicador + ", constante=" + constante
 				+ ", posicion_formula=" + posicion_formula + "]";
 	}

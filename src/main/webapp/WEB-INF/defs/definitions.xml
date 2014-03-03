@@ -45,11 +45,16 @@
 		<put-attribute name="content_main" value="content/tabla-labores"/>
 	</definition>
         
-        <definition name="tipos-labores-tabla" extends="template">
-		<put-attribute name="leftpanel" value="left/submenu-labor"/>
-		<put-attribute name="content_main" value="content/tabla-tipos-labores"/>
+        <definition name="labores-tabla-form-labor" extends="labores-tabla">
+		<put-attribute name="rightpanel" value="right/form-labor"/>
 	</definition>
         
+<!--        <definition name="tipos-labores-tabla" extends="template">
+		<put-attribute name="leftpanel" value="left/submenu-labor"/>
+		<put-attribute name="content_main" value="content/tabla-tipos-labores"/>
+	</definition>-->
+        
+        <!--Producciones-->
         <definition name="producciones-tabla" extends="template">
 		<put-attribute name="leftpanel" value="left/submenu-produccion"/>
 		<put-attribute name="content_main" value="content/tabla-producciones"/>

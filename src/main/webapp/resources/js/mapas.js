@@ -204,11 +204,18 @@ function crearMenuParcela(parcela) {
     //var menuUl = $("<ul></ul>").attr({ id : "menu",display : "none"});
     //var menuUl = $("<ul/>");
     var menuString = "<ul class='dropdown-menu' role='menu' id='menu' style='display:none'>";
+    
+    var parcelasMapaFormLabor = /*[[@{/parcelas/mapa/form/labor.html}]]*/null;
+    var parcelasMapaTablaLabores = /*[[@{/parcelas/mapa/tabla/labores.html}]]*/null;
+    var produccionesTabla = /*[[@{/producciones/tabla.html}]]*/null;
+    console.debug("parcelasMapaFormLabor "+parcelasMapaFormLabor);
+    console.debug("parcelasMapaTablaLabores "+parcelasMapaTablaLabores);
+    console.debug("produccionesTabla "+produccionesTabla);
 
     menuString += "<li role='presentation' class='dropdown-header'>" + parcela.nombre + " (" + parcela.extension + " ha)</li>";
-    menuString += "<li role='presentation'><a role='menuitem' href='./mapa/form/labor.html?id=" + parcela.id_parcela + "'>A&ntilde;adir labor</a></li>";
-    menuString += "<li role='presentation'><a role='menuitem' href='./mapa/tabla/labores.html?id=" + parcela.id_parcela + "'>Ver labores</a></li>";
-    menuString += "<li role='presentation'><a role='menuitem' href='../producciones/tabla.html?id=" + parcela.id_parcela + "'>Ver producciones</a></li>";
+    menuString += "<li role='presentation'><a role='menuitem' href='"+parcelasMapaFormLabor+"?id=" + parcela.id_parcela + "'>A&ntilde;adir labor</a></li>";
+    menuString += "<li role='presentation'><a role='menuitem' href='"+parcelasMapaTablaLabores+"?id=" + parcela.id_parcela + "'>Ver labores</a></li>";
+    menuString += "<li role='presentation'><a role='menuitem' href='"+produccionesTabla+"?id=" + parcela.id_parcela + "'>Ver producciones</a></li>";
 //    menuString += "<li role='presentation'><a role='menuitem' th:href='@{/parcelas/mapa/form/insertar/labor.html(id="+parcela.id_parcela+")}' >A&ntilde;adir labor</a></li>";
 //    menuString += "<li role='presentation'><a role='menuitem' th:href='@{/labores/tabla.html(id="+parcela.id_parcela+")}' >Ver labores</a></li>";
 //    menuString += "<li role='presentation'><a role='menuitem' th:href='@{/producciones/tabla.html(id="+parcela.id_parcela+")}' >Ver producciones</a></li>";

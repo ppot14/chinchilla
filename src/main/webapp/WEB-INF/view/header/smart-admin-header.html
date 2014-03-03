@@ -1,0 +1,106 @@
+<!--
+The MIT License
+
+Copyright 2014 Pepe.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<!DOCTYPE html>
+<html>
+    <header id="header">
+        <div id="logo-group">
+            <!-- PLACE YOUR LOGO HERE -->
+             <span id="logo"><img alt="Chinchilla" src="img/logo.png"/></span>         
+
+             <span class="activity-dropdown" id="activity"> <b class="badge">X</b></span> 
+
+            <!-- AJAX-DROPDOWN : control this dropdown height, look and feel from the LESS variable file -->
+
+            <div class="ajax-dropdown">
+                [JUSTIFIED_BUTTONS]
+
+                <div class="ajax-notifications custom-scroll">
+                   [DROPDOWN_CONTENT]
+                </div><!-- end notification content -->
+
+                <!-- footer: refresh area -->
+                 <span>Last updated on: 12/12/2013 9:43AM</span> 
+                <!-- end footer -->
+            </div><!-- END AJAX-DROPDOWN -->
+
+        </div>
+        
+        <!-- projects dropdown -->
+        <div id="project-context">
+            <span class="label">Projects:</span> <span class="popover-trigger-element dropdown-toggle" data-toggle="dropdown" id="project-selector">Recent projects</span> 
+
+            <!-- Suggestion: populate this list with fetch and push technique -->
+            <ul class="dropdown-menu">
+                <li>...</li>
+            </ul><!-- end dropdown-menu-->
+
+        </div>
+        
+        <!-- pulled right: nav area -->
+        <div class="pull-right">
+            
+            <!-- collapse menu button -->
+            <div class="btn-header pull-right" id="hide-menu">
+                <span><a href="javascript:void(0);" title="Collapse Menu"></a></span>
+            </div>
+
+            <!-- configuration button -->
+            <div class="btn-header transparent pull-right" id="configuration-button">
+                <span>
+                    <a th:href="@{/configuracion.html}"><span class="glyphicon glyphicon-cog"></span></a>
+                </span>
+            </div>
+
+            <!-- home button -->
+            <div class="btn-header transparent pull-right" id="home-button">
+                <span>
+                    <a th:href="@{/}"><span class="glyphicon glyphicon-home"></span></a>
+                </span>
+            </div>
+
+            <!-- search mobile button (this is hidden till mobile view port) -->
+            <div class="btn-header transparent pull-right" id="search-mobile">
+                <span><a href="javascript:void(0)" title="Search"></a></span>
+            </div><!-- end search mobile button -->
+
+            <!-- input: search field -->
+            <form action="#ajax/search.html" class="header-search pull-right">
+                <input id="search-fld" name="param" placeholder="Find reports and more" type="text"/> <a href="javascript:void(0);" id="cancel-search-js" title="Cancel Search"></a>
+            </form>
+
+            <!-- fullscreen button -->
+            <div class="btn-header transparent pull-right" id="fullscreen">
+                <span><a href="javascript:void(0);" onclick="launchFullscreen(document.documentElement);" title="Full Screen"></a></span>
+            </div>
+
+            <!-- multiple lang dropdown : find all flags in the image folder -->
+            <ul class="header-dropdown-list hidden-xs">
+                <li>...</li>
+            </ul>
+
+        </div>
+    </header>
+</html>
+
+        

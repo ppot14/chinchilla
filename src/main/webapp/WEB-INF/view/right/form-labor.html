@@ -22,7 +22,7 @@
                     class="form-control input-sm" 
                     placeholder="Seleccionar tipo labor...">
                 <option  th:each="tipoLabor_item : ${tipoLabores}" 
-                        value="${tipoLabor_item.id_tipo_labor}" 
+                        th:value="${tipoLabor_item.id_tipo_labor}" 
                          th:text="${tipoLabor_item.nombre}">[Tipo Labor]</option>
             </select>
                     <!--th:field="*{id_tipo_labor}"-->
@@ -33,11 +33,12 @@
         <div class="col-md-8">
             <select  id="parcelas" 
                     class="form-control input-sm"
-                     placeholder="Seleccionar parcela(s)...">
+                    multiple="multiple"
+                     placeholder="Seleccionar parcela(s)..."
+                     style="height: 100px">
                 <option  th:each="parcela_item : ${parcelas}" 
-                         value="${parcela_item.id_parcela}" 
-                         th:text="${parcela_item.nombre}" 
-                         th:selected="${parcela.id_parcela=parcela_item.id_parcela}? 'selected'">[Nombre Parcela]</option>
+                         th:value="${parcela_item.id_parcela}" 
+                         th:text="${parcela_item.nombre}" >[Nombre Parcela]</option>
             </select>
                      <!--multiple="multiple"--> 
         </div>
@@ -45,9 +46,14 @@
     <div class="form-group">
         <label for="personal" class="col-md-4 control-label" th:text="#{personal}">[Personal]</label>
         <div class="col-md-8">
-            <select id="personal" multiple="multiple" name="personal" placeholder="Seleccionar personal...">
-                <option  th:each="puesto : ${personal}" value="${puesto.id_coste_personal}" 
-                         th:text="${puesto.funcion}">[Nombre Puesto]</option>
+            <select id="personal" 
+                    class="form-control input-sm"
+                    multiple="multiple" 
+                    placeholder="Seleccionar personal..."
+                     style="height: 100px">
+                <option  th:each="puesto : ${costesPersonal}" 
+                         th:value="${puesto.id_coste_personal}" 
+                         th:text="${puesto.tipo}+' '+${puesto.funcion}">[Nombre Puesto]</option>
             </select>
         </div>
     </div>
@@ -96,19 +102,29 @@
         //Modificar hidden cuando click en nuevo o modificar
         $('#boton_crear').click(function() {
             $('#insertar_modificar_eliminar').val('insertar');
-            $('#formulario-produccion').submit();
+            $('#formulario-labor').submit();
           });
           
         $('#boton_modificar').click(function() {
             $('#insertar_modificar_eliminar').val('modificar');
-            $('#formulario-produccion').submit();
+            $('#formulario-labor').submit();
           });
           
         $('#boton_eliminar').click(function() {
             $('#insertar_modificar_eliminar').val('eliminar');
-            $('#formulario-produccion').submit();
+            $('#formulario-labor').submit();
           });
           
+          
+          var parcela = /*[[${parcela}]]*/null;
+          
+          if(parcela && parcela.id_parcela && parcela.id_parcela>0){
+              
+              var idParcela = parcela.id_parcela;
+              
+              $("#parcelas").val(idParcela);
+            
+          }
           
         var labor = /*[[${labor}]]*/null;
         

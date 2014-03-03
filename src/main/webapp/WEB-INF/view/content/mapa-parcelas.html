@@ -75,15 +75,20 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gU
     
 /*]]>*/</script> 
 
-<h2><span class="icon-map"></span> <span th:text="#{mapa}">[parcelas]</span></h2>
-<div class="row text-right">
-    <div class="btn-group">
-        <a id="ir-chinchilla-link" 
-           class="btn btn-default btn-sm" href="#">Chinchilla</a>
-        <a id="ir-rancho-link" 
-           class="btn btn-default btn-sm" href="#">Rancho</a>
+<div class="row">
+    <div class="col-lg-6">
+        <h4><span th:text="#{mapa}">[parcelas]</span></h4>
+    </div>
+    <div class="col-lg-6 text-right">
+        <div class="btn-group">
+            <a id="ir-chinchilla-link" 
+               class="btn btn-default btn-sm" href="#">Chinchilla</a>
+            <a id="ir-rancho-link" 
+               class="btn btn-default btn-sm" href="#">Rancho</a>
+        </div>
     </div>
 </div>
+
 <div id="map_canvas" ></div>
 
 </html>

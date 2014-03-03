@@ -11,13 +11,15 @@
     
 /*]]>*/</script> 
 <div class="row">
-<h2 th:text="#{tiposlabores}">[tiposLabores]</h2>
-</div>
-<div class="row text-right">
-<a id="anadir-tipo-labor-link" 
-   class="btn btn-default btn-sm disabled" 
-   th:href="@{/labores/tipos/tabla/form/tipoLabor.html(id=-1)}" >
-    <span class="glyphicon glyphicon-plus"></span> <span th:text="#{anadir-tipo-labor}">[anadir-tipoLabor]</span></a>
+    <div class="col-lg-6">
+        <h4 th:text="#{tiposlabores}">[tiposLabores]</h4>
+    </div>
+    <div class="col-lg-6 text-right">
+        <a id="anadir-tipo-labor-link" 
+           class="btn btn-default btn-sm disabled" 
+           th:href="@{/labores/tipos/tabla/form/tipoLabor.html(id=-1)}" >
+            <span class="glyphicon glyphicon-plus"></span> <span th:text="#{anadir-tipo-labor}">[anadir-tipoLabor]</span></a>
+    </div>
 </div>
 <div class="row">
 <table id="tabla_tipos_labores" class="tabla-jqueryui">
@@ -29,6 +31,7 @@
           <th th:text="#{nombre}"></th>
           <th th:text="#{descripcion}"></th>
           <th th:text="#{maquinaria}"></th>
+          <th th:text="#{producto}"></th>
           <th th:text="#{id-formula}"></th>
         </tr>
     </thead>
@@ -39,29 +42,20 @@
           <td th:text="${tiposLabores_item.nombre}">[nombre]</td>
           <td th:text="${tiposLabores_item.descripcion}">[descripcion]</td>
           <td>
-              <!--
-    <li class="nav nav-pills"><ul th:each="tipoLaborMaquinaria_item : ${tiposLaboresMaquinaria}"
-            th:if="${tiposLabores_item.id_tipo_labor == tipoLaborMaquinaria_item.id_tipo_labor}">
-            <a  th:text="${tipoLaborMaquinaria_item.maquinaria.nombre}" ref="#"
-                 class="btn btn-default btn-xs">
-                [maquinaria]
-            </a>
-        </ul></li>-->
-              
-              
-<!--              <ul  th:if="${not #lists.isEmpty(tiposLabores_item.tipo_labor_maquinaria)}"
+              <ul  th:if="${not #lists.isEmpty(tiposLabores_item.tipo_labor_maquinaria)}"
                     class="nav nav-pills">
-                <li th:each="tipoLaborMaquinaria_item,iterStat : ${tiposLabores_item.tipo_labor_maquinaria}">
+                <li th:each="tipoLaborMaquinaria_item : ${tiposLabores_item.tipo_labor_maquinaria}">
                   <a th:text="${tipoLaborMaquinaria_item.maquinaria.nombre}" ref="#">[maquinaria]</a>
                 </li>
-              </ul>-->
-              
-            <a th:each="tipoLaborMaquinaria_item : ${tiposLaboresMaquinaria}" 
-                th:text="${tipoLaborMaquinaria_item.maquinaria.nombre + ' '}"
-                th:if="${tiposLabores_item.id_tipo_labor == tipoLaborMaquinaria_item.id_tipo_labor}"
-                ref="#" >
-                [maquinaria]
-            </a>
+              </ul>
+          </td>
+          <td>
+              <ul  th:if="${not #lists.isEmpty(tiposLabores_item.tipo_labor_producto)}"
+                    class="nav nav-pills">
+                <li th:each="tipoLaborProducto_item : ${tiposLabores_item.tipo_labor_producto}">
+                  <a th:text="${tipoLaborProducto_item.producto.nombre}" ref="#">[producto]</a>
+                </li>
+              </ul>
           </td>
           <td th:text="${tiposLabores_item.id_formula}">[id_formula]</td>
        </tr>
