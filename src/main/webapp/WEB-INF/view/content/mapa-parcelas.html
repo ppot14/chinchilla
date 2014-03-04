@@ -1,94 +1,132 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<script type="text/javascript" 
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0&amp;sensor=true&amp;libraries=geometry"></script>
-<!--th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0(sensor=true)(libraries=geometry)}"></script>-->
-<script src="/resources/js/mapas.js" th:src="@{/resources/js/mapas.js}"></script> 
+    <script type="text/javascript" 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0&amp;sensor=true&amp;libraries=geometry"></script>
+    <!--th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0(sensor=true)(libraries=geometry)}"></script>-->
+    <script src="/resources/js/mapas.js" th:src="@{/resources/js/mapas.js}"></script> 
 
-<script th:inline="javascript">/*<![CDATA[*/
-  
-    $(window).load(function () {
-        
-//        console.info("Cargando mapa...");  
+    <script th:inline="javascript">/*<![CDATA[*/
 
-      try{
+        $(window).load(function() {
 
-        var mapOptions = { 
-            //CHINCHILLA
-            //center: new google.maps.LatLng(37.32637, -5.20889),
-            //RANCHO
-            //center: new google.maps.LatLng(37.319063,-5.185826),
-            center: new google.maps.LatLng(37.328292,-5.215223),
-            zoom: 15,
-            mapTypeId: google.maps.MapTypeId.SATELLITE  
-        };
-        
-        $('#ir-chinchilla-link').addClass("active");
+            //        console.info("Cargando mapa...");  
 
-        var map = new google.maps.Map(document.getElementById("map_canvas"),mapOptions);
-        
-        var parcelas = /*[[${parcelas}]]*/null;
-        var coordenadas = /*[[${coordenadas}]]*/null;
-        
-//        console.info("parcelas "+parcelas); 
-//        console.info("coordenadas "+coordenadas);
+            try {
 
-        insertarPoligonos(map, parcelas, coordenadas);
+                var mapOptions = {
+                    //CHINCHILLA
+                    //center: new google.maps.LatLng(37.32637, -5.20889),
+                    //RANCHO
+                    //center: new google.maps.LatLng(37.319063,-5.185826),
+                    center: new google.maps.LatLng(37.328292, -5.215223),
+                    zoom: 15,
+                    mapTypeId: google.maps.MapTypeId.SATELLITE
+                };
 
-//        console.info("Mapa cargado."); 
+                $('#ir-chinchilla-link').addClass("active");
 
-        $('#ir-chinchilla-link, #ir-rancho-link').click(function (){
-            
-            var idLink = this.id;
-            
-            if(idLink === 'ir-chinchilla-link'){
-                
-               $( this ).addClass("active");
-                
-               $('#ir-rancho-link').removeClass("active");
-                
-                map.panTo(new google.maps.LatLng(37.328292,-5.215223));
-                
-            }else if(idLink === 'ir-rancho-link'){
-                
-               $( this ).addClass("active");
-                
-               $('#ir-chinchilla-link').removeClass("active");
-                
-                map.panTo(new google.maps.LatLng(37.319063,-5.185826));
-                
-            }else{
-                
-                console.error('Error modificando centro');
-                
+                var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+                var parcelas = /*[[${parcelas}]]*/null;
+                var coordenadas = /*[[${coordenadas}]]*/null;
+
+                //        console.info("parcelas "+parcelas); 
+                //        console.info("coordenadas "+coordenadas);
+
+                insertarPoligonos(map, parcelas, coordenadas);
+
+                //        console.info("Mapa cargado."); 
+
+                $('#ir-chinchilla-link, #ir-rancho-link').click(function() {
+
+                    var idLink = this.id;
+
+                    if (idLink === 'ir-chinchilla-link') {
+
+                        $(this).addClass("active");
+
+                        $('#ir-rancho-link').removeClass("active");
+
+                        map.panTo(new google.maps.LatLng(37.328292, -5.215223));
+
+                    } else if (idLink === 'ir-rancho-link') {
+
+                        $(this).addClass("active");
+
+                        $('#ir-chinchilla-link').removeClass("active");
+
+                        map.panTo(new google.maps.LatLng(37.319063, -5.185826));
+
+                    } else {
+
+                        console.error('Error modificando centro');
+
+                    }
+                });
+
+            } catch (e) {
+
+                alert("Error al cargar mapa");
+
             }
-        });
-        
-      }catch (e){
-          
-          alert("Error al cargar mapa");
-          
-      }
-        
-    });
-    
-/*]]>*/</script> 
 
-<div class="row">
-    <div class="col-lg-6">
-        <h4><span th:text="#{mapa}">[parcelas]</span></h4>
-    </div>
-    <div class="col-lg-6 text-right">
-        <div class="btn-group">
-            <a id="ir-chinchilla-link" 
-               class="btn btn-default btn-sm" href="#">Chinchilla</a>
-            <a id="ir-rancho-link" 
-               class="btn btn-default btn-sm" href="#">Rancho</a>
+        });
+
+        /*]]>*/</script> 
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-6">
+            <h1 class="page-title txt-color-blueDark"><i class="icon-fence"></i> <span th:text="#{mapa}">[parcelas]</span></h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">TODO
         </div>
     </div>
-</div>
+    
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
 
-<div id="map_canvas" ></div>
+        <!-- row -->
+        <div class="row">
+
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false"
+                                                        data-widget-editbutton="false"
+                                                        data-widget-togglebutton="false"
+                                                        data-widget-deletebutton="false"
+                                                        data-widget-fullscreenbutton="false"
+                                                        data-widget-custombutton="false"
+                                                        data-widget-collapsed="true" 
+                                                        data-widget-sortable="false">
+                    <header>
+                        <h2><strong>Chinchilla</strong></h2>				
+                        <div class="widget-toolbar"> 
+                            <div class="btn-group">
+                                <a id="ir-chinchilla-link" 
+                                   class="btn btn-default btn-sm" href="#">Chinchilla</a>
+                                <a id="ir-rancho-link" 
+                                   class="btn btn-default btn-sm" href="#">Rancho</a>
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                        </div>
+                        <!-- widget content -->
+                        <div class="widget-body">
+                            <div id="map_canvas" ></div>
+                        </div>
+                    </div>
+
+                </div>
+            </article>
+        </div>
+    </section>
 
 </html>

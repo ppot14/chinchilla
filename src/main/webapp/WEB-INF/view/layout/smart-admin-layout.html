@@ -2,19 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:tiles="http://www.thymeleaf.org">
     <head>
-        <script src="/resources/js/jquery-1.9.1.js" th:src="@{/resources/js/jquery-1.9.1.js}"></script>
-        <script src="/resources/js/jquery-ui-1.10.3.custom.js" th:src="@{/resources/js/jquery-ui-1.10.3.custom.js}"></script>
+        <!--<script src="/resources/js/jquery-1.9.1.js" th:src="@{/resources/js/jquery-1.9.1.js}"></script>-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        <!--<script src="/resources/js/jquery-ui-1.10.3.custom.js" th:src="@{/resources/js/jquery-ui-1.10.3.custom.js}"></script>-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
         <script src="/resources/js/jquery.ui.datepicker-es.js" th:src="@{/resources/js/jquery.ui.datepicker-es.js}"></script> 
         <script src="/resources/js/jquery.dataTables.js" th:src="@{/resources/js/jquery.dataTables.js}"></script> 
         <script src="/resources/js/jquery.validate.js" th:src="@{/resources/js/jquery.validate.js}"></script> 
-        <script src="/resources/js/bootstrap.js" th:src="@{/resources/js/bootstrap.js}"></script> 
+        <!--<script src="/resources/js/bootstrap.js" th:src="@{/resources/js/bootstrap.js}"></script>--> 
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
         <script src="/resources/js/additional-methods.js" th:src="@{/resources/js/additional-methods.js}"></script> 
         <script src="/resources/js/globalize.js" th:src="@{/resources/js/globalize.js}"></script> 
         <script src="/resources/js/globalize.culture.es-ES.js" th:src="@{/resources/js/globalize.culture.es-ES.js}"></script>
         <script src="/resources/js/jquery.pnotify.js" th:src="@{/resources/js/jquery.pnotify.js}"></script>
+	<script src="/resources/js/jarvis.widget.js" th:src="@{/resources/js/jarvis.widget.js}"></script>
+	<script src="/resources/js/SmartNotification.js" th:src="@{/resources/js/SmartNotification.js}"></script>
+	<script src="/resources/js/app.js" th:src="@{/resources/js/app.js}"></script>
         
         <link rel="stylesheet" type="text/css" href="/resources/css/generic.css" th:href="@{/resources/css/generic.css}"/>
-        <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.css" th:href="@{/resources/css/bootstrap.css}"/>
+        <!--<link rel="stylesheet" type="text/css" href="/resources/css/bootstrap.css" th:href="@{/resources/css/bootstrap.css}"/>-->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/whhg.css" th:href="@{/resources/css/whhg.css}" media="all"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/smartadmin-production.css" th:href="@{/resources/css/smartadmin-production.css}" media="screen"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/smartadmin-skins.css" th:href="@{/resources/css/smartadmin-skins.css}" media="screen"/>
@@ -30,7 +37,7 @@
         <title>Chinchilla</title>
     </head>
     
-    <body>
+    <body class="smart-style-3">
         
         <header id="header" tiles:include="inc_header">
         </header>
@@ -38,7 +45,7 @@
         <aside id="left-panel" tiles:include="inc_leftpanel">
         </aside>
         
-        <div id="main">     
+        <div id="main" role="main">     
             <!-- RIBBON -->
             <div id="ribbon" tiles:include="inc_breadcrumb">
             </div>
