@@ -37,19 +37,20 @@
 
 #map_canvas{
     height:400px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    border: 1px solid #888;
     width:100%;
     min-width: 280px;
+    /*-moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #888;
     -moz-box-shadow: 0 0 5px #888;
     -webkit-box-shadow: 0 0 5px #888;
-    box-shadow: 0 0 5px #888;
+    box-shadow: 0 0 5px #888;*/
 }
 
 /*
 * dataTables jqueryui bootstrap reset
 */
+/*
 table.tabla-jqueryui{
     width: 100%;
 }
@@ -74,7 +75,7 @@ table.tabla-jqueryui thead tr th{
     margin-right: -0.1em !important;
 }
 .paging_full_numbers {
-    /*width: 250px !important;*/
+    width: 250px !important;
 }
 .dataTables_wrapper .ui-toolbar {
     padding: 5px;
@@ -154,7 +155,7 @@ table.display td {
 table.display td.center {
     text-align: center;
 }
-/*.sorting_asc {
+.sorting_asc {
     background: url("../images/sort_asc.png") no-repeat scroll right center rgba(0, 0, 0, 0);
 }
 .sorting_desc {
@@ -168,7 +169,7 @@ table.display td.center {
 }
 .sorting_desc_disabled {
     background: url("../images/sort_desc_disabled.png") no-repeat scroll right center rgba(0, 0, 0, 0);
-}*/
+}
 table.display tr.odd.gradeA {
     background-color: #DDFFDD;
 }
@@ -363,3 +364,4 @@ tr.even.gradeU td.sorting_3 {
 .ex_highlight #example tbody tr.odd:hover, #example tbody tr.odd td.highlighted {
     background-color: #E6FF99;
 }
+*/
