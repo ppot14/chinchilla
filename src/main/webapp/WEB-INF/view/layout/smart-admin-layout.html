@@ -7,7 +7,15 @@
         <!--<script src="/resources/js/jquery-ui-1.10.3.custom.js" th:src="@{/resources/js/jquery-ui-1.10.3.custom.js}"></script>-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
         <script src="/resources/js/jquery.ui.datepicker-es.js" th:src="@{/resources/js/jquery.ui.datepicker-es.js}"></script> 
-        <script src="/resources/js/jquery.dataTables.js" th:src="@{/resources/js/jquery.dataTables.js}"></script> 
+<!--        <script src="/resources/js/jquery.dataTables.js" th:src="@{/resources/js/jquery.dataTables.js}"></script> 
+        <script src="/resources/js/datatable/dataTables.bootstrap.js" th:src="@{/resources/js/datatable/dataTables.bootstrap.js}"></script> -->
+        <script src="/resources/js/datatable/jquery.dataTables-cust.js" th:src="@{/resources/js/datatable/jquery.dataTables-cust.js}"></script>
+        <script src="/resources/js/datatable/ColReorder.min.js" th:src="@{/resources/js/datatable/ColReorder.min.js}"></script>
+        <script src="/resources/js/datatable/FixedColumns.min.js" th:src="@{/resources/js/datatable/FixedColumns.min.js}"></script>
+        <script src="/resources/js/datatable/ColVis.min.js" th:src="@{/resources/js/datatable/ColVis.min.js}"></script>
+        <script src="/resources/js/datatable/ZeroClipboard.js" th:src="@{/resources/js/datatable/ZeroClipboard.js}"></script>
+        <script src="/resources/js/datatable/TableTools.js" th:src="@{/resources/js/datatable/TableTools.js}"></script>
+        <script src="/resources/js/datatable/DT_bootstrap.js" th:src="@{/resources/js/datatable/DT_bootstrap.js}"></script>
         <script src="/resources/js/jquery.validate.js" th:src="@{/resources/js/jquery.validate.js}"></script> 
         <!--<script src="/resources/js/bootstrap.js" th:src="@{/resources/js/bootstrap.js}"></script>--> 
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -26,6 +34,7 @@
         <link rel="stylesheet" type="text/css" href="/resources/css/whhg.css" th:href="@{/resources/css/whhg.css}" media="all"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/smartadmin-production.css" th:href="@{/resources/css/smartadmin-production.css}" media="screen"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/smartadmin-skins.css" th:href="@{/resources/css/smartadmin-skins.css}" media="screen"/>
+        <link rel="stylesheet" type="text/css" href="/resources/css/dataTables.bootstrap.css" th:href="@{/resources/css/dataTables.bootstrap.css}" media="screen"/>
         <!--<link rel="stylesheet" type="text/css" href="/resources/css/bootstrap-theme.css" th:href="@{/resources/css/bootstrap-theme.css}"/>-->
         <link rel="stylesheet" type="text/css" href="/resources/css/smoothness/jquery-ui-1.10.3.custom.css" th:href="@{/resources/css/smoothness/jquery-ui-1.10.3.custom.css}"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/layout.css" th:href="@{/resources/css/layout.css}"/>
@@ -102,14 +111,15 @@
         };
     
     var tabla_opciones = {
-            "bJQueryUI": true,
-            "sPaginationType": "full_numbers",
-            "iDisplayLength": 25,
-            "oLanguage": dataTablesLanguage,
+//            "bJQueryUI": true,
+//            "sPaginationType": "full_numbers",
+            "sPaginationType": "bootstrap_full",
+//            "iDisplayLength": 25,
+//            "oLanguage": dataTablesLanguage,
 //            "sScrollX": "100%",
 //            "sScrollXInner": "110%",
 //            "bScrollCollapse": true,
-            "bStateSave": true
+//            "bStateSave": true
         };
 
     $(window).load(function () {
