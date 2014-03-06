@@ -9,6 +9,7 @@
 	<definition name="template" template="layout/smart-admin-layout">
             <put-attribute name="inc_header" value="header/smart-admin-header" />
             <put-attribute name="inc_leftpanel" value="left/main-menu" />
+            <put-attribute name="inc_rightpanel" value="right/default" />
             <put-attribute name="inc_breadcrumb" value="other/bread-crumb" />
 	</definition>
 
@@ -25,22 +26,22 @@
 		<put-attribute name="inc_content" value="content/tabla-parcelas"/>
 	</definition>
         
-<!--        <definition name="parcelas-mapa-form-labor" extends="parcelas-mapa">
-		<put-attribute name="rightpanel" value="right/form-labor"/>
-	</definition>-->
+        <definition name="parcelas-mapa-form-labor" extends="parcelas-mapa">
+		<put-attribute name="inc_rightpanel" value="right/form-labor"/>
+	</definition>
         
-<!--        <definition name="parcelas-tabla-labores" extends="parcelas-mapa">
-		<put-attribute name="rightpanel" value="content/tabla-labores"/>
-	</definition>-->
+        <definition name="parcelas-tabla-labores" extends="parcelas-mapa">
+		<put-attribute name="inc_rightpanel" value="content/tabla-labores"/>
+	</definition>
         
         <!--Labores-->
         <definition name="labores-tabla" extends="template">
 		<put-attribute name="inc_content" value="content/tabla-labores"/>
 	</definition>
         
-<!--        <definition name="labores-tabla-form-labor" extends="labores-tabla">
-		<put-attribute name="rightpanel" value="right/form-labor"/>
-	</definition>-->
+        <definition name="labores-tabla-form-labor" extends="labores-tabla">
+		<put-attribute name="inc_rightpanel" value="right/form-labor"/>
+	</definition>
         
 <!--        <definition name="tipos-labores-tabla" extends="template">
 		<put-attribute name="inc_content" value="content/tabla-tipos-labores"/>
@@ -51,20 +52,19 @@
 		<put-attribute name="inc_content" value="content/tabla-producciones"/>
 	</definition>
         
-<!--        <definition name="producciones-tabla-form-produccion" extends="producciones-tabla">
-		<put-attribute name="rightpanel" value="right/form-produccion"/>
-	</definition>-->
+        <definition name="producciones-tabla-form-produccion" extends="producciones-tabla">
+		<put-attribute name="inc_rightpanel" value="right/form-produccion"/>
+	</definition>
         
         <definition name="cultivos-tabla" extends="template">
 		<put-attribute name="inc_content" value="content/tabla-cultivos"/>
 	</definition>
         
-<!--        <definition name="cultivos-tabla-form-cultivo" extends="cultivos-tabla">
-		<put-attribute name="rightpanel" value="right/form-cultivo"/>
-	</definition>-->
+        <definition name="cultivos-tabla-form-cultivo" extends="cultivos-tabla">
+		<put-attribute name="inc_rightpanel" value="right/form-cultivo"/>
+	</definition>
         
         <definition name="maquinaria-tabla" extends="template">
-		<!--<put-attribute name="leftpanel" value="left/submenu-maquinaria"/>-->
 		<put-attribute name="inc_content" value="content/tabla-maquinaria"/>
 	</definition>
         
