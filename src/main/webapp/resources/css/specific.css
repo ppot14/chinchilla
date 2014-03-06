@@ -7,6 +7,15 @@
 */
 
 /*
+* common
+*/
+html {
+    height: auto;
+}
+h2 {
+    line-height: 1.1;
+}
+/*
 * Header
 */
 
@@ -47,6 +56,42 @@
     box-shadow: 0 0 5px #888;*/
 }
 
+/*
+* bootstrap
+*/
+.well {
+    border-radius: 0px;
+}
+/*
+* smart-style
+*/
+.smart-style-3 nav ul ul li > a {
+    font-size: 14px;
+}
+
+.smart-style-3 nav > ul > li > a {
+    font-size: 14px;
+}
+
+.smart-style-3 nav > ul > li > a > i {
+    font-size: 14px;
+}
+
+.smart-style-3 nav > ul > li > a b {
+    top: 14px;
+}
+
+.btn.btn-ribbon > i {
+    font-size: 100%;
+}
+
+.jarviswidget .widget-body {
+    padding-bottom: 0px;
+}
+
+ol.breadcrumb{
+    font-size: 13px;
+}
 /*
 * dataTables jqueryui bootstrap reset
 */

@@ -10,69 +10,119 @@
     
     
 /*]]>*/</script> 
-<div class="row">
-    <div class="col-lg-6">
-        <h4><span th:text="#{labores}">[parcelas]</span></h4>
+<div class="row" th:inline="text">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark" ><i class="fa fa-lg fa-fw fa-table"></i> [[#{labores}]]</h1>
     </div>
-    <div class="col-lg-6 text-right">
-        <a id="anadir-tipo-labor-link" 
-           class="btn btn-default btn-sm" 
-           th:href="@{/labores/tabla/form/labor.html(id=-1)}" >
-            <span class="glyphicon glyphicon-plus"></span> <span th:text="#{anadir-tipo-labor}">[anadir-labor]</span></a>
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
     </div>
 </div>
-    
-<div class="row">
-<table id="tabla_labores" class="tabla-jqueryui">
-    <!--class="table table-stripped table-bordered table-hover table-condensed"-->
-    <thead>
-        <tr>
-          <th th:text="#{id-labor}"></th>
-          <!--<th th:text="#{id-tipo-labor}"></th>-->
-          <th th:text="#{grupo}"></th>
-          <th th:text="#{nombre}"></th>
-          <th th:text="#{fecha-comienzo}"></th>
-          <!--<th th:text="#{cantidad-dosis-por-ha}"></th>-->
-          <th th:text="#{litros-gasoil}"></th>
-          <th th:text="#{duracion}"></th>
-          <th th:text="#{maquinaria}"></th>
-          <th th:text="#{producto}"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr  th:each="labores_item : ${labores}">
-          <td><a th:href="@{/labores/tabla/form/labor.html(id=${labores_item.id_labor})}"><span th:text="${labores_item.id_labor}">[parcelas]</span></a></td>
-          <!--<td th:text="${labores_item.id_tipo_labor}"><a th:href="@{/labores/tipo/tabla/form/labor.html(id=${labores_item.id_tipo_labor})}" th:text="${labores_item.id_tipo_labor}">[id_tipo_labor]</a></td>-->
-<!--          <td th:each="tipoLabor_item : ${tiposLabores}" 
-              th:if="${tipoLabor_item.id_tipo_labor == labores_item.id_tipo_labor}"
-              th:text="${tipoLabor_item.nombre}">
-              <a th:href="@{/labores/tipos/tabla/form/tipoLabor.html(id=${labores_item.id_tipo_labor})}" 
-                 th:text="${tipoLabor_item.nombre}">[tipolabor]</a>
-          </td>-->
-          <td th:text="${labores_item.grupo}">[grupo]</td>
-          <td th:text="${labores_item.nombre}">[nombre]</td>
-          <td th:text="${#dates.format(labores_item.fecha_comienzo,'dd/MM/yyyy')}">[fecha_comienzo]</td>
-          <!--<td th:text="${#numbers.formatDecimal(labores_item.cantidad_dosis_por_ha,1,'POINT',0,'COMMA')}">[cantidad_dosis_por_ha]</td>-->
-          <td th:text="${#numbers.formatDecimal(labores_item.litros_gasoil,1,'POINT',2,'COMMA')}">[litros_gasoil]</td>
-          <td th:text="${#numbers.formatDecimal(labores_item.duracion,1,'POINT',2,'COMMA')}">[duracion]</td>
-          <td>
-              <ul  th:if="${not #lists.isEmpty(labores_item.labor_maquinaria)}"
-                    class="nav nav-pills">
-                <li th:each="laborMaquinaria_item : ${labores_item.labor_maquinaria}">
-                  <a th:text="${laborMaquinaria_item.maquinaria.nombre}" ref="#">[maquinaria]</a>
-                </li>
-              </ul>
-          </td>
-          <td>
-              <ul  th:if="${not #lists.isEmpty(labores_item.labor_producto)}"
-                    class="nav nav-pills">
-                <li th:each="laborProducto_item : ${labores_item.labor_producto}">
-                  <a th:text="${laborProducto_item.producto.nombre}" ref="#">[producto]</a>
-                </li>
-              </ul>
-          </td>
-       </tr>
-    </tbody>
-</table>
-</div>
+
+    <!-- widget grid -->
+    <section id="widget-grid" class="" th:inline="text">
+
+        <!-- row -->
+        <div class="row">
+
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false"
+                                                        data-widget-editbutton="false"
+                                                        data-widget-togglebutton="true"
+                                                        data-widget-deletebutton="false"
+                                                        data-widget-fullscreenbutton="false"
+                                                        data-widget-custombutton="false"
+                                                        data-widget-collapsed="false" 
+                                                        data-widget-sortable="false">
+                    <header>
+                        <h2><strong th:inline="text">[[#{mapa}]]</strong></h2>					
+                        <div class="widget-toolbar"> 
+                            <a id="anadir-tipo-labor-link" class="btn btn-default btn-sm" th:href="@{/labores/tabla/form/labor.html(id=-1)}">
+                                 <span class="glyphicon glyphicon-plus"></span> [[#{anadir-labor}]]
+                            </a>
+                        </div>
+                    </header>
+
+                    <!-- widget div-->
+                    <div class="no-padding">
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                        </div>
+                        <!-- widget content -->
+                        <div class="widget-body">
+                            <div class="widget-body-toolbar">
+
+                            </div>
+                            
+                            <table id="tabla_labores" class="table table-striped table-bordered table-hover">
+                                <!--class="table table-stripped table-bordered table-hover table-condensed"-->
+                                <thead>
+                                    <tr>
+                                      <th th:text="#{id-labor}"></th>
+                                      <!--<th th:text="#{id-tipo-labor}"></th>-->
+                                      <th th:text="#{grupo}"></th>
+                                      <th th:text="#{nombre}"></th>
+                                      <th th:text="#{fecha-comienzo}"></th>
+                                      <!--<th th:text="#{cantidad-dosis-por-ha}"></th>-->
+                                      <th th:text="#{litros-gasoil}"></th>
+                                      <th th:text="#{duracion}"></th>
+                                      <th th:text="#{maquinaria}"></th>
+                                      <th th:text="#{producto}"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr  th:each="labores_item : ${labores}">
+                                      <td><a th:href="@{/labores/tabla/form/labor.html(id=${labores_item.id_labor})}"><span th:text="${labores_item.id_labor}">[parcelas]</span></a></td>
+                                      <!--<td th:text="${labores_item.id_tipo_labor}"><a th:href="@{/labores/tipo/tabla/form/labor.html(id=${labores_item.id_tipo_labor})}" th:text="${labores_item.id_tipo_labor}">[id_tipo_labor]</a></td>-->
+                            <!--          <td th:each="tipoLabor_item : ${tiposLabores}" 
+                                          th:if="${tipoLabor_item.id_tipo_labor == labores_item.id_tipo_labor}"
+                                          th:text="${tipoLabor_item.nombre}">
+                                          <a th:href="@{/labores/tipos/tabla/form/tipoLabor.html(id=${labores_item.id_tipo_labor})}" 
+                                             th:text="${tipoLabor_item.nombre}">[tipolabor]</a>
+                                      </td>-->
+                                      <td th:text="${labores_item.grupo}">[grupo]</td>
+                                      <td th:text="${labores_item.nombre}">[nombre]</td>
+                                      <td th:text="${#dates.format(labores_item.fecha_comienzo,'dd/MM/yyyy')}">[fecha_comienzo]</td>
+                                      <!--<td th:text="${#numbers.formatDecimal(labores_item.cantidad_dosis_por_ha,1,'POINT',0,'COMMA')}">[cantidad_dosis_por_ha]</td>-->
+                                      <td th:text="${#numbers.formatDecimal(labores_item.litros_gasoil,1,'POINT',2,'COMMA')}">[litros_gasoil]</td>
+                                      <td th:text="${#numbers.formatDecimal(labores_item.duracion,1,'POINT',2,'COMMA')}">[duracion]</td>
+                                      <td>
+<!--                                          <ul  th:if="${not #lists.isEmpty(labores_item.labor_maquinaria)}"
+                                                class="nav">
+                                            <li th:each="laborMaquinaria_item : ${labores_item.labor_maquinaria}">
+                                              <a th:text="${laborMaquinaria_item.maquinaria.nombre}" ref="#">[maquinaria]</a>
+                                            </li>
+                                          </ul>-->
+                                          <th:block  th:if="${not #lists.isEmpty(labores_item.labor_maquinaria)}">
+                                              <th:block  th:each="laborMaquinaria_item : ${labores_item.labor_maquinaria}">
+                                                <span class="label label-default" ref="#">[[${laborMaquinaria_item.maquinaria.nombre}]]</span>&nbsp;
+                                              </th:block>
+                                          </th:block> 
+                                      </td>
+                                      <td>
+<!--                                          <ul  th:if="${not #lists.isEmpty(labores_item.labor_producto)}"
+                                                class="nav">
+                                            <li th:each="laborProducto_item : ${labores_item.labor_producto}">
+                                              <a th:text="${laborProducto_item.producto.nombre}" ref="#">[producto]</a>
+                                            </li>
+                                          </ul>-->
+                                          
+                                          <th:block  th:if="${not #lists.isEmpty(labores_item.labor_producto)}">
+                                              <th:block  th:each="laborProducto_item : ${labores_item.labor_producto}">
+                                                <span class="label label-default" ref="#">[[${laborProducto_item.producto.nombre}]]</span>&nbsp;
+                                              </th:block>
+                                          </th:block> 
+                                      </td>
+                                   </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </article>
+        </div>
+    </section>
 </html>

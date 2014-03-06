@@ -60,10 +60,10 @@
         
         <div id="main" role="main">     
             <!-- RIBBON -->
-            <div id="ribbon" tiles:include="inc_breadcrumb">
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" id="content" tiles:include="inc_content"></div>
+<!--            <div id="ribbon" tiles:include="inc_breadcrumb">
+            </div>-->
+            <div class="row" id="content">
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" id="middle-panel" tiles:include="inc_content"></div>
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" id="right-panel" tiles:include="inc_rightpanel" style="display: none"></div>
             </div>
         </div>
@@ -121,8 +121,8 @@
             "sPaginationType": "bootstrap_full",
             "iDisplayLength": 10,
             "oLanguage": dataTablesLanguage,
-//            "sScrollX": "100%",
-//            "sScrollXInner": "110%",
+            "sScrollX": "100%"
+//            "sScrollXInner": "150%"
 //            "bScrollCollapse": true,
 //            "bStateSave": true
         };
@@ -159,9 +159,9 @@
          */
         var layout_rightpanel = $('#right-panel');
         
-        var layout_content = $('#content');
+        var layout_middle_panel = $('#middle-panel');
         
-        if(layout_rightpanel && layout_content){
+        if(layout_rightpanel && layout_middle_panel){
             
             var rightContent = layout_rightpanel.html();
             
@@ -172,12 +172,12 @@
                 rightContent === 'vacio' || 
                 rightContent === 'empty' ){
             
-                layout_content.removeClass('col-sm-8 col-md-8 col-lg-8').addClass('col-sm-12 col-md-12 col-lg-12');
+                layout_middle_panel.removeClass('col-sm-8 col-md-8 col-lg-8').addClass('col-sm-12 col-md-12 col-lg-12');
                 layout_rightpanel.hide();
                 
             }else {
             
-                layout_content.removeClass('col-sm-12 col-md-12 col-lg-12').addClass('col-sm-8 col-md-8 col-lg-8');
+                layout_middle_panel.removeClass('col-sm-12 col-md-12 col-lg-12').addClass('col-sm-8 col-md-8 col-lg-8');
                 layout_rightpanel.show();
                 
             }

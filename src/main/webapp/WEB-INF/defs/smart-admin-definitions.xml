@@ -10,7 +10,7 @@
             <put-attribute name="inc_header" value="header/smart-admin-header" />
             <put-attribute name="inc_leftpanel" value="left/main-menu" />
             <put-attribute name="inc_rightpanel" value="right/default" />
-            <put-attribute name="inc_breadcrumb" value="other/bread-crumb" />
+            <!--<put-attribute name="inc_breadcrumb" value="other/bread-crumb" />-->
 	</definition>
 
 	<definition name="inicio" extends="template">
