@@ -59,7 +59,9 @@
             <!-- RIBBON -->
             <div id="ribbon" tiles:include="inc_breadcrumb">
             </div>
-            <div id="content" tiles:include="inc_content">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" id="content" tiles:include="inc_content"></div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" id="right-panel" tiles:include="inc_rightpanel" style="display: none"></div>
             </div>
         </div>
  
@@ -151,62 +153,28 @@
         /*
          * Hacer desaparecer panel derecho si no hay nada
          */
-        var layout_rightpanel = $('#layout_rightpanel');
+        var layout_rightpanel = $('#right-panel');
         
-        var layout_leftpanel = $('#layout_leftpanel');
+        var layout_content = $('#content');
         
-        var layout_content = $('#layout_content');
-        
-        if(layout_leftpanel && layout_rightpanel && layout_content){
+        if(layout_rightpanel && layout_content){
             
-            var contenidoDerecho = layout_rightpanel.html();
+            var rightContent = layout_rightpanel.html();
             
-            var contenidoIzquierdo = layout_leftpanel.html();
+            console.debug('contenidoDerecho '+rightContent);
             
-//            console.debug('contenidoDerecho '+contenidoDerecho);
-//            
-//            console.debug('contenidoIzquierdo '+contenidoIzquierdo);
+            if( !rightContent || 
+                rightContent === '' || 
+                rightContent === 'vacio' || 
+                rightContent === 'empty' ){
             
-            if((!contenidoDerecho || 
-                contenidoDerecho === '' || 
-                contenidoDerecho === 'vacio' || 
-                contenidoDerecho === 'empty')
-                &&
-                (!contenidoIzquierdo || 
-                contenidoIzquierdo === '' || 
-                contenidoIzquierdo === 'vacio' || 
-                contenidoIzquierdo === 'empty')){
-            
-                layout_content.addClass('col-md-12');
-                layout_content.removeClass('col-md-6');
-                layout_content.removeClass('col-md-10');
-//                layout_rightpanel.removeClass('col-md-4');
+                layout_content.removeClass('col-sm-8 col-md-8 col-lg-8').addClass('col-sm-12 col-md-12 col-lg-12');
                 layout_rightpanel.hide();
-//                layout_leftpanel.removeClass('col-md-2');
-                layout_leftpanel.hide();
                 
-            }else if(!contenidoDerecho || 
-                contenidoDerecho === '' || 
-                contenidoDerecho === 'vacio' || 
-                contenidoDerecho === 'empty'){
+            }else {
             
-                layout_content.addClass('col-md-10');
-                layout_content.removeClass('col-md-6');
-                layout_content.removeClass('col-md-12');
-//                layout_rightpanel.removeClass('col-md-4');
-                layout_rightpanel.hide();
-//                layout_leftpanel.addClass('col-md-2');
-                layout_leftpanel.show();
-                
-            }else{
-                
-                layout_content.addClass('col-md-6');
-                layout_content.removeClass('col-md-10');
-                layout_content.removeClass('col-md-12');
-//                layout_rightpanel.addClass('col-md-4');
+                layout_content.removeClass('col-sm-12 col-md-12 col-lg-12').addClass('col-sm-8 col-md-8 col-lg-8');
                 layout_rightpanel.show();
-//                layout_leftpanel.addClass('col-md-2');
-                layout_leftpanel.show();
                 
             }
             
