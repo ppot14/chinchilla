@@ -34,7 +34,8 @@
         <link rel="stylesheet" type="text/css" href="/resources/css/whhg.css" th:href="@{/resources/css/whhg.css}" media="all"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/smartadmin-production.css" th:href="@{/resources/css/smartadmin-production.css}" media="screen"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/smartadmin-skins.css" th:href="@{/resources/css/smartadmin-skins.css}" media="screen"/>
-        <link rel="stylesheet" type="text/css" href="/resources/css/dataTables.bootstrap.css" th:href="@{/resources/css/dataTables.bootstrap.css}" media="screen"/>
+        <!--<link rel="stylesheet" type="text/css" href="/resources/css/dataTables.bootstrap.css" th:href="@{/resources/css/dataTables.bootstrap.css}" media="screen"/>-->
+        <link rel="stylesheet" type="text/css" href="/resources/css/TableTools.css" th:href="@{/resources/css/TableTools.css}" media="screen"/>
         <!--<link rel="stylesheet" type="text/css" href="/resources/css/bootstrap-theme.css" th:href="@{/resources/css/bootstrap-theme.css}"/>-->
         <link rel="stylesheet" type="text/css" href="/resources/css/smoothness/jquery-ui-1.10.3.custom.css" th:href="@{/resources/css/smoothness/jquery-ui-1.10.3.custom.css}"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/layout.css" th:href="@{/resources/css/layout.css}"/>
@@ -43,6 +44,8 @@
         <link rel="stylesheet" type="text/css" href="/resources/css/specific.css" th:href="@{/resources/css/specific.css}"/>
         <!--<link rel="stylesheet" type="text/css" href="/resources/css/overwrite.css" th:href="@{/resources/css/overwrite.css}"/>-->
         <link rel="icon" type="image/ico" href="/resources/favicon.ico" th:href="@{/resources/favicon.ico}"/>
+        
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700"/>
         
         <title>Chinchilla</title>
     </head>
@@ -87,14 +90,14 @@
 //    var dataTablesLanguage = /*[[@{/resources/json/dataTables.spanish.txt}]]*/null;
     var dataTablesLanguage = {
             "sProcessing":     "Procesando...",
-            "sLengthMenu":     "Mostrar _MENU_ registros",
+//            "sLengthMenu":     "Mostrar _MENU_ registros",
             "sZeroRecords":    "No se encontraron resultados",
             "sEmptyTable":     "Ning&uacute;n dato disponible en esta tabla",
             "sInfo":           "Mostrando del _START_ al _END_ , Total _TOTAL_ registros",
             "sInfoEmpty":      "Mostrando del 0 al 0 , Total 0 registros",
             "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
             "sInfoPostFix":    "",
-            "sSearch":         "Buscar:",
+//            "sSearch":         "Buscar:",
             "sUrl":            "",
             "sInfoThousands":  ",",
             "sLoadingRecords": "Cargando...",
@@ -114,16 +117,17 @@
 //            "bJQueryUI": true,
 //            "sPaginationType": "full_numbers",
             "sPaginationType": "bootstrap_full",
-//            "iDisplayLength": 25,
-//            "oLanguage": dataTablesLanguage,
+            "iDisplayLength": 10,
+            "oLanguage": dataTablesLanguage,
 //            "sScrollX": "100%",
 //            "sScrollXInner": "110%",
 //            "bScrollCollapse": true,
 //            "bStateSave": true
         };
 
-    $(window).load(function () {
-        
+    $(document).ready(function() {
+			
+//	pageSetUp();
         /*
          * Notificador
          */
