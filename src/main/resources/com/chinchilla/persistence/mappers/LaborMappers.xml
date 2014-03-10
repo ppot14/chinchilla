@@ -23,6 +23,12 @@
                     column="id_labor"
                     ofType="LaborProducto" 
                     resultMap="laborProductoResultMap"/>
+        <collection property="labor_personal" 
+                    javaType="ArrayList"  
+                    columnPrefix="lpe_" 
+                    column="id_labor"
+                    ofType="LaborPersonal" 
+                    resultMap="laborPersonalResultMap"/>
     </resultMap>
       
     <resultMap id="laborMaquinariaResultMap" type="LaborMaquinaria">
@@ -75,6 +81,45 @@
         <result property="descripcion" column="descripcion"/>
         <result property="num_reg_ma" column="num_reg_ma"/>
         <result property="plazo_seguridad" column="plazo_seguridad"/>
+    </resultMap>
+      
+    <resultMap id="laborPersonalResultMap" type="LaborPersonal">
+        <id property="id_labor" column="id_labor"/>
+        <id property="posicion_formula" column="posicion_formula"/>
+        <result property="multiplicador" column="multiplicador"/>
+        <result property="constante" column="constante"/>
+        <association property="personal" 
+                     column="id_personal" 
+                     columnPrefix="pe_"
+                    javaType="Personal" 
+                    resultMap="personalResultMap"/>
+        <association property="coste_personal" 
+                     column="id_coste_personal" 
+                     columnPrefix="cpe_"
+                    javaType="CostePersonal" 
+                    resultMap="costePersonalResultMap"/>
+    </resultMap> 
+      
+    <resultMap  id="personalResultMap" type="Personal">
+        <id property="id_personal" column="id_personal"/>
+        <result property="nombre" column="nombre"/>
+        <result property="apellidos" column="apellidos"/>
+    </resultMap>
+      
+    <resultMap  id="costePersonalResultMap" type="CostePersonal">
+        <id property="id_coste_personal" column="id_coste_personal"/>
+        <result property="tipo" column="tipo"/>
+        <result property="funcion" column="funcion"/>
+        <result property="salario_base" column="salario_base"/>
+        <result property="paga_extra" column="paga_extra"/>
+        <result property="horas_anuales" column="horas_anuales"/>
+        <result property="base_ssp" column="base_ssp"/>
+        <result property="desempleo_pc" column="desempleo_pc"/>
+        <result property="plus_distancia" column="plus_distancia"/>
+        <result property="km" column="km"/>
+        <result property="horas_dia" column="horas_dia"/>
+        <result property="validez_inicio" column="validez_inicio"/>
+        <result property="validez_fin" column="validez_fin"/>
     </resultMap>
 	
     <select id="getLabor" parameterType="java.lang.Integer" resultType="com.chinchilla.persistence.objects.Labor">
@@ -147,7 +192,32 @@
         tp.nombre	as "lp_tp_nombre",
         tp.descripcion	as "lp_tp_descripcion",
         tp.num_reg_ma	as "lp_tp_num_reg_ma",
-        tp.plazo_seguridad	as "lp_tp_plazo_seguridad"
+        tp.plazo_seguridad	as "lp_tp_plazo_seguridad",
+        
+        lpe.id_labor as "lpe_id_labor",
+        lpe.id_personal as "lpe_id_personal",
+        lpe.id_coste_personal as "lpe_id_coste_personal",
+        lpe.multiplicador as "lpe_multiplicador",
+        lpe.constante as "lpe_constante",
+        lpe.posicion_formula as "lpe_posicion_formula",
+        
+        cpe.id_coste_personal	as "cpe_id_coste_personal",
+        cpe.tipo	as "cpe_tipo",
+        cpe.funcion	as "cpe_funcion",
+        cpe.salario_base	as "cpe_salario_base",
+        cpe.paga_extra	as "cpe_paga_extra",
+        cpe.horas_anuales	as "cpe_horas_anuales",
+        cpe.base_ssp	as "cpe_base_ssp",
+        cpe.desempleo_pc	as "cpe_desempleo_pc",
+        cpe.plus_distancia	as "cpe_plus_distancia",
+        cpe.km	as "cpe_km",
+        cpe.horas_dia	as "cpe_horas_dia",
+        cpe.validez_inicio	as "cpe_validez_inicio",
+        cpe.validez_fin	as "cpe_validez_fin",
+        
+        pe.id_personal	as "pe_id_personal",
+        pe.nombre	as "pe_nombre",
+        pe.apellidos	as "pe_apellidos"
         
         from gonzalol_chinchilla.t_labores  l
             left join gonzalol_chinchilla.t_l_costes_maquinaria lcm
@@ -158,6 +228,13 @@
                 on l.id_labor = lp.id_labor
             left join gonzalol_chinchilla.t_productos tp
                 on lp.id_producto = tp.id_producto
+        
+            left join gonzalol_chinchilla.t_l_costes_personal lpe
+                on l.id_labor = lpe.id_labor
+            left join gonzalol_chinchilla.t_costes_personal cpe
+                on lpe.id_coste_personal = cpe.id_coste_personal
+            left join gonzalol_chinchilla.t_personal pe
+                on lpe.id_personal = pe.id_personal
         
         order by l.id_labor
     </select>

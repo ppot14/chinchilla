@@ -70,6 +70,7 @@
                                       <th th:text="#{duracion}"></th>
                                       <th th:text="#{maquinaria}"></th>
                                       <th th:text="#{producto}"></th>
+                                      <th th:text="#{personal}"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -112,6 +113,13 @@
                                           <th:block  th:if="${not #lists.isEmpty(labores_item.labor_producto)}">
                                               <th:block  th:each="laborProducto_item : ${labores_item.labor_producto}">
                                                 <span class="label label-default" ref="#">[[${laborProducto_item.producto.nombre}]]</span>&nbsp;
+                                              </th:block>
+                                          </th:block> 
+                                      </td>
+                                      <td>
+                                          <th:block  th:if="${not #lists.isEmpty(labores_item.labor_personal)}">
+                                              <th:block  th:each="laborPersonal_item : ${labores_item.labor_personal}">
+                                                <span class="label label-default" ref="#">[[${laborPersonal_item.coste_personal.tipo}]]</span>&nbsp;
                                               </th:block>
                                           </th:block> 
                                       </td>

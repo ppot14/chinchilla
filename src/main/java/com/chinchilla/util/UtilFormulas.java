@@ -23,6 +23,7 @@
  */
 package com.chinchilla.util;
 
+import com.chinchilla.persistence.objects.CostePersonal;
 import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.persistence.objects.Maquinaria;
 import com.chinchilla.persistence.objects.Personal;
@@ -116,7 +117,7 @@ public class UtilFormulas {
         
     }
     
-    public double costeHoraMaquinaria(Personal per){
+    public double costeHoraMaquinaria(CostePersonal per){
         
         double costeHora, totalPersonal, totalSeguridadSocial, contingenciasComunes,
                 desempleo, fgs, fp, atyep, km, pagasExtra, pagaAntiguedad, horasExtra,

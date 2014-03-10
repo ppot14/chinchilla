@@ -125,6 +125,10 @@
 //            "sScrollXInner": "150%"
 //            "bScrollCollapse": true,
 //            "bStateSave": true
+//            "sDom" : "R<'dt-top-row'Clf>r<'dt-wrapper't><'dt-row dt-bottom-row'<'row'<'col-sm-6'i><'col-sm-6 text-right'p>>",
+//            "fnInitComplete" : function(oSettings, json) {
+//                $('.ColVis_Button').addClass('btn btn-default btn-sm').html('Columnas <i class="icon-arrow-down"></i>');
+//            }
         };
 
     $(document).ready(function() {
@@ -165,7 +169,7 @@
             
             var rightContent = layout_rightpanel.html();
             
-            console.debug('contenidoDerecho '+rightContent);
+//            console.debug('contenidoDerecho '+rightContent);
             
             if( !rightContent || 
                 rightContent === '' || 

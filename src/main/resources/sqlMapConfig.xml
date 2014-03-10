@@ -13,6 +13,9 @@
     <typeAliases>
         <typeAlias type="com.chinchilla.persistence.objects.Labor" alias="Labor"/>
         <!--<typeAlias type="com.chinchilla.persistence.objects.TipoLabor" alias="TipoLabor"/>-->
+        <typeAlias type="com.chinchilla.persistence.objects.Personal" alias="Personal"/>
+        <typeAlias type="com.chinchilla.persistence.objects.CostePersonal" alias="CostePersonal"/>
+        <typeAlias type="com.chinchilla.persistence.objects.LaborPersonal" alias="LaborPersonal"/>
         <typeAlias type="com.chinchilla.persistence.objects.LaborProducto" alias="LaborProducto"/>
         <typeAlias type="com.chinchilla.persistence.objects.Producto" alias="Producto"/>
         <typeAlias type="com.chinchilla.persistence.objects.LaborMaquinaria" alias="LaborMaquinaria"/>

@@ -42,6 +42,7 @@ public class Labor implements Serializable{
     private double litros_gasoil;
     private List<LaborMaquinaria> labor_maquinaria;
     private List<LaborProducto> labor_producto;
+    private List<LaborPersonal> labor_personal;
 
     public int getId_labor() {
         return id_labor;
@@ -199,6 +200,20 @@ public class Labor implements Serializable{
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    /**
+     * @return the labor_personal
+     */
+    public List<LaborPersonal> getLabor_personal() {
+        return labor_personal;
+    }
+
+    /**
+     * @param labor_personal the labor_personal to set
+     */
+    public void setLabor_personal(List<LaborPersonal> labor_personal) {
+        this.labor_personal = labor_personal;
     }
     
 }

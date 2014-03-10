@@ -101,11 +101,21 @@ THE SOFTWARE.
 <!-- pulled right: nav area -->
 <div class="pull-right">
 
+        <!-- configuration -->
+        <div id="configuration-menu" class="btn-header pull-right">
+                <span> <a th:href="@{/configuracion.html}" title="Configuration"><i class="icon-cog"></i></a> </span>
+        </div>
+        
         <!-- collapse menu button -->
         <div id="hide-menu" class="btn-header pull-right">
                 <span> <a href="javascript:void(0);" title="Collapse Menu"><i class="icon-sidebar"></i></a> </span>
         </div>
         <!-- end collapse menu -->
+        
+        <!-- dashboard -->
+        <div id="dashboard-menu" class="btn-header pull-right">
+                <span> <a th:href="@{/}" title="Dashboard"><i class="icon-home"></i></a> </span>
+        </div>
 
         <!-- logout button -->
 <!--        <div id="logout" class="btn-header transparent pull-right">
