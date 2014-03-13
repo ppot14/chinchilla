@@ -33,7 +33,7 @@ THE SOFTWARE.
             </a>
         </span>
     </div>
-     <nav>
+     <nav id="menu-nav">
          <ul>
              <li>
                  <a href="#" id="menu-parcelas">
@@ -60,7 +60,7 @@ THE SOFTWARE.
                     <li><a th:href="@{/producciones/tabla.html}" th:text="#{tabla}">Tabla</a></li>
                  </ul>
              </li>
-             <li class="disabled">
+             <li>
                  <a th:href="@{/riegos/tabla.html}" id="menu-riegos" >
                      <i class="icon-watertap-plumbing"></i> <span th:text="#{riegos}">[riegos]</span>
                  </a>
@@ -110,8 +110,10 @@ THE SOFTWARE.
 $(window).load(function () {
 
     var ruta = window.location.pathname;
+            
+    console.log('ruta '+ruta);
     
-    $('#menudiv li').each(function(){
+    $('nav#menu-nav li').each(function(){
         
         var enlace = $( this ).find('a');
         
@@ -119,38 +121,29 @@ $(window).load(function () {
             
             var href = enlace.attr('href');
             
+            console.log('href '+href);
+            
+            console.log('indexOf '+ruta.indexOf(href.replace('.html','')));
+            
             if(ruta.indexOf(href.replace('.html','')) >= 0 && href.indexOf('.html') >= 0){
                 
-               $( this ).addClass("active");
+               enlace.parent().addClass("active");
                
-            }else if(ruta.indexOf(href) >= 0 && ruta.indexOf('.html') < 0){
-                
-               $( this ).addClass("active");
+               enlace.parent().parents( "li" ).addClass("open");
                
-            }else{
-                
-               $( this ).removeClass("active");
+               enlace.parent().parents( "ul" ).css("display","block");
                
-            }
-        }
-        
-    });
-        
-    $('#submenudiv li').each(function(){
-        
-        var enlace = $( this ).find('a');
-        
-        if(typeof enlace.html() !== 'undefined'){
-            
-            var href = enlace.attr('href').replace('.html','');
-            
-            if(ruta.indexOf(href) >= 0 ){
+            //}else if(ruta.indexOf(href) >= 0 && ruta.indexOf('.html') < 0){
                 
-               $( this ).addClass("active");
+               //$( this ).parent().addClass("active");
                
             }else{
                 
-               $( this ).removeClass("active");
+               enlace.parent().removeClass("active");
+               
+               enlace.parent().parents( "li" ).removeClass("open");
+               
+               //enlace.parent().parents( "ul" ).css("display","none");
                
             }
         }
