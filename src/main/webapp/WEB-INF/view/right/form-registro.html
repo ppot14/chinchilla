@@ -12,7 +12,6 @@
   <form id="formulario-registro" class="form-horizontal"  method="post" th:object="${registro}" role="form" action="/registros/tabla/form/procesar/registro.html" th:attr="action=@{/registros/tabla/form/procesar/registro.html}">
 
 <!--    <div class="form-group">
-    <label for="id_produccion" class="col-md-4 control-label" th:text="#{id-produccion}">[id_produccion]</label>
     <div class="col-md-8">-->
         <input th:field="*{id_orden_compra}" 
                id="id_orden_compra"  
@@ -21,14 +20,14 @@
     </div>-->
       
     <div class="form-group">
-    <label for="id_cultivo" class="col-md-4 control-label">[[${id_elemento}]]</label>
+    <label for="id-elemento" class="col-md-4 control-label">[[#{id-elemento}]]</label>
         <div class="col-md-8">
             <select id="id_elemento" 
-                    class="form-control input-sm" 
-                    placeholder="Seleccionar tipo de cultivo..."
+                    class="select2"  style="width:100%"
+                    placeholder="Seleccionar tipo registro..."
                     th:field="*{id_elemento}">
                 <option  th:each="elemento_item : ${elementos}" 
-                         th:value="${elemento_item.id_elemento}">[[${elemento_item.value}]]</option>
+                         th:value="${elemento_item.key}">[[${elemento_item.value}]]</option>
             </select>
         </div>
     </div>
@@ -73,7 +72,6 @@
                    placeholder="Seleccionar fecha" 
                    th:value="*{fecha}? ${#dates.format(registro.fecha,'dd/MM/yyyy')} : ''"></input> 
             <span class="input-group-addon"><i class="icon-calendarthree"></i></span>
-            <!--th:field="*{fecha}" th:value="${produccion.fecha}? ${#dates.format(produccion.fecha,'dd/MM/yyyy')} : ''"-->
         </div></div>
     </div>
       
@@ -108,17 +106,17 @@ $(window).load(function () {
         //Modificar hidden cuando click en nuevo o modificar
         $('#boton_crear').click(function() {
             $('#insertar_modificar_eliminar').val('insertar');
-            $('#formulario-produccion').submit();
+            $('#formulario-registro').submit();
           });
           
         $('#boton_modificar').click(function() {
             $('#insertar_modificar_eliminar').val('modificar');
-            $('#formulario-produccion').submit();
+            $('#formulario-registro').submit();
           });
           
         $('#boton_eliminar').click(function() {
             $('#insertar_modificar_eliminar').val('eliminar');
-            $('#formulario-produccion').submit();
+            $('#formulario-registro').submit();
           });
           
           
@@ -128,22 +126,24 @@ $(window).load(function () {
             $('#boton_modificar').attr('disabled','disabled');
             $('#boton_eliminar').attr('disabled','disabled');
         }
+        
+        $( "#id_elemento" ).select2({placeholder: "Seleccionar tipo registro..."});
+
+        $( "#cantidad" ).spinner({
+          min: 0,
+          max: 999999,
+          step: 0.01,
+          page: 100,
+          numberFormat: "n",
+          culture: "es"
+        });
           
         $( "#precio" ).spinner({
           min: 0,
           max: 9999,
           step: 0.01,
-          page: 1,
-          numberFormat: "n",
-          culture: "es"
-        });
-
-        $( "#cantidad" ).spinner({
-          min: 0,
-          max: 999999,
-          step: 1,
           page: 100,
-          numberFormat: "n",
+          numberFormat: "C",
           culture: "es"
         });
 

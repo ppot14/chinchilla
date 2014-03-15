@@ -44,7 +44,7 @@ Globalize.addCultureInfo( "es-ES", "default", {
 			pattern: ["-n $","n $"],
 			",": ".",
 			".": ",",
-			symbol: "€"
+			symbol: "\u20AC"
 		}
 	},
 	calendars: {

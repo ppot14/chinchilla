@@ -9,6 +9,9 @@
 /*
 * common
 */
+body, body.smart-style-3, .smart-style-3 body {
+    font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
+}
 html {
     height: auto;
 }
@@ -91,6 +94,35 @@ h2 {
 
 ol.breadcrumb{
     font-size: 13px;
+}
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+    font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
+}
+
+.smart-style-3 input:not([type]), .smart-style-3 input[type="color"], .smart-style-3 input[type="email"], .smart-style-3 input[type="number"], .smart-style-3 input[type="password"], .smart-style-3 input[type="tel"], .smart-style-3 input[type="url"], .smart-style-3 input[type="text"], .smart-style-3 textarea {
+    color: #333333;
+}
+
+.ui-spinner-button {
+    border-left: 1px solid #CCCCCC;
+    width: 34px;
+}
+
+.ui-spinner-up, .ui-spinner-down,
+.ui-spinner-up:hover, .ui-spinner-down:hover,
+.ui-spinner-up:focus, .ui-spinner-down:focus,
+.ui-spinner-up:active, .ui-spinner-down:active{
+    background: none repeat scroll 0 0 #EEEEEE;
+}
+
+.ui-spinner-up:before, .ui-spinner-down:before {
+    color: #555555;
+    content: "\f106";
+}
+
+.ui-spinner-down:before {
+    content: "\f107";
 }
 /*
 * dataTables jqueryui bootstrap reset

@@ -1,6 +1,8 @@
 package com.chinchilla.controller;
 
+import com.chinchilla.form.OrdenCompraForm;
 import com.chinchilla.persistence.objects.OrdenCompra;
+import com.chinchilla.persistence.objects.Producto;
 import com.chinchilla.util.Notificador;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -48,9 +50,21 @@ public class OrdenCompraController extends AbstractController{
     }
     
     @RequestMapping(value = "/tabla/form/registro.html",params = {"id"}, method=RequestMethod.GET)
-    public String tablaFormProducto(@RequestParam(value = "id") Integer id_orden_compra, Model model) throws Exception {
+    public String tablaFormRegistro(@RequestParam(value = "id") Integer id_orden_compra, Model model) throws Exception {
 
         OrdenCompra ordenCompra = null;
+        
+        Map<Integer, String> elementos = new LinkedHashMap<Integer, String>();
+        
+        List<Producto> productos = productoDAO.getAll();
+        
+       List<OrdenCompra> ordenesCompra = ordenCompraDAO.getAll();
+        
+        //TODO incluir electricidad a elementos
+        
+        for(Producto p : productos){
+            elementos.put(p.getId_producto(), p.getTipo()+" - "+p.getNombre());
+        }
         
         if(id_orden_compra.intValue()>0){
         
@@ -61,28 +75,29 @@ public class OrdenCompraController extends AbstractController{
             ordenCompra = new OrdenCompra();
         
         }
-        
-        log.info("registro "+ordenCompra);
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
         modelMap.put("registro", ordenCompra);
+        
+        modelMap.put("elementos", elementos);
+
+        modelMap.put("ordenesCompra", ordenesCompra);
         
         model.addAllAttributes(modelMap);
         
         return "ordenes-compra-tabla-form-orden-compra";
     }
     
-    @RequestMapping(value = "/tabla/form/procesar/ordenCompra.html",method = RequestMethod.POST)
-   public String tablaFormProcesarProducto(
-            @ModelAttribute("model_ordenCompra") OrdenCompra model_ordenCompra, 
-            @ModelAttribute("insertar_modificar_eliminar") String insertar_modificar_eliminar, Model model) throws Exception {
+    @RequestMapping(value = "/tabla/form/procesar/registro.html",method = RequestMethod.POST)
+   public String tablaFormProcesarRegistro(
+            @ModelAttribute("registro") OrdenCompraForm registro, Model model) throws Exception {
         
-        log.info(""+model_ordenCompra);
+        log.info(""+registro);
         
-        String tipoOperacion = insertar_modificar_eliminar;
+        String tipoOperacion = registro.getInsertar_modificar_eliminar();
         
-        OrdenCompra ordenCompra = model_ordenCompra;
+        OrdenCompra ordenCompra = (OrdenCompra) registro;
         
         Map<String, Object> modelMap = new HashMap<String, Object>();
         
@@ -98,11 +113,11 @@ public class OrdenCompraController extends AbstractController{
             
             if(created==1){
         
-                Notificador.incluirMensaje(modelMap, "success", "Producción añadida correctamente");
+                Notificador.incluirMensaje(modelMap, Notificador.SUCCESS, "Registro añadido correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo ordenCompra");
+                Notificador.incluirMensaje(modelMap, Notificador.ERROR, "Error desconocido añadiendo registro");
                 
             }
             
@@ -112,11 +127,11 @@ public class OrdenCompraController extends AbstractController{
             
             if(updated==1){
         
-                Notificador.incluirMensaje(modelMap, "success", "Producción modificada correctamente");
+                Notificador.incluirMensaje(modelMap, Notificador.SUCCESS, "Registro modificado correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando ordenCompra");
+                Notificador.incluirMensaje(modelMap, Notificador.ERROR, "Error desconocido modificando registro");
                 
             }
             
@@ -126,17 +141,17 @@ public class OrdenCompraController extends AbstractController{
             
             if(deleted==1){
         
-                Notificador.incluirMensaje(modelMap, "success", "Producción eliminada correctamente");
+                Notificador.incluirMensaje(modelMap, Notificador.SUCCESS, "Producción eliminada correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando ordenCompra");
+                Notificador.incluirMensaje(modelMap, Notificador.ERROR, "Error desconocido eliminando ordenCompra");
                 
             }
             
         }else{
             
-             Notificador.incluirMensaje(modelMap, "info", "No se ha podido identificar la operacion",
+             Notificador.incluirMensaje(modelMap, Notificador.INFO, "No se ha podido identificar la operacion",
                      "Ninguna accion sera realizada");
             
         }
@@ -145,14 +160,12 @@ public class OrdenCompraController extends AbstractController{
 
             List<OrdenCompra> ordenCompras = ordenCompraDAO.getAll();
 
-            modelMap.put("ordenCompras", ordenCompras);
+            modelMap.put("ordenesCompra", ordenCompras);
         
         }
         
         model.addAllAttributes(modelMap);
-        
-        log.info("Received request to show tablaFormProcesarProducto: ordenCompras-tabla");
 
-        return "ordenCompras-tabla";
+        return "ordenes-compra-tabla";
     }
 }

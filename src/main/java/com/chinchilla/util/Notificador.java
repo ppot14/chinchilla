@@ -36,6 +36,14 @@ import java.util.Map;
  */
 public class Notificador {
     
+    public static final String SUCCESS = "success";
+    
+    public static final String ERROR = "error";
+    
+    public static final String WARNING = "warn";
+    
+    public static final String INFO = "info";
+    
     
     
     public static void incluirMensaje( Map<String, Object > modelMap,
@@ -66,6 +74,38 @@ public class Notificador {
         
         modelMap.put("notificacion", notificacion);
         
+    }
+    
+    public static void incluirMensajeExito( Map<String, Object > modelMap, String titulo, String mensaje){
+        incluirMensaje( modelMap, Notificador.SUCCESS, titulo, mensaje);
+    }
+    
+    public static void incluirMensajeError( Map<String, Object > modelMap, String titulo, String mensaje){
+        incluirMensaje( modelMap, Notificador.ERROR, titulo, mensaje);
+    }
+    
+    public static void incluirMensajeAdvertencia( Map<String, Object > modelMap, String titulo, String mensaje){
+        incluirMensaje( modelMap, Notificador.WARNING, titulo, mensaje);
+    }
+    
+    public static void incluirMensajeInfo( Map<String, Object > modelMap, String titulo, String mensaje){
+        incluirMensaje( modelMap, Notificador.INFO, titulo, mensaje);
+    }
+    
+    public static void incluirMensajeExito( Map<String, Object > modelMap, String titulo){
+        incluirMensaje( modelMap, Notificador.SUCCESS, titulo);
+    }
+    
+    public static void incluirMensajeError( Map<String, Object > modelMap, String titulo){
+        incluirMensaje( modelMap, Notificador.ERROR, titulo);
+    }
+    
+    public static void incluirMensajeAdvertencia( Map<String, Object > modelMap, String titulo){
+        incluirMensaje( modelMap, Notificador.WARNING, titulo);
+    }
+    
+    public static void incluirMensajeInfo( Map<String, Object > modelMap, String titulo){
+        incluirMensaje( modelMap, Notificador.INFO, titulo);
     }
     
 }

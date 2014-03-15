@@ -32,7 +32,6 @@ import com.chinchilla.persistence.dao.OrdenCompraDAO;
 import com.chinchilla.persistence.dao.ParcelaDAO;
 import com.chinchilla.persistence.dao.ProduccionDAO;
 import com.chinchilla.persistence.dao.ProductoDAO;
-//import com.chinchilla.persistence.dao.TipoLaborDAO;
 import java.beans.PropertyEditorSupport;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -50,7 +49,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  * @author Pepe
  */
 @SessionAttributes({"parcelas","coordenadas","producciones","cultivos","ordenesCompra",
-//                    "tiposLabores",
                     "labores","maquinaria","costesPersonal","productos"})
 public abstract class AbstractController {
     
@@ -69,10 +67,6 @@ public abstract class AbstractController {
     @Autowired
     @Qualifier("coordenadaDAO")
     protected CoordenadaDAO coordenadaDAO;  
-    
-//    @Autowired
-//    @Qualifier("tipoLaborDAO")
-//    protected TipoLaborDAO tipoLaborDAO;   
     
     @Autowired
     @Qualifier("ordenCompraDAO")
