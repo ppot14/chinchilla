@@ -4,7 +4,7 @@
     <script type="text/javascript" 
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0&amp;sensor=true&amp;libraries=geometry"></script>
     <!--th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0(sensor=true)(libraries=geometry)}"></script>-->
-    <script src="/resources/js/mapas.js" th:src="@{/resources/js/mapas.js}"></script> 
+    <script src="/resources/js/mapas.js" th:src="@{/resources/js/mapas.js}" th:inline="javascript"></script> 
 
     <script th:inline="javascript">/*<![CDATA[*/
 
@@ -104,12 +104,10 @@
                     <header>
                         <h2><strong>Chinchilla</strong></h2>				
                         <div class="widget-toolbar"> 
-                            <div class="btn-group">
-                                <a id="ir-chinchilla-link" 
-                                   class="btn btn-default btn-sm" href="#">Chinchilla</a>
-                                <a id="ir-rancho-link" 
-                                   class="btn btn-default btn-sm" href="#">Rancho</a>
-                            </div>
+                            <a id="ir-chinchilla-link" 
+                               class="btn btn-default btn-sm" href="#">Chinchilla</a>
+                            <a id="ir-rancho-link" 
+                               class="btn btn-default btn-sm" href="#">Rancho</a>
                         </div>
                     </header>
 

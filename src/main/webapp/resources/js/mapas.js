@@ -1,3 +1,5 @@
+/*<![CDATA[*/
+
 /* 
  * Variables
  */
@@ -113,7 +115,7 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
             }
 
-//            console.debug("temp.id_parcela " + temp.id_parcela);
+            console.debug("temp.id_parcela " + temp.id_parcela);
 
             if (menuOverlay === null || menuOverlayParcela !== temp.id_parcela) {
 
@@ -329,3 +331,5 @@ MenuOverlay.prototype.toggle = function() {
         }
     }
 };
+
+/*]]>*/
