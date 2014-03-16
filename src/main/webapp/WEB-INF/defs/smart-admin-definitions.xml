@@ -56,6 +56,16 @@
 		<put-attribute name="inc_rightpanel" value="right/form-produccion"/>
 	</definition>
         
+        <!--Registros-->
+        <definition name="ordenes-compra-tabla" extends="template">
+		<put-attribute name="inc_content" value="content/tabla-registros"/>
+	</definition>
+        
+        <definition name="ordenes-compra-tabla-form-orden-compra" extends="ordenes-compra-tabla">
+		<put-attribute name="inc_rightpanel" value="right/form-registro"/>
+	</definition>
+        
+        
         <definition name="cultivos-tabla" extends="template">
 		<put-attribute name="inc_content" value="content/tabla-cultivos"/>
 	</definition>

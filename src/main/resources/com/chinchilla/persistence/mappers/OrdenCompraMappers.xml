@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chinchilla.persistence.mappers.OrdenCompraMappers">
+	
+    <select id="getOrdenCompra" parameterType="java.lang.Integer" resultType="com.chinchilla.persistence.objects.OrdenCompra">
+        select 
+        id_orden_compra	as "id_orden_compra",
+        id_elemento	as "id_elemento",
+        cantidad	as "cantidad",
+        precio	as "precio",
+        marca	as "marca",
+        proveedor	as "proveedor",
+        fecha	as "fecha",
+        medida	as "medida"	
+        from gonzalol_chinchilla.t_ordenes_compra 
+        where id_orden_compra = #{id_orden_compra}
+    </select>
+	
+    <select id="getAllOrdenCompra" parameterType="int" resultType="com.chinchilla.persistence.objects.OrdenCompra">
+        select 
+        id_orden_compra	as "id_orden_compra",
+        id_elemento	as "id_elemento",
+        cantidad	as "cantidad",
+        precio	as "precio",
+        marca	as "marca",
+        proveedor	as "proveedor",
+        fecha	as "fecha",
+        medida	as "medida"	
+        from gonzalol_chinchilla.t_ordenes_compra 
+        order by id_orden_compra
+    </select>
+	
+    <select id="getOrdenCompraPorNombre" parameterType="int" resultType="com.chinchilla.persistence.objects.OrdenCompra">
+        select 
+        id_orden_compra	as "id_orden_compra",
+        id_elemento	as "id_elemento",
+        cantidad	as "cantidad",
+        precio	as "precio",
+        marca	as "marca",
+        proveedor	as "proveedor",
+        fecha	as "fecha",
+        medida	as "medida"	
+        from gonzalol_chinchilla.t_ordenes_compra 
+        where nombre = #{nombre}
+    </select>
+	
+    <insert id="createOrdenCompra" keyColumn="id_orden_compra" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.OrdenCompra">
+        insert into gonzalol_chinchilla.t_ordenes_compra (id_orden_compra, id_elemento, cantidad, precio, marca, proveedor, fecha, medida)
+        values (#{id_orden_compra}, #{id_elemento}, #{cantidad}, #{precio}, #{marca}, #{proveedor}, #{fecha}, #{medida})		
+    </insert>
+	
+    <update id="updateOrdenCompra" parameterType="com.chinchilla.persistence.objects.OrdenCompra">
+        update gonzalol_chinchilla.t_ordenes_compra set  
+        id_elemento	= #{id_elemento},
+        cantidad	= #{cantidad},
+        precio	= #{precio},
+        marca	= #{marca},
+        proveedor	= #{proveedor},
+        fecha	= #{fecha},
+        medida	= #{medida}
+        where id_orden_compra = #{id_orden_compra}		
+    </update>
+	
+    <delete id="deleteOrdenCompra" parameterType="java.lang.Integer">
+        delete from gonzalol_chinchilla.t_ordenes_compra where id_orden_compra = #{id_orden_compra}		
+    </delete>
+	
+	
+</mapper>
+

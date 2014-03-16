@@ -23,7 +23,7 @@ THE SOFTWARE.
 -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <div class="login-info" style="display:none">
+    <div class="login-info" style="display:none" th:inline="text">
         <span>
              <!--User image size is adjusted inside CSS, it should stay as it--> 
             <a href="javascript:void(0);" id="show-shortcut">
@@ -33,71 +33,73 @@ THE SOFTWARE.
             </a>
         </span>
     </div>
-     <nav>
+     <nav id="menu-nav" th:inline="text">
          <ul>
              <li>
                  <a href="#" id="menu-parcelas">
-                     <i class="icon-fence"></i> <span th:text="#{parcelas}">[parcelas]</span>
+                     <i class="icon-fence"></i> [[#{parcelas}]]
                  </a>
                  <ul style="display: none;">
-                    <li><a th:href="@{/parcelas/mapa.html}"><span th:text="#{mapa}">[parcelas]</span></a></li>
-                    <li><a th:href="@{/parcelas/tabla.html}"><span th:text="#{tabla}">[parcelas]</span></a></li>
+                    <li><a th:href="@{/parcelas/mapa.html}">[[#{mapa}]]</a></li>
+                    <li><a th:href="@{/parcelas/tabla.html}">[[#{tabla}]]</a></li>
                  </ul>
              </li>
              <li>
                  <a href="#" id="menu-labores">
-                     <i class="icon-shovel"></i> <span th:text="#{labores}">[labores]</span>
+                     <i class="icon-shovel"></i> [[#{labores}]]
                  </a>
                  <ul style="display: none;">
-                    <li><a th:href="@{/labores/tabla.html}" th:text="#{tabla}">Tabla</a></li>
+                    <li><a th:href="@{/labores/tabla.html}">[[#{tabla}]]</a></li>
                  </ul>
              </li>
              <li>
                  <a href="#" id="menu-producciones">
-                     <i class="glyphicon glyphicon-inbox"></i> <span th:text="#{produccion}">[produccion]</span>
+                     <i class="glyphicon glyphicon-inbox"></i> [[#{produccion}]]
                  </a>
                  <ul style="display: none;">
-                    <li><a th:href="@{/producciones/tabla.html}" th:text="#{tabla}">Tabla</a></li>
+                    <li><a th:href="@{/producciones/tabla.html}">[[#{tabla}]]</a></li>
                  </ul>
              </li>
-             <li class="disabled">
+             <li>
                  <a th:href="@{/riegos/tabla.html}" id="menu-riegos" >
-                     <i class="icon-watertap-plumbing"></i> <span th:text="#{riegos}">[riegos]</span>
+                     <i class="icon-watertap-plumbing"></i> [[#{riegos}]]
                  </a>
              </li>
              <li>
                  <a href="#" id="menu-cultivos">
-                     <i class="icon-plantalt"></i> <span th:text="#{cultivos}">[cultivos]</span>
+                     <i class="icon-plantalt"></i> [[#{cultivos}]]
                  </a>
                  <ul style="display: none;">
-                    <li><a th:href="@{/cultivos/tabla.html}" th:text="#{tabla}">Tabla</a></li>
+                    <li><a th:href="@{/cultivos/tabla.html}">[[#{tabla}]]</a></li>
                  </ul>
              </li>
              <li>
                  <a href="#" id="menu-personal">
-                     <i class="glyphicon glyphicon-user"></i> <span th:text="#{personal}">[personal]</span>
+                     <i class="glyphicon glyphicon-user"></i> [[#{personal}]]
                  </a>
                  <ul style="display: none;">
-                    <li class="disabled"><a th:href="@{/personal/tabla.html}" th:text="#{tabla}">Tabla</a></li>
-                    <li><a th:href="@{/personal/costes/tabla.html}" th:text="#{tabla}">Tabla</a></li>
+                    <li class="disabled"><a th:href="@{/personal/tabla.html}">[[#{tabla}]]</a></li>
+                    <li><a th:href="@{/personal/costes/tabla.html}">[[#{tabla}]]</a></li>
                  </ul>
              </li>
              <li>
                  <a th:href="@{/maquinaria/tabla.html}" id="menu-maquinaria" >
-                     <i class="icon-truck"></i> <span th:text="#{maquinaria}">[maquinaria]</span>
+                     <i class="icon-truck"></i> [[#{maquinaria}]]
                  </a>
              </li>
              <li>
                  <a href="#" id="menu-productos">
-                     <i class="glyphicon glyphicon-barcode"></i> <span th:text="#{producto}">[producto]</span>
+                     <i class="glyphicon glyphicon-barcode"></i> [[#{producto}]]
                  </a>
                  <ul style="display: none;">
-                    <li><a th:href="@{/productos/tabla.html}" th:text="#{tabla}">Tabla</a></li>
+                    <li><a th:href="@{/productos/tabla.html}">[[#{tabla}]]</a></li>
                  </ul>
              </li>
-<!--             <li class="disabled">
-                 <a th:href="@{/registros/tabla.html}" id="menu-registros" th:text="#{registros}">registros</a>
-             </li>-->
+             <li class="disabled">
+                 <a th:href="@{/registros/tabla.html}" id="menu-registros">
+                     <i class="icon-shoppingcartalt"></i> [[#{registros}]]
+                 </a>
+             </li>
              <!--<li>
                 <a th:href="@{/meteorologia/calendario.html}" id="menu-meteorologia" th:text="#{meteorologia}">meteorologia</a>
              </li>-->
@@ -110,8 +112,10 @@ THE SOFTWARE.
 $(window).load(function () {
 
     var ruta = window.location.pathname;
+            
+    console.log('ruta '+ruta);
     
-    $('#menudiv li').each(function(){
+    $('nav#menu-nav li').each(function(){
         
         var enlace = $( this ).find('a');
         
@@ -119,38 +123,29 @@ $(window).load(function () {
             
             var href = enlace.attr('href');
             
+            console.log('href '+href);
+            
+            console.log('indexOf '+ruta.indexOf(href.replace('.html','')));
+            
             if(ruta.indexOf(href.replace('.html','')) >= 0 && href.indexOf('.html') >= 0){
                 
-               $( this ).addClass("active");
+               enlace.parent().addClass("active");
                
-            }else if(ruta.indexOf(href) >= 0 && ruta.indexOf('.html') < 0){
-                
-               $( this ).addClass("active");
+               enlace.parent().parents( "li" ).addClass("open");
                
-            }else{
-                
-               $( this ).removeClass("active");
+               enlace.parent().parents( "ul" ).css("display","block");
                
-            }
-        }
-        
-    });
-        
-    $('#submenudiv li').each(function(){
-        
-        var enlace = $( this ).find('a');
-        
-        if(typeof enlace.html() !== 'undefined'){
-            
-            var href = enlace.attr('href').replace('.html','');
-            
-            if(ruta.indexOf(href) >= 0 ){
+            //}else if(ruta.indexOf(href) >= 0 && ruta.indexOf('.html') < 0){
                 
-               $( this ).addClass("active");
+               //$( this ).parent().addClass("active");
                
             }else{
                 
-               $( this ).removeClass("active");
+               enlace.parent().removeClass("active");
+               
+               enlace.parent().parents( "li" ).removeClass("open");
+               
+               //enlace.parent().parents( "ul" ).css("display","none");
                
             }
         }

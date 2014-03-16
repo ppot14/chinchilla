@@ -23,7 +23,6 @@ private static Logger log = (Logger) LoggerFactory.getLogger(IndexController.cla
     @RequestMapping(method=RequestMethod.GET)
     public String index(Model model) throws Exception {
         //throw new UnsupportedOperationException("Not supported yet.");
-         log.info("Received request to show IndexController index: parcelas-mapa");
         
          String ret = null;
          
