@@ -5,6 +5,7 @@ import com.chinchilla.persistence.objects.Cultivo;
 import com.chinchilla.persistence.objects.Parcela;
 import com.chinchilla.persistence.objects.Produccion;
 import com.chinchilla.util.Notificador;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -13,11 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 /**
  *
@@ -72,29 +75,49 @@ public class ProduccionesController extends AbstractController{
             produccion = new Produccion();
         
         }
-        
-        log.info("produccion "+produccion);
+
+        List<Produccion> producciones = produccionDAO.getAll();
+
+        List<Cultivo> cultivos = cultivoDAO.getAll();
+
+        List<Parcela> parcelas = parcelaDAO.getAll();
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
+        modelMap.put("producciones", producciones);
         modelMap.put("produccion", produccion);
+        modelMap.put("cultivos", cultivos);
+        modelMap.put("parcelas", parcelas);
         
         model.addAllAttributes(modelMap);
-
-        log.info("Received request to show tablaFormInsertarProduccion form: producciones-tabla-form-produccion");
         
         return "producciones-tabla-form-produccion";
     }
     
     @RequestMapping(value = "/tabla/form/procesar/produccion.html",method = RequestMethod.POST)
    public String tablaFormProcesarProduccion(
-            @ ModelAttribute("model_produccion") ProduccionForm model_produccion, Model model) throws Exception {
+            @ModelAttribute("produccion") ProduccionForm model_produccion,
+//           @ModelAttribute(required=false) Produccion produccion,
+           BindingResult result,
+           SessionStatus status,
+//           @ModelAttribute String insertar_modificar_eliminar,
+//           @RequestParam("id_produccion") Integer id_produccion,
+//           @RequestParam("id_cultivo") Integer id_cultivo,
+//           @RequestParam("id_parcela") Integer id_parcela,
+//           @RequestParam("fecha") Date fecha,
+//           @RequestParam("kilos") Integer kilos,
+//           @RequestParam("precio_kilo") Double precio_kilo,
+           Model model) throws Exception {
         
         log.info(""+model_produccion);
         
         String tipoOperacion = model_produccion.getInsertar_modificar_eliminar();
         
-        Produccion produccion = new Produccion((Produccion)model_produccion);
+//        String tipoOperacion = "modificar";
+        
+        Produccion produccion = (Produccion)model_produccion;
+        
+//        Produccion produccion = model_produccion;
         
         Map<String, Object> modelMap = new HashMap<String, Object>();
         

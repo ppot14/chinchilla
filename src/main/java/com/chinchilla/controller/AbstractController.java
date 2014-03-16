@@ -33,6 +33,7 @@ import com.chinchilla.persistence.dao.ParcelaDAO;
 import com.chinchilla.persistence.dao.ProduccionDAO;
 import com.chinchilla.persistence.dao.ProductoDAO;
 import java.beans.PropertyEditorSupport;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -96,7 +97,7 @@ public abstract class AbstractController {
             @Override
             public void setAsText(String value) {
                 try {
-                    setValue(new SimpleDateFormat("dd/MM/yyyy").parse(value));
+                    setValue(new SimpleDateFormat("dd/MM/yyyy").parse(value.trim()));
                 } catch(ParseException e) {
                     setValue(null);
                 }
@@ -113,7 +114,44 @@ public abstract class AbstractController {
             @Override
             public void setAsText(String value) {
                 try {
-                    setValue( NumberFormat.getInstance(new Locale("es", "ES")).parse(value));
+                    Number n = DecimalFormat.getInstance(new Locale("es", "ES")).parse(value.trim());
+                    setValue( n.doubleValue() );
+                } catch(ParseException e) {
+                    setValue(null);
+                }
+            }
+
+            @Override
+            public String getAsText() {
+                return DecimalFormat.getInstance(new Locale("es", "ES")).format(getValue());
+            }        
+
+        });
+        
+        binder.registerCustomEditor(double.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String value) {
+                try {
+                    Number n = DecimalFormat.getInstance(new Locale("es", "ES")).parse(value.trim());
+                    setValue( n.doubleValue() );
+                } catch(ParseException e) {
+                    setValue(null);
+                }
+            }
+
+            @Override
+            public String getAsText() {
+                return DecimalFormat.getInstance(new Locale("es", "ES")).format(getValue());
+            }        
+
+        });
+        
+        binder.registerCustomEditor(int.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String value) {
+                try {
+                    Number n = NumberFormat.getInstance(new Locale("es", "ES")).parse(value.trim());
+                    setValue( n.intValue());
                 } catch(ParseException e) {
                     setValue(null);
                 }
@@ -126,11 +164,48 @@ public abstract class AbstractController {
 
         });
         
-        binder.registerCustomEditor(double.class, new PropertyEditorSupport() {
+        binder.registerCustomEditor(Integer.class, new PropertyEditorSupport() {
             @Override
             public void setAsText(String value) {
                 try {
-                    setValue( NumberFormat.getInstance(new Locale("es", "ES")).parse(value));
+                    Number n = NumberFormat.getInstance(new Locale("es", "ES")).parse(value.trim());
+                    setValue( n.intValue() );
+                } catch(ParseException e) {
+                    setValue(null);
+                }
+            }
+
+            @Override
+            public String getAsText() {
+                return NumberFormat.getInstance(new Locale("es", "ES")).format(getValue());
+            }        
+
+        });
+        
+        binder.registerCustomEditor(long.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String value) {
+                try {
+                    Number n = NumberFormat.getInstance(new Locale("es", "ES")).parse(value.trim());
+                    setValue( n.longValue());
+                } catch(ParseException e) {
+                    setValue(null);
+                }
+            }
+
+            @Override
+            public String getAsText() {
+                return NumberFormat.getInstance(new Locale("es", "ES")).format(getValue());
+            }        
+
+        });
+        
+        binder.registerCustomEditor(Long.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String value) {
+                try {
+                    Number n = NumberFormat.getInstance(new Locale("es", "ES")).parse(value.trim());
+                    setValue( n.longValue());
                 } catch(ParseException e) {
                     setValue(null);
                 }
