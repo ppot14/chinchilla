@@ -96,7 +96,7 @@ public class ProduccionesController extends AbstractController{
     
     @RequestMapping(value = "/tabla/form/procesar/produccion.html",method = RequestMethod.POST)
    public String tablaFormProcesarProduccion(
-            @ModelAttribute("produccion") ProduccionForm model_produccion,
+            @ModelAttribute("produccion") Produccion model_produccion,
 //           @ModelAttribute(required=false) Produccion produccion,
            BindingResult result,
            SessionStatus status,
@@ -111,9 +111,9 @@ public class ProduccionesController extends AbstractController{
         
         log.info(""+model_produccion);
         
-        String tipoOperacion = model_produccion.getInsertar_modificar_eliminar();
+//        String tipoOperacion = model_produccion.getInsertar_modificar_eliminar();
         
-//        String tipoOperacion = "modificar";
+        String tipoOperacion = "modificar";
         
         Produccion produccion = (Produccion)model_produccion;
         
@@ -180,7 +180,13 @@ public class ProduccionesController extends AbstractController{
 
             List<Produccion> producciones = produccionDAO.getAll();
 
+            List<Cultivo> cultivos = cultivoDAO.getAll();
+
+            List<Parcela> parcelas = parcelaDAO.getAll();
+
             modelMap.put("producciones", producciones);
+            modelMap.put("cultivos", cultivos);
+            modelMap.put("parcelas", parcelas);
         
         }
         
