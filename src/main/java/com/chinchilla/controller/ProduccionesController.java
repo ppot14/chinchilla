@@ -85,7 +85,7 @@ public class ProduccionesController extends AbstractController{
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
         modelMap.put("producciones", producciones);
-        modelMap.put("produccion", produccion);
+        modelMap.put("produccion", new ProduccionForm(produccion));
         modelMap.put("cultivos", cultivos);
         modelMap.put("parcelas", parcelas);
         
@@ -96,28 +96,14 @@ public class ProduccionesController extends AbstractController{
     
     @RequestMapping(value = "/tabla/form/procesar/produccion.html",method = RequestMethod.POST)
    public String tablaFormProcesarProduccion(
-            @ModelAttribute("produccion") Produccion model_produccion,
-//           @ModelAttribute(required=false) Produccion produccion,
+            @ModelAttribute("produccion") ProduccionForm model_produccion,
            BindingResult result,
            SessionStatus status,
-//           @ModelAttribute String insertar_modificar_eliminar,
-//           @RequestParam("id_produccion") Integer id_produccion,
-//           @RequestParam("id_cultivo") Integer id_cultivo,
-//           @RequestParam("id_parcela") Integer id_parcela,
-//           @RequestParam("fecha") Date fecha,
-//           @RequestParam("kilos") Integer kilos,
-//           @RequestParam("precio_kilo") Double precio_kilo,
            Model model) throws Exception {
         
-        log.info(""+model_produccion);
+        String tipoOperacion = model_produccion.getInsertar_modificar_eliminar();
         
-//        String tipoOperacion = model_produccion.getInsertar_modificar_eliminar();
-        
-        String tipoOperacion = "modificar";
-        
-        Produccion produccion = (Produccion)model_produccion;
-        
-//        Produccion produccion = model_produccion;
+        Produccion produccion = new Produccion(model_produccion);
         
         Map<String, Object> modelMap = new HashMap<String, Object>();
         
@@ -191,8 +177,6 @@ public class ProduccionesController extends AbstractController{
         }
         
         model.addAllAttributes(modelMap);
-        
-        log.info("Received request to show tablaFormProcesarProduccion: producciones-tabla");
 
         return "producciones-tabla";
     }

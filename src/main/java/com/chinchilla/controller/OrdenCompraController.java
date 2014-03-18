@@ -12,11 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 /**
  *
@@ -78,7 +80,7 @@ public class OrdenCompraController extends AbstractController{
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
-        modelMap.put("registro", ordenCompra);
+        modelMap.put("registro", new OrdenCompraForm(ordenCompra));
         
         modelMap.put("elementos", elementos);
 
@@ -91,15 +93,16 @@ public class OrdenCompraController extends AbstractController{
     
     @RequestMapping(value = "/tabla/form/procesar/registro.html",method = RequestMethod.POST)
    public String tablaFormProcesarRegistro(
-            @ModelAttribute("registro") OrdenCompraForm registro, Model model) throws Exception {
+            @ModelAttribute("registro") OrdenCompraForm registroForm,
+           BindingResult result,
+           SessionStatus status,
+           Model model) throws Exception {
         
-        log.info(""+registro);
+        String tipoOperacion = registroForm.getInsertar_modificar_eliminar();
         
-        String tipoOperacion = registro.getInsertar_modificar_eliminar();
+        OrdenCompra ordenCompra = new OrdenCompra(registroForm);
         
-        OrdenCompra ordenCompra = (OrdenCompra) registro;
-        
-        Map<String, Object> modelMap = new HashMap<String, Object>();
+        Map<String, Object> modelMap = new HashMap<>();
         
         int created = 0;
         

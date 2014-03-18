@@ -32,6 +32,14 @@ import com.chinchilla.persistence.objects.Produccion;
 public class ProduccionForm extends Produccion{
     
     private String insertar_modificar_eliminar;
+    
+    public ProduccionForm(){
+        super();
+    }
+    
+    public ProduccionForm(Produccion produccion){
+        super(produccion);
+    }
 
     /**
      * @return the insertar_modificar_eliminar

@@ -41,6 +41,21 @@ public class OrdenCompra implements Serializable{
     private String proveedor;
     private Date fecha;
     private String medida;
+    
+    public OrdenCompra(){
+        
+    }
+    
+    public OrdenCompra(OrdenCompra oc){
+        id_orden_compra = oc.getId_orden_compra();
+        id_elemento = oc.getId_elemento();
+        cantidad = oc.getCantidad();
+        precio = oc.getPrecio();
+        marca = oc.getMarca();
+        proveedor = oc.getProveedor();
+        fecha = oc.getFecha();
+        medida = oc.getMedida();
+    }
 
     /**
      * @return the id_orden_compra

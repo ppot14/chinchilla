@@ -32,6 +32,14 @@ import com.chinchilla.persistence.objects.OrdenCompra;
 public class OrdenCompraForm extends OrdenCompra{
     
     private String insertar_modificar_eliminar;
+    
+    public OrdenCompraForm(){
+        super();
+    }
+    
+    public OrdenCompraForm(OrdenCompra oc){
+        super(oc);
+    }
 
     /**
      * @return the insertar_modificar_eliminar
