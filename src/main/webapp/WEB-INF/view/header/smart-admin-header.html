@@ -23,6 +23,33 @@ THE SOFTWARE.
 -->
 <!DOCTYPE html>
 <html>
+    
+	<script>
+		
+		var url_wunderground = "http://api.wunderground.com/api/b7c6967273eb1adf/geolookup/conditions/lang:SP/q/37.3258,-5.2061.json";
+	
+                var wheather;
+                
+                function setUpWeatherBar(){
+                    var iconUrl = wheather.current_observation.icon_url.replace('i/c/k','i/c/i');
+                    var temperature = (wheather.current_observation.temp_c+'').replace('.',',')+' \u00BAC';
+                    console.log('temperature '+temperature);
+                    $('#weather-icon').attr('src',iconUrl);
+                    $('#weather-temp').text(temperature);
+                    $('#weather-bar').show();
+                }
+        
+		jQuery(document).ready(function($) {
+		  
+		  $.ajax({
+			  url : url_wunderground,
+			  dataType : "jsonp",
+			  success : function(parsed_json) {wheather = parsed_json; setUpWeatherBar();}
+		  });
+		  
+		});
+	</script>
+        
     <div id="logo-group">
         <!-- PLACE YOUR LOGO HERE -->
         <span id="logo"><img alt="Chinchilla" th:src="@{/resources/img/chaparro-logo-chinchilla-minimal.png}" src="resources/img/chaparro-logo-chinchilla-minimal.png" style="height: auto; width: auto;"/></span>   
@@ -130,6 +157,13 @@ THE SOFTWARE.
         <!-- end search mobile button -->
 
     </div>
+
+<!--Weather-->
+<div id="weather-bar" class="pull-right" style="display: none; margin-right: 15px;">
+    <img id="weather-icon" style="height: 29px; width: 29px; margin-top: 11px;"/>
+    <span id="weather-temp" class="font-md txt-color-white" style="margin-top: 11px; display: inline-block;"></span>
+</div>
+
 
 </html>
 
