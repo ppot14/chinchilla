@@ -7,7 +7,7 @@
     </div>
 </div>
     
-<div class="well">
+<div class="well" th:inline="text">
 
    <form id="formulario-labor" class="form-horizontal"  
         method="post" th:object="${labor}" role="form" 
@@ -17,11 +17,11 @@
     <div class="form-group">
     <label for="parcela" class="col-md-4 control-label">[[#{parcela}]]</label>
         <div class="col-md-8">
-            <select id="id_parcela"  
+            <select id="parcelas" 
                     class="select2"  style="width:100%" 
                     multiple="multiple" 
-                    placeholder="Seleccionar parcelas..."
-                    th:field="*{id_parcela}">
+                    placeholder="Seleccionar parcelas...">
+                    <!--th:field="*{labor_parcela.parcela.id_parcela}"-->
                 <option  th:each="parcela : ${parcelas}" 
                          th:value="${parcela.id_parcela}">[[${parcela.nombre}]]</option>
             </select>
@@ -34,8 +34,8 @@
             <select id="maquinaria" 
                     class="select2"  style="width:100%"
                     multiple="multiple" 
-                    placeholder="Seleccionar maquinaria..."
-                    th:field="*{id_coste_maquinaria}">
+                    placeholder="Seleccionar maquinaria...">
+                    <!--th:field="*{labor_maquinaria.maquinaria.id_coste_maquinaria}">-->
                 <option  th:each="maq : ${maquinaria}" 
                          th:value="${maq.id_coste_maquinaria}">[[${maq.tipo}+' '+${maq.nombre}]]</option>
             </select>
@@ -48,8 +48,8 @@
             <select id="productos" 
                     class="select2"  style="width:100%"
                     multiple="multiple" 
-                    placeholder="Seleccionar productos..."
-                    th:field="*{id_producto}">
+                    placeholder="Seleccionar productos...">
+                    <!--th:field="*{labor_producto.producto.id_producto}">-->
                 <option  th:each="prod : ${productos}" 
                          th:value="${prod.id_producto}">[[${prod.grupo}+' '+${prod.nombre}+' '+${prod.tipo}]]</option>
             </select>
@@ -62,8 +62,8 @@
             <select id="personal" 
                     class="select2"  style="width:100%"
                     multiple="multiple" 
-                    placeholder="Seleccionar personal..."
-                    th:field="*{id_coste_personal}">
+                    placeholder="Seleccionar personal...">
+                    <!--th:field="*{labor_personal.coste_personal.id_coste_personal}">-->
                 <option  th:each="puesto : ${costesPersonal}" 
                          th:value="${puesto.id_coste_personal}">[[${puesto.tipo}+' '+${puesto.funcion}]]</option>
             </select>
@@ -73,10 +73,10 @@
     <div class="form-group">
     <label for="fecha_comienzo" class="col-md-4 control-label">[[#{fecha-comienzo}]]</label>
         <div class="col-md-8"><div class="input-group">
-            <input id="fecha" name="fecha" 
+            <input id="fecha_comienzo" name="fecha_comienzo" 
                     class="form-control input-sm datepicker"  
                    placeholder="Seleccionar fecha" 
-                   th:value="*{fecha}? ${#dates.format(labor.fecha_comienzo,'dd/MM/yyyy')} : ''"></input> 
+                   th:value="*{fecha_comienzo}? ${#dates.format(labor.fecha_comienzo,'dd/MM/yyyy')} : ''"></input> 
             <span class="input-group-addon"><i class="icon-calendarthree"></i></span>
         </div></div>
     </div>
@@ -157,8 +157,16 @@
             $('#boton_modificar').attr('disabled','disabled');
             $('#boton_eliminar').attr('disabled','disabled');
         }
+        
+        $( "#parcelas" ).select2();
+        
+        $( "#maquinaria" ).select2();
+        
+        $( "#productos" ).select2();
+        
+        $( "#personal" ).select2();
 
-        $( "#duracion" ).spinner({
+        $( "#cantidad" ).spinner({
           min: 0,
           max: 999999,
           step: 1,

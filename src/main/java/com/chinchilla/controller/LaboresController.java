@@ -2,10 +2,15 @@ package com.chinchilla.controller;
 
 import com.chinchilla.persistence.objects.CostePersonal;
 import com.chinchilla.persistence.objects.Labor;
+import com.chinchilla.persistence.objects.LaborMaquinaria;
+import com.chinchilla.persistence.objects.LaborParcela;
+import com.chinchilla.persistence.objects.LaborPersonal;
+import com.chinchilla.persistence.objects.LaborProducto;
 import com.chinchilla.persistence.objects.Maquinaria;
 import com.chinchilla.persistence.objects.Parcela;
 import com.chinchilla.persistence.objects.Producto;
 import com.chinchilla.util.Notificador;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;

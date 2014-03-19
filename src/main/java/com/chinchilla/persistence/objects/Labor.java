@@ -24,6 +24,7 @@
 package com.chinchilla.persistence.objects;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -44,6 +45,43 @@ public class Labor implements Serializable{
     private List<LaborProducto> labor_producto;
     private List<LaborPersonal> labor_personal;
     private List<LaborParcela> labor_parcela;
+    
+    public Labor(){
+        
+        super();
+
+        LaborMaquinaria lm = new LaborMaquinaria();
+
+        LaborParcela lpa = new LaborParcela();
+
+        LaborPersonal lpe = new LaborPersonal();
+
+        LaborProducto lpr = new LaborProducto();
+        
+        lm.setMaquinaria(new Maquinaria());
+        
+        lpa.setParcela(new Parcela());
+        
+        lpe.setCoste_personal(new CostePersonal());
+        
+        lpr.setProducto(new Producto());
+
+        labor_maquinaria = new ArrayList<LaborMaquinaria>();
+
+        labor_parcela = new ArrayList<LaborParcela>();
+
+        labor_personal = new ArrayList<LaborPersonal>();
+
+        labor_producto = new ArrayList<LaborProducto>();
+        
+        labor_maquinaria.add(lm);
+        
+        labor_parcela.add(lpa);
+        
+        labor_personal.add(lpe);
+        
+        labor_producto.add(lpr);
+    }
 
     public int getId_labor() {
         return id_labor;
