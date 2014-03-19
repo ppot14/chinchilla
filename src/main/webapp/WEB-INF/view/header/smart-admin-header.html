@@ -28,14 +28,25 @@ THE SOFTWARE.
 		
 		var url_wunderground = "http://api.wunderground.com/api/b7c6967273eb1adf/geolookup/conditions/lang:SP/q/37.3258,-5.2061.json";
 	
-                var wheather;
+                var weather;
                 
                 function setUpWeatherBar(){
-                    var iconUrl = wheather.current_observation.icon_url.replace('i/c/k','i/c/i');
-                    var temperature = (wheather.current_observation.temp_c+'').replace('.',',')+' \u00BAC';
-                    console.log('temperature '+temperature);
+                    var iconUrl = weather.current_observation.icon_url.replace('i/c/k','i/c/i');
+                    var weather_string = (weather.current_observation.weather+'');
+                    var temp_c = (weather.current_observation.temp_c+'').replace('.',',')+' \u00BAC';
+                    var feelslike_c = (weather.current_observation.feelslike_c+'').replace('.',',')+' \u00BAC';
+                    var wind_kph = (weather.current_observation.wind_kph+'').replace('.',',')+' Km\/h';
+                    var wind_dir = (weather.current_observation.wind_dir+'');
+                    var relative_humidity = (weather.current_observation.relative_humidity+'').replace('.',',');
+                    var precip_today_metric = (weather.current_observation.precip_today_metric+'').replace('.',',')+' mm';
                     $('#weather-icon').attr('src',iconUrl);
-                    $('#weather-temp').text(temperature);
+                    $('#weather-icon').attr('alt',weather_string);
+                    $('#weather-temp').text(temp_c);
+                    $('#weather-feelslike').text(feelslike_c);
+                    $('#weather-windspeed').text(wind_kph);
+                    $('#weather-winddir').text(wind_dir);
+                    $('#weather-humidity').text(relative_humidity);
+                    $('#weather-precip').text(precip_today_metric);
                     $('#weather-bar').show();
                 }
         
@@ -44,7 +55,7 @@ THE SOFTWARE.
 		  $.ajax({
 			  url : url_wunderground,
 			  dataType : "jsonp",
-			  success : function(parsed_json) {wheather = parsed_json; setUpWeatherBar();}
+			  success : function(parsed_json) {weather = parsed_json; setUpWeatherBar();}
 		  });
 		  
 		});
@@ -159,9 +170,14 @@ THE SOFTWARE.
     </div>
 
 <!--Weather-->
-<div id="weather-bar" class="pull-right" style="display: none; margin-right: 15px;">
-    <img id="weather-icon" style="height: 29px; width: 29px; margin-top: 11px;"/>
-    <span id="weather-temp" class="font-md txt-color-white" style="margin-top: 11px; display: inline-block;"></span>
+<div id="weather-bar" class="pull-right" style="display: none; margin-right: 15px; padding-top: 8px">
+    <img id="weather-icon" style="height: 40px; width: 40px; margin-top: -10px;" src="" alt=""/>
+    <span id="weather-temp" class="font-lg txt-color-white" style=""></span>
+    <span id="weather-feelslike" class="font-xs txt-color-white" style=""></span>
+    <span id="weather-windspeed" class="font-xs txt-color-white" style=""></span>
+    <span id="weather-winddir" class="font-xs txt-color-white" style=""></span>
+    <span id="weather-humidity" class="font-xs txt-color-white" style=""></span>
+    <span id="weather-precip" class="font-xs txt-color-white" style=""></span>
 </div>
 
 
