@@ -43,6 +43,7 @@ public class Labor implements Serializable{
     private List<LaborMaquinaria> labor_maquinaria;
     private List<LaborProducto> labor_producto;
     private List<LaborPersonal> labor_personal;
+    private List<LaborParcela> labor_parcela;
 
     public int getId_labor() {
         return id_labor;
@@ -148,6 +149,7 @@ public class Labor implements Serializable{
 				+ ", labor_maquinaria=" + labor_maquinaria 
                                 + ", labor_producto=" + labor_producto
 				+ ", labor_personal=" + labor_personal 
+				+ ", labor_parcela=" + labor_parcela 
 				+ "}";
 	}
     
@@ -219,6 +221,20 @@ public class Labor implements Serializable{
      */
     public void setLabor_personal(List<LaborPersonal> labor_personal) {
         this.labor_personal = labor_personal;
+    }
+
+    /**
+     * @return the labor_parcela
+     */
+    public List<LaborParcela> getLabor_parcela() {
+        return labor_parcela;
+    }
+
+    /**
+     * @param labor_parcela the labor_parcela to set
+     */
+    public void setLabor_parcela(List<LaborParcela> labor_parcela) {
+        this.labor_parcela = labor_parcela;
     }
     
 }

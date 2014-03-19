@@ -61,6 +61,7 @@
                                     <tr>
                                       <th th:text="#{id-labor}"></th>
                                       <!--<th th:text="#{id-tipo-labor}"></th>-->
+                                      <th th:text="#{parcela}"></th>
                                       <th th:text="#{grupo}"></th>
                                       <th th:text="#{nombre}"></th>
                                       <th th:text="#{fecha-comienzo}"></th>
@@ -82,6 +83,11 @@
                                           <a th:href="@{/labores/tipos/tabla/form/tipoLabor.html(id=${labores_item.id_tipo_labor})}" 
                                              th:text="${tipoLabor_item.nombre}">[tipolabor]</a>
                                       </td>-->
+                            
+                                      <td>
+                                        <span  th:each="laborParcela_item : ${labores_item.labor_parcela}"
+                                               class="label label-default" ref="#" style="margin-right: 3px">[[${laborParcela_item.parcela.nombre}]]</span>
+                                      </td>
                                       <td th:text="${labores_item.grupo}">[grupo]</td>
                                       <td th:text="${labores_item.nombre}">[nombre]</td>
                                       <td th:text="${#dates.format(labores_item.fecha_comienzo,'dd/MM/yyyy')}">[fecha_comienzo]</td>
@@ -96,9 +102,10 @@
                                             </li>
                                           </ul>-->
                                           <!--<th:block  th:if="${not #lists.isEmpty(labores_item.labor_maquinaria)}">-->
-                                              <th:block  th:each="laborMaquinaria_item : ${labores_item.labor_maquinaria}">
-                                                <span class="label label-default" ref="#">[[${laborMaquinaria_item.maquinaria.nombre}]]</span>&nbsp;
-                                              </th:block>
+                                              <!--<div >-->
+                                                <span  th:each="laborMaquinaria_item : ${labores_item.labor_maquinaria}"
+                                                       class="label label-default" ref="#" style="margin-right: 3px">[[${laborMaquinaria_item.maquinaria.nombre}]]</span>
+                                              <!--</div>-->
                                           <!--</th:block>--> 
                                       </td>
                                       <td>
@@ -110,16 +117,18 @@
                                           </ul>-->
                                           
                                           <!--<th:block  th:if="${not #lists.isEmpty(labores_item.labor_producto)}">-->
-                                              <th:block  th:each="laborProducto_item : ${labores_item.labor_producto}">
-                                                <span class="label label-default" ref="#">[[${laborProducto_item.producto.nombre}]]</span>&nbsp;
-                                              </th:block>
+                                              <!--<div >-->
+                                                <span  th:each="laborProducto_item : ${labores_item.labor_producto}"
+                                                       class="label label-default" ref="#" style="margin-right: 3px">[[${laborProducto_item.producto.nombre}]]</span>
+                                              <!--</div>-->
                                           <!--</th:block>--> 
                                       </td>
                                       <td>
                                           <!--<th:block  th:if="${not #lists.isEmpty(labores_item.labor_personal)}">-->
-                                              <th:block  th:each="laborPersonal_item : ${labores_item.labor_personal}">
-                                                <span class="label label-default" ref="#">[[${laborPersonal_item.coste_personal.tipo}]]</span>&nbsp;
-                                              </th:block>
+                                              <!--<div >-->
+                                                <span  th:each="laborPersonal_item : ${labores_item.labor_personal}"
+                                                    class="label label-default" ref="#" style="margin-right: 3px">[[${laborPersonal_item.coste_personal.tipo}]]</span>
+                                              <!--</div>-->
                                           <!--</th:block>--> 
                                       </td>
                                    </tr>

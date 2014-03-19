@@ -2,7 +2,9 @@ package com.chinchilla.controller;
 
 import com.chinchilla.persistence.objects.CostePersonal;
 import com.chinchilla.persistence.objects.Labor;
+import com.chinchilla.persistence.objects.Maquinaria;
 import com.chinchilla.persistence.objects.Parcela;
+import com.chinchilla.persistence.objects.Producto;
 import com.chinchilla.util.Notificador;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -72,6 +74,10 @@ public class LaboresController extends AbstractController{
 
         List<Parcela> parcelas = parcelaDAO.getAll();
         
+        List<Maquinaria> maquinaria = maquinariaDAO.getAll();
+        
+        List<Producto> productos = productoDAO.getAll();
+        
         List<CostePersonal> costesPersonal = costePersonalDAO.getAll();
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
@@ -79,6 +85,10 @@ public class LaboresController extends AbstractController{
         modelMap.put("labor", labor);
 
         modelMap.put("parcelas", parcelas);
+
+        modelMap.put("maquinaria", maquinaria);
+
+        modelMap.put("productos", productos);
         
         modelMap.put("costesPersonal", costesPersonal);
         

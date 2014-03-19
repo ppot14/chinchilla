@@ -11,6 +11,12 @@
         <result property="cantidad_dosis_por_ha" column="l_cantidad_dosis_por_ha"/>
         <result property="duracion" column="l_duracion"/>
         <result property="litros_gasoil" column="l_litros_gasoil"/>
+        <collection property="labor_parcela" 
+                    javaType="ArrayList"  
+                    columnPrefix="lpa_" 
+                    column="id_labor"
+                    ofType="LaborParcela" 
+                    resultMap="laborParcelaResultMap"/>
         <collection property="labor_maquinaria" 
                     javaType="ArrayList"  
                     columnPrefix="lcm_" 
@@ -29,6 +35,25 @@
                     column="id_labor"
                     ofType="LaborPersonal" 
                     resultMap="laborPersonalResultMap"/>
+    </resultMap>
+      
+    <resultMap id="laborParcelaResultMap" type="LaborParcela">
+        <id property="id_labor" column="id_labor"/>
+        <id property="posicion_formula" column="posicion_formula"/>
+        <association property="parcela" 
+                     column="id_parcela" 
+                     columnPrefix="pa_"
+                    javaType="Parcela" 
+                    resultMap="parcelaResultMap"/>
+    </resultMap> 
+    
+    <resultMap  id="parcelaResultMap" type="Parcela">
+        <id property="id_parcela" column="id_parcela"/>
+        <result property="nombre" column="nombre"/>
+        <result property="nombre_corto" column="nombre_corto"/>
+        <result property="extension" column="extension"/>
+        <result property="cultivo_fijo" column="cultivo_fijo"/>
+        <result property="color" column="color"/>
     </resultMap>
       
     <resultMap id="laborMaquinariaResultMap" type="LaborMaquinaria">
@@ -122,33 +147,7 @@
         <result property="validez_fin" column="validez_fin"/>
     </resultMap>
 	
-    <select id="getLabor" parameterType="java.lang.Integer" resultType="com.chinchilla.persistence.objects.Labor">
-        select 
-        id_labor as "id_labor", 
-        grupo as "grupo",
-        nombre as "nombre",
-        fecha_comienzo as "fecha_comienzo", 
-        cantidad_dosis_por_ha as "cantidad_dosis_por_ha", 
-        duracion as "duracion", 
-        litros_gasoil as "litros_gasoil"
-        from gonzalol_chinchilla.t_labores 
-        where id_labor = #{id_labor}
-    </select>
-	
-    <!--<select id="getAllLabor" parameterType="int" resultType="com.chinchilla.persistence.objects.Labor">
-        select 
-        id_labor as "id_labor", 
-        grupo as "grupo",
-        nombre as "nombre", 
-        fecha_comienzo as "fecha_comienzo", 
-        cantidad_dosis_por_ha as "cantidad_dosis_por_ha", 
-        duracion as "duracion", 
-        litros_gasoil as "litros_gasoil"
-        from gonzalol_chinchilla.t_labores 
-        order by id_labor
-    </select>-->
-    
-    <select id="getAllLabor" parameterType="int" resultMap="laborResultMap">
+    <select id="getLabor" parameterType="java.lang.Integer" resultMap="laborResultMap">        
         select 
         l.id_labor as "l_id_labor", 
         l.grupo as "l_grupo",
@@ -157,6 +156,17 @@
         l.cantidad_dosis_por_ha as "l_cantidad_dosis_por_ha", 
         l.duracion as "l_duracion", 
         l.litros_gasoil as "l_litros_gasoil",
+        
+        lpa.id_labor as "lpa_id_labor",
+        lpa.id_parcela as "lpa_id_parcela",
+        lpa.posicion_formula as "lpa_posicion_formula",
+        
+        pa.id_parcela as "lpa_pa_id_parcela",         
+        pa.nombre	as	"lpa_pa_nombre"	,
+        pa.nombre_corto	as	"lpa_pa_nombre_corto"	,
+        pa.extension	as	"lpa_pa_valor_extension"	,
+        pa.cultivo_fijo	as	"lpa_pa_cultivo_fijo"	,
+        pa.color	as	"lpa_pa_color"	,
         
         lcm.id_labor as "lcm_id_labor",
         lcm.id_coste_maquinaria as "lcm_id_coste_maquinaria",
@@ -220,6 +230,11 @@
         pe.apellidos	as "lpe_pe_apellidos"
         
         from gonzalol_chinchilla.t_labores  l
+            left join gonzalol_chinchilla.t_labores_parcelas lpa
+                on l.id_labor = lpa.id_labor
+            left join gonzalol_chinchilla.t_parcelas pa
+                on lpa.id_parcela = pa.id_parcela
+        
             left join gonzalol_chinchilla.t_l_costes_maquinaria lcm
                 on l.id_labor = lcm.id_labor
             left join gonzalol_chinchilla.t_costes_maquinaria cm
@@ -235,8 +250,125 @@
                 on lpe.id_coste_personal = cpe.id_coste_personal
             left join gonzalol_chinchilla.t_personal pe
                 on lpe.id_personal = pe.id_personal
+        where id_labor = #{id_labor}
+    </select>
+	
+    <!--<select id="getAllLabor" parameterType="int" resultType="com.chinchilla.persistence.objects.Labor">
+        select 
+        id_labor as "id_labor", 
+        grupo as "grupo",
+        nombre as "nombre", 
+        fecha_comienzo as "fecha_comienzo", 
+        cantidad_dosis_por_ha as "cantidad_dosis_por_ha", 
+        duracion as "duracion", 
+        litros_gasoil as "litros_gasoil"
+        from gonzalol_chinchilla.t_labores 
+        order by id_labor
+    </select>-->
+    
+    <select id="getAllLabor" parameterType="int" resultMap="laborResultMap">
+        select 
+        l.id_labor as "l_id_labor", 
+        l.grupo as "l_grupo",
+        l.nombre as "l_nombre", 
+        l.fecha_comienzo as "l_fecha_comienzo", 
+        l.cantidad_dosis_por_ha as "l_cantidad_dosis_por_ha", 
+        l.duracion as "l_duracion", 
+        l.litros_gasoil as "l_litros_gasoil",
         
-        order by l.id_labor
+        lpa.id_labor as "lpa_id_labor",
+        lpa.id_parcela as "lpa_id_parcela",
+        lpa.posicion_formula as "lpa_posicion_formula",
+        
+        pa.id_parcela as "lpa_pa_id_parcela",         
+        pa.nombre	as	"lpa_pa_nombre"	,
+        pa.nombre_corto	as	"lpa_pa_nombre_corto"	,
+        pa.extension	as	"lpa_pa_valor_extension"	,
+        pa.cultivo_fijo	as	"lpa_pa_cultivo_fijo"	,
+        pa.color	as	"lpa_pa_color"	,
+        
+        lcm.id_labor as "lcm_id_labor",
+        lcm.id_coste_maquinaria as "lcm_id_coste_maquinaria",
+        lcm.multiplicador as "lcm_multiplicador",
+        lcm.constante as "lcm_constante",
+        lcm.posicion_formula as "lcm_posicion_formula",
+        
+        cm.id_coste_maquinaria as "lcm_cm_id_coste_maquinaria",         
+        cm.nombre	as	"lcm_cm_nombre"	,
+        cm.tipo	as	"lcm_cm_tipo"	,
+        cm.valor_compra	as	"lcm_cm_valor_compra"	,
+        cm.valor_desecho	as	"lcm_cm_valor_desecho"	,
+        cm.horas_trabajo	as	"lcm_cm_horas_trabajo"	,
+        cm.interes	as	"lcm_cm_interes"	,
+        cm.anyos_mas_1	as	"lcm_cm_anyos_mas_1"	,
+        cm.reparacion_variable	as	"lcm_cm_reparacion_variable"	,
+        cm.alojamiento_variable	as	"lcm_cm_alojamiento_variable"	,
+        cm.prima_seguro	as	"lcm_cm_prima_seguro"	,
+        cm.cv	as	"lcm_cm_cv"	,
+        cm.litros_cv_y_hora	as	"lcm_cm_litros_cv_y_hora"	,
+        cm.horas_cambio_aceite	as	"lcm_cm_horas_cambio_aceite"	,
+        cm.litros_aceite	as	"lcm_cm_litros_aceite"	,
+        
+        lp.id_labor as "lp_id_labor",
+        lp.id_producto as "lp_id_producto",
+        lp.multiplicador as "lp_multiplicador",
+        lp.constante as "lp_constante",
+        lp.posicion_formula as "lp_posicion_formula",
+        
+        tp.id_producto	as "lp_tp_id_producto",
+        tp.grupo	as "lp_tp_grupo",
+        tp.tipo	as "lp_tp_tipo",
+        tp.nombre	as "lp_tp_nombre",
+        tp.descripcion	as "lp_tp_descripcion",
+        tp.num_reg_ma	as "lp_tp_num_reg_ma",
+        tp.plazo_seguridad	as "lp_tp_plazo_seguridad",
+        
+        lpe.id_labor as "lpe_id_labor",
+        lpe.id_personal as "lpe_id_personal",
+        lpe.id_coste_personal as "lpe_id_coste_personal",
+        lpe.multiplicador as "lpe_multiplicador",
+        lpe.constante as "lpe_constante",
+        lpe.posicion_formula as "lpe_posicion_formula",
+        
+        cpe.id_coste_personal	as "lpe_cpe_id_coste_personal",
+        cpe.tipo	as "lpe_cpe_tipo",
+        cpe.funcion	as "lpe_cpe_funcion",
+        cpe.salario_base	as "lpe_cpe_salario_base",
+        cpe.paga_extra	as "lpe_cpe_paga_extra",
+        cpe.horas_anuales	as "lpe_cpe_horas_anuales",
+        cpe.base_ssp	as "lpe_cpe_base_ssp",
+        cpe.desempleo_pc	as "lpe_cpe_desempleo_pc",
+        cpe.plus_distancia	as "lpe_cpe_plus_distancia",
+        cpe.km	as "lpe_cpe_km",
+        cpe.horas_dia	as "lpe_cpe_horas_dia",
+        cpe.validez_inicio	as "lpe_cpe_validez_inicio",
+        cpe.validez_fin	as "lpe_cpe_validez_fin",
+        
+        pe.id_personal	as "lpe_pe_id_personal",
+        pe.nombre	as "lpe_pe_nombre",
+        pe.apellidos	as "lpe_pe_apellidos"
+        
+        from gonzalol_chinchilla.t_labores  l
+            left join gonzalol_chinchilla.t_labores_parcelas lpa
+                on l.id_labor = lpa.id_labor
+            left join gonzalol_chinchilla.t_parcelas pa
+                on lpa.id_parcela = pa.id_parcela
+        
+            left join gonzalol_chinchilla.t_l_costes_maquinaria lcm
+                on l.id_labor = lcm.id_labor
+            left join gonzalol_chinchilla.t_costes_maquinaria cm
+                on lcm.id_coste_maquinaria = cm.id_coste_maquinaria
+            left join gonzalol_chinchilla.t_l_productos lp
+                on l.id_labor = lp.id_labor
+            left join gonzalol_chinchilla.t_productos tp
+                on lp.id_producto = tp.id_producto
+        
+            left join gonzalol_chinchilla.t_l_costes_personal lpe
+                on l.id_labor = lpe.id_labor
+            left join gonzalol_chinchilla.t_costes_personal cpe
+                on lpe.id_coste_personal = cpe.id_coste_personal
+            left join gonzalol_chinchilla.t_personal pe
+                on lpe.id_personal = pe.id_personal
     </select>
 	
     <select id="getLaborFilteredByIdParcela" parameterType="int" resultType="com.chinchilla.persistence.objects.Labor">
