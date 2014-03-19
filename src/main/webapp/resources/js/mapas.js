@@ -115,7 +115,7 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
             }
 
-            console.debug("temp.id_parcela " + temp.id_parcela);
+//            console.debug("temp.id_parcela " + temp.id_parcela);
 
             if (menuOverlay === null || menuOverlayParcela !== temp.id_parcela) {
 
@@ -210,9 +210,9 @@ function crearMenuParcela(parcela) {
     var parcelasMapaFormLabor = /*[[@{/parcelas/mapa/form/labor.html}]]*/null;
     var parcelasMapaTablaLabores = /*[[@{/parcelas/mapa/tabla/labores.html}]]*/null;
     var produccionesTabla = /*[[@{/producciones/tabla.html}]]*/null;
-    console.debug("parcelasMapaFormLabor "+parcelasMapaFormLabor);
-    console.debug("parcelasMapaTablaLabores "+parcelasMapaTablaLabores);
-    console.debug("produccionesTabla "+produccionesTabla);
+//    console.debug("parcelasMapaFormLabor "+parcelasMapaFormLabor);
+//    console.debug("parcelasMapaTablaLabores "+parcelasMapaTablaLabores);
+//    console.debug("produccionesTabla "+produccionesTabla);
 
     menuString += "<li role='presentation' class='dropdown-header'>" + parcela.nombre + " (" + parcela.extension + " ha)</li>";
     menuString += "<li role='presentation'><a role='menuitem' href='"+parcelasMapaFormLabor+"?id=" + parcela.id_parcela + "'>A&ntilde;adir labor</a></li>";

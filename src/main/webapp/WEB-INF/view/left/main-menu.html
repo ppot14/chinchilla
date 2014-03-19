@@ -113,7 +113,7 @@ $(window).load(function () {
 
     var ruta = window.location.pathname;
             
-    console.log('ruta '+ruta);
+//    console.log('ruta '+ruta);
     
     $('nav#menu-nav li').each(function(){
         
@@ -123,9 +123,9 @@ $(window).load(function () {
             
             var href = enlace.attr('href');
             
-            console.log('href '+href);
+//            console.log('href '+href);
             
-            console.log('indexOf '+ruta.indexOf(href.replace('.html','')));
+//            console.log('indexOf '+ruta.indexOf(href.replace('.html','')));
             
             if(ruta.indexOf(href.replace('.html','')) >= 0 && href.indexOf('.html') >= 0){
                 

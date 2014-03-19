@@ -19,12 +19,12 @@
                     //center: new google.maps.LatLng(37.32637, -5.20889),
                     //RANCHO
                     //center: new google.maps.LatLng(37.319063,-5.185826),
-                    center: new google.maps.LatLng(37.328292, -5.215223),
+                    center: new google.maps.LatLng(37.323677, -5.200524),
                     zoom: 15,
                     mapTypeId: google.maps.MapTypeId.SATELLITE
                 };
 
-                $('#ir-chinchilla-link').addClass("active");
+                $('#ir-todo-link').addClass("active");
 
                 var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
@@ -38,17 +38,33 @@
 
                 //        console.info("Mapa cargado."); 
 
-                $('#ir-chinchilla-link, #ir-rancho-link').click(function() {
+                $('#ir-todo-link, #ir-chinchilla-link, #ir-rancho-link').click(function() {
 
                     var idLink = this.id;
 
-                    if (idLink === 'ir-chinchilla-link') {
+                    if (idLink === 'ir-todo-link') {
+
+                        $(this).addClass("active");
+
+                        $('#ir-chinchilla-link').removeClass("active");
+
+                        $('#ir-rancho-link').removeClass("active");
+
+                        map.panTo(new google.maps.LatLng(37.323677, -5.200524));
+                        
+                        map.setZoom(14);
+
+                    } else if (idLink === 'ir-chinchilla-link') {
 
                         $(this).addClass("active");
 
                         $('#ir-rancho-link').removeClass("active");
 
+                        $('#ir-todo-link').removeClass("active");
+
                         map.panTo(new google.maps.LatLng(37.328292, -5.215223));
+                        
+                        map.setZoom(15);
 
                     } else if (idLink === 'ir-rancho-link') {
 
@@ -56,7 +72,11 @@
 
                         $('#ir-chinchilla-link').removeClass("active");
 
+                        $('#ir-todo-link').removeClass("active");
+
                         map.panTo(new google.maps.LatLng(37.319063, -5.185826));
+                        
+                        map.setZoom(15);
 
                     } else {
 
@@ -104,6 +124,8 @@
                     <header>
                         <h2><strong>Chinchilla</strong></h2>				
                         <div class="widget-toolbar"> 
+                            <a id="ir-todo-link" 
+                               class="btn btn-default btn-sm" href="#">Todo</a>
                             <a id="ir-chinchilla-link" 
                                class="btn btn-default btn-sm" href="#">Chinchilla</a>
                             <a id="ir-rancho-link" 
