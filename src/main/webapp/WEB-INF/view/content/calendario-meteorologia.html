@@ -1,9 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<script src="/resources/js/jquery.fullcalendar.min.js" th:src="@{/resources/js/jquery.fullcalendar.min.js}"></script>
 <script>/*<![CDATA[*/
   
     $(window).load(function () {
         
+        var events = [{
+                        title: 'All Day Event',
+                        start: new Date(y, m, 1),
+                        description: 'long description',
+                        className: ["event", "bg-color-greenLight"],
+                        icon: 'fa-check'
+                    }, {
+                        id: 999,
+                        title: 'Repeating Event',
+                        start: new Date(y, m, d + 4, 16, 0),
+                        allDay: false,
+                        className: ["event", "bg-color-blue"],
+                        icon: 'fa-clock-o'
+                    }, {
+                        title: 'Lunch',
+                        start: new Date(y, m, d, 12, 0),
+                        end: new Date(y, m, d, 14, 0),
+                        allDay: false,
+                        className: ["event", "bg-color-darken"]
+                    }];
+        
+        $('#calendar').fullCalendar({events: events});
         
     });
     
@@ -54,6 +77,8 @@
                             <div class="widget-body-toolbar">
 
                             </div>
+                            
+                            <div id="calendar"></div>
                             
                         </div>
                     </div>
