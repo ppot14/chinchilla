@@ -95,14 +95,16 @@ THE SOFTWARE.
                     <li><a th:href="@{/productos/tabla.html}">[[#{tabla}]]</a></li>
                  </ul>
              </li>
-             <li class="disabled">
+             <li>
                  <a th:href="@{/registros/tabla.html}" id="menu-registros">
                      <i class="icon-shoppingcartalt"></i> [[#{registros}]]
                  </a>
              </li>
-             <!--<li>
-                <a th:href="@{/meteorologia/calendario.html}" id="menu-meteorologia" th:text="#{meteorologia}">meteorologia</a>
-             </li>-->
+             <li>
+                 <a th:href="@{/meteorologia/calendario.html}" id="menu-meteorologia">
+                     <i class="icon-rain"></i> [[#{meteorologia}]]
+                 </a>
+             </li>
          </ul>
      </nav>
     

@@ -162,22 +162,26 @@ THE SOFTWARE.
         <!-- end logout button -->
 
         <!-- search mobile button (this is hidden till mobile view port) -->
-<!--        <div id="search-mobile" class="btn-header transparent pull-right">
+        <div id="search-mobile" class="btn-header transparent pull-right">
                 <span> <a href="javascript:void(0)" title="Search"><i class="fa fa-search"></i></a> </span>
-        </div>-->
+        </div>
         <!-- end search mobile button -->
 
     </div>
 
 <!--Weather-->
 <div id="weather-bar" class="pull-right" style="display: none; margin-right: 15px; padding-top: 8px">
-    <img id="weather-icon" style="height: 40px; width: 40px; margin-top: -10px;" src="" alt=""/>
-    <span id="weather-temp" class="font-lg txt-color-white" style=""></span>
-    <span id="weather-feelslike" class="font-xs txt-color-white" style=""></span>
-    <span id="weather-windspeed" class="font-xs txt-color-white" style=""></span>
-    <span id="weather-winddir" class="font-xs txt-color-white" style=""></span>
-    <span id="weather-humidity" class="font-xs txt-color-white" style=""></span>
-    <span id="weather-precip" class="font-xs txt-color-white" style=""></span>
+    <img id="weather-icon" style="height: 40px; width: 40px; margin-top: -20px; display: inline-block;" src="" alt=""/>
+    <span id="weather-temp" class="font-lg txt-color-white" style="display: inline-block;"></span>
+    <span id="weather-feelslike" class="font-xs txt-color-white" style="display: inline-block;"></span>
+    <ul style="display: inline-block; list-style-type:none; margin: 0px; padding-left: 10px;">
+    <li id="weather-windspeed" class="font-xs txt-color-white" style=""></li>
+    <li id="weather-winddir" class="font-xs txt-color-white" style=""></li>
+    </ul>
+    <ul style="display: inline-block; list-style-type:none; margin: 0px; padding-left: 10px;">
+    <li id="weather-humidity" class="font-xs txt-color-white" style=""></li>
+    <li id="weather-precip" class="font-xs txt-color-white" style=""></li>
+    </ul>
 </div>
 
 
