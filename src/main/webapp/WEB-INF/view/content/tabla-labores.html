@@ -95,11 +95,11 @@
                                               <a th:text="${laborMaquinaria_item.maquinaria.nombre}" ref="#">[maquinaria]</a>
                                             </li>
                                           </ul>-->
-                                          <th:block  th:if="${not #lists.isEmpty(labores_item.labor_maquinaria)}">
+                                          <!--<th:block  th:if="${not #lists.isEmpty(labores_item.labor_maquinaria)}">-->
                                               <th:block  th:each="laborMaquinaria_item : ${labores_item.labor_maquinaria}">
                                                 <span class="label label-default" ref="#">[[${laborMaquinaria_item.maquinaria.nombre}]]</span>&nbsp;
                                               </th:block>
-                                          </th:block> 
+                                          <!--</th:block>--> 
                                       </td>
                                       <td>
 <!--                                          <ul  th:if="${not #lists.isEmpty(labores_item.labor_producto)}"
@@ -109,18 +109,18 @@
                                             </li>
                                           </ul>-->
                                           
-                                          <th:block  th:if="${not #lists.isEmpty(labores_item.labor_producto)}">
+                                          <!--<th:block  th:if="${not #lists.isEmpty(labores_item.labor_producto)}">-->
                                               <th:block  th:each="laborProducto_item : ${labores_item.labor_producto}">
                                                 <span class="label label-default" ref="#">[[${laborProducto_item.producto.nombre}]]</span>&nbsp;
                                               </th:block>
-                                          </th:block> 
+                                          <!--</th:block>--> 
                                       </td>
                                       <td>
-                                          <th:block  th:if="${not #lists.isEmpty(labores_item.labor_personal)}">
+                                          <!--<th:block  th:if="${not #lists.isEmpty(labores_item.labor_personal)}">-->
                                               <th:block  th:each="laborPersonal_item : ${labores_item.labor_personal}">
                                                 <span class="label label-default" ref="#">[[${laborPersonal_item.coste_personal.tipo}]]</span>&nbsp;
                                               </th:block>
-                                          </th:block> 
+                                          <!--</th:block>--> 
                                       </td>
                                    </tr>
                                 </tbody>

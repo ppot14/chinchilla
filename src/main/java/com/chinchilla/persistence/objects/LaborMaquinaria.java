@@ -127,9 +127,9 @@ private Integer posicion_formula;
 	 */
 	@Override
 	public String toString() {
-		return "TipoLaborMaquinaria [id_labor=" + id_labor + ", maquinaria=" + maquinaria
+		return "TipoLaborMaquinaria{id_labor=" + id_labor + ", maquinaria=" + maquinaria
 				+ ", multiplicador=" + multiplicador + ", constante=" + constante
-				+ ", posicion_formula=" + posicion_formula + "]";
+				+ ", posicion_formula=" + posicion_formula + "}";
 	}
 
 

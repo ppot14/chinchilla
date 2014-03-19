@@ -122,16 +122,9 @@ private Integer posicion_formula;
         this.id_labor = id_labor;
     }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "TipoLaborMaquinaria [id_labor=" + id_labor + ", producto=" + producto
-				+ ", multiplicador=" + multiplicador + ", constante=" + constante
-				+ ", posicion_formula=" + posicion_formula + "]";
-	}
-
-
+    @Override
+    public String toString() {
+        return "LaborProducto{" + "id_labor=" + id_labor + ", producto=" + producto + ", multiplicador=" + multiplicador + ", constante=" + constante + ", posicion_formula=" + posicion_formula + '}';
+    }
     
 }

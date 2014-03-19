@@ -226,4 +226,11 @@ public class CostePersonal implements Serializable{
     public void setValidez_fin(Date validez_fin) {
         this.validez_fin = validez_fin;
     }
+    
+    
+
+    @Override
+    public String toString() {
+        return "CostePersonal{" + "id_coste_personal=" + id_coste_personal + ", tipo=" + tipo + ", funcion=" + funcion + ", salario_base=" + salario_base + ", paga_extra=" + paga_extra + ", horas_anuales=" + horas_anuales + ", base_ssp=" + base_ssp + ", desempleo_pc=" + desempleo_pc + ", plus_distancia=" + plus_distancia + ", km=" + km + ", horas_dia=" + horas_dia + ", validez_inicio=" + validez_inicio + ", validez_fin=" + validez_fin + '}';
+    }
 }

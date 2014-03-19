@@ -140,10 +140,15 @@ public class Labor implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "Labor [id_labor=" + id_labor + ", fecha_comienzo=" + fecha_comienzo
+		return "Labor{id_labor=" + id_labor 
+                                + ", fecha_comienzo=" + fecha_comienzo
 				+ ", cantidad_dosis_por_ha=" + cantidad_dosis_por_ha
-				+ ", duracion=" + duracion + ", litros_gasoil=" + litros_gasoil
-				+ "]";
+				+ ", duracion=" + duracion 
+                                + ", litros_gasoil=" + litros_gasoil
+				+ ", labor_maquinaria=" + labor_maquinaria 
+                                + ", labor_producto=" + labor_producto
+				+ ", labor_personal=" + labor_personal 
+				+ "}";
 	}
     
     /**

@@ -76,5 +76,10 @@ public class Personal implements Serializable{
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
+
+    @Override
+    public String toString() {
+        return "Personal{" + "id_personal=" + id_personal + ", nombre=" + nombre + ", apellidos=" + apellidos + '}';
+    }
     
 }

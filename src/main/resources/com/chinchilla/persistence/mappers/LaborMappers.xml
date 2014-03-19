@@ -201,23 +201,23 @@
         lpe.constante as "lpe_constante",
         lpe.posicion_formula as "lpe_posicion_formula",
         
-        cpe.id_coste_personal	as "cpe_id_coste_personal",
-        cpe.tipo	as "cpe_tipo",
-        cpe.funcion	as "cpe_funcion",
-        cpe.salario_base	as "cpe_salario_base",
-        cpe.paga_extra	as "cpe_paga_extra",
-        cpe.horas_anuales	as "cpe_horas_anuales",
-        cpe.base_ssp	as "cpe_base_ssp",
-        cpe.desempleo_pc	as "cpe_desempleo_pc",
-        cpe.plus_distancia	as "cpe_plus_distancia",
-        cpe.km	as "cpe_km",
-        cpe.horas_dia	as "cpe_horas_dia",
-        cpe.validez_inicio	as "cpe_validez_inicio",
-        cpe.validez_fin	as "cpe_validez_fin",
+        cpe.id_coste_personal	as "lpe_cpe_id_coste_personal",
+        cpe.tipo	as "lpe_cpe_tipo",
+        cpe.funcion	as "lpe_cpe_funcion",
+        cpe.salario_base	as "lpe_cpe_salario_base",
+        cpe.paga_extra	as "lpe_cpe_paga_extra",
+        cpe.horas_anuales	as "lpe_cpe_horas_anuales",
+        cpe.base_ssp	as "lpe_cpe_base_ssp",
+        cpe.desempleo_pc	as "lpe_cpe_desempleo_pc",
+        cpe.plus_distancia	as "lpe_cpe_plus_distancia",
+        cpe.km	as "lpe_cpe_km",
+        cpe.horas_dia	as "lpe_cpe_horas_dia",
+        cpe.validez_inicio	as "lpe_cpe_validez_inicio",
+        cpe.validez_fin	as "lpe_cpe_validez_fin",
         
-        pe.id_personal	as "pe_id_personal",
-        pe.nombre	as "pe_nombre",
-        pe.apellidos	as "pe_apellidos"
+        pe.id_personal	as "lpe_pe_id_personal",
+        pe.nombre	as "lpe_pe_nombre",
+        pe.apellidos	as "lpe_pe_apellidos"
         
         from gonzalol_chinchilla.t_labores  l
             left join gonzalol_chinchilla.t_l_costes_maquinaria lcm

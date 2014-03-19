@@ -127,8 +127,12 @@ private Integer posicion_formula;
 	 */
 	@Override
 	public String toString() {
-		return "LaborPersonal [id_labor=" + id_labor + ", coste_personal=" + coste_personal + ", personal=" + personal
-				+ ", multiplicador=" + multiplicador + ", constante=" + constante
-				+ ", posicion_formula=" + posicion_formula + "]";
+		return "LaborPersonal{id_labor=" + id_labor 
+				+ ", multiplicador=" + multiplicador 
+                                + ", constante=" + constante
+				+ ", posicion_formula=" + posicion_formula 
+				+ ", coste_personal=" + coste_personal 
+				+ ", personal=" + personal 
+                                + "}";
 	}
 }

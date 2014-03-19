@@ -136,4 +136,9 @@ private	Integer	plazo_seguridad	;
         this.plazo_seguridad = plazo_seguridad;
     }
 
+    @Override
+    public String toString() {
+        return "Producto{" + "id_producto=" + id_producto + ", grupo=" + grupo + ", tipo=" + tipo + ", nombre=" + nombre + ", descripcion=" + descripcion + ", num_reg_ma=" + num_reg_ma + ", plazo_seguridad=" + plazo_seguridad + '}';
+    }
+
 }
