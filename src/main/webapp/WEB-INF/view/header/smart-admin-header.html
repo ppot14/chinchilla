@@ -39,12 +39,35 @@ THE SOFTWARE.
                     var wind_dir = (weather.current_observation.wind_dir+'');
                     var relative_humidity = (weather.current_observation.relative_humidity+'').replace('.',',');
                     var precip_today_metric = (weather.current_observation.precip_today_metric+'').replace('.',',')+' mm';
+                    
+                    var deg = {};
+                    deg.N='0';
+                    deg.NNE='22';
+                    deg.NE='45';
+                    deg.ENE='67';
+                    deg.E='90';
+                    deg.ESE='112';
+                    deg.SE='135';
+                    deg.SSE='157';
+                    deg.S='180';
+                    deg.SSO='202';
+                    deg.SO='225';
+                    deg.OSO='247';
+                    deg.O='270';
+                    deg.ONO='292';
+                    deg.NO='315';
+                    deg.NNO='337';
+                    
+//                    $("#icon-wind").css( 'transform',  'rotate('+deg[wind_dir]+'deg)'); 
+                    if(deg[wind_dir]!=deg.N)
+                        $("#icon-wind").addClass('fa-rotate-'+deg[wind_dir]);
+                    
                     $('#weather-icon').attr('src',iconUrl);
                     $('#weather-icon').attr('alt',weather_string);
                     $('#weather-temp').text(temp_c);
                     $('#weather-feelslike').text(feelslike_c);
                     $('#weather-windspeed').text(wind_kph);
-                    $('#weather-winddir').text(wind_dir);
+                    $('#weather-winddir').append("&nbsp;"+wind_dir);
                     $('#weather-humidity').text(relative_humidity);
                     $('#weather-precip').text(precip_today_metric);
                     $('#weather-bar').show();
@@ -162,25 +185,29 @@ THE SOFTWARE.
         <!-- end logout button -->
 
         <!-- search mobile button (this is hidden till mobile view port) -->
-        <div id="search-mobile" class="btn-header transparent pull-right">
+<!--        <div id="search-mobile" class="btn-header transparent pull-right">
                 <span> <a href="javascript:void(0)" title="Search"><i class="fa fa-search"></i></a> </span>
-        </div>
+        </div>-->
         <!-- end search mobile button -->
 
     </div>
 
 <!--Weather-->
-<div id="weather-bar" class="pull-right" style="display: none; margin-right: 15px; padding-top: 8px">
+<div id="weather-bar" class="pull-right" style="display: none; margin-right: 15px; padding-top: 2px">
     <img id="weather-icon" style="height: 40px; width: 40px; margin-top: -20px; display: inline-block;" src="" alt=""/>
-    <span id="weather-temp" class="font-lg txt-color-white" style="display: inline-block;"></span>
-    <span id="weather-feelslike" class="font-xs txt-color-white" style="display: inline-block;"></span>
     <ul style="display: inline-block; list-style-type:none; margin: 0px; padding-left: 10px;">
-    <li id="weather-windspeed" class="font-xs txt-color-white" style=""></li>
-    <li id="weather-winddir" class="font-xs txt-color-white" style=""></li>
+        <li id="weather-temp" class="font-md txt-color-white" ></li>
+        <li id="weather-feelslike" class="font-xs txt-color-white text-right" ></li>
     </ul>
     <ul style="display: inline-block; list-style-type:none; margin: 0px; padding-left: 10px;">
-    <li id="weather-humidity" class="font-xs txt-color-white" style=""></li>
-    <li id="weather-precip" class="font-xs txt-color-white" style=""></li>
+        <li id="weather-windspeed" class="font-xs txt-color-white" style=""></li>
+        <li id="weather-winddir" class="font-xs txt-color-white" style="">
+            <i id="icon-wind" class="fa fa-long-arrow-up" style="margin-right: 3px"></i>
+        </li>
+    </ul>
+    <ul style="display: inline-block; list-style-type:none; margin: 0px; padding-left: 10px;">
+        <li id="weather-humidity" class="font-xs txt-color-white" style=""></li>
+        <li id="weather-precip" class="font-xs txt-color-white" style=""></li>
     </ul>
 </div>
 

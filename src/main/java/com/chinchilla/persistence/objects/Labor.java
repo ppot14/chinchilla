@@ -23,6 +23,7 @@
  */
 package com.chinchilla.persistence.objects;
 
+import com.chinchilla.form.LaborForm;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,41 +47,21 @@ public class Labor implements Serializable{
     private List<LaborPersonal> labor_personal;
     private List<LaborParcela> labor_parcela;
     
-    public Labor(){
-        
-        super();
+    public Labor() {
+    }
 
-        LaborMaquinaria lm = new LaborMaquinaria();
-
-        LaborParcela lpa = new LaborParcela();
-
-        LaborPersonal lpe = new LaborPersonal();
-
-        LaborProducto lpr = new LaborProducto();
-        
-        lm.setMaquinaria(new Maquinaria());
-        
-        lpa.setParcela(new Parcela());
-        
-        lpe.setCoste_personal(new CostePersonal());
-        
-        lpr.setProducto(new Producto());
-
-        labor_maquinaria = new ArrayList<LaborMaquinaria>();
-
-        labor_parcela = new ArrayList<LaborParcela>();
-
-        labor_personal = new ArrayList<LaborPersonal>();
-
-        labor_producto = new ArrayList<LaborProducto>();
-        
-        labor_maquinaria.add(lm);
-        
-        labor_parcela.add(lpa);
-        
-        labor_personal.add(lpe);
-        
-        labor_producto.add(lpr);
+    public Labor(Labor labor) {
+        id_labor = labor.getId_labor();
+        grupo = labor.getGrupo();
+        nombre = labor.getNombre();
+        fecha_comienzo = labor.getFecha_comienzo();
+        cantidad_dosis_por_ha = labor.getCantidad_dosis_por_ha();
+        duracion = labor.getDuracion();
+        litros_gasoil = labor.getLitros_gasoil();
+        labor_maquinaria = labor.getLabor_maquinaria();
+        labor_producto = labor.getLabor_producto();
+        labor_personal = labor.getLabor_personal();
+        labor_parcela = labor.getLabor_parcela();
     }
 
     public int getId_labor() {

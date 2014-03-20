@@ -124,6 +124,95 @@ ol.breadcrumb{
 .ui-spinner-down:before {
     content: "\f107";
 }
+
+/*
+* Font Awesome
+*/
+.fa-rotate-22 {
+  -webkit-transform: rotate(22deg);
+  -moz-transform: rotate(22deg);
+  -ms-transform: rotate(22deg);
+  -o-transform: rotate(22deg);
+  transform: rotate(22deg);
+}
+.fa-rotate-45 {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.fa-rotate-67 {
+  -webkit-transform: rotate(67deg);
+  -moz-transform: rotate(67deg);
+  -ms-transform: rotate(67deg);
+  -o-transform: rotate(67deg);
+  transform: rotate(67deg);
+}
+.fa-rotate-112 {
+  -webkit-transform: rotate(112deg);
+  -moz-transform: rotate(112deg);
+  -ms-transform: rotate(112deg);
+  -o-transform: rotate(112deg);
+  transform: rotate(112deg);
+}
+.fa-rotate-135 {
+  -webkit-transform: rotate(135deg);
+  -moz-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);
+  -o-transform: rotate(135deg);
+  transform: rotate(135deg);
+}
+.fa-rotate-157 {
+  -webkit-transform: rotate(157deg);
+  -moz-transform: rotate(157deg);
+  -ms-transform: rotate(157deg);
+  -o-transform: rotate(157deg);
+  transform: rotate(157deg);
+}
+.fa-rotate-202 {
+  -webkit-transform: rotate(202deg);
+  -moz-transform: rotate(202deg);
+  -ms-transform: rotate(202deg);
+  -o-transform: rotate(202deg);
+  transform: rotate(202deg);
+}
+.fa-rotate-225 {
+  -webkit-transform: rotate(225deg);
+  -moz-transform: rotate(225deg);
+  -ms-transform: rotate(225deg);
+  -o-transform: rotate(225deg);
+  transform: rotate(225deg);
+}
+.fa-rotate-247 {
+  -webkit-transform: rotate(247deg);
+  -moz-transform: rotate(247deg);
+  -ms-transform: rotate(247deg);
+  -o-transform: rotate(247deg);
+  transform: rotate(247deg);
+}
+.fa-rotate-292 {
+  -webkit-transform: rotate(292deg);
+  -moz-transform: rotate(292deg);
+  -ms-transform: rotate(292deg);
+  -o-transform: rotate(292deg);
+  transform: rotate(292deg);
+}
+.fa-rotate-315 {
+  -webkit-transform: rotate(315deg);
+  -moz-transform: rotate(315deg);
+  -ms-transform: rotate(315deg);
+  -o-transform: rotate(315deg);
+  transform: rotate(315deg);
+}
+.fa-rotate-337 {
+  -webkit-transform: rotate(337deg);
+  -moz-transform: rotate(337deg);
+  -ms-transform: rotate(337deg);
+  -o-transform: rotate(337deg);
+  transform: rotate(337deg);
+}
+
 /*
 * dataTables jqueryui bootstrap reset
 */
