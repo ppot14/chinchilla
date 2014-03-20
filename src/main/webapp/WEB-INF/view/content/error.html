@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    
+<div class="jumbotron"  th:inline="text">
+  <div class="container">
+    <h1><i class="fa fa-times-circle text-danger error-icon-shadow"></i> [[#{error}]] [[${errorCode}]]</h1>
+    <p>[[${errorMessage}]]</p>
+    <p>
+        <a class="btn btn-primary btn-lg" href="javascript:window.history.back();">
+            <i class="icon-pageback"></i> [[#{volver}]]
+        </a>
+    </p>
+  </div>
+</div>

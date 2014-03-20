@@ -450,6 +450,54 @@
         delete from gonzalol_chinchilla.t_labores where id_labor = #{id_labor}		
     </delete>
 	
+    <insert id="createLaborMaquinaria" parameterClass="java.util.List">
+        insert into gonzalol_chinchilla.t_l_costes_maquinaria (id_labor, id_coste_maquinaria, posicion_formula)
+        values
+        <FOREACH item="item"  index="index" collection="laborMaquinariaList" separator=","> 
+               (#{item.id_labor}, #{item.maquinaria.id_coste_maquinaria}, #{item.posicion_formula})
+        </FOREACH>		
+    </insert>
+	
+    <delete id="deleteLaborMaquinaria" parameterType="java.lang.Integer">
+        delete from gonzalol_chinchilla.t_l_costes_maquinaria where id_labor = #{id_labor}		
+    </delete>
+	
+    <insert id="createLaborPersonal" parameterClass="java.util.List">
+        insert into gonzalol_chinchilla.t_l_costes_personal (id_labor, id_coste_personal, posicion_formula)
+        values
+        <FOREACH item="item"  index="index" collection="personal" separator=","> 
+               (#{item.id_labor}, #{item.coste_personal.id_coste_personal}, #{item.posicion_formula})
+        </FOREACH>		
+    </insert>
+	
+    <delete id="deleteLaborPersonal" parameterType="java.lang.Integer">
+        delete from gonzalol_chinchilla.t_l_costes_personal where id_labor = #{id_labor}		
+    </delete>
+	
+    <insert id="createLaborParcela" parameterClass="java.util.List">
+        insert into gonzalol_chinchilla.t_labores_parcela (id_labor, id_coste_parcela, posicion_formula)
+        values
+        <FOREACH item="item"  index="index" collection="parcela" separator=","> 
+               (#{item.id_labor}, #{item.parcela.id_parcela}, #{item.posicion_formula})
+        </FOREACH>		
+    </insert>
+	
+    <delete id="deleteLaborParcela" parameterType="java.lang.Integer">
+        delete from gonzalol_chinchilla.t_labores_parcela where id_labor = #{id_labor}		
+    </delete>
+	
+    <insert id="createLaborProducto" parameterClass="java.util.List">
+        insert into gonzalol_chinchilla.t_l_productos (id_labor, id_producto, posicion_formula)
+        values
+        <FOREACH item="item"  index="index" collection="productos" separator=","> 
+               (#{item.id_labor}, #{item.producto.id_producto}, #{item.posicion_formula})
+        </FOREACH>		
+    </insert>
+	
+    <delete id="deleteLaborProducto" parameterType="java.lang.Integer">
+        delete from gonzalol_chinchilla.t_l_productos where id_labor = #{id_labor}		
+    </delete>
+	
 	
 </mapper>
 
