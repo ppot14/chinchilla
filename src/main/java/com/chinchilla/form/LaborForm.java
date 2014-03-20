@@ -47,6 +47,10 @@ public class LaborForm extends Labor{
     public LaborForm(){
         super();
     }
+    
+    public LaborForm(Labor labor){
+        super(labor);
+    }
 
     /**
      * @return the insertar_modificar_eliminar

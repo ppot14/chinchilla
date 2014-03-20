@@ -67,8 +67,8 @@ public class LaboresController extends AbstractController{
         LaborForm labor = null;
         
         if(id_labor.intValue()>0){
-        
-            labor = (LaborForm)laborDAO.get(id_labor);
+
+            labor = new LaborForm(laborDAO.get(id_labor));
             
             labor.setUpListIds();
         

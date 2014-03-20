@@ -250,7 +250,7 @@
                 on lpe.id_coste_personal = cpe.id_coste_personal
             left join gonzalol_chinchilla.t_personal pe
                 on lpe.id_personal = pe.id_personal
-        where id_labor = #{id_labor}
+        where l.id_labor = #{id_labor}
     </select>
 	
     <!--<select id="getAllLabor" parameterType="int" resultType="com.chinchilla.persistence.objects.Labor">
