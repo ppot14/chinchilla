@@ -450,7 +450,7 @@
         delete from gonzalol_chinchilla.t_labores where id_labor = #{id_labor}		
     </delete>
 	
-    <insert id="createLaborMaquinaria" parameterClass="java.util.List">
+    <insert id="createLaborMaquinaria" parameterType="java.util.List">
         insert into gonzalol_chinchilla.t_l_costes_maquinaria (id_labor, id_coste_maquinaria, posicion_formula)
         values
         <FOREACH item="item"  index="index" collection="laborMaquinariaList" separator=","> 
@@ -462,7 +462,7 @@
         delete from gonzalol_chinchilla.t_l_costes_maquinaria where id_labor = #{id_labor}		
     </delete>
 	
-    <insert id="createLaborPersonal" parameterClass="java.util.List">
+    <insert id="createLaborPersonal" parameterType="java.util.List">
         insert into gonzalol_chinchilla.t_l_costes_personal (id_labor, id_coste_personal, posicion_formula)
         values
         <FOREACH item="item"  index="index" collection="personal" separator=","> 
@@ -474,7 +474,7 @@
         delete from gonzalol_chinchilla.t_l_costes_personal where id_labor = #{id_labor}		
     </delete>
 	
-    <insert id="createLaborParcela" parameterClass="java.util.List">
+    <insert id="createLaborParcela" parameterType="java.util.List">
         insert into gonzalol_chinchilla.t_labores_parcela (id_labor, id_coste_parcela, posicion_formula)
         values
         <FOREACH item="item"  index="index" collection="parcela" separator=","> 
@@ -486,7 +486,7 @@
         delete from gonzalol_chinchilla.t_labores_parcela where id_labor = #{id_labor}		
     </delete>
 	
-    <insert id="createLaborProducto" parameterClass="java.util.List">
+    <insert id="createLaborProducto" parameterType="java.util.List">
         insert into gonzalol_chinchilla.t_l_productos (id_labor, id_producto, posicion_formula)
         values
         <FOREACH item="item"  index="index" collection="productos" separator=","> 
