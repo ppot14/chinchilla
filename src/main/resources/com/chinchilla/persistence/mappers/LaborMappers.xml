@@ -431,8 +431,11 @@
     </select>    -->
 	
     <insert id="createLabor" keyColumn="id_labor" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.Labor">
-        insert into gonzalol_chinchilla.t_labores (grupo, nombre, fecha_comienzo, cantidad_dosis_por_ha, duracion, extension)
-        values (#{grupo}, #{nombre}, #{fecha_comienzo}, #{cantidad_dosis_por_ha}, #{extension}, #{extension})		
+        <selectKey resultType="int" keyProperty="id_labor" order="AFTER" >
+            SELECT LAST_INSERT_ID() as id_labor
+          </selectKey>
+          insert into gonzalol_chinchilla.t_labores (grupo, nombre, fecha_comienzo, cantidad_dosis_por_ha, duracion, litros_gasoil)
+        values (#{grupo}, #{nombre}, #{fecha_comienzo}, #{cantidad_dosis_por_ha}, #{duracion}, #{litros_gasoil})		
     </insert>
 	
     <update id="updateLabor" parameterType="com.chinchilla.persistence.objects.Labor">
@@ -442,7 +445,7 @@
         fecha_comienzo = #{fecha_comienzo}, 
         cantidad_dosis_por_ha =#{cantidad_dosis_por_ha}, 
         duracion = #{duracion}, 
-        extension = #{extension} 
+        litros_gasoil = #{litros_gasoil} 
         where id_labor = #{id_labor}		
     </update>
 	
@@ -475,7 +478,7 @@
     </delete>
 	
     <insert id="createLaborParcela" parameterType="java.util.List">
-        insert into gonzalol_chinchilla.t_labores_parcela (id_labor, id_coste_parcela, posicion_formula)
+        insert into gonzalol_chinchilla.t_labores_parcelas (id_labor, id_parcela, posicion_formula)
         values
         <foreach item="item"  index="index" collection="list" separator=","> 
                (#{item.id_labor}, #{item.parcela.id_parcela}, #{item.posicion_formula})
@@ -483,7 +486,7 @@
     </insert>
 	
     <delete id="deleteLaborParcela" parameterType="java.lang.Integer">
-        delete from gonzalol_chinchilla.t_labores_parcela where id_labor = #{id_labor}		
+        delete from gonzalol_chinchilla.t_labores_parcelas where id_labor = #{id_labor}		
     </delete>
 	
     <insert id="createLaborProducto" parameterType="java.util.List">

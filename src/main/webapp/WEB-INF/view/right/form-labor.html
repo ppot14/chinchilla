@@ -13,6 +13,10 @@
         method="post" th:object="${labor}" role="form" 
         action="/labores/tabla/form/procesar/labor.html" 
         th:attr="action=@{/labores/tabla/form/procesar/labor.html}">
+       
+        <input th:field="*{id_labor}" 
+               id="id_labor"  
+                type="hidden"/>       
       
     <div class="form-group">
     <label for="parcela" class="col-md-4 control-label">[[#{parcela}]]</label>
@@ -107,9 +111,9 @@
     <div class="form-actions">
         <div class="row">
             <div class="col-md-12 text-center">
-                <button type="button" id="boton_crear" class="btn btn-default btn-sm"><i class="icon-createfile"></i> [[#{insertar}]]</button>
-                <button type="button" id="boton_modificar" class="btn btn-default btn-sm"><i class="icon-save-floppy"></i> [[#{modificar}]]</button>
-                <button type="button" id="boton_eliminar" class="btn btn-default btn-sm"><i class="icon-deletefile"></i> [[#{eliminar}]]</button>
+                <button type="button" id="boton_crear" class="btn btn-default btn-sm"><i class="icon-plus"></i> [[#{insertar}]]</button>
+                <button type="button" id="boton_modificar" class="btn btn-default btn-sm"><i class="icon-editalt"></i> [[#{modificar}]]</button>
+                <button type="button" id="boton_eliminar" class="btn btn-default btn-sm"><i class="icon-trash"></i> [[#{eliminar}]]</button>
                 <button type="reset" class="btn btn-default btn-sm">[[#{limpiar}]]</button>
             </div>
         </div>
