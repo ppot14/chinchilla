@@ -154,6 +154,10 @@ public class LaboresController extends AbstractController{
             
             boolean createdContenidoLabor = createContenidoLabor(model_labor);
             
+            log.info("deletedContenidoLabor "+deletedContenidoLabor);
+            
+            log.info("createdContenidoLabor "+createdContenidoLabor);
+            
             if(modified==1 && deletedContenidoLabor && createdContenidoLabor){
             
                 updated++;
