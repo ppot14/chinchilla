@@ -1,32 +1,108 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <script src="/resources/js/jquery.fullcalendar.min.js" th:src="@{/resources/js/jquery.fullcalendar.min.js}"></script>
-<script>/*<![CDATA[*/
+<script th:inline="javascript">/*<![CDATA[*/
   
     $(window).load(function () {
         
-        var events = [{
-                        title: 'All Day Event',
-                        start: new Date(y, m, 1),
-                        description: 'long description',
-                        className: ["event", "bg-color-greenLight"],
-                        icon: 'fa-check'
-                    }, {
-                        id: 999,
-                        title: 'Repeating Event',
-                        start: new Date(y, m, d + 4, 16, 0),
-                        allDay: false,
-                        className: ["event", "bg-color-blue"],
-                        icon: 'fa-clock-o'
-                    }, {
-                        title: 'Lunch',
-                        start: new Date(y, m, d, 12, 0),
-                        end: new Date(y, m, d, 14, 0),
-                        allDay: false,
-                        className: ["event", "bg-color-darken"]
-                    }];
+        var y=2014;
+        var m=3;
+        var d=14;
         
-        $('#calendar').fullCalendar({events: events});
+        var meteo = /*[[${meteo}]]*/null;
+        
+        console.debug('meteo: '+JSON.stringify(meteo));
+        
+        var events = null;
+        
+        if(meteo){
+        
+            events = new Array(meteo.length);
+        
+            for (var i=0; i<meteo.length; i++){
+                
+                var background = '.bg-color-yellow';
+
+                if(meteo[i].estado==='Despejado'){
+                    background = 'bg-color-orange';
+                }else if(meteo[i].estado==='Nublado'){
+                    background = 'bg-color-blueDark';
+                }else if(meteo[i].estado==='NyC'){
+                    background = 'bg-color-blueLight';
+                }
+
+                events[i] = {
+                            id: meteo[i].id_meteo,
+                            title: meteo[i].estado+"\n"+
+                                   "Max: "+meteo[i].temp_max+"\u00BAC\nMin: "+meteo[i].temp_min+"\u00BAC\n"+
+                                    "Chinchilla: "+meteo[i].publio_chinchilla+"mm\n"+
+                                    "Osuna: "+meteo[i].publio_osuna+"mm\n",
+                            start: new Date(meteo[i].fecha.time),
+                            allDay: true,
+                            className: ["event", background],
+                            icon: 'fa-clock-o'
+                };
+            }
+        
+        }
+        
+        console.debug('events '+JSON.stringify(events));
+        
+//        var events = [{
+//                        title: 'All Day Event',
+//                        start: new Date(y, m, 1),
+//                        description: 'long description',
+//                        className: ["event", "bg-color-greenLight"],
+//                        icon: 'fa-check'
+//                    }, {
+//                        id: 999,
+//                        title: 'Repeating Event',
+//                        start: new Date(y, m, d + 4, 16, 0),
+//                        allDay: false,
+//                        className: ["event", "bg-color-blue"],
+//                        icon: 'fa-clock-o'
+//                    }, {
+//                        title: 'Lunch',
+//                        start: new Date(y, m, d, 12, 0),
+//                        end: new Date(y, m, d, 14, 0),
+//                        allDay: false,
+//                        className: ["event", "bg-color-darken"]
+//                    }];
+        
+        $('#calendar').fullCalendar({
+                events: events,
+                firstDay :1,
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+		monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+		dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','Sabado'],
+		dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Jue','Vie','Sab'],
+		buttonText: {
+			prev: '&nbsp;&#9668;&nbsp;',
+			next: '&nbsp;&#9658;&nbsp;',
+			prevYear: '&nbsp;&lt;&lt;&nbsp;',
+			nextYear: '&nbsp;&gt;&gt;&nbsp;', 
+			today: 'hoy',
+			month: 'mes',
+			week: 'semana',
+			day: 'dia'
+		},		
+		titleFormat: {
+			month: 'MMMM yyyy',
+			week: "d [ yyyy]{ '&#8212;'[ MMM] d MMM yyyy}",
+			day: 'dddd, d MMM, yyyy'
+		},
+		columnFormat: {
+			month: 'ddd',
+			week: 'ddd d/M',
+			day: 'dddd d/M'
+		},
+		allDayText: 'dia todo',
+		axisFormat: 'H:mm',
+		timeFormat: {
+			'': 'H(:mm)',
+			agenda: 'H:mm{ - H:mm}'
+		}
+            });
         
     });
     
@@ -59,24 +135,32 @@
                                                         data-widget-collapsed="false" 
                                                         data-widget-sortable="false">
                     <header>
-                        <h2><strong>[[#{calendario}]]</strong></h2>					
-                        <div class="widget-toolbar"> 
-<!--                            <a id="anadir-tipo-labor-link" class="btn btn-default btn-sm" th:href="@{/labores/tabla/form/labor.html(id=-1)}">
+                        <h2><i class="icon-calendarthree"></i> <strong>[[#{calendario}]]</strong></h2>					
+<!--                        <div class="widget-toolbar"> 
+                            <a id="anadir-tipo-labor-link" class="btn btn-default btn-sm" th:href="@{/labores/tabla/form/labor.html(id=-1)}">
                                  <span class="glyphicon glyphicon-plus"></span> [[#{anadir-labor}]]
-                            </a>-->
-                        </div>
+                            </a>
+                        </div>-->
                     </header>
 
                     <!-- widget div-->
-                    <div class="no-padding">
+                    <div class="">
                         <!-- widget edit box -->
-                        <div class="jarviswidget-editbox">
-                        </div>
-                        <!-- widget content -->
-                        <div class="widget-body">
-                            <div class="widget-body-toolbar">
+<!--                        <div class="jarviswidget-editbox">
+                        </div>-->
+                        <!-- widget content no-padding-->
+                        <div class="widget-body no-padding">
+<!--                            <div class="widget-body-toolbar">
+				
+                                <div id="calendar-buttons">
 
-                            </div>
+                                        <div class="btn-group">
+                                                <a href="javascript:void(0)" class="btn btn-default btn-xs" id="btn-prev"><i class="fa fa-chevron-left"></i></a>
+                                                <a href="javascript:void(0)" class="btn btn-default btn-xs" id="btn-next"><i class="fa fa-chevron-right"></i></a>
+                                        </div>
+                                </div>
+
+                            </div>-->
                             
                             <div id="calendar"></div>
                             

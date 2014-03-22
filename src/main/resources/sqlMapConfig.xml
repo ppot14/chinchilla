@@ -13,7 +13,7 @@
     <typeAliases>
         <typeAlias type="com.chinchilla.persistence.objects.Labor" alias="Labor"/>
         <typeAlias type="com.chinchilla.persistence.objects.OrdenCompra" alias="OrdenCompra"/>
-        <!--<typeAlias type="com.chinchilla.persistence.objects.TipoLabor" alias="TipoLabor"/>-->
+        <typeAlias type="com.chinchilla.persistence.objects.Meteorologia" alias="Meteorologia"/>
         <typeAlias type="com.chinchilla.persistence.objects.Personal" alias="Personal"/>
         <typeAlias type="com.chinchilla.persistence.objects.Parcela" alias="Parcela"/>
         <typeAlias type="com.chinchilla.persistence.objects.LaborParcela" alias="LaborParcela"/>
@@ -33,7 +33,7 @@
         <mapper resource="com/chinchilla/persistence/mappers/ProduccionMappers.xml" />
         <mapper resource="com/chinchilla/persistence/mappers/CultivoMappers.xml" />
         <mapper resource="com/chinchilla/persistence/mappers/LaborMappers.xml" />
-        <!--<mapper resource="com/chinchilla/persistence/mappers/TipoLaborMappers.xml" />-->
+        <mapper resource="com/chinchilla/persistence/mappers/MeteorologiaMappers.xml" />
         <mapper resource="com/chinchilla/persistence/mappers/OrdenCompraMappers.xml" />
         <mapper resource="com/chinchilla/persistence/mappers/MaquinariaMappers.xml" />
         <mapper resource="com/chinchilla/persistence/mappers/CostePersonalMappers.xml" />

@@ -453,9 +453,9 @@
     <insert id="createLaborMaquinaria" parameterType="java.util.List">
         insert into gonzalol_chinchilla.t_l_costes_maquinaria (id_labor, id_coste_maquinaria, posicion_formula)
         values
-        <FOREACH item="item"  index="index" collection="laborMaquinariaList" separator=","> 
+        <foreach item="item"  index="index" collection="list" separator=","> 
                (#{item.id_labor}, #{item.maquinaria.id_coste_maquinaria}, #{item.posicion_formula})
-        </FOREACH>		
+        </foreach>		
     </insert>
 	
     <delete id="deleteLaborMaquinaria" parameterType="java.lang.Integer">
@@ -465,9 +465,9 @@
     <insert id="createLaborPersonal" parameterType="java.util.List">
         insert into gonzalol_chinchilla.t_l_costes_personal (id_labor, id_coste_personal, posicion_formula)
         values
-        <FOREACH item="item"  index="index" collection="personal" separator=","> 
+        <foreach item="item"  index="index" collection="list" separator=","> 
                (#{item.id_labor}, #{item.coste_personal.id_coste_personal}, #{item.posicion_formula})
-        </FOREACH>		
+        </foreach>		
     </insert>
 	
     <delete id="deleteLaborPersonal" parameterType="java.lang.Integer">
@@ -477,9 +477,9 @@
     <insert id="createLaborParcela" parameterType="java.util.List">
         insert into gonzalol_chinchilla.t_labores_parcela (id_labor, id_coste_parcela, posicion_formula)
         values
-        <FOREACH item="item"  index="index" collection="parcela" separator=","> 
+        <foreach item="item"  index="index" collection="list" separator=","> 
                (#{item.id_labor}, #{item.parcela.id_parcela}, #{item.posicion_formula})
-        </FOREACH>		
+        </foreach>		
     </insert>
 	
     <delete id="deleteLaborParcela" parameterType="java.lang.Integer">
@@ -489,9 +489,9 @@
     <insert id="createLaborProducto" parameterType="java.util.List">
         insert into gonzalol_chinchilla.t_l_productos (id_labor, id_producto, posicion_formula)
         values
-        <FOREACH item="item"  index="index" collection="productos" separator=","> 
+        <foreach item="item"  index="index" collection="list" separator=","> 
                (#{item.id_labor}, #{item.producto.id_producto}, #{item.posicion_formula})
-        </FOREACH>		
+        </foreach>		
     </insert>
 	
     <delete id="deleteLaborProducto" parameterType="java.lang.Integer">

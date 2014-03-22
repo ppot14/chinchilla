@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chinchilla.persistence.mappers.MeteorologiaMappers">
+	
+    <select id="getMeteorologia" parameterType="java.lang.Integer" resultType="com.chinchilla.persistence.objects.Meteorologia">
+        select 
+        id_meteo as "id_meteo",
+        fecha as "fecha",
+        publio_chinchilla as "publio_chinchilla",
+        publio_osuna as "publio_osuna",
+        viento as "viento",
+        estado as "estado",
+        temp_max as "temp_max",
+        temp_min as "temp_min"
+        from gonzalol_chinchilla.t_meteo 
+        where id_meteo = #{id_meteo}
+    </select>
+	
+    <select id="getAllMeteorologia" parameterType="int" resultType="com.chinchilla.persistence.objects.Meteorologia">
+        select 
+        id_meteo as "id_meteo",
+        fecha as "fecha",
+        publio_chinchilla as "publio_chinchilla",
+        publio_osuna as "publio_osuna",
+        viento as "viento",
+        estado as "estado",
+        temp_max as "temp_max",
+        temp_min as "temp_min"
+        from gonzalol_chinchilla.t_meteo 
+    </select>
+	
+    <select id="getMeteorologiaPorNombre" parameterType="int" resultType="com.chinchilla.persistence.objects.Meteorologia">
+        select 
+        id_meteo as "id_meteo",
+        fecha as "fecha",
+        publio_chinchilla as "publio_chinchilla",
+        publio_osuna as "publio_osuna",
+        viento as "viento",
+        estado as "estado",
+        temp_max as "temp_max",
+        temp_min as "temp_min"
+        from gonzalol_chinchilla.t_meteo 
+        where fecha = #{fecha}
+    </select>
+	
+    <insert id="createMeteorologia" keyColumn="id_meteo" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.Meteorologia">
+        insert into gonzalol_chinchilla.t_meteo (fecha,publio_chinchilla,publio_osuna,viento,estado,temp_max,temp_min)
+        values (#{fecha},#{publio_chinchilla},#{publio_osuna},#{viento},#{estado},#{temp_max},#{temp_min})		
+    </insert>
+	
+    <update id="updateMeteorologia" parameterType="com.chinchilla.persistence.objects.Meteorologia">
+        update gonzalol_chinchilla.t_meteo set fecha = #{fecha},
+        publio_chinchilla = #{publio_chinchilla},
+        publio_osuna =#{publio_osuna},
+        viento = #{viento},
+        estado = #{estado} ,
+        temp_max = #{temp_max} ,
+        temp_min = #{temp_min}
+        where id_meteo = #{id_meteo}		
+    </update>
+	
+    <delete id="deleteMeteorologia" parameterType="java.lang.Integer">
+        delete from gonzalol_chinchilla.t_meteo where id_meteo = #{id_meteo}		
+    </delete>
+	
+	
+</mapper>
+

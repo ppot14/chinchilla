@@ -91,6 +91,7 @@
     <bean id="personalController" class="com.chinchilla.controller.PersonalController" />
     <bean id="productosController" class="com.chinchilla.controller.ProductosController" />
     <bean id="configuracionController" class="com.chinchilla.controller.ConfiguracionController" />
+    <bean id="meteorologiaController" class="com.chinchilla.controller.MeteorologiaController" />
     
     <mvc:resources mapping="/resources/**" location="/resources/" />
     

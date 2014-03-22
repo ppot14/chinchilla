@@ -47,10 +47,6 @@
 		<put-attribute name="inc_rightpanel" value="right/form-labor"/>
 	</definition>
         
-<!--        <definition name="tipos-labores-tabla" extends="template">
-		<put-attribute name="inc_content" value="content/tabla-tipos-labores"/>
-	</definition>-->
-        
         <!--Producciones-->
         <definition name="producciones-tabla" extends="template">
 		<put-attribute name="inc_content" value="content/tabla-producciones"/>
@@ -69,6 +65,10 @@
 		<put-attribute name="inc_rightpanel" value="right/form-registro"/>
 	</definition>
         
+        <!--Meteorologia-->
+        <definition name="meteorologia-calendario" extends="template">
+		<put-attribute name="inc_content" value="content/calendario-meteorologia"/>
+	</definition>
         
         <definition name="cultivos-tabla" extends="template">
 		<put-attribute name="inc_content" value="content/tabla-cultivos"/>

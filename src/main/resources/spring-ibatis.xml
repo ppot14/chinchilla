@@ -67,9 +67,6 @@
       <bean id="laborDAO" class="com.chinchilla.persistence.dao.LaborDAO">
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
       </bean>
-<!--      <bean id="tipoLaborDAO" class="com.chinchilla.persistence.dao.TipoLaborDAO">
-        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-      </bean>-->
       <bean id="ordenCompraDAO" class="com.chinchilla.persistence.dao.OrdenCompraDAO">
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
       </bean>
@@ -80,6 +77,9 @@
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
       </bean>
       <bean id="productoDAO" class="com.chinchilla.persistence.dao.ProductoDAO">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+      </bean>
+      <bean id="meteorologiaDAO" class="com.chinchilla.persistence.dao.MeteorologiaDAO">
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
       </bean>
       
