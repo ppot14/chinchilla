@@ -8,9 +8,7 @@
 
     <script th:inline="javascript">/*<![CDATA[*/
 
-        $(window).load(function() {
-
-            //        console.info("Cargando mapa...");  
+        $(window).load(function() { 
 
             try {
 
@@ -20,7 +18,7 @@
                     //RANCHO
                     //center: new google.maps.LatLng(37.319063,-5.185826),
                     center: new google.maps.LatLng(37.323677, -5.200524),
-                    zoom: 15,
+                    zoom: 14,
                     mapTypeId: google.maps.MapTypeId.SATELLITE
                 };
 
@@ -30,13 +28,12 @@
 
                 var parcelas = /*[[${parcelas}]]*/null;
                 var coordenadas = /*[[${coordenadas}]]*/null;
-
-                //        console.info("parcelas "+parcelas); 
-                //        console.info("coordenadas "+coordenadas);
+                
+                parcelasMapaFormLabor = /*[[@{/parcelas/mapa/form/labor.html}]]*/null;
+                parcelasMapaTablaLabores = /*[[@{/parcelas/mapa/tabla/labores.html}]]*/null;
+                produccionesTabla = /*[[@{/producciones/tabla.html}]]*/null;                
 
                 insertarPoligonos(map, parcelas, coordenadas);
-
-                //        console.info("Mapa cargado."); 
 
                 $('#ir-todo-link, #ir-chinchilla-link, #ir-rancho-link').click(function() {
 

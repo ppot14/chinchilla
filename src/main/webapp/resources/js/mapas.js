@@ -13,6 +13,10 @@ var menuOverlayParcela = null;
 
 var parcelasCoordenadas = new Array();
 
+var parcelasMapaFormLabor = "";
+var parcelasMapaTablaLabores = "";
+var produccionesTabla = "";
+
 
 function getValidColor(c) {
 
@@ -207,12 +211,9 @@ function crearMenuParcela(parcela) {
     //var menuUl = $("<ul/>");
     var menuString = "<ul class='dropdown-menu' role='menu' id='menu' style='display:none'>";
     
-    var parcelasMapaFormLabor = /*[[@{/parcelas/mapa/form/labor.html}]]*/null;
-    var parcelasMapaTablaLabores = /*[[@{/parcelas/mapa/tabla/labores.html}]]*/null;
-    var produccionesTabla = /*[[@{/producciones/tabla.html}]]*/null;
-//    console.debug("parcelasMapaFormLabor "+parcelasMapaFormLabor);
-//    console.debug("parcelasMapaTablaLabores "+parcelasMapaTablaLabores);
-//    console.debug("produccionesTabla "+produccionesTabla);
+    console.debug("parcelasMapaFormLabor "+parcelasMapaFormLabor);
+    console.debug("parcelasMapaTablaLabores "+parcelasMapaTablaLabores);
+    console.debug("produccionesTabla "+produccionesTabla);
 
     menuString += "<li role='presentation' class='dropdown-header'>" + parcela.nombre + " (" + parcela.extension + " ha)</li>";
     menuString += "<li role='presentation'><a role='menuitem' href='"+parcelasMapaFormLabor+"?id=" + parcela.id_parcela + "'>A&ntilde;adir labor</a></li>";

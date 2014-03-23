@@ -144,11 +144,13 @@ public class LaborForm extends Labor{
             id_productos.add(lpr.getProducto().getId_producto());
         }
     }
-    
-    
 
     @Override
     public String toString() {
-        return "ProduccionForm{" + "insertar_modificar_eliminar=" + insertar_modificar_eliminar + ", " + super.toString() + "}";
+        return "LaborForm{" + "insertar_modificar_eliminar=" + insertar_modificar_eliminar + 
+                ", id_maquinarias=" + id_maquinarias + 
+                ", id_productos=" + id_productos + 
+                ", id_costes_personal=" + id_costes_personal + 
+                ", id_parcelas=" + id_parcelas + ", " + super.toString() + "}";
     }
 }

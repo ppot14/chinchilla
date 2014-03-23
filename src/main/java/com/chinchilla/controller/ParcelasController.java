@@ -1,9 +1,13 @@
 package com.chinchilla.controller;
 
+import com.chinchilla.form.LaborForm;
 import com.chinchilla.persistence.objects.Coordenada;
 import com.chinchilla.persistence.objects.CostePersonal;
 import com.chinchilla.persistence.objects.Labor;
+import com.chinchilla.persistence.objects.Maquinaria;
 import com.chinchilla.persistence.objects.Parcela;
+import com.chinchilla.persistence.objects.Producto;
+import java.util.ArrayList;
 //import com.chinchilla.persistence.objects.TipoLabor;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -78,39 +82,39 @@ public class ParcelasController extends AbstractController{
      @RequestMapping(value = "/mapa/form/labor.html",params = {"id"}, method=RequestMethod.GET)
     public String mapaFormLabor(@RequestParam(value = "id") Integer id_parcela, Model model) throws Exception {
          
-         Parcela parcela = parcelaDAO.get(id_parcela);
+        LaborForm labor = new LaborForm();
+        
+        labor.setId_parcelas(new ArrayList<Integer>());
+        
+        labor.getId_parcelas().add(id_parcela);
+        
+        log.info("labor "+labor);
 
         List<Parcela> parcelas = parcelaDAO.getAll();
-         
-//         List<TipoLabor> tipoLabores = tipoLaborDAO.getAll();
         
-        List<Coordenada> coordenadas = coordenadaDAO.getAll();
+        List<Maquinaria> maquinaria = maquinariaDAO.getAll();
+        
+        List<Producto> productos = productoDAO.getAll();
         
         List<CostePersonal> costesPersonal = costePersonalDAO.getAll();
-         
-         Labor labor = new Labor();
-         
-         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
-         
-         modelMap.put("parcela", parcela);
-         
-         modelMap.put("labor", labor);
-         
-//         modelMap.put("tipoLabores", tipoLabores);
+        
+        List<Coordenada> coordenadas = coordenadaDAO.getAll();
+
+        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
+
+        modelMap.put("labor", labor);
 
         modelMap.put("parcelas", parcelas);
-        
-        modelMap.put("coordenadas", coordenadas);
+
+        modelMap.put("maquinaria", maquinaria);
+
+        modelMap.put("productos", productos);
         
         modelMap.put("costesPersonal", costesPersonal);
         
+        modelMap.put("coordenadas", coordenadas);
+        
         model.addAllAttributes(modelMap);
-         
-//        log.info("parcela "+parcela);
-         
-//        log.info("tipoLabores "+tipoLabores);
-
-//        log.info("Received request to show ParcelasController mapa: parcelas-mapa-form-labor");
          
         return "parcelas-mapa-form-labor";
          

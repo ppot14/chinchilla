@@ -214,11 +214,13 @@ public class LaboresController extends AbstractController{
        
         Labor labor = new Labor(model_labor);
         
-        log.debug("labor labor.getId_labor "+labor.getId_labor());
+        log.debug("labor labor.getId_labor "+model_labor.getId_labor());
        
         int created = laborDAO.create(labor);
         
-        log.debug("create labor.getId_labor "+labor.getId_labor());
+        model_labor.setId_labor(labor.getId_labor());
+        
+        log.debug("create labor.getId_labor "+model_labor.getId_labor());
 
         log.info("created "+created);
         
