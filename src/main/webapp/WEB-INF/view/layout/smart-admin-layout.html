@@ -117,7 +117,6 @@
         };
     
     var tabla_opciones = {
-//            "bJQueryUI": true,
 //            "sPaginationType": "full_numbers",
             "sPaginationType": "bootstrap_full",
             "iDisplayLength": 10,
@@ -132,11 +131,72 @@
 //            }
         };
         
-//    $.datepicker.setDefaults({
-//        prevText: '<i class="fa fa-chevron-left"></i>',
-//        nextText: '<i class="fa fa-chevron-right"></i>',
-//        regional: 'es'
-//    });
+        //Columns data types for datatable
+        //Comma decimal separator
+        $.fn.dataTableExt.aTypes.unshift( function ( sData ) {
+            var sValidChars = "0123456789,.";
+            var Char;
+//            var bDecimal = false;
+            var iStart=0;
+
+            /* Negative sign is valid -  the number check start point */
+            if ( sData.charAt(0) === '-' ) {
+                iStart = 1;
+            }
+
+            /* Check the numeric part */
+            for ( i=iStart ; i<sData.length ; i++ )
+            {
+                Char = sData.charAt(i);
+                if (sValidChars.indexOf(Char) === -1)
+                {
+                    return null;
+                }
+            }
+
+            return 'numeric-comma';
+        } );
+        
+        $.extend( $.fn.dataTableExt.oSort, {
+            "numeric-comma-pre": function ( a ) {
+                var x = (a === "-") ? 0 : a.replace( /,/, "." );
+                x = parseFloat( x );
+                return  x;
+            },
+            "numeric-comma-asc": function ( a, b ) {
+                return ((a < b) ? -1 : ((a > b) ?  1 : 0));
+            },
+            "numeric-comma-desc": function ( a, b ) {
+                return ((a < b) ?  1 : ((a > b) ? -1 : 0));
+            }
+         }); 
+         
+         //Dates
+         $.fn.dataTableExt.aTypes.unshift( function ( sData ) {
+            if (sData !== null && sData.match(/(\d{2})\/(\d{2})\/(\d{4})/)){
+
+                return 'date-spain';
+            }
+            return null;
+         }); 
+            
+        $.extend( $.fn.dataTableExt.oSort, {
+            "date-spain-pre": function ( a ) {
+                var b = a.match(/(\d{2})\/(\d{2})\/(\d{4})/),
+                    day = b[1],
+                    month = b[2],
+                    year = b[3];
+
+                var tt = year+month+day;
+                return  tt;
+            },
+            "date-spain-asc": function ( a, b ) {
+                return a - b;
+            },
+            "date-spain-desc": function ( a, b ) {
+                return b - a;
+            }
+         });  
 
     $(document).ready(function() {
 			
@@ -193,7 +253,7 @@
                 
             }
             
-        }
+        }       
         
     });
     

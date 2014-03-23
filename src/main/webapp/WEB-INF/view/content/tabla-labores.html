@@ -85,27 +85,31 @@
                                                         data-widget-collapsed="false" 
                                                         data-widget-sortable="false">
                     <header>
-                        <h2><strong th:inline="text">[[#{mapa}]]</strong></h2>					
+                        <h2><strong th:inline="text">[[#{mapa}]]</strong></h2>		
                         <div class="widget-toolbar"> 
-                            <!--<div class="input-group">-->
-                                <input id="fecha_desde" name="fecha_desde" 
-                                        class="input-sx datepicker" style="display:inline-block" 
-                                       placeholder="Desde"></input> 
-<!--                                <span class="input-group-addon"><i class="icon-calendarthree"></i></span>
-                            </div>
-                            <div class="input-group">-->
-                                <input id="fecha_hasta" name="fecha_hasta" 
-                                       class="input-sx datepicker" style="display:inline-block" 
-                                       placeholder="Hasta"></input> 
-<!--                                <span class="input-group-addon"><i class="icon-calendarthree"></i></span>
-                            </div>-->
                             
                             <a id="anadir-tipo-labor-link" class="btn btn-default btn-sm" 
                                 style="display:inline-block" 
                                th:href="@{/labores/tabla/form/labor.html(id=-1)}">
                                  <span class="glyphicon glyphicon-plus"></span> [[#{anadir-labor}]]
                             </a>
-                        </div>
+                        </div>			
+                        <div class="widget-toolbar"> 
+                            <!--<div class="input-group">-->
+                                <input id="fecha_desde" name="fecha_desde" 
+                                        class="input-sx datepicker" 
+                                        style="display:inline-block; width: 6em" 
+                                       placeholder="Desde"></input> 
+<!--                                <span class="input-group-addon"><i class="icon-calendarthree"></i></span>
+                            </div>
+                            <div class="input-group">-->
+                                <input id="fecha_hasta" name="fecha_hasta" 
+                                       class="input-sx datepicker" 
+                                       style="display:inline-block; width: 6em" 
+                                       placeholder="Hasta"></input> 
+<!--                                <span class="input-group-addon"><i class="icon-calendarthree"></i></span>
+</div>-->			
+                        </div>	
                     </header>
 
                     <!-- widget div-->

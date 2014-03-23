@@ -112,6 +112,8 @@ public class LaboresController extends AbstractController{
            SessionStatus status,
            Model model) throws Exception {
         
+        long startTime = System.currentTimeMillis();
+        
         log.info(""+model_labor);
         
         String tipoOperacion = model_labor.getInsertar_modificar_eliminar();
@@ -200,6 +202,10 @@ public class LaboresController extends AbstractController{
         }
         
         model.addAllAttributes(modelMap);
+       
+       long endTime = System.currentTimeMillis();
+       
+       log.info(getClass()+".tablaFormProcesarLabor execution time: " + (endTime-startTime) + "ms");
 
         return "labores-tabla";
     }

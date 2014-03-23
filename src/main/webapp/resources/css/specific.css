@@ -102,11 +102,20 @@ ol.breadcrumb{
 
 .smart-style-3 input:not([type]), .smart-style-3 input[type="color"], .smart-style-3 input[type="email"], .smart-style-3 input[type="number"], .smart-style-3 input[type="password"], .smart-style-3 input[type="tel"], .smart-style-3 input[type="url"], .smart-style-3 input[type="text"], .smart-style-3 textarea {
     color: #333333;
+    border: 1px solid #CCCCCC;
 }
 
-.ui-spinner-button {
-    border-left: 1px solid #CCCCCC;
+.ui-widget-content {
+    border: 0;
+}
+
+.ui-spinner a.ui-spinner-button {
+    border: 1px solid #CCCCCC;
     width: 34px;
+}
+
+.ui-spinner a.ui-spinner-button.ui-spinner-up  {
+    border-bottom: 0 none;
 }
 
 .ui-spinner-up, .ui-spinner-down,
@@ -123,6 +132,10 @@ ol.breadcrumb{
 
 .ui-spinner-down:before {
     content: "\f107";
+}
+
+.select2-container, .select2-drop, .select2-search, .select2-search input {
+    font-size: 12px;
 }
 
 /*
