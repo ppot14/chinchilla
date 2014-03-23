@@ -10,52 +10,100 @@
     
     
 /*]]>*/</script> 
-<div class="row">
-<h2 th:text="#{costes-personal}">[costes-personal]</h2>
+
+<div class="row" th:inline="text">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark" ><i class="fa fa-lg fa-fw fa-table"></i> [[#{costes-personal}]]</h1>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+    </div>
 </div>
-<div class="row text-right">
-<a id="anadir-tipo-costePersonal-link" 
-   class="btn btn-default btn-sm disabled" 
-   th:href="@{/personal/tabla/form/coste-personal.html(id=-1)}" >
-    <span class="glyphicon glyphicon-plus"></span> <span th:text="#{anadir-coste-personal}">[anadir-coste-personal]</span></a>
-</div>
-<div class="row">
-<table id="tabla_coste_personal" class="tabla-jqueryui">
-    <!--class="table table-stripped table-bordered table-hover table-condensed"-->
-    <thead>
-        <tr>
-            <th th:text="#{id-coste-personal}"></th>
-            <th th:text="#{tipo}"></th>
-            <th th:text="#{funcion}"></th>
-            <th th:text="#{salario-base}"></th>
-            <th th:text="#{paga-extra}"></th>
-            <th th:text="#{horas-anuales}"></th>
-            <th th:text="#{base-ssp}"></th>
-            <th th:text="#{desempleo-pc}"></th>
-            <th th:text="#{plus-distancia}"></th>
-            <th th:text="#{km}"></th>
-            <th th:text="#{horas-dia}"></th>
-            <th th:text="#{validez-inicio}"></th>
-            <th th:text="#{validez-fin}"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr  th:each="coste_personal_item : ${costesPersonal}">
-            <td th:text="${coste_personal_item.id_coste_personal}"><a th:href="@{/costePersonal/tabla/form/costePersonal.html(id=${coste_personal_item.id_coste_personal})}" th:text="${coste_personal_item.id_coste_personal}">[id_coste_personal]</a></td>
-            <td th:text="${coste_personal_item.tipo}"></td>
-            <td th:text="${coste_personal_item.funcion}"></td>
-            <td th:text="${#numbers.formatDecimal(coste_personal_item.salario_base,1,'POINT',2,'COMMA')}"></td>
-            <td th:text="${#numbers.formatDecimal(coste_personal_item.paga_extra,1,'POINT',2,'COMMA')}"></td>
-            <td th:text="${coste_personal_item.horas_anuales}"></td>
-            <td th:text="${#numbers.formatDecimal(coste_personal_item.base_ssp,1,'POINT',2,'COMMA')}"></td>
-            <td th:text="${#numbers.formatDecimal(coste_personal_item.desempleo_pc,1,'POINT',3,'COMMA')}"></td>
-            <td th:text="${#numbers.formatDecimal(coste_personal_item.plus_distancia,1,'POINT',2,'COMMA')}"></td>
-            <td th:text="${#numbers.formatDecimal(coste_personal_item.km,1,'POINT',2,'COMMA')}"></td>
-            <td th:text="${#numbers.formatDecimal(coste_personal_item.horas_dia,1,'POINT',2,'COMMA')}"></td>
-            <td th:text="${#dates.format(coste_personal_item.validez_inicio,'dd/MM/yyyy')}"></td>
-            <td th:text="${#dates.format(coste_personal_item.validez_fin,'dd/MM/yyyy')}"></td>
-       </tr>
-    </tbody>
-</table>
-</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="" th:inline="text">
+
+    <!-- row -->
+    <div class="row">
+
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false"
+                                                    data-widget-editbutton="false"
+                                                    data-widget-togglebutton="true"
+                                                    data-widget-deletebutton="false"
+                                                    data-widget-fullscreenbutton="false"
+                                                    data-widget-custombutton="false"
+                                                    data-widget-collapsed="false" 
+                                                    data-widget-sortable="false">
+                <header>
+                    <h2><strong>[[#{tabla}]]</strong></h2>		
+                    <div class="widget-toolbar"> 
+
+                        <a id="anadir-tipo-labor-link" class="btn btn-default btn-sm disabled" 
+                           style="display:inline-block" href="javascript:void(0);">
+                           <!--th:href="@{/personal/tabla/form/coste-personal.html(id=-1)}">-->
+                             <span class="glyphicon glyphicon-plus"></span> [[#{anadir-coste-personal}]]
+                        </a>
+                    </div>		
+                </header>
+
+                <!-- widget div-->
+                <div class="no-padding">
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                    </div>
+                    <!-- widget content -->
+                    <div class="widget-body">
+                        <div class="widget-body-toolbar">
+
+                        </div>
+                        
+                        <table id="tabla_coste_personal" class="table table-striped table-bordered table-hover table-condensed">
+                            <!--class="table table-stripped table-bordered table-hover table-condensed"-->
+                            <thead>
+                                <tr>
+                                    <th>[[#{id-coste-personal}]]</th>
+                                    <th>[[#{tipo}]]</th>
+                                    <th>[[#{funcion}]]</th>
+                                    <th>[[#{salario-base}]]</th>
+                                    <th>[[#{paga-extra}]]</th>
+                                    <th>[[#{horas-anuales}]]</th>
+                                    <th>[[#{base-ssp}]]</th>
+                                    <th>[[#{desempleo-pc}]]</th>
+                                    <th>[[#{plus-distancia}]]</th>
+                                    <th>[[#{km}]]</th>
+                                    <th>[[#{horas-dia}]]</th>
+                                    <th>[[#{validez-inicio}]]</th>
+                                    <th>[[#{validez-fin}]]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr  th:each="coste_personal_item : ${costesPersonal}">
+                                    <!--<td><a th:href="@{/costePersonal/tabla/form/costePersonal.html(id=${coste_personal_item.id_coste_personal})}">[[${coste_personal_item.id_coste_personal}]]</a></td>-->
+                                    <td>[[${coste_personal_item.id_coste_personal}]]</td>
+                                    <td>[[${coste_personal_item.tipo}]]</td>
+                                    <td>[[${coste_personal_item.funcion}]]</td>
+                                    <td>[[${#numbers.formatDecimal(coste_personal_item.salario_base,1,'POINT',2,'COMMA')}]]</td>
+                                    <td>[[${#numbers.formatDecimal(coste_personal_item.paga_extra,1,'POINT',2,'COMMA')}]]</td>
+                                    <td>[[${coste_personal_item.horas_anuales}]]</td>
+                                    <td>[[${#numbers.formatDecimal(coste_personal_item.base_ssp,1,'POINT',2,'COMMA')}]]</td>
+                                    <td>[[${#numbers.formatDecimal(coste_personal_item.desempleo_pc,1,'POINT',3,'COMMA')}]]</td>
+                                    <td>[[${#numbers.formatDecimal(coste_personal_item.plus_distancia,1,'POINT',2,'COMMA')}]]</td>
+                                    <td>[[${#numbers.formatDecimal(coste_personal_item.km,1,'POINT',2,'COMMA')}]]</td>
+                                    <td>[[${#numbers.formatDecimal(coste_personal_item.horas_dia,1,'POINT',2,'COMMA')}]]</td>
+                                    <td>[[${#dates.format(coste_personal_item.validez_inicio,'dd/MM/yyyy')}]]</td>
+                                    <td>[[${#dates.format(coste_personal_item.validez_fin,'dd/MM/yyyy')}]]</td>
+                               </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </article>
+    </div>
+</section>
+
 </html>

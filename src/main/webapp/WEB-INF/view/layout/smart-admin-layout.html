@@ -159,7 +159,7 @@
         
         $.extend( $.fn.dataTableExt.oSort, {
             "numeric-comma-pre": function ( a ) {
-                var x = (a === "-") ? 0 : a.replace( /,/, "." );
+                var x = (a === "-") ? 0 : a.replace( /\./, "" ).replace( /,/, "." );
                 x = parseFloat( x );
                 return  x;
             },

@@ -126,24 +126,24 @@
                             <table id="tabla_labores" class="table table-striped table-bordered table-hover table-condensed">
                                 <thead>
                                     <tr>
-                                      <th th:text="#{id-labor}"></th>
-                                      <!--<th th:text="#{id-tipo-labor}"></th>-->
-                                      <th th:text="#{parcela}"></th>
-                                      <th th:text="#{grupo}"></th>
-                                      <th th:text="#{nombre}"></th>
-                                      <th th:text="#{fecha-comienzo}"></th>
-                                      <!--<th th:text="#{cantidad-dosis-por-ha}"></th>-->
-                                      <th th:text="#{litros-gasoil}"></th>
-                                      <th th:text="#{duracion}"></th>
-                                      <th th:text="#{maquinaria}"></th>
-                                      <th th:text="#{producto}"></th>
-                                      <th th:text="#{personal}"></th>
+                                      <th>[[#{id-labor}]]</th>
+                                      <!--<th>[[#{id-tipo-labor}]]</th>-->
+                                      <th>[[#{parcela}]]</th>
+                                      <th>[[#{grupo}]]</th>
+                                      <th>[[#{nombre}]]</th>
+                                      <th>[[#{fecha-comienzo}]]</th>
+                                      <!--<th>[[#{cantidad-dosis-por-ha}]]</th>-->
+                                      <th>[[#{litros-gasoil}]]</th>
+                                      <th>[[#{duracion}]]</th>
+                                      <th>[[#{maquinaria}]]</th>
+                                      <th>[[#{producto}]]</th>
+                                      <th>[[#{personal}]]</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr  th:each="labores_item : ${labores}">
-                                      <td><a th:href="@{/labores/tabla/form/labor.html(id=${labores_item.id_labor})}"><span th:text="${labores_item.id_labor}">[parcelas]</span></a></td>
-                                      <!--<td th:text="${labores_item.id_tipo_labor}"><a th:href="@{/labores/tipo/tabla/form/labor.html(id=${labores_item.id_tipo_labor})}" th:text="${labores_item.id_tipo_labor}">[id_tipo_labor]</a></td>-->
+                                      <td><a th:href="@{/labores/tabla/form/labor.html(id=${labores_item.id_labor})}">[[${labores_item.id_labor}]]</a></td>
+                                      <!--<td>[[#{labores_item.id_tipo_labor}"><a th:href="@{/labores/tipo/tabla/form/labor.html(id=${labores_item.id_tipo_labor})}" th:text="${labores_item.id_tipo_labor}">[id_tipo_labor]</a></td>-->
                             <!--          <td th:each="tipoLabor_item : ${tiposLabores}" 
                                           th:if="${tipoLabor_item.id_tipo_labor == labores_item.id_tipo_labor}"
                                           th:text="${tipoLabor_item.nombre}">
@@ -155,12 +155,12 @@
                                         <span  th:each="laborParcela_item : ${labores_item.labor_parcela}"
                                                class="label label-default" ref="#" style="margin-right: 3px">[[${laborParcela_item.parcela.nombre}]]</span>
                                       </td>
-                                      <td th:text="${labores_item.grupo}">[grupo]</td>
-                                      <td th:text="${labores_item.nombre}">[nombre]</td>
-                                      <td th:text="${#dates.format(labores_item.fecha_comienzo,'dd/MM/yyyy')}">[fecha_comienzo]</td>
-                                      <!--<td th:text="${#numbers.formatDecimal(labores_item.cantidad_dosis_por_ha,1,'POINT',0,'COMMA')}">[cantidad_dosis_por_ha]</td>-->
-                                      <td th:text="${#numbers.formatDecimal(labores_item.litros_gasoil,1,'POINT',2,'COMMA')}">[litros_gasoil]</td>
-                                      <td th:text="${#numbers.formatDecimal(labores_item.duracion,1,'POINT',2,'COMMA')}">[duracion]</td>
+                                      <td>[[#{labores_item.grupo}]]</td>
+                                      <td>[[#{labores_item.nombre}]]</td>
+                                      <td>[[#{#dates.format(labores_item.fecha_comienzo,'dd/MM/yyyy')}]]</td>
+                                      <!--<td>[[#{#numbers.formatDecimal(labores_item.cantidad_dosis_por_ha,1,'POINT',0,'COMMA')}]]</td>-->
+                                      <td>[[#{#numbers.formatDecimal(labores_item.litros_gasoil,1,'POINT',2,'COMMA')}]]</td>
+                                      <td>[[#{#numbers.formatDecimal(labores_item.duracion,1,'POINT',2,'COMMA')}]]</td>
                                       <td>
 <!--                                          <ul  th:if="${not #lists.isEmpty(labores_item.labor_maquinaria)}"
                                                 class="nav">

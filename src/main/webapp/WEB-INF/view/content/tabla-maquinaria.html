@@ -10,56 +10,104 @@
     
     
 /*]]>*/</script> 
-<div class="row">
-<h2 th:text="#{maquinaria}">[maquinaria]</h2>
+
+<div class="row" th:inline="text">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark" ><i class="fa fa-lg fa-fw fa-table"></i> [[#{maquinaria}]]</h1>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+    </div>
 </div>
-<div class="row text-right">
-<a id="anadir-tipo-maquinaria-link" 
-   class="btn btn-default btn-sm disabled" 
-   th:href="@{/maquinaria/tabla/form/maquinaria.html(id=-1)}" >
-    <span class="glyphicon glyphicon-plus"></span> <span th:text="#{anadir-maquinaria}">[anadir-maquinaria]</span></a>
-</div>
-<div class="row">
-<table id="tabla_maquinaria" class="tabla-jqueryui">
-    <!--class="table table-stripped table-bordered table-hover table-condensed"-->
-    <thead>
-        <tr>
-          <th th:text="#{id-maquinaria}"></th>
-          <th th:text="#{nombre}"></th>
-            <th th:text="#{tipo}"></th>
-            <th th:text="#{valor-compra}"></th>
-            <th th:text="#{valor-desecho}"></th>
-            <th th:text="#{horas-trabajo}"></th>
-            <th th:text="#{interes}"></th>
-            <th th:text="#{anyos-mas-1}"></th>
-            <th th:text="#{reparacion-variable}"></th>
-            <th th:text="#{alojamiento-variable}"></th>
-            <th th:text="#{prima-seguro}"></th>
-            <th th:text="#{cv}"></th>
-            <th th:text="#{litros-cv-y-hora}"></th>
-            <th th:text="#{horas-cambio-aceite}"></th>
-            <th th:text="#{litros-aceite}"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr  th:each="maquinaria_item : ${maquinaria}">
-            <td th:text="${maquinaria_item.id_coste_maquinaria}"><a th:href="@{/maquinaria/tabla/form/maquinaria.html(id=${maquinaria_item.id_coste_maquinaria})}" th:text="${maquinaria_item.id_coste_maquinaria}">[id_coste_maquinaria]</a></td>
-            <td th:text="${maquinaria_item.nombre}"></td>
-            <td th:text="${maquinaria_item.tipo}"></td>
-            <td th:text="${#numbers.formatDecimal(maquinaria_item.valor_compra,1,'POINT',2,'COMMA')}"></td>
-            <td th:text="${#numbers.formatDecimal(maquinaria_item.valor_desecho,1,'POINT',2,'COMMA')}"></td>
-            <td th:text="${maquinaria_item.horas_trabajo}"></td>
-            <td th:text="${#numbers.formatDecimal(maquinaria_item.interes,1,'POINT',2,'COMMA')}"></td>
-            <td th:text="${maquinaria_item.anyos_mas_1}"></td>
-            <td th:text="${#numbers.formatDecimal(maquinaria_item.reparacion_variable,1,'POINT',2,'COMMA')}"></td>
-            <td th:text="${#numbers.formatDecimal(maquinaria_item.alojamiento_variable,1,'POINT',2,'COMMA')}"></td>
-            <td th:text="${#numbers.formatDecimal(maquinaria_item.prima_seguro,1,'POINT',2,'COMMA')}"></td>
-            <td th:text="${maquinaria_item.cv}"></td>
-            <td th:text="${#numbers.formatDecimal(maquinaria_item.litros_cv_y_hora,1,'POINT',2,'COMMA')}"></td>
-            <td th:text="${maquinaria_item.horas_cambio_aceite}"></td>
-            <td th:text="${#numbers.formatDecimal(maquinaria_item.litros_aceite,1,'POINT',2,'COMMA')}"></td>
-       </tr>
-    </tbody>
-</table>
-</div>
+
+<!-- widget grid -->
+<section id="widget-grid" class="" th:inline="text">
+
+    <!-- row -->
+    <div class="row">
+
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false"
+                                                    data-widget-editbutton="false"
+                                                    data-widget-togglebutton="true"
+                                                    data-widget-deletebutton="false"
+                                                    data-widget-fullscreenbutton="false"
+                                                    data-widget-custombutton="false"
+                                                    data-widget-collapsed="false" 
+                                                    data-widget-sortable="false">
+                <header>
+                    <h2><strong>[[#{tabla}]]</strong></h2>		
+                    <div class="widget-toolbar"> 
+
+                        <a id="anadir-tipo-labor-link" class="btn btn-default btn-sm disabled" 
+                           style="display:inline-block" href="javascript:void(0);">
+                           <!--th:href="@{/maquinaria/tabla/form/maquinaria.html(id=-1)}">-->
+                             <span class="glyphicon glyphicon-plus"></span> [[#{anadir-maquinaria}]]
+                        </a>
+                    </div>		
+                </header>
+
+                <!-- widget div-->
+                <div class="no-padding">
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                    </div>
+                    <!-- widget content -->
+                    <div class="widget-body">
+                        <div class="widget-body-toolbar">
+
+                        </div>
+
+                        <table id="tabla_maquinaria" class="table table-striped table-bordered table-hover table-condensed">
+                            <!--class="table table-stripped table-bordered table-hover table-condensed"-->
+                            <thead>
+                                <tr>
+                                    <th>[[#{id-maquinaria}]]</th>
+                                    <th>[[#{nombre}]]</th>
+                                    <th>[[#{tipo}]]</th>
+                                    <th>[[#{valor-compra}]]</th>
+                                    <th>[[#{valor-desecho}]]</th>
+                                    <th>[[#{horas-trabajo}]]</th>
+                                    <th>[[#{interes}]]</th>
+                                    <th>[[#{anyos-mas-1}]]</th>
+                                    <th>[[#{reparacion-variable}]]</th>
+                                    <th>[[#{alojamiento-variable}]]</th>
+                                    <th>[[#{prima-seguro}]]</th>
+                                    <th>[[#{cv}]]</th>
+                                    <th>[[#{litros-cv-y-hora}]]</th>
+                                    <th>[[#{horas-cambio-aceite}]]</th>
+                                    <th>[[#{litros-aceite}]]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr  th:each="maquinaria_item : ${maquinaria}">
+                                    <!--<td><a th:href="@{/maquinaria/tabla/form/maquinaria.html(id=${maquinaria_item.id_coste_maquinaria})}">[[${maquinaria_item.id_coste_maquinaria}]]</a></td>-->
+                                    <td>[[${maquinaria_item.id_coste_maquinaria}]]</td>
+                                    <td>[[${maquinaria_item.nombre}]]</td>
+                                    <td>[[${maquinaria_item.tipo}]]</td>
+                                    <td>[[${#numbers.formatDecimal(maquinaria_item.valor_compra,1,'POINT',2,'COMMA')}]]</td>
+                                    <td>[[${#numbers.formatDecimal(maquinaria_item.valor_desecho,1,'POINT',2,'COMMA')}]]</td>
+                                    <td>[[${maquinaria_item.horas_trabajo}]]</td>
+                                    <td>[[${#numbers.formatDecimal(maquinaria_item.interes,1,'POINT',2,'COMMA')}]]</td>
+                                    <td>[[${maquinaria_item.anyos_mas_1}]]</td>
+                                    <td>[[${#numbers.formatDecimal(maquinaria_item.reparacion_variable,1,'POINT',2,'COMMA')}]]</td>
+                                    <td>[[${#numbers.formatDecimal(maquinaria_item.alojamiento_variable,1,'POINT',2,'COMMA')}]]</td>
+                                    <td>[[${#numbers.formatDecimal(maquinaria_item.prima_seguro,1,'POINT',2,'COMMA')}]]</td>
+                                    <td>[[${maquinaria_item.cv}]]</td>
+                                    <td>[[${#numbers.formatDecimal(maquinaria_item.litros_cv_y_hora,1,'POINT',2,'COMMA')}]]</td>
+                                    <td>[[${maquinaria_item.horas_cambio_aceite}]]</td>
+                                    <td>[[${#numbers.formatDecimal(maquinaria_item.litros_aceite,1,'POINT',2,'COMMA')}]]</td>
+                               </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </article>
+    </div>
+</section>
+
 </html>

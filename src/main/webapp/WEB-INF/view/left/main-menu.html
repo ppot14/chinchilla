@@ -74,13 +74,16 @@ THE SOFTWARE.
                  </ul>
              </li>
              <li>
-                 <a href="#" id="menu-personal">
+                 <a th:href="@{/personal/costes/tabla.html}" id="menu-personal" >
+                     <i class="icon-groups-friends"></i> [[#{personal}]]
+                 </a>
+<!--                 <a href="#" id="menu-personal">
                      <i class="glyphicon glyphicon-user"></i> [[#{personal}]]
                  </a>
                  <ul style="display: none;">
                     <li class="disabled"><a th:href="@{/personal/tabla.html}">[[#{tabla}]]</a></li>
                     <li><a th:href="@{/personal/costes/tabla.html}">[[#{tabla}]]</a></li>
-                 </ul>
+                 </ul>-->
              </li>
              <li>
                  <a th:href="@{/maquinaria/tabla.html}" id="menu-maquinaria" >
@@ -88,12 +91,9 @@ THE SOFTWARE.
                  </a>
              </li>
              <li>
-                 <a href="#" id="menu-productos">
-                     <i class="glyphicon glyphicon-barcode"></i> [[#{producto}]]
+                 <a th:href="@{/productos/tabla.html}" id="menu-productos">
+                     <i class="icon-barcode"></i> [[#{producto}]]
                  </a>
-                 <ul style="display: none;">
-                    <li><a th:href="@{/productos/tabla.html}">[[#{tabla}]]</a></li>
-                 </ul>
              </li>
              <li>
                  <a th:href="@{/registros/tabla.html}" id="menu-registros">
