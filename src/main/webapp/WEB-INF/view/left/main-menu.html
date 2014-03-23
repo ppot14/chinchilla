@@ -53,12 +53,9 @@ THE SOFTWARE.
                  </ul>
              </li>
              <li>
-                 <a href="#" id="menu-producciones">
+                 <a th:href="@{/producciones/tabla.html}" id="menu-producciones" >
                      <i class="glyphicon glyphicon-inbox"></i> [[#{produccion}]]
                  </a>
-                 <ul style="display: none;">
-                    <li><a th:href="@{/producciones/tabla.html}">[[#{tabla}]]</a></li>
-                 </ul>
              </li>
              <li>
                  <a th:href="@{/riegos/tabla.html}" id="menu-riegos" >
@@ -66,12 +63,9 @@ THE SOFTWARE.
                  </a>
              </li>
              <li>
-                 <a href="#" id="menu-cultivos">
+                 <a th:href="@{/cultivos/tabla.html}" id="menu-cultivos" >
                      <i class="icon-plantalt"></i> [[#{cultivos}]]
                  </a>
-                 <ul style="display: none;">
-                    <li><a th:href="@{/cultivos/tabla.html}">[[#{tabla}]]</a></li>
-                 </ul>
              </li>
              <li>
                  <a th:href="@{/personal/costes/tabla.html}" id="menu-personal" >

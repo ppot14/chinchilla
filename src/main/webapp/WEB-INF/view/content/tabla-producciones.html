@@ -14,7 +14,7 @@
 /*]]>*/</script> 
 <div class="row" th:inline="text">
     <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-        <h1 class="page-title txt-color-blueDark" ><i class="fa fa-lg fa-fw fa-table"></i> [[#{producciones}]]</h1>
+        <h1 class="page-title txt-color-blueDark" ><i class="glyphicon glyphicon-inbox"></i> [[#{producciones}]]</h1>
     </div>
     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
     </div>
@@ -38,7 +38,7 @@
                                                     data-widget-collapsed="false" 
                                                     data-widget-sortable="false">
                 <header>
-                    <h2><strong>[[#{producciones}]]</strong></h2>					
+                    <h2><i class="fa fa-lg fa-fw fa-table"></i> <strong>[[#{tabla}]]</strong></h2>					
                     <div class="widget-toolbar"> 
                         <a id="anadir-tipo-labor-link" class="btn btn-default btn-sm" th:href="@{/producciones/tabla/form/produccion.html(id=-1)}">
                              <span class="glyphicon glyphicon-plus"></span> [[#{anadir-produccion}]]
@@ -70,12 +70,16 @@
                             </thead>
                             <tbody>
                                 <tr  th:each="producciones_item : ${producciones}">
-                                  <td><a th:href="@{/producciones/tabla/form/produccion.html(id=${producciones_item.id_produccion})}" th:text="${producciones_item.id_produccion}">[id_produccion]</a></td>
+                                  <td>
+                                      <a th:href="@{/producciones/tabla/form/produccion.html(id=${producciones_item.id_produccion})}">
+                                          [[${producciones_item.id_produccion}]]
+                                      </a>
+                                  </td>
                                   <td th:each="cultivos_item : ${cultivos}" 
                                       th:if="${cultivos_item.id_cultivo == producciones_item.id_cultivo}">
-                                      <a th:href="@{/cultivos/tabla/form/cultivo.html(id=${cultivos_item.id_cultivo})}">
+                                      <!--<a th:href="@{/cultivos/tabla/form/cultivo.html(id=${cultivos_item.id_cultivo})}">-->
                                           [[${cultivos_item.especie+' - '+cultivos_item.variedad}]]
-                                      </a>
+                                      <!--</a>-->
                                   </td>
                                   <td th:each="parcelas_item : ${parcelas}" 
                                       th:if="${parcelas_item.id_parcela == producciones_item.id_parcela}">
