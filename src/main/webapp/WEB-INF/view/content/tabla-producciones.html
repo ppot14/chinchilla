@@ -8,6 +8,63 @@
     
         $('#tabla_producciones').dataTable(tabla_opciones);
         
+        var producciones = /*[[${producciones}]]*/null;
+        var cultivos = /*[[${cultivos}]]*/null;
+        
+        var data_pie = [];
+        for (var i = 0; i < producciones.length(); i++) {
+            var id_cultivo = producciones[i].id_cultivo;
+            for(var j = 0; j < cultivos.length(); j++){
+                var cultivo = cultivos[j].especie+' - '+cultivos[j].variedad;
+                if(cultivos[j].id_cultivo===id_cultivo){
+                    id_cultivo = cultivo;
+                    break;
+                }
+            }
+            var kilos = producciones[i].kilos;
+            data_pie[id_cultivo] += kilos;
+        }
+        //TODO
+        for (var i = 0; i < data_pie.length(); i++) {
+            data_pie[i] = {
+                label : "Series" + (i + 1),
+                data : Math.floor(Math.random() * 100) + 1
+            };
+        }
+        
+        $.plot($("#pie-chart"), data_pie, {
+            series : {
+                    pie : {
+                            show : true,
+                            innerRadius : 0.5,
+                            radius : 1,
+                            label : {
+                                    show : false,
+                                    radius : 2 / 3,
+                                    formatter : function(label, series) {
+                                            return '<div style="font-size:11px;text-align:center;padding:4px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
+                                    },
+                                    threshold : 0.1
+                            }
+                    }
+            },
+            legend : {
+                    show : true,
+                    noColumns : 1, // number of colums in legend table
+                    labelFormatter : null, // fn: string -> string
+                    labelBoxBorderColor : "#000", // border color for the little label boxes
+                    container : null, // container (as jQuery object) to put legend in, null means default on top of graph
+                    position : "ne", // position of default legend container within plot
+                    margin : [5, 10], // distance from grid edge to default legend container within plot
+                    backgroundColor : "#efefef", // null means auto-detect
+                    backgroundOpacity : 1 // set to 0 to avoid background
+            },
+            grid : {
+                    hoverable : true,
+                    clickable : true
+            },
+        });
+        
     });
     
     
@@ -91,6 +148,35 @@
                                 </tr>
                             </tbody>
                         </table>
+                        
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false"
+                                                    data-widget-editbutton="false"
+                                                    data-widget-togglebutton="true"
+                                                    data-widget-deletebutton="false"
+                                                    data-widget-fullscreenbutton="false"
+                                                    data-widget-custombutton="false"
+                                                    data-widget-collapsed="false" 
+                                                    data-widget-sortable="false">
+                <header>
+                    <h2><i class="icon-statistics"></i> <strong>[[#{grafico}]]</strong></h2>					
+<!--                    <div class="widget-toolbar"> 
+                    </div>-->
+                </header>
+
+                <!-- widget div-->
+                <div class="no-padding">
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                    </div>
+                    <!-- widget content -->
+                    <div class="widget-body">
+                        <div id="pie-chart" class="chart"></div>
                         
                     </div>
                 </div>

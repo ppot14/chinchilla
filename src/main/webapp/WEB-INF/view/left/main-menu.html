@@ -45,12 +45,9 @@ THE SOFTWARE.
                  </ul>
              </li>
              <li>
-                 <a href="#" id="menu-labores">
+                 <a th:href="@{/labores/tabla.html}" id="menu-labores" >
                      <i class="icon-shovel"></i> [[#{labores}]]
                  </a>
-                 <ul style="display: none;">
-                    <li><a th:href="@{/labores/tabla.html}">[[#{tabla}]]</a></li>
-                 </ul>
              </li>
              <li>
                  <a th:href="@{/producciones/tabla.html}" id="menu-producciones" >
@@ -58,7 +55,8 @@ THE SOFTWARE.
                  </a>
              </li>
              <li>
-                 <a th:href="@{/riegos/tabla.html}" id="menu-riegos" >
+                 <a href="javascript:void(0);" id="menu-riegos" >
+                 <!--<a th:href="@{/riegos/tabla.html}" id="menu-riegos" >-->
                      <i class="icon-watertap-plumbing"></i> [[#{riegos}]]
                  </a>
              </li>

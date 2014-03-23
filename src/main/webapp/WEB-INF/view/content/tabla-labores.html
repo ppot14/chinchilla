@@ -85,7 +85,7 @@
                                                         data-widget-collapsed="false" 
                                                         data-widget-sortable="false">
                     <header>
-                        <h2><i class="icon-shovel"></i> <strong>[[#{tabla}]]</strong></h2>		
+                        <h2><i class="fa fa-lg fa-fw fa-table"></i> <strong>[[#{tabla}]]</strong></h2>		
                         <div class="widget-toolbar"> 
                             
                             <a id="anadir-tipo-labor-link" class="btn btn-default btn-sm" 
@@ -155,12 +155,12 @@
                                         <span  th:each="laborParcela_item : ${labores_item.labor_parcela}"
                                                class="label label-default" ref="#" style="margin-right: 3px">[[${laborParcela_item.parcela.nombre}]]</span>
                                       </td>
-                                      <td>[[#{labores_item.grupo}]]</td>
-                                      <td>[[#{labores_item.nombre}]]</td>
-                                      <td>[[#{#dates.format(labores_item.fecha_comienzo,'dd/MM/yyyy')}]]</td>
+                                      <td>[[${labores_item.grupo}]]</td>
+                                      <td>[[${labores_item.nombre}]]</td>
+                                      <td>[[${#dates.format(labores_item.fecha_comienzo,'dd/MM/yyyy')}]]</td>
                                       <!--<td>[[#{#numbers.formatDecimal(labores_item.cantidad_dosis_por_ha,1,'POINT',0,'COMMA')}]]</td>-->
-                                      <td>[[#{#numbers.formatDecimal(labores_item.litros_gasoil,1,'POINT',2,'COMMA')}]]</td>
-                                      <td>[[#{#numbers.formatDecimal(labores_item.duracion,1,'POINT',2,'COMMA')}]]</td>
+                                      <td>[[${#numbers.formatDecimal(labores_item.litros_gasoil,1,'POINT',2,'COMMA')}]]</td>
+                                      <td>[[${#numbers.formatDecimal(labores_item.duracion,1,'POINT',2,'COMMA')}]]</td>
                                       <td>
 <!--                                          <ul  th:if="${not #lists.isEmpty(labores_item.labor_maquinaria)}"
                                                 class="nav">
