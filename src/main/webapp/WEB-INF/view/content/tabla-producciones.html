@@ -1,21 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <script th:inline="javascript">/*<![CDATA[*/
-    function rand(min, max) {
-        return min + Math.random() * (max - min);
-    }
-    
-    var aroundnumber = 0;
-    
-    function getValidColor() {
-//        var h = Math.round(rand(1, 36))*10;
-        var h = aroundnumber;
-        aroundnumber += 20; 
-        console.log('h '+h);
-//        var s = rand(0, 100);
-//        var l = rand(0, 100);
-        return tinycolor('hsl(' + h + ',' + '60' + '%,' + '60' + '%)').toHexString();
-    }
   
     $(window).load(function () {
         
@@ -51,12 +36,6 @@
             j++;
         }
         
-        var colors = new Array();
-        for(var h=0 ; h < 18; h++){
-            colors[h] = getValidColor();
-        }
-        console.log('colors: '+colors);
-        
         var options = {
             series : {
                     pie : {
@@ -91,8 +70,19 @@
                     hoverable : true,
                     clickable : true
             },
-            colors: colors
         };
+        
+        var options_parcela = options;
+        
+        var options_cultivo = options;
+        
+        options_parcela.colors = getRainbowColors(data_pie_produccion_parcela.length);
+        
+        options_cultivo.colors = getRainbowColors(data_pie_produccion_cultivo.length);
+        
+        options_parcela.legend.columns = Math.ceil(data_pie_produccion_parcela.length/14);
+        
+        options_cultivo.legend.columns = Math.ceil(data_pie_produccion_cultivo.length/14);
         
         $.plot($("#pie-chart-produccion-parcela"), data_pie_produccion_parcela, options);
         
