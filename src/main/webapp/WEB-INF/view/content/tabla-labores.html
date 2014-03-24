@@ -152,8 +152,11 @@
                                       </td>-->
                             
                                       <td>
-                                        <span  th:each="laborParcela_item : ${labores_item.labor_parcela}"
-                                               class="label label-default" ref="#" style="margin-right: 3px">[[${laborParcela_item.parcela.nombre}]]</span>
+                                          <ul  th:if="${not #lists.isEmpty(labores_item.labor_parcela)}"
+                                                class="nav nav-pills nav-stacked">
+                                            <li th:each="laborParcela_item : ${labores_item.labor_parcela}"  class="label label-primary"
+                                                style="margin-bottom: 3px">[[${laborParcela_item.parcela.nombre}]]</li>
+                                          </ul>
                                       </td>
                                       <td>[[${labores_item.grupo}]]</td>
                                       <td>[[${labores_item.nombre}]]</td>
@@ -162,41 +165,25 @@
                                       <td>[[${#numbers.formatDecimal(labores_item.litros_gasoil,1,'POINT',2,'COMMA')}]]</td>
                                       <td>[[${#numbers.formatDecimal(labores_item.duracion,1,'POINT',2,'COMMA')}]]</td>
                                       <td>
-<!--                                          <ul  th:if="${not #lists.isEmpty(labores_item.labor_maquinaria)}"
-                                                class="nav">
-                                            <li th:each="laborMaquinaria_item : ${labores_item.labor_maquinaria}">
-                                              <a th:text="${laborMaquinaria_item.maquinaria.nombre}" ref="#">[maquinaria]</a>
-                                            </li>
-                                          </ul>-->
-                                          <!--<th:block  th:if="${not #lists.isEmpty(labores_item.labor_maquinaria)}">-->
-                                              <!--<div >-->
-                                                <span  th:each="laborMaquinaria_item : ${labores_item.labor_maquinaria}"
-                                                       class="label label-default" ref="#" style="margin-right: 3px">[[${laborMaquinaria_item.maquinaria.nombre}]]</span>
-                                              <!--</div>-->
-                                          <!--</th:block>--> 
+                                          <ul  th:if="${not #lists.isEmpty(labores_item.labor_maquinaria)}"
+                                                class="nav nav-pills nav-stacked">
+                                            <li th:each="laborMaquinaria_item : ${labores_item.labor_maquinaria}" class="label label-primary"
+                                                style="margin-bottom: 3px">[[${laborMaquinaria_item.maquinaria.nombre}]]</li>
+                                          </ul>
                                       </td>
                                       <td>
-<!--                                          <ul  th:if="${not #lists.isEmpty(labores_item.labor_producto)}"
-                                                class="nav">
-                                            <li th:each="laborProducto_item : ${labores_item.labor_producto}">
-                                              <a th:text="${laborProducto_item.producto.nombre}" ref="#">[producto]</a>
-                                            </li>
-                                          </ul>-->
-                                          
-                                          <!--<th:block  th:if="${not #lists.isEmpty(labores_item.labor_producto)}">-->
-                                              <!--<div >-->
-                                                <span  th:each="laborProducto_item : ${labores_item.labor_producto}"
-                                                       class="label label-default" ref="#" style="margin-right: 3px">[[${laborProducto_item.producto.nombre}]]</span>
-                                              <!--</div>-->
-                                          <!--</th:block>--> 
+                                          <ul  th:if="${not #lists.isEmpty(labores_item.labor_producto)}"
+                                                class="nav nav-pills nav-stacked">
+                                            <li th:each="laborProducto_item : ${labores_item.labor_producto}"  class="label label-primary"
+                                                style="margin-bottom: 3px">[[${laborProducto_item.producto.nombre}]]</li>
+                                          </ul>
                                       </td>
                                       <td>
-                                          <!--<th:block  th:if="${not #lists.isEmpty(labores_item.labor_personal)}">-->
-                                              <!--<div >-->
-                                                <span  th:each="laborPersonal_item : ${labores_item.labor_personal}"
-                                                    class="label label-default" ref="#" style="margin-right: 3px">[[${laborPersonal_item.coste_personal.tipo}]]</span>
-                                              <!--</div>-->
-                                          <!--</th:block>--> 
+                                          <ul  th:if="${not #lists.isEmpty(labores_item.labor_personal)}"
+                                                class="nav nav-pills nav-stacked">
+                                            <li th:each="laborPersonal_item : ${labores_item.labor_personal}"  class="label label-primary"
+                                                style="margin-bottom: 3px">[[${laborPersonal_item.coste_personal.tipo}]]</li>
+                                          </ul>
                                       </td>
                                    </tr>
                                 </tbody>

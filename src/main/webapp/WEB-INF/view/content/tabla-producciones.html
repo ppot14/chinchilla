@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<script>/*<![CDATA[*/
+<script th:inline="javascript">/*<![CDATA[*/
+    function rand(min, max) {
+        return min + Math.random() * (max - min);
+    }
+    
+    var aroundnumber = 0;
+    
+    function getValidColor() {
+//        var h = Math.round(rand(1, 36))*10;
+        var h = aroundnumber;
+        aroundnumber += 20; 
+        console.log('h '+h);
+//        var s = rand(0, 100);
+//        var l = rand(0, 100);
+        return tinycolor('hsl(' + h + ',' + '60' + '%,' + '60' + '%)').toHexString();
+    }
   
     $(window).load(function () {
         
@@ -8,41 +23,54 @@
     
         $('#tabla_producciones').dataTable(tabla_opciones);
         
-        var producciones = /*[[${producciones}]]*/null;
-        var cultivos = /*[[${cultivos}]]*/null;
+        var grafico_tarta_produccion_parcela = /*[[${grafico_tarta_produccion_parcela}]]*/null;
         
-        var data_pie = [];
-        for (var i = 0; i < producciones.length(); i++) {
-            var id_cultivo = producciones[i].id_cultivo;
-            for(var j = 0; j < cultivos.length(); j++){
-                var cultivo = cultivos[j].especie+' - '+cultivos[j].variedad;
-                if(cultivos[j].id_cultivo===id_cultivo){
-                    id_cultivo = cultivo;
-                    break;
-                }
-            }
-            var kilos = producciones[i].kilos;
-            data_pie[id_cultivo] += kilos;
-        }
-        //TODO
-        for (var i = 0; i < data_pie.length(); i++) {
-            data_pie[i] = {
-                label : "Series" + (i + 1),
-                data : Math.floor(Math.random() * 100) + 1
+        var grafico_tarta_produccion_cultivo = /*[[${grafico_tarta_produccion_cultivo}]]*/null;
+        
+        var data_pie_produccion_parcela = new Array();
+        
+        var j = 0;
+        
+        for (var i in grafico_tarta_produccion_parcela) {
+            data_pie_produccion_parcela[j] = {
+                label : i,
+                data : grafico_tarta_produccion_parcela[i]
             };
+            j++;
         }
         
-        $.plot($("#pie-chart"), data_pie, {
+        var data_pie_produccion_cultivo = new Array();
+        
+        j = 0;
+        
+        for (var k in grafico_tarta_produccion_cultivo) {
+            data_pie_produccion_cultivo[j] = {
+                label : k,
+                data : grafico_tarta_produccion_cultivo[k]
+            };
+            j++;
+        }
+        
+        var colors = new Array();
+        for(var h=0 ; h < 18; h++){
+            colors[h] = getValidColor();
+        }
+        console.log('colors: '+colors);
+        
+        var options = {
             series : {
                     pie : {
                             show : true,
-                            innerRadius : 0.5,
+                            innerRadius : 0.2,
                             radius : 1,
                             label : {
-                                    show : false,
-                                    radius : 2 / 3,
+                                    show : true,
+                                    radius : 1,
                                     formatter : function(label, series) {
                                             return '<div style="font-size:11px;text-align:center;padding:4px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
+                                    },
+                                    background: {
+                                        opacity: 0.5
                                     },
                                     threshold : 0.1
                             }
@@ -50,20 +78,25 @@
             },
             legend : {
                     show : true,
-                    noColumns : 1, // number of colums in legend table
+                    noColumns : 2, // number of colums in legend table
                     labelFormatter : null, // fn: string -> string
-                    labelBoxBorderColor : "#000", // border color for the little label boxes
+                    labelBoxBorderColor : "#C2C2C2", // border color for the little label boxes
                     container : null, // container (as jQuery object) to put legend in, null means default on top of graph
                     position : "ne", // position of default legend container within plot
-                    margin : [5, 10], // distance from grid edge to default legend container within plot
-                    backgroundColor : "#efefef", // null means auto-detect
+                    margin : [5, 5], // distance from grid edge to default legend container within plot
+                    backgroundColor : "#FAFAFA", // null means auto-detect
                     backgroundOpacity : 1 // set to 0 to avoid background
             },
             grid : {
                     hoverable : true,
                     clickable : true
             },
-        });
+            colors: colors
+        };
+        
+        $.plot($("#pie-chart-produccion-parcela"), data_pie_produccion_parcela, options);
+        
+        $.plot($("#pie-chart-produccion-cultivo"), data_pie_produccion_cultivo, options);
         
     });
     
@@ -153,6 +186,13 @@
                 </div>
 
             </div>
+        </article>
+    </div>
+    <!-- row -->
+    <div class="row">
+        
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             
             <!-- Widget ID (each widget will need unique ID)-->
             <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false"
@@ -164,7 +204,7 @@
                                                     data-widget-collapsed="false" 
                                                     data-widget-sortable="false">
                 <header>
-                    <h2><i class="icon-statistics"></i> <strong>[[#{grafico}]]</strong></h2>					
+                    <h2><i class="icon-statistics"></i> <strong>[[#{produccion-por-parcela}]]</strong></h2>					
 <!--                    <div class="widget-toolbar"> 
                     </div>-->
                 </header>
@@ -176,13 +216,49 @@
                     </div>
                     <!-- widget content -->
                     <div class="widget-body">
-                        <div id="pie-chart" class="chart"></div>
+                        <div id="pie-chart-produccion-parcela" class="chart"></div>
                         
                     </div>
                 </div>
 
             </div>
+            
         </article>
+        
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false"
+                                                    data-widget-editbutton="false"
+                                                    data-widget-togglebutton="true"
+                                                    data-widget-deletebutton="false"
+                                                    data-widget-fullscreenbutton="false"
+                                                    data-widget-custombutton="false"
+                                                    data-widget-collapsed="false" 
+                                                    data-widget-sortable="false">
+                <header>
+                    <h2><i class="icon-statistics"></i> <strong>[[#{produccion-por-cultivo}]]</strong></h2>					
+<!--                    <div class="widget-toolbar"> 
+                    </div>-->
+                </header>
+
+                <!-- widget div-->
+                <div class="no-padding">
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                    </div>
+                    <!-- widget content -->
+                    <div class="widget-body">
+                        <div id="pie-chart-produccion-cultivo" class="chart"></div>
+                        
+                    </div>
+                </div>
+
+            </div>
+            
+        </article>
+        
     </div>
 </section>
     
