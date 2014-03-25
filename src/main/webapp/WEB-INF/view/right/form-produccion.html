@@ -96,6 +96,19 @@
 <script  th:inline="javascript">/*<![CDATA[*/
     
 $(window).load(function () { 
+    
+        var action = '';
+        
+        var ruta = window.location.pathname;
+        
+        if(ruta.indexOf('/producciones/tabla/form/')>1){
+            action = /*[[@{/producciones/tabla/form/procesar/produccion.html}]]*/null;
+        }else if(ruta.indexOf('/parcelas/mapa/form/')>1){
+            action = /*[[@{/parcelas/mapa/form/procesar/produccion.html}]]*/null;
+        }
+        
+        $('#formulario-produccion').attr('action', action);
+        
         //Modificar hidden cuando click en nuevo o modificar
         $('#boton_crear').click(function() {
             $('#insertar_modificar_eliminar').val('insertar');

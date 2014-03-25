@@ -30,10 +30,8 @@ function getRainbowColors(num){
     var colors = new Array();
     for(var h=0 ; h < num; h++){
         var i = Math.round(360*h/num);
-        console.log('i: '+i+', h: '+h);
         colors[h] = tinycolor('hsl(' + i + ',' + '60' + '%,' + '60' + '%)').toHexString();
     }
-    console.log('colors: '+colors);
     return colors;
 }
 

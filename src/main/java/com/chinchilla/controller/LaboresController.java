@@ -1,6 +1,7 @@
 package com.chinchilla.controller;
 
 import com.chinchilla.form.LaborForm;
+import com.chinchilla.persistence.objects.Coordenada;
 import com.chinchilla.persistence.objects.CostePersonal;
 import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.persistence.objects.LaborMaquinaria;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -110,7 +112,8 @@ public class LaboresController extends AbstractController{
             @ModelAttribute("labor") LaborForm model_labor,
            BindingResult result,
            SessionStatus status,
-           Model model) throws Exception {
+           Model model,
+           HttpServletRequest request) throws Exception {
         
         long startTime = System.currentTimeMillis();
         
@@ -193,21 +196,45 @@ public class LaboresController extends AbstractController{
             
         }
         
-        if(created>0 || updated>0 || deleted>0){
-
-            List<Labor> labores = laborDAO.getAll();
-
-            modelMap.put("labores", labores);
+        String referer = request.getHeader("referer");
         
+        String returnKey = "";
+        
+        if(referer.contains("parcelas")){
+
+            List<Parcela> parcelas = parcelaDAO.getAll();
+
+            List<Coordenada> coordenadas = coordenadaDAO.getAll();
+
+            modelMap.put("parcelas", parcelas);
+
+            modelMap.put("coordenadas", coordenadas);
+
+            returnKey = "parcelas-mapa";
+            
+        }else if(referer.contains("labores")){
+        
+            if(created>0 || updated>0 || deleted>0){
+
+                List<Labor> labores = laborDAO.getAll();
+
+                modelMap.put("labores", labores);
+
+            }
+            
+            returnKey = "labores-tabla";
+            
         }
-        
+
         model.addAllAttributes(modelMap);
        
-       long endTime = System.currentTimeMillis();
+        long endTime = System.currentTimeMillis();
        
-       log.info(getClass()+".tablaFormProcesarLabor execution time: " + (endTime-startTime) + "ms");
+        log.info(getClass()+".tablaFormProcesarLabor execution time: " + (endTime-startTime) + "ms");
+       
+        log.info("Redirecting to "+returnKey);
 
-        return "labores-tabla";
+        return returnKey;
     }
     
    private boolean createLabor(LaborForm model_labor){

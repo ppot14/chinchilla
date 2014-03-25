@@ -1,16 +1,17 @@
 package com.chinchilla.controller;
 
 import com.chinchilla.form.ProduccionForm;
+import com.chinchilla.persistence.objects.Coordenada;
 import com.chinchilla.persistence.objects.Cultivo;
+import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.persistence.objects.Parcela;
 import com.chinchilla.persistence.objects.Produccion;
 import com.chinchilla.util.Notificador;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -135,7 +136,8 @@ public class ProduccionesController extends AbstractController{
             @ModelAttribute("produccion") ProduccionForm model_produccion,
            BindingResult result,
            SessionStatus status,
-           Model model) throws Exception {
+           Model model,
+           HttpServletRequest request) throws Exception {
         
         String tipoOperacion = model_produccion.getInsertar_modificar_eliminar();
         
@@ -198,22 +200,44 @@ public class ProduccionesController extends AbstractController{
             
         }
         
-        if(created>0 || updated>0 || deleted>0){
-
-            List<Produccion> producciones = produccionDAO.getAll();
-
-            List<Cultivo> cultivos = cultivoDAO.getAll();
+        String referer = request.getHeader("referer");
+        
+        String returnKey = "";
+        
+        if(referer.contains("parcelas")){
 
             List<Parcela> parcelas = parcelaDAO.getAll();
 
-            modelMap.put("producciones", producciones);
-            modelMap.put("cultivos", cultivos);
+            List<Coordenada> coordenadas = coordenadaDAO.getAll();
+
             modelMap.put("parcelas", parcelas);
+
+            modelMap.put("coordenadas", coordenadas);
+
+            returnKey = "parcelas-mapa";
+            
+        }else if(referer.contains("producciones")){
         
+            if(created>0 || updated>0 || deleted>0){
+
+                List<Produccion> producciones = produccionDAO.getAll();
+
+                List<Cultivo> cultivos = cultivoDAO.getAll();
+
+                List<Parcela> parcelas = parcelaDAO.getAll();
+
+                modelMap.put("producciones", producciones);
+                modelMap.put("cultivos", cultivos);
+                modelMap.put("parcelas", parcelas);
+
+            }
+            
+            returnKey = "producciones-tabla";
+            
         }
         
         model.addAllAttributes(modelMap);
 
-        return "producciones-tabla";
+        return returnKey;
     }
 }
