@@ -69,24 +69,24 @@
             grid : {
                     hoverable : true,
                     clickable : true
-            },
+            }
         };
         
-        var options_parcela = options;
+        var options_parcela = $.extend({}, options);
         
-        var options_cultivo = options;
+        var options_cultivo = $.extend({}, options);
         
         options_parcela.colors = Util.getRainbowColors(data_pie_produccion_parcela.length);
         
         options_cultivo.colors = Util.getRainbowColors(data_pie_produccion_cultivo.length);
         
-        options_parcela.legend.columns = Math.ceil(data_pie_produccion_parcela.length/14);
+//        options_parcela.legend.noColumns = Math.ceil(data_pie_produccion_parcela.length/14);
+//        
+//        options_cultivo.legend.noColumns = Math.ceil(data_pie_produccion_cultivo.length/14);
         
-        options_cultivo.legend.columns = Math.ceil(data_pie_produccion_cultivo.length/14);
+        $.plot($("#pie-chart-produccion-parcela"), data_pie_produccion_parcela, options_parcela);
         
-        $.plot($("#pie-chart-produccion-parcela"), data_pie_produccion_parcela, options);
-        
-        $.plot($("#pie-chart-produccion-cultivo"), data_pie_produccion_cultivo, options);
+        $.plot($("#pie-chart-produccion-cultivo"), data_pie_produccion_cultivo, options_cultivo);
         
     });
     

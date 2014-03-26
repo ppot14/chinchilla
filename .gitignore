@@ -23,3 +23,10 @@
 /src/main/webapp/resources/js/datatable/DT_bootstrap.js
 /src/main/webapp/resources/js/datatable/ColVis.min.js
 /src/main/webapp/resources/css/TableTools.css
+/src/main/webapp/resources/js/flot/jquery.flot.fillbetween.min.js
+/src/main/webapp/resources/js/flot/jquery.flot.orderBar.min.js
+/src/main/webapp/resources/js/flot/jquery.flot.cust.js
+/src/main/webapp/resources/js/flot/jquery.flot.pie.min.js
+/src/main/webapp/resources/js/flot/jquery.flot.tooltip.min.js
+/src/main/webapp/resources/js/datatable/jquery.dataTables-cust.min.js
+/src/main/webapp/resources/js/flot/jquery.flot.resize.min.js

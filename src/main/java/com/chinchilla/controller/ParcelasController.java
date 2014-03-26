@@ -1,26 +1,32 @@
 package com.chinchilla.controller;
 
 import com.chinchilla.form.LaborForm;
+import com.chinchilla.form.ProduccionForm;
 import com.chinchilla.persistence.objects.Coordenada;
 import com.chinchilla.persistence.objects.CostePersonal;
-import com.chinchilla.persistence.objects.Labor;
+import com.chinchilla.persistence.objects.Cultivo;
 import com.chinchilla.persistence.objects.Maquinaria;
 import com.chinchilla.persistence.objects.Parcela;
 import com.chinchilla.persistence.objects.Producto;
+import com.chinchilla.service.LaborService;
+import com.chinchilla.service.ProduccionService;
 import java.util.ArrayList;
-//import com.chinchilla.persistence.objects.TipoLabor;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 /**
  *
@@ -28,7 +34,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  */
 @Controller("parcelasController")
 @RequestMapping("/parcelas")
-@SessionAttributes({"labor"})
+//@SessionAttributes({"labor"})
 public class ParcelasController extends AbstractController{
 
     private static Logger log = (Logger) LoggerFactory.getLogger(ParcelasController.class);
@@ -54,121 +60,116 @@ public class ParcelasController extends AbstractController{
         
         model.addAllAttributes(modelMap);
 
-//        log.info("Received request to show ParcelasController mapa: parcelas-mapa");
-
         return "parcelas-mapa";
     }
     
     @RequestMapping("/tabla.html")
     public String tabla(Model model) throws Exception {
 
-        List<Parcela> parcelas = parcelaDAO.getAll();
-        
-        List<Coordenada> coordenadas = coordenadaDAO.getAll();
-
-        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
-
-        modelMap.put("parcelas", parcelas);
-        
-        modelMap.put("coordenadas", coordenadas);
-        
-        model.addAllAttributes(modelMap);
-
-//        log.info("Received request to show ParcelasController tabla: parcelas-tabla");
+        mapa(model);
 
         return "parcelas-tabla";
     }
     
-     @RequestMapping(value = "/mapa/form/labor.html",params = {"id"}, method=RequestMethod.GET)
+    @RequestMapping(value = "/mapa/form/labor.html",params = {"id"}, method=RequestMethod.GET)
     public String mapaFormLabor(@RequestParam(value = "id") Integer id_parcela, Model model) throws Exception {
-         
+        
+        mapa(model);        
+        
         LaborForm labor = new LaborForm();
         
         labor.setId_parcelas(new ArrayList<Integer>());
         
         labor.getId_parcelas().add(id_parcela);
-        
-        log.info("labor "+labor);
 
-        List<Parcela> parcelas = parcelaDAO.getAll();
+        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
         
         List<Maquinaria> maquinaria = maquinariaDAO.getAll();
         
         List<Producto> productos = productoDAO.getAll();
         
         List<CostePersonal> costesPersonal = costePersonalDAO.getAll();
-        
-        List<Coordenada> coordenadas = coordenadaDAO.getAll();
-
-        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
-
-        modelMap.put("labor", labor);
-
-        modelMap.put("parcelas", parcelas);
 
         modelMap.put("maquinaria", maquinaria);
 
         modelMap.put("productos", productos);
         
         modelMap.put("costesPersonal", costesPersonal);
-        
-        modelMap.put("coordenadas", coordenadas);
+
+        modelMap.put("labor", labor);
         
         model.addAllAttributes(modelMap);
          
         return "parcelas-mapa-form-labor";
          
      }
+    
+    @RequestMapping(value = "/mapa/form/produccion.html",params = {"id"}, method=RequestMethod.GET)
+    public String mapaFormProduccion(@RequestParam(value = "id") Integer id_parcela, Model model) throws Exception {  
+        
+        mapa(model);     
+
+        ProduccionForm produccion = new ProduccionForm();
+        
+        produccion.setId_parcela(id_parcela);
+
+        List<Cultivo> cultivos = cultivoDAO.getAll();
+
+        List<Parcela> parcelas = parcelaDAO.getAll();
+
+        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
+        modelMap.put("produccion", produccion);
+        modelMap.put("cultivos", cultivos);
+        modelMap.put("parcelas", parcelas);
+        
+        model.addAllAttributes(modelMap);  
+        
+        return "parcelas-mapa-form-produccion";
+    }
      
      @RequestMapping(value = "/mapa/form/procesar/labor.html", method=RequestMethod.POST)
     public String mapaFormProcesarLabor(
-            @ModelAttribute("labor") Labor labor ,
-            @ModelAttribute("parcelas") Map<String,String> parcelas ,
-            @ModelAttribute("personal") Map<String,String> personal ,
-            @ModelAttribute("insertar_modificar_eliminar") String insertar_modificar_eliminar,
-            Model model) throws Exception {
-         
-        log.info("labor "+labor);
-
-        log.info("parcelas "+parcelas);
-
-        log.info("personal "+personal);
-
-        log.info("insertar_modificar_eliminar "+insertar_modificar_eliminar);
-         
-         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
+            @ModelAttribute("labor") LaborForm model_labor,
+           BindingResult result,
+           SessionStatus status,
+           Model model,
+           HttpServletRequest request) throws Exception {
         
-        model.addAllAttributes(modelMap);
+        long startTime = System.currentTimeMillis();
+        
+        mapa(model);
+        
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        
+        boolean success = LaborService.insertaModificarEliminarLabor(laborDAO, model_labor, modelMap);
 
-//        log.info("Received request to insert/modify ParcelasController mapa: parcelas-mapa-form-labor");
-         
+        model.addAllAttributes(modelMap);
+       
+        long endTime = System.currentTimeMillis();
+       
+        log.info(getClass()+".mapaFormProcesarLabor execution time: " + (endTime-startTime) + "ms");
+
         return "parcelas-mapa";
          
      }
-     
-    @RequestMapping(value = "/mapa/tabla/labores.html",params = {"id"}, method=RequestMethod.GET)
-    public String tablaLabor(@RequestParam(value = "id") Integer id_parcela, Model model) throws Exception {
-                
-        List<Labor> labores = laborDAO.getFilteredById(Parcela.class, id_parcela);
-         
-//         List<TipoLabor> tipoLabores = tipoLaborDAO.getAll();
-
-        List<Parcela> parcelas = parcelaDAO.getAll();
+    
+    @RequestMapping(value = "/mapa/form/procesar/produccion.html", method=RequestMethod.POST)
+    public String mapaFormProcesarProduccion(
+            @ModelAttribute("produccion") ProduccionForm model_produccion,
+           BindingResult result,
+           SessionStatus status,
+           Model model,
+           HttpServletRequest request) throws Exception {
         
-        List<Coordenada> coordenadas = coordenadaDAO.getAll();
-
-        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
-
-        modelMap.put("labores", labores);
-
-        modelMap.put("parcelas", parcelas);
+        mapa(model);
         
-        modelMap.put("coordenadas", coordenadas);
-         
-//         modelMap.put("tipoLabores", tipoLabores);
+        Map<String, Object> modelMap = new HashMap<String, Object>();
         
+        boolean success = ProduccionService.insertaModificarEliminarProduccion(produccionDAO, model_produccion, modelMap);
+
         model.addAllAttributes(modelMap);
+
+        return "parcelas-mapa";
         
-        return "parcelas-tabla-labores";
     }
 }
