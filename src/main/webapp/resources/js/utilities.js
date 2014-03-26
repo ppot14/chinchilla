@@ -21,14 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+function Util () {}
     
-function rand(min, max) {
+Util.randomRange = function(min, max) {
     
     return min + Math.random() * (max - min);
     
-}
+};
 
-function getRainbowColors(num){
+Util.getRainbowColors = function(num){
     
     var colors = new Array();
     
@@ -41,9 +42,9 @@ function getRainbowColors(num){
     
     return colors;
     
-}
+};
 
-function getValidColor(c) {
+Util.validateOrGetRandomColor =  function(c) {
 
     var color;
     
@@ -68,6 +69,6 @@ function getValidColor(c) {
     
     return color;
     
-}
+};
 
 

@@ -11,10 +11,11 @@
             <put-attribute name="inc_leftpanel" value="left/main-menu" />
             <put-attribute name="inc_rightpanel" value="right/default" />
             <!--<put-attribute name="inc_breadcrumb" value="other/bread-crumb" />-->
+            <put-attribute name="inc_second_content" value="content/default"/>
 	</definition>
 
 	<definition name="inicio" extends="template">
-		<put-attribute name="inc_content" value="content/default"/>
+		<put-attribute name="inc_content" value="content/jumbotron"/>
 	</definition>
 
 	<definition name="error" extends="template">
@@ -35,7 +36,15 @@
 	</definition>
         
         <definition name="parcelas-tabla-labores" extends="parcelas-mapa">
-		<put-attribute name="inc_rightpanel" value="content/tabla-labores"/>
+		<put-attribute name="inc_secondary_content" value="content/tabla-labores"/>
+	</definition>
+        
+        <definition name="parcelas-mapa-form-produccion" extends="parcelas-mapa">
+		<put-attribute name="inc_rightpanel" value="right/form-produccion"/>
+	</definition>
+        
+        <definition name="parcelas-tabla-producciones" extends="parcelas-mapa">
+		<put-attribute name="inc_secondary_content" value="content/tabla-producciones"/>
 	</definition>
         
         <!--Labores-->
@@ -83,7 +92,7 @@
 	</definition>
         
         <definition name="personal-tabla" extends="template">
-		<put-attribute name="inc_content" value="content/default"/>
+		<put-attribute name="inc_content" value="content/jumbotron"/>
 	</definition>
         
         <definition name="coste-personal-tabla" extends="template">
@@ -95,7 +104,7 @@
 	</definition>
         
         <definition name="configuracion-submenu" extends="template">
-		<put-attribute name="inc_content" value="content/default"/>
+		<put-attribute name="inc_content" value="content/jumbotron"/>
 	</definition>
 
 </tiles-definitions>

@@ -13,9 +13,12 @@ var menuOverlayParcela = null;
 
 var parcelasCoordenadas = new Array();
 
-var parcelasMapaFormLabor = "";
-var parcelasMapaTablaLabores = "";
-var produccionesTabla = "";
+//var parcelasMapaFormLabor = "";
+//var laboresTabla = "";
+//var parcelasMapaFormProduccion = "";
+//var produccionesTabla = "";
+
+var contextMenu = new Array();
 
 function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
@@ -31,7 +34,7 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
 //    console.debug("parcelas_json.length " + parcelas_json.length);
 
-    var colors = getRainbowColors(parcelas_json.length);
+//    var colors = Util.getRainbowColors(parcelas_json.length);
 
     for (i = 0; i < parcelas_json.length; i++) {
 
@@ -45,7 +48,7 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
 //        console.debug("parcela.color " + parcela.color);
 
-        var color = colors[i];
+        var color = Util.validateOrGetRandomColor(parcela.color);
 
         parcela.poligono = new google.maps.Polygon({
             paths: parcela.coordenadas,
@@ -186,17 +189,21 @@ function crearMenuParcela(parcela) {
     //var menuUl = $("<ul/>");
     var menuString = "<ul class='dropdown-menu' role='menu' id='menu' style='display:none'>";
     
-    console.debug("parcelasMapaFormLabor "+parcelasMapaFormLabor);
-    console.debug("parcelasMapaTablaLabores "+parcelasMapaTablaLabores);
-    console.debug("produccionesTabla "+produccionesTabla);
+//    console.debug("parcelasMapaFormLabor "+parcelasMapaFormLabor);
+//    console.debug("laboresTabla "+laboresTabla);
+//    console.debug("parcelasMapaTablaLabores "+parcelasMapaTablaLabores);
+//    console.debug("produccionesTabla "+produccionesTabla);
 
     menuString += "<li role='presentation' class='dropdown-header'>" + parcela.nombre + " (" + parcela.extension + " ha)</li>";
-    menuString += "<li role='presentation'><a role='menuitem' href='"+parcelasMapaFormLabor+"?id=" + parcela.id_parcela + "'>A&ntilde;adir labor</a></li>";
-    menuString += "<li role='presentation'><a role='menuitem' href='"+parcelasMapaTablaLabores+"?id=" + parcela.id_parcela + "'>Ver labores</a></li>";
-    menuString += "<li role='presentation'><a role='menuitem' href='"+produccionesTabla+"?id=" + parcela.id_parcela + "'>Ver producciones</a></li>";
-//    menuString += "<li role='presentation'><a role='menuitem' th:href='@{/parcelas/mapa/form/insertar/labor.html(id="+parcela.id_parcela+")}' >A&ntilde;adir labor</a></li>";
-//    menuString += "<li role='presentation'><a role='menuitem' th:href='@{/labores/tabla.html(id="+parcela.id_parcela+")}' >Ver labores</a></li>";
-//    menuString += "<li role='presentation'><a role='menuitem' th:href='@{/producciones/tabla.html(id="+parcela.id_parcela+")}' >Ver producciones</a></li>";
+    for(var i=0; i<contextMenu.length; i++){
+        console.debug("contextMenu "+contextMenu[i].link);
+        console.debug("contextMenu "+contextMenu[i].tag);
+        menuString += "<li role='presentation'><a role='menuitem' href='"+contextMenu[i].link+"?id=" + parcela.id_parcela + "'>"+contextMenu[i].tag+"</a></li>";
+    }
+//    menuString += "<li role='presentation'><a role='menuitem' href='"+parcelasMapaFormLabor+"?id=" + parcela.id_parcela + "'>A&ntilde;adir labor</a></li>";
+//    menuString += "<li role='presentation'><a role='menuitem' href='"+laboresTabla+"?id=" + parcela.id_parcela + "'>Ver labores</a></li>";
+//    menuString += "<li role='presentation'><a role='menuitem' href='"+parcelasMapaFormProduccion+"?id=" + parcela.id_parcela + "'>A&ntilde;adir produccion</a></li>";
+//    menuString += "<li role='presentation'><a role='menuitem' href='"+produccionesTabla+"?id=" + parcela.id_parcela + "'>Ver producciones</a></li>";
 
     menuString += "</ul>";
 
