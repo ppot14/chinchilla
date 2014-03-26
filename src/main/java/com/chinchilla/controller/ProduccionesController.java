@@ -3,9 +3,9 @@ package com.chinchilla.controller;
 import com.chinchilla.form.ProduccionForm;
 import com.chinchilla.persistence.objects.Coordenada;
 import com.chinchilla.persistence.objects.Cultivo;
-import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.persistence.objects.Parcela;
 import com.chinchilla.persistence.objects.Produccion;
+import com.chinchilla.service.ProduccionService;
 import com.chinchilla.util.Notificador;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -30,7 +30,7 @@ import org.springframework.web.bind.support.SessionStatus;
  */
 @Controller("produccionesController")
 @RequestMapping("/producciones")
-@SessionAttributes({"produccion"})
+//@SessionAttributes({"produccion"})
 public class ProduccionesController extends AbstractController{
 
     private static Logger log = (Logger) LoggerFactory.getLogger(ProduccionesController.class);
@@ -100,6 +100,8 @@ public class ProduccionesController extends AbstractController{
     
     @RequestMapping(value = "/tabla/form/produccion.html",params = {"id"}, method=RequestMethod.GET)
     public String tablaFormProduccion(@RequestParam(value = "id") Integer id_produccion, Model model) throws Exception {
+        
+        tabla(model);
 
         Produccion produccion = null;
         
@@ -113,18 +115,9 @@ public class ProduccionesController extends AbstractController{
         
         }
 
-        List<Produccion> producciones = produccionDAO.getAll();
-
-        List<Cultivo> cultivos = cultivoDAO.getAll();
-
-        List<Parcela> parcelas = parcelaDAO.getAll();
-
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
-
-        modelMap.put("producciones", producciones);
+        
         modelMap.put("produccion", new ProduccionForm(produccion));
-        modelMap.put("cultivos", cultivos);
-        modelMap.put("parcelas", parcelas);
         
         model.addAllAttributes(modelMap);
         
@@ -139,105 +132,14 @@ public class ProduccionesController extends AbstractController{
            Model model,
            HttpServletRequest request) throws Exception {
         
-        String tipoOperacion = model_produccion.getInsertar_modificar_eliminar();
-        
-        Produccion produccion = new Produccion(model_produccion);
-        
         Map<String, Object> modelMap = new HashMap<String, Object>();
         
-        int created = 0;
-        
-        int updated = 0;
-        
-        int deleted = 0;
-        
-        if(tipoOperacion!=null&&tipoOperacion.equals("insertar")){
-            
-            created = produccionDAO.create(produccion);
-            
-            if(created==1){
-        
-                Notificador.incluirMensaje(modelMap, "success", "Producción añadida correctamente");
-                
-            }else{
-        
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo produccion");
-                
-            }
-            
-        }else if(tipoOperacion!=null&&tipoOperacion.equals("modificar")){
-            
-            updated = produccionDAO.update(produccion);
-            
-            if(updated==1){
-        
-                Notificador.incluirMensaje(modelMap, "success", "Producción modificada correctamente");
-                
-            }else{
-        
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando produccion");
-                
-            }
-            
-        }else if(tipoOperacion!=null&&tipoOperacion.equals("eliminar")){
-            
-            deleted = produccionDAO.delete(produccion.getId_produccion());
-            
-            if(deleted==1){
-        
-                Notificador.incluirMensaje(modelMap, "success", "Producción eliminada correctamente");
-                
-            }else{
-        
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando produccion");
-                
-            }
-            
-        }else{
-            
-             Notificador.incluirMensaje(modelMap, "info", "No se ha podido identificar la operacion",
-                     "Ninguna accion sera realizada");
-            
-        }
-        
-        String referer = request.getHeader("referer");
-        
-        String returnKey = "";
-        
-        if(referer.contains("parcelas")){
-
-            List<Parcela> parcelas = parcelaDAO.getAll();
-
-            List<Coordenada> coordenadas = coordenadaDAO.getAll();
-
-            modelMap.put("parcelas", parcelas);
-
-            modelMap.put("coordenadas", coordenadas);
-
-            returnKey = "parcelas-mapa";
-            
-        }else if(referer.contains("producciones")){
-        
-            if(created>0 || updated>0 || deleted>0){
-
-                List<Produccion> producciones = produccionDAO.getAll();
-
-                List<Cultivo> cultivos = cultivoDAO.getAll();
-
-                List<Parcela> parcelas = parcelaDAO.getAll();
-
-                modelMap.put("producciones", producciones);
-                modelMap.put("cultivos", cultivos);
-                modelMap.put("parcelas", parcelas);
-
-            }
-            
-            returnKey = "producciones-tabla";
-            
-        }
+        boolean success = ProduccionService.insertaModificarEliminarProduccion(produccionDAO, model_produccion, modelMap);
         
         model.addAllAttributes(modelMap);
 
-        return returnKey;
+        tabla(model);
+
+        return "producciones-tabla";
     }
 }

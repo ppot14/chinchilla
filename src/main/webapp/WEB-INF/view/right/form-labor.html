@@ -128,6 +128,19 @@
 <script  th:inline="javascript">/*<![CDATA[*/
         
     $(document).ready(function(){
+    
+        var action = '';
+        
+        var ruta = window.location.pathname;
+        
+        if(ruta.indexOf('/labores/tabla/form/')>1){
+            action = /*[[@{/labores/tabla/form/procesar/labor.html}]]*/null;
+        }else if(ruta.indexOf('/parcelas/mapa/form/')>1){
+            action = /*[[@{/parcelas/mapa/form/procesar/labor.html}]]*/null;
+        }
+        
+        $('#formulario-labor').attr('action', action);
+        
         //Modificar hidden cuando click en nuevo o modificar
         $('#boton_crear').click(function() {
             $('#insertar_modificar_eliminar').val('insertar');

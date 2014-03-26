@@ -5,16 +5,17 @@ import com.chinchilla.form.ProduccionForm;
 import com.chinchilla.persistence.objects.Coordenada;
 import com.chinchilla.persistence.objects.CostePersonal;
 import com.chinchilla.persistence.objects.Cultivo;
-import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.persistence.objects.Maquinaria;
 import com.chinchilla.persistence.objects.Parcela;
-import com.chinchilla.persistence.objects.Produccion;
 import com.chinchilla.persistence.objects.Producto;
+import com.chinchilla.service.LaborService;
+import com.chinchilla.service.ProduccionService;
 import java.util.ArrayList;
-//import com.chinchilla.persistence.objects.TipoLabor;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,7 @@ import org.springframework.web.bind.support.SessionStatus;
  */
 @Controller("parcelasController")
 @RequestMapping("/parcelas")
-@SessionAttributes({"labor"})
+//@SessionAttributes({"labor"})
 public class ParcelasController extends AbstractController{
 
     private static Logger log = (Logger) LoggerFactory.getLogger(ParcelasController.class);
@@ -126,18 +127,49 @@ public class ParcelasController extends AbstractController{
         return "parcelas-mapa-form-produccion";
     }
      
-//     @RequestMapping(value = "/mapa/form/procesar/labor.html", method=RequestMethod.POST)
-//    public String mapaFormProcesarLabor(
-//            @ModelAttribute("labor") LaborForm model_labor,
-//           BindingResult result,
-//           SessionStatus status,
-//           Model model) throws Exception {
-//        
-//        LaboresController laboresController = new LaboresController();
-//         
-//        laboresController.tablaFormProcesarLabor(model_labor,result,status,model);
-//         
-//        return mapa(model);
-//         
-//     }
+     @RequestMapping(value = "/mapa/form/procesar/labor.html", method=RequestMethod.POST)
+    public String mapaFormProcesarLabor(
+            @ModelAttribute("labor") LaborForm model_labor,
+           BindingResult result,
+           SessionStatus status,
+           Model model,
+           HttpServletRequest request) throws Exception {
+        
+        long startTime = System.currentTimeMillis();
+        
+        mapa(model);
+        
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        
+        boolean success = LaborService.insertaModificarEliminarLabor(laborDAO, model_labor, modelMap);
+
+        model.addAllAttributes(modelMap);
+       
+        long endTime = System.currentTimeMillis();
+       
+        log.info(getClass()+".mapaFormProcesarLabor execution time: " + (endTime-startTime) + "ms");
+
+        return "parcelas-mapa";
+         
+     }
+    
+    @RequestMapping(value = "/mapa/form/procesar/produccion.html", method=RequestMethod.POST)
+    public String mapaFormProcesarProduccion(
+            @ModelAttribute("produccion") ProduccionForm model_produccion,
+           BindingResult result,
+           SessionStatus status,
+           Model model,
+           HttpServletRequest request) throws Exception {
+        
+        mapa(model);
+        
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        
+        boolean success = ProduccionService.insertaModificarEliminarProduccion(produccionDAO, model_produccion, modelMap);
+
+        model.addAllAttributes(modelMap);
+
+        return "parcelas-mapa";
+        
+    }
 }

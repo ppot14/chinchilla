@@ -38,6 +38,14 @@
 		<put-attribute name="inc_rightpanel" value="content/tabla-labores"/>
 	</definition>
         
+        <definition name="parcelas-mapa-form-produccion" extends="parcelas-mapa">
+		<put-attribute name="inc_rightpanel" value="right/form-produccion"/>
+	</definition>
+        
+        <definition name="parcelas-tabla-producciones" extends="parcelas-mapa">
+		<put-attribute name="inc_rightpanel" value="content/tabla-producciones"/>
+	</definition>
+        
         <!--Labores-->
         <definition name="labores-tabla" extends="template">
 		<put-attribute name="inc_content" value="content/tabla-labores"/>
