@@ -17,33 +17,6 @@ var parcelasMapaFormLabor = "";
 var parcelasMapaTablaLabores = "";
 var produccionesTabla = "";
 
-
-function getValidColor(c) {
-
-    var color;
-    
-    var colorRegex = /[0-9a-fA-F]{6}/g;
-    
-    if (c && colorRegex.exec(c)) {
-        
-        color = '#' + c;
-        
-    } else {
-        
-        var letters = '0123456789ABCDEF'.split('');
-        
-        color = '#';
-        
-        for (var i = 0; i < 6; i++) {
-            
-            color += letters[Math.round(Math.random() * 15)];
-            
-        }
-    }
-    
-    return color;
-}
-
 function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
 //    parcelas_json = $.parseJSON(parcelas_json_aux);
@@ -58,6 +31,8 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
 //    console.debug("parcelas_json.length " + parcelas_json.length);
 
+    var colors = getRainbowColors(parcelas_json.length);
+
     for (i = 0; i < parcelas_json.length; i++) {
 
         parcela = parcelas_json[i];
@@ -70,13 +45,13 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
 //        console.debug("parcela.color " + parcela.color);
 
-        var color = getValidColor(parcela.color);
+        var color = colors[i];
 
         parcela.poligono = new google.maps.Polygon({
             paths: parcela.coordenadas,
             strokeColor: color,
             strokeOpacity: 0.8,
-            strokeWeight: 2,
+            strokeWeight: 1,
             fillColor: color,
             fillOpacity: 0.35
         });
