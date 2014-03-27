@@ -8,13 +8,11 @@
 /src/main/webapp/resources/js/jarvis.widget.js
 /src/main/webapp/resources/img/mybg.png
 /src/main/webapp/resources/img/logo.png
-/src/main/webapp/resources/css/dataTables.bootstrap.css
 /src/main/webapp/resources/img/sort_desc_disabled.png
 /src/main/webapp/resources/img/sort_desc.png
 /src/main/webapp/resources/js/datatable/jquery.dataTables-cust.js
 /src/main/webapp/resources/img/sort_both.png
 /src/main/webapp/resources/js/datatable/ZeroClipboard.js
-/src/main/webapp/resources/js/datatable/dataTables.bootstrap.js
 /src/main/webapp/resources/img/sort_asc_disabled.png
 /src/main/webapp/resources/js/datatable/ColReorder.min.js
 /src/main/webapp/resources/js/datatable/FixedColumns.min.js
@@ -26,7 +24,6 @@
 /src/main/webapp/resources/js/flot/jquery.flot.fillbetween.min.js
 /src/main/webapp/resources/js/flot/jquery.flot.orderBar.min.js
 /src/main/webapp/resources/js/flot/jquery.flot.cust.js
-/src/main/webapp/resources/js/flot/jquery.flot.pie.min.js
 /src/main/webapp/resources/js/flot/jquery.flot.tooltip.min.js
 /src/main/webapp/resources/js/datatable/jquery.dataTables-cust.min.js
 /src/main/webapp/resources/js/flot/jquery.flot.resize.min.js
