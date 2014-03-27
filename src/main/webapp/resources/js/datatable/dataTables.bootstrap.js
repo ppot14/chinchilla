@@ -1,9 +1,9 @@
 /* Set the defaults for DataTables initialisation */
 $.extend( true, $.fn.dataTable.defaults, {
 	"sDom":
-		"<'row'<'col-xs-6'l><'col-xs-6'f>r>"+
+		"<'row header'<'col-xs-6'l><'col-xs-6'f>r>"+
 		"t"+
-		"<'row'<'col-xs-6'i><'col-xs-6'p>>",
+		"<'row footer'<'col-xs-6'i><'col-xs-6'p>>",
 	"oLanguage": {
 		"sLengthMenu": "_MENU_ records per page"
 	}
@@ -147,13 +147,17 @@ else {
 
 				$(nPaging).append(
 					'<ul class="pagination">'+
+						'<li class="first disabled"><a href="#">'+oLang.sFirst+'</a></li>'+
 						'<li class="prev disabled"><a href="#">'+oLang.sPrevious+'</a></li>'+
 						'<li class="next disabled"><a href="#">'+oLang.sNext+'</a></li>'+
+						'<li class="last disabled"><a href="#">'+oLang.sLast+'</a></li>'+
 					'</ul>'
 				);
 				var els = $('a', nPaging);
-				$(els[0]).bind( 'click.DT', { action: "previous" }, fnClickHandler );
-				$(els[1]).bind( 'click.DT', { action: "next" }, fnClickHandler );
+				$(els[0]).bind( 'click.DT', { action: "first" }, fnClickHandler );
+				$(els[1]).bind( 'click.DT', { action: "previous" }, fnClickHandler );
+				$(els[2]).bind( 'click.DT', { action: "next" }, fnClickHandler );
+				$(els[3]).bind( 'click.DT', { action: "last" }, fnClickHandler );
 			},
 
 			"fnUpdate": function ( oSettings, fnDraw ) {
@@ -221,7 +225,7 @@ if ( $.fn.DataTable.TableTools ) {
 	$.extend( true, $.fn.DataTable.TableTools.classes, {
 		"container": "DTTT btn-group",
 		"buttons": {
-			"normal": "btn btn-default",
+			"normal": "btn btn-default btn-sm",
 			"disabled": "disabled"
 		},
 		"collection": {
