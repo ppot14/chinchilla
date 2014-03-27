@@ -13,36 +13,12 @@ var menuOverlayParcela = null;
 
 var parcelasCoordenadas = new Array();
 
-var parcelasMapaFormLabor = "";
-var parcelasMapaTablaLabores = "";
-var produccionesTabla = "";
+//var parcelasMapaFormLabor = "";
+//var laboresTabla = "";
+//var parcelasMapaFormProduccion = "";
+//var produccionesTabla = "";
 
-
-function getValidColor(c) {
-
-    var color;
-    
-    var colorRegex = /[0-9a-fA-F]{6}/g;
-    
-    if (c && colorRegex.exec(c)) {
-        
-        color = '#' + c;
-        
-    } else {
-        
-        var letters = '0123456789ABCDEF'.split('');
-        
-        color = '#';
-        
-        for (var i = 0; i < 6; i++) {
-            
-            color += letters[Math.round(Math.random() * 15)];
-            
-        }
-    }
-    
-    return color;
-}
+var contextMenu = new Array();
 
 function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
@@ -58,6 +34,8 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
 //    console.debug("parcelas_json.length " + parcelas_json.length);
 
+//    var colors = Util.getRainbowColors(parcelas_json.length);
+
     for (i = 0; i < parcelas_json.length; i++) {
 
         parcela = parcelas_json[i];
@@ -70,13 +48,13 @@ function insertarPoligonos(map, parcelas_json_aux, coordenadas_json_aux) {
 
 //        console.debug("parcela.color " + parcela.color);
 
-        var color = getValidColor(parcela.color);
+        var color = Util.validateOrGetRandomColor(parcela.color);
 
         parcela.poligono = new google.maps.Polygon({
             paths: parcela.coordenadas,
             strokeColor: color,
             strokeOpacity: 0.8,
-            strokeWeight: 2,
+            strokeWeight: 1,
             fillColor: color,
             fillOpacity: 0.35
         });
@@ -210,15 +188,22 @@ function crearMenuParcela(parcela) {
     //var menuUl = $("<ul></ul>").attr({ id : "menu",display : "none"});
     //var menuUl = $("<ul/>");
     var menuString = "<ul class='dropdown-menu' role='menu' id='menu' style='display:none'>";
+    
+//    console.debug("parcelasMapaFormLabor "+parcelasMapaFormLabor);
+//    console.debug("laboresTabla "+laboresTabla);
+//    console.debug("parcelasMapaTablaLabores "+parcelasMapaTablaLabores);
+//    console.debug("produccionesTabla "+produccionesTabla);
 
     menuString += "<li role='presentation' class='dropdown-header'>" + parcela.nombre + " (" + parcela.extension + " ha)</li>";
-    menuString += "<li role='presentation'><a role='menuitem' href='"+parcelasMapaFormLabor+"?id=" + parcela.id_parcela + "'>A&ntilde;adir labor</a></li>";
-    menuString += "<li role='presentation'><a role='menuitem' href='"+parcelasMapaTablaLabores+"?id=" + parcela.id_parcela + "'>Ver labores</a></li>";
-    menuString += "<li role='presentation'><a role='menuitem' href='"+parcelasMapaFormProduccion+"?id=" + parcela.id_parcela + "'>A&ntilde;adir produccion</a></li>";
-    menuString += "<li role='presentation'><a role='menuitem' href='"+parcelasMapaTablaProduccion+"?id=" + parcela.id_parcela + "'>Ver producciones</a></li>";
-//    menuString += "<li role='presentation'><a role='menuitem' th:href='@{/parcelas/mapa/form/insertar/labor.html(id="+parcela.id_parcela+")}' >A&ntilde;adir labor</a></li>";
-//    menuString += "<li role='presentation'><a role='menuitem' th:href='@{/labores/tabla.html(id="+parcela.id_parcela+")}' >Ver labores</a></li>";
-//    menuString += "<li role='presentation'><a role='menuitem' th:href='@{/producciones/tabla.html(id="+parcela.id_parcela+")}' >Ver producciones</a></li>";
+    for(var i=0; i<contextMenu.length; i++){
+        console.debug("contextMenu "+contextMenu[i].link);
+        console.debug("contextMenu "+contextMenu[i].tag);
+        menuString += "<li role='presentation'><a role='menuitem' href='"+contextMenu[i].link+"?id=" + parcela.id_parcela + "'>"+contextMenu[i].tag+"</a></li>";
+    }
+//    menuString += "<li role='presentation'><a role='menuitem' href='"+parcelasMapaFormLabor+"?id=" + parcela.id_parcela + "'>A&ntilde;adir labor</a></li>";
+//    menuString += "<li role='presentation'><a role='menuitem' href='"+laboresTabla+"?id=" + parcela.id_parcela + "'>Ver labores</a></li>";
+//    menuString += "<li role='presentation'><a role='menuitem' href='"+parcelasMapaFormProduccion+"?id=" + parcela.id_parcela + "'>A&ntilde;adir produccion</a></li>";
+//    menuString += "<li role='presentation'><a role='menuitem' href='"+produccionesTabla+"?id=" + parcela.id_parcela + "'>Ver producciones</a></li>";
 
     menuString += "</ul>";
 

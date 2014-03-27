@@ -29,10 +29,15 @@
                 var parcelas = /*[[${parcelas}]]*/null;
                 var coordenadas = /*[[${coordenadas}]]*/null;
                 
-                parcelasMapaFormLabor = /*[[@{/parcelas/mapa/form/labor.html}]]*/null;
-                parcelasMapaTablaLabores = /*[[@{/parcelas/mapa/tabla/labores.html}]]*/null;   
-                parcelasMapaFormProduccion = /*[[@{/parcelas/mapa/form/produccion.html}]]*/null;   
-                parcelasMapaTablaProduccion = /*[[@{/parcelas/mapa/tabla/producciones.html}]]*/null;          
+                var text1 = /*[[#{anadir-labor}]]*/null;   
+                var text2 = /*[[#{ver-labores}]]*/null;   
+                var text3 = /*[[#{anadir-produccion}]]*/null;   
+                var text4 = /*[[#{ver-producciones}]]*/null;
+                
+                contextMenu[0] = {link:/*[[@{/parcelas/mapa/form/labor.html}]]*/null,tag:text1};
+                contextMenu[1] = {link:/*[[@{/parcelas/mapa/labores/tabla.html}]]*/null,tag:text2};
+                contextMenu[2] = {link:/*[[@{/parcelas/mapa/form/produccion.html}]]*/null,tag:text3};
+                contextMenu[3] = {link:/*[[@{/parcelas/mapa/producciones/tabla.html}]]*/null,tag:text4};
 
                 insertarPoligonos(map, parcelas, coordenadas);
 

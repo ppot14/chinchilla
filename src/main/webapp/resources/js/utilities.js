@@ -21,18 +21,54 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+function Util () {}
     
-function rand(min, max) {
+Util.randomRange = function(min, max) {
+    
     return min + Math.random() * (max - min);
-}
+    
+};
 
-function getRainbowColors(num){
+Util.getRainbowColors = function(num){
+    
     var colors = new Array();
+    
     for(var h=0 ; h < num; h++){
+        
         var i = Math.round(360*h/num);
+        
         colors[h] = tinycolor('hsl(' + i + ',' + '60' + '%,' + '60' + '%)').toHexString();
     }
+    
     return colors;
-}
+    
+};
+
+Util.validateOrGetRandomColor =  function(c) {
+
+    var color;
+    
+    var colorRegex = /[0-9a-fA-F]{6}/g;
+    
+    if (c && colorRegex.exec(c)) {
+        
+        color = '#' + c;
+        
+    } else {
+        
+        var letters = '0123456789ABCDEF'.split('');
+        
+        color = '#';
+        
+        for (var i = 0; i < 6; i++) {
+            
+            color += letters[Math.round(Math.random() * 15)];
+            
+        }
+    }
+    
+    return color;
+    
+};
 
 
