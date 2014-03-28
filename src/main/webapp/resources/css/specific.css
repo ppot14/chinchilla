@@ -11,6 +11,7 @@
 */
 body, body.smart-style-3, .smart-style-3 body {
     font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
+    background: none;
 }
 html {
     height: auto;
