@@ -69,6 +69,12 @@ h2 {
 /*
 * data table
 */
+.dataTables_wrapper table.table {
+    border-top: 1px solid #CCCCCC !important;
+    border-bottom: 1px solid #CCCCCC !important;
+    margin-top: 0px !important;
+}
+
 div.dataTables_wrapper .footer{
     margin-top: 0;
 }
@@ -77,20 +83,22 @@ div.dataTables_wrapper div.dataTables_length {
     position: inherit;
     right: inherit;
     top: inherit;
+    margin: 6px 0 0 10px;
 }
 
 div.dataTables_wrapper div.dataTables_filter {
     position: inherit;
     left: inherit;
     top: inherit;
+    margin: 7px 10px 0 0;
 }
 
 div.dataTables_wrapper div.dataTables_info {
-    margin: 14px 0 0 10px;
+    margin: 6px 0 0 10px;
 }
 
 div.dataTables_wrapper div.dataTables_paginate {
-    margin: 6px 6px 0 0;
+    margin: 4px 10px 0 0;
 }
 
 /*
