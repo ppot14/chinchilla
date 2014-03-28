@@ -15,6 +15,7 @@ body, body.smart-style-3, .smart-style-3 body {
 }
 html {
     height: auto;
+    background: none;
 }
 h2 {
     line-height: 1.1;

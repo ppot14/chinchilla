@@ -8,6 +8,9 @@
         
         $.fn.dataTableExt.afnFiltering.push(
             function( oSettings, aData, iDataIndex ) {
+                console.debug('oSettings: '+JSON.stringify(oSettings,null,"\t"));
+                console.debug('aData '+aData);
+                console.debug('iDataIndex '+iDataIndex);
 //                console.debug('desde '+$( "#fecha_desde" ).val());
 //                console.debug('hasta '+$( "#fecha_hasta" ).val());
 //                console.debug('fecha_comienzo '+aData[4]);
