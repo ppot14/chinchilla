@@ -11,6 +11,7 @@
         <script src="/resources/js/datatable/dataTables.fixedColumns.min.js" th:src="@{/resources/js/datatable/dataTables.fixedColumns.min.js}"></script> 
         <script src="/resources/js/datatable/dataTables.tableTools.min.js" th:src="@{/resources/js/datatable/dataTables.tableTools.min.js}"></script>
         <script src="/resources/js/datatable/dataTables.bootstrap.js" th:src="@{/resources/js/datatable/dataTables.bootstrap.js}"></script> 
+        <script src="/resources/js/datatable/dataTables.extended.es.js" th:src="@{/resources/js/datatable/dataTables.extended.es.js}"></script> 
         <script th:src="@{/resources/js/flot/jquery.flot.min.js}"></script>
         <!--<script th:src="@{/resources/js/flot/jquery.flot.fillbetween.min.js}"></script>-->
         <!--<script th:src="@{/resources/js/flot/jquery.flot.orderBar.min.js}"></script>-->
@@ -90,113 +91,7 @@
             "spacing2": 0
         };
         
-//    var dataTablesLanguage = /*[[@{/resources/json/dataTables.spanish.txt}]]*/null;
-    var dataTablesLanguage = {
-            "sProcessing":     "Procesando...",
-            "sLengthMenu":     "Mostrar _MENU_ registros",
-            "sZeroRecords":    "No se encontraron resultados",
-            "sEmptyTable":     "Ning&uacute;n dato disponible en esta tabla",
-            "sInfo":           "Mostrando del _START_ al _END_ , Total _TOTAL_ registros",
-            "sInfoEmpty":      "Mostrando del 0 al 0 , Total 0 registros",
-            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-            "sInfoPostFix":    "",
-            "sSearch":         "Buscar:",
-            "sUrl":            "",
-            "sInfoThousands":  ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst":    "&lsaquo;&lsaquo;",
-                "sLast":     "&rsaquo;&rsaquo;",
-                "sNext":     "&rsaquo;",
-                "sPrevious": "&lsaquo;"
-            },
-            "oAria": {
-                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
-        };
-    
-    var tabla_opciones = {
-//            "sPaginationType": "full_numbers",
-            "sPaginationType": "bootstrap",
-            "iDisplayLength": 10,
-            "oLanguage": dataTablesLanguage,
-//            "sScrollX": "100%"
-//            "sScrollXInner": "150%"
-//            "bScrollCollapse": true,
-//            "bStateSave": true
-//            "sDom" : "R<'dt-top-row'Clf>r<'dt-wrapper't><'dt-row dt-bottom-row'<'row'<'col-sm-6'i><'col-sm-6 text-right'p>>",
-//            "fnInitComplete" : function(oSettings, json) {
-//                $('.ColVis_Button').addClass('btn btn-default btn-sm').html('Columnas <i class="icon-arrow-down"></i>');
-//            }
-        };
-        
-        //Columns data types for datatable
-        //Comma decimal separator
-        $.fn.dataTableExt.aTypes.unshift( function ( sData ) {
-            var sValidChars = "0123456789,.";
-            var Char;
-//            var bDecimal = false;
-            var iStart=0;
-
-            /* Negative sign is valid -  the number check start point */
-            if ( sData.charAt(0) === '-' ) {
-                iStart = 1;
-            }
-
-            /* Check the numeric part */
-            for ( i=iStart ; i<sData.length ; i++ )
-            {
-                Char = sData.charAt(i);
-                if (sValidChars.indexOf(Char) === -1)
-                {
-                    return null;
-                }
-            }
-
-            return 'numeric-comma';
-        } );
-        
-        $.extend( $.fn.dataTableExt.oSort, {
-            "numeric-comma-pre": function ( a ) {
-                var x = (a === "-") ? 0 : a.replace( /\./, "" ).replace( /,/, "." );
-                x = parseFloat( x );
-                return  x;
-            },
-            "numeric-comma-asc": function ( a, b ) {
-                return ((a < b) ? -1 : ((a > b) ?  1 : 0));
-            },
-            "numeric-comma-desc": function ( a, b ) {
-                return ((a < b) ?  1 : ((a > b) ? -1 : 0));
-            }
-         }); 
-         
-         //Dates
-         $.fn.dataTableExt.aTypes.unshift( function ( sData ) {
-            if (sData !== null && sData.match(/(\d{2})\/(\d{2})\/(\d{4})/)){
-
-                return 'date-spain';
-            }
-            return null;
-         }); 
-            
-        $.extend( $.fn.dataTableExt.oSort, {
-            "date-spain-pre": function ( a ) {
-                var b = a.match(/(\d{2})\/(\d{2})\/(\d{4})/),
-                    day = b[1],
-                    month = b[2],
-                    year = b[3];
-
-                var tt = year+month+day;
-                return  tt;
-            },
-            "date-spain-asc": function ( a, b ) {
-                return a - b;
-            },
-            "date-spain-desc": function ( a, b ) {
-                return b - a;
-            }
-         });  
+ 
 
     $(document).ready(function() {
 			
