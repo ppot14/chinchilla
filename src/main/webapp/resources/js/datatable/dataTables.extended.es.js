@@ -82,76 +82,80 @@ var currentOptions;
         //
         $.fn.dataTableExt.afnFiltering.push(
             function( oSettings, aData, iDataIndex ) {
-//                console.debug('oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.aoAdvancedFilter,null,"\t"));
+//                console.debug(iDataIndex+' oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.aoAdvancedFilter,null,"\t"));
 //                console.debug('aData '+aData);
 //                console.debug('iDataIndex '+iDataIndex);
                 var result = true;
-                for (var i=0; i<oSettings.aoAdvancedFilter.lenght; i++){
-                    //var sTitle = oSettings.aoAdvancedFilter[i].sTitle;
-                    var sTypeTemp, aDataTemp;
-                    for (var j=0; j<oSettings.aoColumns.lenght; j++){
-                        if(oSettings.aoColumns[j].sTitle===oSettings.aoAdvancedFilter[i].sTitle){
-                            sTypeTemp = oSettings.aoColumns[j].sType;
-                            aDataTemp = oSettings.aoColumns[j].aData;
-                            break;
+                if(oSettings.aoAdvancedFilter){
+                    for (var i=0; i<oSettings.aoAdvancedFilter.length; i++){
+                        //var sTitle = oSettings.aoAdvancedFilter[i].sTitle;
+                        var sTypeTemp, mDataTemp;
+//                        console.debug(i+' oSettings.aoColumns: '+JSON.stringify(oSettings.aoColumns,null,"\t"));
+                        for (var j=0; j<oSettings.aoColumns.length; j++){
+//                        console.debug(oSettings.aoColumns[j].sTitle+' === '+oSettings.aoAdvancedFilter[i].sTitle);
+                            if(oSettings.aoColumns[j].sTitle===oSettings.aoAdvancedFilter[i].sTitle){
+                                sTypeTemp = oSettings.aoColumns[j].sType;
+                                mDataTemp = oSettings.aoColumns[j].mData;
+                                break;
+                            }
                         }
-                    }
-                    var partialResult = false;
-                    for (var j=0; j<oSettings.aoAdvancedFilter[i].aoOperations.lenght; j++){
-                        var compareTo, value;
-                        //Prepare values
-                        if(sTypeTemp==="date-spain"){
-                            var partsCompareTo = aData[aDataTemp].split('/');
-                            compareTo = new Date(partsCompareTo[2], partsCompareTo[1]-1, partsCompareTo[0]);
-                            var partsValue = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue.split('/');
-                            value = new Date(partsValue[2], partsValue[1]-1, partsValue[0]);
-                        }else if(sTypeTemp==="numeric-comma"){
-                            var replacedValue = aData[aDataTemp].replace( /\./, "" ).replace( /,/, "." );
-                            compareTo = parseFloat( replacedValue );
-                            value = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue;
-                        }else {
-                            compareTo = aData[aDataTemp];
-                            value = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue;
+                        console.debug('sTypeTemp: '+sTypeTemp+' ,mDataTemp: '+mDataTemp);
+                        var partialResult = false;
+                        for (var j=0; j<oSettings.aoAdvancedFilter[i].aoOperations.length; j++){
+                            var compareTo, value;
+                            //Prepare values
+                            if(sTypeTemp==="date-spain"){
+                                var partsCompareTo = aData[mDataTemp].split('/');
+                                compareTo = new Date(partsCompareTo[2], partsCompareTo[1]-1, partsCompareTo[0]);
+                                var partsValue = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue.split('/');
+                                value = new Date(partsValue[2], partsValue[1]-1, partsValue[0]);
+                            }else if(sTypeTemp==="numeric-comma"){
+                                var replacedValue = aData[mDataTemp].replace( /\./, "" ).replace( /,/, "." );
+                                compareTo = parseFloat( replacedValue );
+                                value = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue;
+                            }else {
+                                compareTo = aData[mDataTemp];
+                                value = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue;
+                            }
+                            console.debug(oSettings.aoAdvancedFilter[i].sTitle+' '+mDataTemp+' - Type: '+sTypeTemp+', '+compareTo+' '+oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation+' '+value);
+                            //
+                            if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="equals" &&
+                                    compareTo===value){
+                                partialResult = true; break;
+                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="notEqual" &&
+                                    compareTo!==value){
+                                partialResult = true; break;
+                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="contains" &&
+                                    compareTo.indexOf(value)!==-1){
+                                partialResult = true; break;
+                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="notContains" &&
+                                    compareTo.indexOf(value)===-1){
+                                partialResult = true; break;
+                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="starts" &&
+                                    compareTo.indexOf(value)===0 ){
+                                partialResult = true; break;
+                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="ends" &&
+                                    compareTo.indexOf(value, compareTo.length - value.length) !== -1){
+                                partialResult = true; break;
+                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="less/before" &&
+                                    compareTo<value){
+                                partialResult = true; break;
+                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="greater/after" &&
+                                    compareTo>value){
+                                partialResult = true; break;
+                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="lessEqual/beforeAnd" &&
+                                    compareTo<=value){
+                                partialResult = true; break;
+                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="greaterEqual/afterThan" &&
+                                    compareTo>=oSettings.aoAdvancedFilter[i].aoOperations[j].sValue){
+                                partialResult = true; break;
+                            }
                         }
-                        console.debug(oSettings.aoAdvancedFilter[i].sTitle+' '+aDataTemp+' - Type: '+sTypeTemp+', '+compareTo+' '+oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation+' '+value);
-                        //
-                        if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="equals" &&
-                                compareTo===value){
-                            partialResult = true; break;
-                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="notEqual" &&
-                                compareTo!==value){
-                            partialResult = true; break;
-                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="contains" &&
-                                compareTo.indexOf(value)!==-1){
-                            partialResult = true; break;
-                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="notContains" &&
-                                compareTo.indexOf(value)===-1){
-                            partialResult = true; break;
-                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="starts" &&
-                                compareTo.indexOf(value)===0 ){
-                            partialResult = true; break;
-                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="ends" &&
-                                compareTo.indexOf(value, compareTo.length - value.length) !== -1){
-                            partialResult = true; break;
-                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="less/before" &&
-                                compareTo<value){
-                            partialResult = true; break;
-                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="greater/after" &&
-                                compareTo>value){
-                            partialResult = true; break;
-                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="lessEqual/beforeAnd" &&
-                                compareTo<=value){
-                            partialResult = true; break;
-                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="greaterEqual/afterThan" &&
-                                compareTo>=oSettings.aoAdvancedFilter[i].aoOperations[j].sValue){
-                            partialResult = true; break;
+                        if(partialResult===false){
+                            return false;
                         }
-                    }
-                    if(partialResult===false){
-                        return false;
                     }
                 }
-                    
                 return result;
             }
         );

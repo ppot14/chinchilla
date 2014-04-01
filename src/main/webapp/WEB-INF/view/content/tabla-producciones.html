@@ -5,8 +5,33 @@
     $(window).load(function () {
         
         tabla_opciones.aaSorting = [[ 3, "desc" ]];
+        
+        var parcelaTitle = /*[[#{parcela}]]*/null;
+        var fechaTitle = /*[[#{fecha}]]*/null;     
+        
+        var aoAdvancedFilter = [{
+                sTitle: parcelaTitle,
+                aoOperations:[{
+                        sOperation:"contains",
+                        sValue:"Chinchilla"
+                        }]
+                },{
+                sTitle: fechaTitle,
+                aoOperations:[{
+                        sOperation:"less/before",
+                        sValue:"30/12/2013"
+                        }]
+                }];
+            
+//        console.debug('tabla_opciones.aoAdvancedFilter '+JSON.stringify(aoAdvancedFilter,null,'\t') ); 
     
-        $('#tabla_producciones').dataTable(tabla_opciones);
+        var tabla_producciones = $('#tabla_producciones').dataTable(tabla_opciones);
+        
+        tabla_producciones.fnSettings().aoAdvancedFilter = aoAdvancedFilter;
+        
+//        console.debug('tabla_producciones.oSettings '+JSON.stringify(tabla_producciones.fnSettings(),null,'\t') );
+        
+        tabla_producciones.fnDraw(); 
         
         var grafico_tarta_produccion_parcela = /*[[${grafico_tarta_produccion_parcela}]]*/null;
         
