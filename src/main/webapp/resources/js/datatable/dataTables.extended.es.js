@@ -80,54 +80,93 @@ var currentOptions;
         //
         //
         //
-        //        $.fn.dataTableExt.afnFiltering.push(
-//            function( oSettings, aData, iDataIndex ) {
-//                console.debug('oSettings: '+JSON.stringify(oSettings,null,"\t"));
+        $.fn.dataTableExt.afnFiltering.push(
+            function( oSettings, aData, iDataIndex ) {
+//                console.debug('oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.aoAdvancedFilter,null,"\t"));
 //                console.debug('aData '+aData);
 //                console.debug('iDataIndex '+iDataIndex);
-////                console.debug('desde '+$( "#fecha_desde" ).val());
-////                console.debug('hasta '+$( "#fecha_hasta" ).val());
-////                console.debug('fecha_comienzo '+aData[4]);
-//                var parts_desde = $( "#fecha_desde" ).val()!==""?$( "#fecha_desde" ).val().split('/'):"";
-//                var parts_hasta = $( "#fecha_hasta" ).val()!==""?$( "#fecha_hasta" ).val().split('/'):"";
-//                var parts = aData[4].split('/');
-//                var fecha_comienzo = new Date(parts[2], parts[1]-1, parts[0]);
-//                var desde = $( "#fecha_desde" ).val()!==""?new Date(parts_desde[2], parts_desde[1]-1, parts_desde[0]):"";
-//                var hasta = $( "#fecha_hasta" ).val()!==""?new Date(parts_hasta[2], parts_hasta[1]-1, parts_hasta[0]):"";
-////                console.debug('desde '+desde);
-////                console.debug('hasta '+hasta);
-////                console.debug('fecha_comienzo '+fecha_comienzo);
-//                if ( desde === "" && hasta === "" )
-//                {
-//                    return true;
-//                }
-//                else if ( desde === "" && fecha_comienzo < hasta )
-//                {
-//                    return true;
-//                }
-//                else if ( desde < fecha_comienzo && "" === hasta )
-//                {
-//                    return true;
-//                }
-//                else if ( desde < fecha_comienzo && fecha_comienzo < hasta )
-//                {
-//                    return true;
-//                }
-//                return false;
-//            }
-//        );
-        //
-        //
-        //
-        oSettings.aoAdvancedFilter = [{
-                sTitle:"columnName",
-                iIndex:1,
-//                sType: ["date","string","numeric","boolean"],
-                aoOperations:[{
-                        sOperation:["equal","notEqual","contains","notContains","starts","ends","less/before","greater/after","lessEqual/beforeAnd","greaterEqual/afterThan"],
-                        sValue:""
-                        }]
-                }];
+                var result = true;
+                for (var i=0; i<oSettings.aoAdvancedFilter.lenght; i++){
+                    //var sTitle = oSettings.aoAdvancedFilter[i].sTitle;
+                    var sTypeTemp, aDataTemp;
+                    for (var j=0; j<oSettings.aoColumns.lenght; j++){
+                        if(oSettings.aoColumns[j].sTitle===oSettings.aoAdvancedFilter[i].sTitle){
+                            sTypeTemp = oSettings.aoColumns[j].sType;
+                            aDataTemp = oSettings.aoColumns[j].aData;
+                            break;
+                        }
+                    }
+                    var partialResult = false;
+                    for (var j=0; j<oSettings.aoAdvancedFilter[i].aoOperations.lenght; j++){
+                        var compareTo, value;
+                        //Prepare values
+                        if(sTypeTemp==="date-spain"){
+                            var partsCompareTo = aData[aDataTemp].split('/');
+                            compareTo = new Date(partsCompareTo[2], partsCompareTo[1]-1, partsCompareTo[0]);
+                            var partsValue = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue.split('/');
+                            value = new Date(partsValue[2], partsValue[1]-1, partsValue[0]);
+                        }else if(sTypeTemp==="numeric-comma"){
+                            var replacedValue = aData[aDataTemp].replace( /\./, "" ).replace( /,/, "." );
+                            compareTo = parseFloat( replacedValue );
+                            value = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue;
+                        }else {
+                            compareTo = aData[aDataTemp];
+                            value = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue;
+                        }
+                        console.debug(oSettings.aoAdvancedFilter[i].sTitle+' '+aDataTemp+' - Type: '+sTypeTemp+', '+compareTo+' '+oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation+' '+value);
+                        //
+                        if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="equals" &&
+                                compareTo===value){
+                            partialResult = true; break;
+                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="notEqual" &&
+                                compareTo!==value){
+                            partialResult = true; break;
+                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="contains" &&
+                                compareTo.indexOf(value)!==-1){
+                            partialResult = true; break;
+                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="notContains" &&
+                                compareTo.indexOf(value)===-1){
+                            partialResult = true; break;
+                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="starts" &&
+                                compareTo.indexOf(value)===0 ){
+                            partialResult = true; break;
+                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="ends" &&
+                                compareTo.indexOf(value, compareTo.length - value.length) !== -1){
+                            partialResult = true; break;
+                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="less/before" &&
+                                compareTo<value){
+                            partialResult = true; break;
+                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="greater/after" &&
+                                compareTo>value){
+                            partialResult = true; break;
+                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="lessEqual/beforeAnd" &&
+                                compareTo<=value){
+                            partialResult = true; break;
+                        }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="greaterEqual/afterThan" &&
+                                compareTo>=oSettings.aoAdvancedFilter[i].aoOperations[j].sValue){
+                            partialResult = true; break;
+                        }
+                    }
+                    if(partialResult===false){
+                        return false;
+                    }
+                }
+                    
+                return result;
+            }
+        );
+        
+        
+        
+//        oSettings.aoAdvancedFilter = [{
+//                sTitle:"columnName",
+//                iIndex:1,
+////                sType: ["date","string","numeric","boolean"],
+//                aoOperations:[{
+//                        sOperation:["equal","notEqual","contains","notContains","starts","ends","less/before","greater/after","lessEqual/beforeAnd","greaterEqual/afterThan"],
+//                        sValue:""
+//                        }]
+//                }];
         
 //
 //        "equal";"notEqual";"contains";"notContains";"starts";"ends";"less/before";"greater/after";"lessEqual/beforeAnd";"greaterEqual/afterThan"
