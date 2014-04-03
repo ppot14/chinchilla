@@ -93,6 +93,7 @@ div.dataTables_wrapper div.dataTables_filter {
     left: inherit;
     top: inherit;
     margin: 7px 10px 0 0;
+    float: right !important;
 }
 
 div.dataTables_wrapper div.dataTables_info {
@@ -101,6 +102,11 @@ div.dataTables_wrapper div.dataTables_info {
 
 div.dataTables_wrapper div.dataTables_paginate {
     margin: 4px 10px 0 0;
+}
+
+div.dataTables_wrapper div.dataTables_advancedFilter{
+    margin: 4px 10px 0 0;
+    float: right !important;
 }
 
 /*

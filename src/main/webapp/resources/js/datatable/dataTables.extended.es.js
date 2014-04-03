@@ -25,143 +25,297 @@
 var currentOptions;
 
 //    var dataTablesLanguage = /*[[@{/resources/json/dataTables.spanish.txt}]]*/null;
-    var dataTablesLanguage = {
-            "sProcessing":     "Procesando...",
-            "sLengthMenu":     "Mostrar _MENU_ registros",
-            "sZeroRecords":    "No se encontraron resultados",
-            "sEmptyTable":     "Ning&uacute;n dato disponible en esta tabla",
-            "sInfo":           "Mostrando del _START_ al _END_ , Total _TOTAL_ registros",
-            "sInfoEmpty":      "Mostrando del 0 al 0 , Total 0 registros",
-            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-            "sInfoPostFix":    "",
-            "sSearch":         "Buscar:",
-            "sUrl":            "",
-            "sInfoThousands":  ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst":    "&lsaquo;&lsaquo;",
-                "sLast":     "&rsaquo;&rsaquo;",
-                "sNext":     "&rsaquo;",
-                "sPrevious": "&lsaquo;"
-            },
-            "oAria": {
-                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
-        };
+var dataTablesLanguage = {
+        "sProcessing":     "Procesando...",
+        "sLengthMenu":     "Mostrar _MENU_ registros",
+        "sZeroRecords":    "No se encontraron resultados",
+        "sEmptyTable":     "Ning&uacute;n dato disponible en esta tabla",
+        "sInfo":           "Mostrando del _START_ al _END_ , Total _TOTAL_ registros",
+        "sInfoEmpty":      "Mostrando del 0 al 0 , Total 0 registros",
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix":    "",
+        "sSearch":         "Buscar:",
+        "sUrl":            "",
+        "sInfoThousands":  ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst":    "&lsaquo;&lsaquo;",
+            "sLast":     "&rsaquo;&rsaquo;",
+            "sNext":     "&rsaquo;",
+            "sPrevious": "&lsaquo;"
+        },
+        "oAria": {
+            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+};
     
-    var tabla_opciones = {
+var tabla_opciones = {
 //            "sPaginationType": "full_numbers",
-            "sPaginationType": "bootstrap",
-            "iDisplayLength": 10,
-            "oLanguage": dataTablesLanguage,
+    "sPaginationType": "bootstrap",
+    "iDisplayLength": 10,
+    "oLanguage": dataTablesLanguage,
+    "bProcessing": true,
+    
 //            "sScrollX": "100%"
 //            "sScrollXInner": "150%"
 //            "bScrollCollapse": true,
 //            "bStateSave": true
+//            
+    "sDom": "<'row header'<'col-xs-6'l><'col-xs-6'fA>r>" + "t" + "<'row footer'<'col-xs-6'i><'col-xs-6'p>>",
 //            "sDom" : "R<'dt-top-row'Clf>r<'dt-wrapper't><'dt-row dt-bottom-row'<'row'<'col-sm-6'i><'col-sm-6 text-right'p>>",
 //            "fnInitComplete" : function(oSettings, json) {
 //                $('.ColVis_Button').addClass('btn btn-default btn-sm').html('Columnas <i class="icon-arrow-down"></i>');
 //            }
+};
+        
+//FILTER JSON FORMAT, include into $.fn.dataTableExt
+//https://datatables.net/docs/DataTables/1.9.4/DataTable.models.ext.html#aoFeatures 
+/*
+ * AdvancedFilter CLASS
+ * 
+ * @param {type} oDTSettings
+ * @param {type} oInit
+ * @returns {unresolved}
+ */
+var AdvancedFilter = function( oDTSettings, oInit ) {
+	/* Santiy check that we are a new instance */
+	if ( !this.CLASS || this.CLASS !== "AdvancedFilter" )
+	{
+		alert( "Warning: AdvancedFilter must be initialised with the keyword 'new'" );
+	}
+
+	if ( typeof oInit === 'undefined' )
+	{
+		oInit = {};
+	}
+        
+        this.dom = {
+            "wrapper": null,
+            "button": null,
+            "active":null
         };
         
-        //FILTER JSON FORMAT, include into $.fn.dataTableExt
-        //https://datatables.net/docs/DataTables/1.9.4/DataTable.models.ext.html#aoFeatures Add advanced filter
-        //
-        //aoAdvancedFilter
-        //
-        //$.fn.dataTableExt.aoFeatures.push( {
-//            "fnInit": function( oSettings ) {
-//              return new AdvancedFilter( { "oAFSettings": oSettings } );
-//            },
-//            "cFeature": "AF",
-//            "sFeature": "AdvancedFilter"
-//          } );
-        //
-        //
-        //
-        $.fn.dataTableExt.afnFiltering.push(
-            function( oSettings, aData, iDataIndex ) {
-//                console.debug(iDataIndex+' oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.aoAdvancedFilter,null,"\t"));
-//                console.debug('aData '+aData);
-//                console.debug('iDataIndex '+iDataIndex);
-                var result = true;
-                if(oSettings.aoAdvancedFilter){
-                    for (var i=0; i<oSettings.aoAdvancedFilter.length; i++){
-                        //var sTitle = oSettings.aoAdvancedFilter[i].sTitle;
-                        var sTypeTemp, mDataTemp;
-//                        console.debug(i+' oSettings.aoColumns: '+JSON.stringify(oSettings.aoColumns,null,"\t"));
-                        for (var j=0; j<oSettings.aoColumns.length; j++){
-//                        console.debug(oSettings.aoColumns[j].sTitle+' === '+oSettings.aoAdvancedFilter[i].sTitle);
-                            if(oSettings.aoColumns[j].sTitle===oSettings.aoAdvancedFilter[i].sTitle){
-                                sTypeTemp = oSettings.aoColumns[j].sType;
-                                mDataTemp = oSettings.aoColumns[j].mData;
-                                break;
-                            }
-                        }
-                        console.debug('sTypeTemp: '+sTypeTemp+' ,mDataTemp: '+mDataTemp);
-                        var partialResult = false;
-                        for (var j=0; j<oSettings.aoAdvancedFilter[i].aoOperations.length; j++){
-                            var compareTo, value;
-                            //Prepare values
-                            if(sTypeTemp==="date-spain"){
-                                var partsCompareTo = aData[mDataTemp].split('/');
-                                compareTo = new Date(partsCompareTo[2], partsCompareTo[1]-1, partsCompareTo[0]);
-                                var partsValue = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue.split('/');
-                                value = new Date(partsValue[2], partsValue[1]-1, partsValue[0]);
-                            }else if(sTypeTemp==="numeric-comma"){
-                                var replacedValue = aData[mDataTemp].replace( /\./, "" ).replace( /,/, "." );
-                                compareTo = parseFloat( replacedValue );
-                                value = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue;
-                            }else {
-                                compareTo = aData[mDataTemp];
-                                value = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue;
-                            }
-                            console.debug(oSettings.aoAdvancedFilter[i].sTitle+' '+mDataTemp+' - Type: '+sTypeTemp+', '+compareTo+' '+oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation+' '+value);
-                            //
-                            if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="equals" &&
-                                    compareTo===value){
-                                partialResult = true; break;
-                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="notEqual" &&
-                                    compareTo!==value){
-                                partialResult = true; break;
-                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="contains" &&
-                                    compareTo.indexOf(value)!==-1){
-                                partialResult = true; break;
-                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="notContains" &&
-                                    compareTo.indexOf(value)===-1){
-                                partialResult = true; break;
-                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="starts" &&
-                                    compareTo.indexOf(value)===0 ){
-                                partialResult = true; break;
-                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="ends" &&
-                                    compareTo.indexOf(value, compareTo.length - value.length) !== -1){
-                                partialResult = true; break;
-                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="less/before" &&
-                                    compareTo<value){
-                                partialResult = true; break;
-                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="greater/after" &&
-                                    compareTo>value){
-                                partialResult = true; break;
-                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="lessEqual/beforeAnd" &&
-                                    compareTo<=value){
-                                partialResult = true; break;
-                            }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="greaterEqual/afterThan" &&
-                                    compareTo>=oSettings.aoAdvancedFilter[i].aoOperations[j].sValue){
-                                partialResult = true; break;
-                            }
-                        }
-                        if(partialResult===false){
-                            return false;
-                        }
-                    }
-                }
-                return result;
+        this._fnConstruct( oDTSettings, oInit );
+	return this;
+};
+
+AdvancedFilter.prototype = {
+    element: function () {
+	return this.dom.wrapper;
+    },
+    "_fnConstruct": function ( settings, init ) {
+        var that = this;
+        this.dom.wrapper =document.createElement('div');
+	this.dom.wrapper.className = "dataTables_advancedFilter";
+        this.dom.wrapper.id = settings.sTableId+"_advancedFilter";
+//        console.debug("AdvancedFilter._fnConstruct advancedFilter (init): "+init);
+        this.dom.active = init && init.length>0;
+//        console.debug("AdvancedFilter._fnConstruct dom.active: "+this.dom.active);
+        
+        that._fnCreateFilterForm( settings, init );
+
+        this.dom.button = $( '<button />', {
+                        'class': this.dom.active ? "btn btn-default btn-sm active" : "btn btn-default btn-sm"
+                } )
+                .append( 'Filtro' )
+                .bind(  "click", function (e) {
+                        e.preventDefault();
+                        that._fnShowHide();
+                } )
+                .appendTo( this.dom.wrapper )[0];
+        
+    },
+    "_fnCreateFilterForm": function ( settings, init ) {
+        
+        var that = this;
+        
+        var tFoot = $('#'+settings.sTableId+' tfoot');
+        
+        if(!tFoot){
+            tFoot = $('<tfoot/>');
+        }
+        
+//        console.debug("AdvancedFilter._fnCreateFilterForm settings.aoColumns.length: "+settings.aoColumns.length);
+        
+        for (var i=0; i<settings.aoColumns.length; i++){
+            var sTypeTemp = settings.aoColumns[i].sType;
+            var mDataTemp = settings.aoColumns[i].mData;
+//            console.debug("AdvancedFilter._fnCreateFilterForm settings.aoColumns["+i+"]: "+JSON.stringify(settings.aoColumns[i]));
+            var operationSelectElement = $('<select/>').bind("change",function (e) {
+				e.preventDefault();
+				that._fnSetUpFields();
+			});
+            var value1FieldElement = $('<input type="text"/>').bind("keyup",function (e) {
+				e.preventDefault();
+				that._fnApplyAdvancedFilter();
+			});
+            var value2FieldElement = $('<input type="text"/>').bind("keyup",function (e) {
+				e.preventDefault();
+				that._fnApplyAdvancedFilter();
+			});
+            var optionsList;
+            if(sTypeTemp.indexOf("date")!==-1){
+                optionsList = ["equal","notEqual","less/before","greater/after","lessEqual/beforeAnd","greaterEqual/afterThan","between","notBetween"];
+            }else if(sTypeTemp.indexOf("numeric")!==-1){
+                optionsList = ["equal","notEqual","less/before","greater/after","lessEqual/beforeAnd","greaterEqual/afterThan","between","notBetween"];
+            }else {
+                optionsList = ["equal","notEqual","contains","notContains","starts","ends","less/before","greater/after","lessEqual/beforeAnd","greaterEqual/afterThan","between","notBetween"];
             }
-        );
+            for(var j=0; j<optionsList.length; j++){
+                operationSelectElement.append('<option value="'+optionsList[j]+'">'+ optionsList[j]+'</option>');;
+            }
+            
+            var thFoot = $('<th/>');
+            
+            thFoot.append(operationSelectElement).append(value1FieldElement).append(value2FieldElement);
+            
+            tFoot.append(thFoot);
+            
+            var aoFooter = settings.aoFooter[0];
+            console.debug("AdvancedFilter._fnCreateFilterForm aoFooter: "+JSON.stringify(aoFooter));
+            var nTFoot = settings.nTFoot;
+            console.debug("AdvancedFilter._fnCreateFilterForm nTFoot: "+JSON.stringify(nTFoot));
+            
+            
+        }
+        
+        $('#'+settings.sTableId).append(tFoot);
+        
+        that._fnPopulateFilterForm( settings, init );
+        
+    },
+    "_fnShowHide": function ( settings, init ) {
+        
+    },
+    "_fnPopulateFilterForm": function ( settings, init ) {
+        
+    },
+    "_fnSetUpFields": function ( settings, init ) {
+        //disable or enable input2 depending on the operation... only for 'between'
+    },
+    "_fnApplyAdvancedFilter": function ( settings, init ) {
+        
+    }
+};
+
+AdvancedFilter.defaults = {
+	active: false
+};
+
+AdvancedFilter.prototype.CLASS = "AdvancedFilter";
+
+/*
+ * Register a new feature AdvancedFilter with DataTables
+ */
+if ( typeof $.fn.dataTable === "function" &&
+     typeof $.fn.dataTableExt.fnVersionCheck === "function" ){
+ 
+//        console.debug('Pushing new feature AdvancedFilter...');
+	$.fn.dataTableExt.aoFeatures.push( {
+		"fnInit": function( oDTSettings ) {
+			var init = oDTSettings.oInit;
+//                        console.debug('Pushing new feature AdvancedFilter, init: '+init);
+			var advancedFilter = new AdvancedFilter( oDTSettings, init.advancedFilter || {} );
+//                        console.debug('Pushing new feature AdvancedFilter, advancedFilter: '+JSON.stringify(advancedFilter));
+//                        console.debug('Pushing new feature AdvancedFilter, advancedFilter.element(): '+JSON.stringify(advancedFilter.element()));
+			return advancedFilter.element();
+		},
+		"cFeature": "A",
+		"sFeature": "AdvancedFilter"
+	} );
+} 
+//else {
+//    alert( "Warning: ColVis requires DataTables 1.7 or greater - www.datatables.net/download");
+//}        
         
         
+/*
+ * Insert new Filtering function to process aoAdvancedFilter
+ * 
+ * @param {type} param
+ */
+$.fn.dataTableExt.afnFiltering.push( function( oSettings, aData, iDataIndex ) {
+    //console.debug(iDataIndex+' oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.aoAdvancedFilter,null,"\t"));
+    //console.debug('aData '+aData);
+    //console.debug('iDataIndex '+iDataIndex);
+    var result = true;
+    if(oSettings.aoAdvancedFilter){
+        for (var i=0; i<oSettings.aoAdvancedFilter.length; i++){
+            //var sTitle = oSettings.aoAdvancedFilter[i].sTitle;
+            var sTypeTemp, mDataTemp;
+            //console.debug(i+' oSettings.aoColumns: '+JSON.stringify(oSettings.aoColumns,null,"\t"));
+            for (var j=0; j<oSettings.aoColumns.length; j++){
+            //console.debug(oSettings.aoColumns[j].sTitle+' === '+oSettings.aoAdvancedFilter[i].sTitle);
+                if(oSettings.aoColumns[j].sTitle===oSettings.aoAdvancedFilter[i].sTitle){
+                    sTypeTemp = oSettings.aoColumns[j].sType;
+                    mDataTemp = oSettings.aoColumns[j].mData;
+                    break;
+                }
+            }
+            console.debug('sTypeTemp: '+sTypeTemp+' ,mDataTemp: '+mDataTemp);
+            var partialResult = false;
+            for (var j=0; j<oSettings.aoAdvancedFilter[i].aoOperations.length; j++){
+                var compareTo, value;
+                //Prepare values
+                if(sTypeTemp==="date-spain"){
+                    var partsCompareTo = aData[mDataTemp].split('/');
+                    compareTo = new Date(partsCompareTo[2], partsCompareTo[1]-1, partsCompareTo[0]);
+                    var partsValue = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue.split('/');
+                    value = new Date(partsValue[2], partsValue[1]-1, partsValue[0]);
+                }else if(sTypeTemp==="numeric-comma"){
+                    var replacedValue = aData[mDataTemp].replace( /\./, "" ).replace( /,/, "." );
+                    compareTo = parseFloat( replacedValue );
+                    value = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue;
+                }else {
+                    compareTo = aData[mDataTemp];
+                    value = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue;
+                }
+//                console.debug(oSettings.aoAdvancedFilter[i].sTitle+' '+mDataTemp+' - Type: '+sTypeTemp+', '+compareTo+' '+oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation+' '+value);                
+                if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="equals" &&
+                        compareTo===value){
+                    partialResult = true; break;
+                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="notEqual" &&
+                        compareTo!==value){
+                    partialResult = true; break;
+                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="contains" &&
+                        compareTo.indexOf(value)!==-1){
+                    partialResult = true; break;
+                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="notContains" &&
+                        compareTo.indexOf(value)===-1){
+                    partialResult = true; break;
+                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="starts" &&
+                        compareTo.indexOf(value)===0 ){
+                    partialResult = true; break;
+                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="ends" &&
+                        compareTo.indexOf(value, compareTo.length - value.length) !== -1){
+                    partialResult = true; break;
+                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="less/before" &&
+                        compareTo<value){
+                    partialResult = true; break;
+                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="greater/after" &&
+                        compareTo>value){
+                    partialResult = true; break;
+                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="lessEqual/beforeAnd" &&
+                        compareTo<=value){
+                    partialResult = true; break;
+                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="greaterEqual/afterThan" &&
+                        compareTo>=oSettings.aoAdvancedFilter[i].aoOperations[j].sValue){
+                    partialResult = true; break;
+                }
+            }
+            if(partialResult===false){
+                return false;
+            }
+        }
+    }
+    return result;
+});
         
+        
+/*
+ * aoAdvancedFilter sample TO DELETE
+ */      
 //        oSettings.aoAdvancedFilter = [{
 //                sTitle:"columnName",
 //                iIndex:1,
@@ -176,77 +330,95 @@ var currentOptions;
 //        "equal";"notEqual";"contains";"notContains";"starts";"ends";"less/before";"greater/after";"lessEqual/beforeAnd";"greaterEqual/afterThan"
 //        "=";"!=";"~";"!~";"^";"$";"<";">";"<=";">="
         
-        //Columns data types for datatable
-        //Comma decimal separator
-        $.fn.dataTableExt.aTypes.unshift( function ( sData ) {
-            var sValidChars = "0123456789,.";
-            var Char;
-//            var bDecimal = false;
-            var iStart=0;
 
-            /* Negative sign is valid -  the number check start point */
-            if ( sData.charAt(0) === '-' ) {
-                iStart = 1;
-            }
+/*
+ * Columns data types for datatable, Comma decimal separator
+ * 
+ * @param {type} param
+ */
+$.fn.dataTableExt.aTypes.unshift( function ( sData ) {
+    var sValidChars = "0123456789,.";
+    var Char;
+    //var bDecimal = false;
+    var iStart=0;
 
-            /* Check the numeric part */
-            for ( i=iStart ; i<sData.length ; i++ )
-            {
-                Char = sData.charAt(i);
-                if (sValidChars.indexOf(Char) === -1)
-                {
-                    return null;
-                }
-            }
+    /* Negative sign is valid -  the number check start point */
+    if ( sData.charAt(0) === '-' ) {
+        iStart = 1;
+    }
 
-            return 'numeric-comma';
-        } );
-        
-        $.extend( $.fn.dataTableExt.oSort, {
-            "numeric-comma-pre": function ( a ) {
-                var x = (a === "-") ? 0 : a.replace( /\./, "" ).replace( /,/, "." );
-                x = parseFloat( x );
-                return  x;
-            },
-            "numeric-comma-asc": function ( a, b ) {
-                return ((a < b) ? -1 : ((a > b) ?  1 : 0));
-            },
-            "numeric-comma-desc": function ( a, b ) {
-                return ((a < b) ?  1 : ((a > b) ? -1 : 0));
-            }
-         }); 
-         
-         //Dates
-         $.fn.dataTableExt.aTypes.unshift( function ( sData ) {
-            if (sData !== null && sData.match(/(\d{2})\/(\d{2})\/(\d{4})/)){
-
-                return 'date-spain';
-            }
+    /* Check the numeric part */
+    for ( i=iStart ; i<sData.length ; i++ )
+    {
+        Char = sData.charAt(i);
+        if (sValidChars.indexOf(Char) === -1)
+        {
             return null;
-         }); 
-            
-        $.extend( $.fn.dataTableExt.oSort, {
-            "date-spain-pre": function ( a ) {
-                var b = a.match(/(\d{2})\/(\d{2})\/(\d{4})/),
-                    day = b[1],
-                    month = b[2],
-                    year = b[3];
+        }
+    }
 
-                var tt = year+month+day;
-                return  tt;
-            },
-            "date-spain-asc": function ( a, b ) {
-                return a - b;
-            },
-            "date-spain-desc": function ( a, b ) {
-                return b - a;
-            }
-         }); 
+    return 'numeric-comma';
+} );
+
+/*
+ * Sort extension for Comma decimal separator
+ * 
+ * @param {type} param1
+ * @param {type} param2
+ */
+$.extend( $.fn.dataTableExt.oSort, {
+    "numeric-comma-pre": function ( a ) {
+        var x = (a === "-") ? 0 : a.replace( /\./, "" ).replace( /,/, "." );
+        x = parseFloat( x );
+        return  x;
+    },
+    "numeric-comma-asc": function ( a, b ) {
+        return ((a < b) ? -1 : ((a > b) ?  1 : 0));
+    },
+    "numeric-comma-desc": function ( a, b ) {
+        return ((a < b) ?  1 : ((a > b) ? -1 : 0));
+    }
+ }); 
+
+ /*
+  * Columns data types for datatable, Spanish date
+  */
+ $.fn.dataTableExt.aTypes.unshift( function ( sData ) {
+    if (sData !== null && sData.match(/(\d{2})\/(\d{2})\/(\d{4})/)){
+
+        return 'date-spain';
+    }
+    return null;
+ }); 
+
+/*
+ * Sort extension for Spanish date
+ * 
+ * @param {type} param1
+ * @param {type} param2
+ */
+$.extend( $.fn.dataTableExt.oSort, {
+    "date-spain-pre": function ( a ) {
+        var b = a.match(/(\d{2})\/(\d{2})\/(\d{4})/),
+            day = b[1],
+            month = b[2],
+            year = b[3];
+
+        var tt = year+month+day;
+        return  tt;
+    },
+    "date-spain-asc": function ( a, b ) {
+        return a - b;
+    },
+    "date-spain-desc": function ( a, b ) {
+        return b - a;
+    }
+ }); 
 
 
 
 /*
- * oSetting sample
+ * oSetting sample TO DELETE
  */
 var oSettings_Sample= {
 	"oFeatures": {
