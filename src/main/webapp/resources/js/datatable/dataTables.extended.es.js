@@ -87,13 +87,14 @@ var AdvancedFilter = function( oDTSettings, oInit ) {
 
 	if ( typeof oInit === 'undefined' )
 	{
-		oInit = {};
+		oInit = [];
 	}
         
         this.dom = {
             "wrapper": null,
             "button": null,
-            "active":null
+            "active":null,
+            "foot":null
         };
         
         this._fnConstruct( oDTSettings, oInit );
@@ -116,12 +117,13 @@ AdvancedFilter.prototype = {
         that._fnCreateFilterForm( settings, init );
 
         this.dom.button = $( '<button />', {
-                        'class': this.dom.active ? "btn btn-default btn-sm active" : "btn btn-default btn-sm"
+                        'class': this.dom.active ? "btn btn-default btn-sm active" : "btn btn-default btn-sm",
+                        'id': settings.sTableId+"_ShowHideFilter"
                 } )
                 .append( 'Filtro' )
                 .bind(  "click", function (e) {
                         e.preventDefault();
-                        that._fnShowHide();
+                        that._fnToggle(settings, init );
                 } )
                 .appendTo( this.dom.wrapper )[0];
         
@@ -136,11 +138,16 @@ AdvancedFilter.prototype = {
             tFoot = $('<tfoot/>');
         }
         
-//        console.debug("AdvancedFilter._fnCreateFilterForm settings.aoColumns.length: "+settings.aoColumns.length);
+        console.debug("AdvancedFilter._fnCreateFilterForm tFoot: "+tFoot);
         
         for (var i=0; i<settings.aoColumns.length; i++){
             var sTypeTemp = settings.aoColumns[i].sType;
-            var mDataTemp = settings.aoColumns[i].mData;
+//            var mDataTemp = settings.aoColumns[i].mData;
+            var mTitleTemp = settings.aoColumns[i].mTitle;
+            
+            var filter = that._fnFindFilterColumn(mTitleTemp, init);
+            console.debug("AdvancedFilter._fnCreateFilterForm settings.aoColumns["+i+"]>filter: "+JSON.stringify(filter));
+            
 //            console.debug("AdvancedFilter._fnCreateFilterForm settings.aoColumns["+i+"]: "+JSON.stringify(settings.aoColumns[i]));
             var operationSelectElement = $('<select/>').bind("change",function (e) {
 				e.preventDefault();
@@ -154,6 +161,12 @@ AdvancedFilter.prototype = {
 				e.preventDefault();
 				that._fnApplyAdvancedFilter();
 			});
+            
+            //Only one operation from now
+            if(filter && filter.aoOperations[0]){
+                value1FieldElement.val(filter.aoOperations[0].sValue1);
+                value2FieldElement.val(filter.aoOperations[0].sValue2);
+            }
             var optionsList;
             if(sTypeTemp.indexOf("date")!==-1){
                 optionsList = ["equal","notEqual","less/before","greater/after","lessEqual/beforeAnd","greaterEqual/afterThan","between","notBetween"];
@@ -163,7 +176,8 @@ AdvancedFilter.prototype = {
                 optionsList = ["equal","notEqual","contains","notContains","starts","ends","less/before","greater/after","lessEqual/beforeAnd","greaterEqual/afterThan","between","notBetween"];
             }
             for(var j=0; j<optionsList.length; j++){
-                operationSelectElement.append('<option value="'+optionsList[j]+'">'+ optionsList[j]+'</option>');;
+                operationSelectElement.append('<option value="'+optionsList[j]+' '
+                        +(filter && filter.aoOperations[0] && optionsList[j]===filter.aoOperations[0].sOperation)?'selected':''+'>'+ optionsList[j]+'</option>');;
             }
             
             var thFoot = $('<th/>');
@@ -171,6 +185,8 @@ AdvancedFilter.prototype = {
             thFoot.append(operationSelectElement).append(value1FieldElement).append(value2FieldElement);
             
             tFoot.append(thFoot);
+            
+            this.dom.foot = tFoot;
             
             var aoFooter = settings.aoFooter[0];
             console.debug("AdvancedFilter._fnCreateFilterForm aoFooter: "+JSON.stringify(aoFooter));
@@ -180,15 +196,45 @@ AdvancedFilter.prototype = {
             
         }
         
+        tFoot.css("display","none");
+        
+        console.debug("AdvancedFilter._fnCreateFilterForm tFoot: "+JSON.stringify(tFoot));
+        
         $('#'+settings.sTableId).append(tFoot);
         
-        that._fnPopulateFilterForm( settings, init );
+        console.debug("AdvancedFilter._fnCreateFilterForm filter? "+(init && init.length>0));
+        
+        if(init && init.length>0) $('#'+settings.sTableId+"_ShowHideFilter").removeClass("active");
+        
+        that._fnToggle( settings, init );
         
     },
-    "_fnShowHide": function ( settings, init ) {
+    "_fnToggle": function ( settings, init ) {
+        
+//        var that = this;
+        
+        console.debug("AdvancedFilter._fnToggle hasClass.active "+$('#'+settings.sTableId+"_ShowHideFilter").hasClass("active"));
+        
+        if(!$('#'+settings.sTableId+"_ShowHideFilter").hasClass("active")){
+             this.dom.foot.slideDown( "slow" );
+             $('#'+settings.sTableId+"_ShowHideFilter").addClass("active");
+        }else{
+             this.dom.foot.slideUp( "slow" );
+             $('#'+settings.sTableId+"_ShowHideFilter").removeClass("active");
+        }
         
     },
-    "_fnPopulateFilterForm": function ( settings, init ) {
+    "_fnFindFilterColumn": function ( mTitle, init ) {
+        
+//        var that = this;
+        
+        for (var i=0; i<init.length; i++){
+            
+            if(mTitle===init[i].sTitle){
+                return init[i];
+            }  
+            
+        }
         
     },
     "_fnSetUpFields": function ( settings, init ) {
@@ -216,7 +262,7 @@ if ( typeof $.fn.dataTable === "function" &&
 		"fnInit": function( oDTSettings ) {
 			var init = oDTSettings.oInit;
 //                        console.debug('Pushing new feature AdvancedFilter, init: '+init);
-			var advancedFilter = new AdvancedFilter( oDTSettings, init.advancedFilter || {} );
+			var advancedFilter = new AdvancedFilter( oDTSettings, init.advancedFilter || [] );
 //                        console.debug('Pushing new feature AdvancedFilter, advancedFilter: '+JSON.stringify(advancedFilter));
 //                        console.debug('Pushing new feature AdvancedFilter, advancedFilter.element(): '+JSON.stringify(advancedFilter.element()));
 			return advancedFilter.element();
