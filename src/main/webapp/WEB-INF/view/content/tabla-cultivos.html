@@ -6,6 +6,8 @@
     
         $('#tabla_cultivos').dataTable(tabla_opciones);
         
+//        console.debug("tablaCultivos.oSettings: "+JSON.stringify(tablaCultivos.fnSettings() , null,'\t'));
+        
     });
     
     
@@ -79,6 +81,14 @@
                                   <td>[[${cultivos_item.destino}]]</td>
                                 </tr>
                             </tbody>
+<!--                            <tfoot>
+                                <tr>
+                                  <th>[[#{id-cultivo}]]</th>
+                                  <th>[[#{variedad}]]</th>
+                                  <th>[[#{especie}]]</th>
+                                  <th>[[#{destino}]]</th>
+                                </tr>
+                            </tfoot>-->
                         </table>
                         
                     </div>
