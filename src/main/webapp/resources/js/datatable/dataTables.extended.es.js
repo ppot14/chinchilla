@@ -90,12 +90,22 @@ var AdvancedFilter = function( oDTSettings, oInit ) {
 		oInit = [];
 	}
         
+        this.s = {
+            "oDataTable": null,
+            "oInit": oInit
+        };
+            
+        
         this.dom = {
             "wrapper": null,
             "button": null,
             "active":null,
             "foot":null
         };
+        
+        this.s.oDataTable = $.fn.dataTable.Api ?
+		new $.fn.dataTable.Api( oDTSettings ).settings()[0] :
+		oDTSettings;
         
         this._fnConstruct( oDTSettings, oInit );
 	return this;
@@ -145,9 +155,10 @@ AdvancedFilter.prototype = {
         for (var i=0; i<settings.aoColumns.length; i++){
             var sTypeTemp = settings.aoColumns[i].sType;
             var mDataTemp = settings.aoColumns[i].mData;
-            var mTitleTemp = settings.aoColumns[i].mTitle;
+            var sTitleTemp = settings.aoColumns[i].sTitle;
+//    console.debug('_fnCreateFilterForm settings.aoColumns['+i+']: '+JSON.stringify(settings.aoColumns[i],null,"\t"));
             
-            var filter = that._fnFindFilterColumn(mTitleTemp, init);
+            var filter = that._fnFindFilterColumn(sTitleTemp, init);
 //            console.debug("AdvancedFilter._fnCreateFilterForm settings.aoColumns["+i+"]>filter: "+JSON.stringify(filter));
             
 //            console.debug("AdvancedFilter._fnCreateFilterForm settings.aoColumns["+i+"]: "+JSON.stringify(settings.aoColumns[i]));
@@ -156,14 +167,14 @@ AdvancedFilter.prototype = {
 				that._fnSetUpFields();
 			});
             var value1FieldElement = $('<input type="text" id="value1_'+mDataTemp+'" class="form-control input-sm"/>').bind("keyup",function (e) {
-//				e.preventDefault();
-                                console.debug("keyup e: "+e.html());
-                                console.debug("keyup e: "+JSON.stringify(e , null,'\t'));
-				that._fnApplyAdvancedFilter(e, settings, init, mDataTemp, mTitleTemp );
+				e.preventDefault();
+                                var index = $( "tfoot tr th" ).index( $( this ).parent() );
+				that._fnApplyAdvancedFilter(this.value, $( this ).siblings("select").val(), settings, init, index );
 			});
             var value2FieldElement = $('<input type="text" id="value2_'+mDataTemp+'" class="form-control input-sm"/>').bind("keyup",function (e) {
-//				e.preventDefault();
-				that._fnApplyAdvancedFilter(e, settings, init, mDataTemp, mTitleTemp  );
+				e.preventDefault();
+                                var index = $( "tfoot tr th" ).index( $( this ).parent() );
+				that._fnApplyAdvancedFilter(this.value, $( this ).siblings("select").val(), settings, init, index  );
 			});
             
             //Only one operation from now
@@ -218,7 +229,7 @@ AdvancedFilter.prototype = {
         
 //        var that = this;
         
-        console.debug("AdvancedFilter._fnToggle hasClass.active "+$('#'+settings.sTableId+"_ShowHideFilter").hasClass("active"));
+//        console.debug("AdvancedFilter._fnToggle hasClass.active "+$('#'+settings.sTableId+"_ShowHideFilter").hasClass("active"));
         
         if(!$('#'+settings.sTableId+"_ShowHideFilter").hasClass("active")){
              $('#'+settings.sTableId+' tfoot').slideDown( "slow" );
@@ -227,7 +238,7 @@ AdvancedFilter.prototype = {
              $('#'+settings.sTableId+' tfoot').slideUp( "slow" );
              $('#'+settings.sTableId+"_ShowHideFilter").removeClass("active");
         }
-        console.debug("AdvancedFilter._fnToggle hasClass.active "+$('#'+settings.sTableId+"_ShowHideFilter").hasClass("active"));
+//        console.debug("AdvancedFilter._fnToggle hasClass.active "+$('#'+settings.sTableId+"_ShowHideFilter").hasClass("active"));
         
     },
     "_fnFindFilterColumn": function ( mTitle, init ) {
@@ -246,43 +257,68 @@ AdvancedFilter.prototype = {
     "_fnSetUpFields": function ( settings, init ) {
         //disable or enable input2 depending on the operation... only for 'between'
     },
-    "_fnApplyAdvancedFilter": function (field, settings, init, mDataTemp, mTitleTemp  ) {
-        
-        console.debug("_fnApplyAdvancedFilter settings.aoAdvancedFilter: "+JSON.stringify(settings.aoAdvancedFilter , null,'\t'));
-        console.debug("_fnApplyAdvancedFilter this: "+field);
-        console.debug("_fnApplyAdvancedFilter this: "+field.html());
-        
-        var value =  $( field ).val();
-        
-        if(!settings.aoAdvancedFilter){
-            settings.aoAdvancedFilter = [];
-        }
-        
-        for (var i=0; i<settings.aoAdvancedFilter.length; i++){
-            
-            if(settings.aoAdvancedFilter[i].sTitle===mTitleTemp){
-                
-                if(value===""){
-                    settings.aoAdvancedFilter.splice(i, 1);
-                }else{
-                    settings.aoAdvancedFilter.push({
-                        sTitle:mTitleTemp,
-                        iIndex:mDataTemp,
-                        aoOperations:[{
-                                sOperation:$( this ).siblings("select").val,
-                                sValue1:value,
-                                sValue2:""
-                                }]
-                    });
-                }
-            
+    "_fnApplyAdvancedFilter": function (value, operation, settings, init, mDataTemp  ) {
+        var sTitleTemp;
+        for (var j=0; j<settings.aoColumns.length; j++){
+            if(settings.aoColumns[j].mData===mDataTemp){
+                sTitleTemp = settings.aoColumns[j].sTitle;
                 break;
             }
         }
         
-        console.debug("_fnApplyAdvancedFilter settings.aoAdvancedFilter: "+JSON.stringify(settings.aoAdvancedFilter , null,'\t'));
+//        console.debug('_fnApplyAdvancedFilter mDataTemp: '+mDataTemp);
+//        console.debug('_fnApplyAdvancedFilter sTitleTemp: '+sTitleTemp);
+//        console.debug('_fnApplyAdvancedFilter operation: '+operation);
         
-        this.fnDraw(); 
+        if(!settings.aoAdvancedFilter){
+            settings.aoAdvancedFilter = [];
+        }
+//    console.debug('_fnApplyAdvancedFilter settings.aoAdvancedFilter: '+JSON.stringify(settings.aoAdvancedFilter,null,"\t"));
+        
+        var found = false;
+        
+        for (var i=0; i<settings.aoAdvancedFilter.length; i++){
+            
+            if(settings.aoAdvancedFilter[i].sTitle===sTitleTemp){
+                
+                if(value===""){
+                    settings.aoAdvancedFilter.splice(i, 1);
+                }else{
+                    settings.aoAdvancedFilter[i].iIndex = mDataTemp;
+                    settings.aoAdvancedFilter[i].aoOperations = [{
+                                sOperation:operation,
+                                sValue1:value,
+                                sValue2:""
+                                }] ;
+                }
+                
+                found = true;
+            
+                break;
+            }
+        }
+//    console.debug('_fnApplyAdvancedFilter found: '+found);
+        
+        if(!found && value!==""){
+//    console.debug('_fnApplyAdvancedFilter mTitleTemp: '+JSON.stringify(sTitleTemp,null,"\t"));
+            
+            var filter = {
+                        sTitle:sTitleTemp,
+                        iIndex:mDataTemp,
+                        aoOperations:[{
+                                sOperation:operation,
+                                sValue1:value,
+                                sValue2:""
+                                }]
+                    };
+        
+//    console.debug('_fnApplyAdvancedFilter filter: '+JSON.stringify(filter,null,"\t"));
+            
+             settings.aoAdvancedFilter.push(filter);
+        }
+        
+//    console.debug('_fnApplyAdvancedFilter settings.aoAdvancedFilter: '+JSON.stringify(settings.aoAdvancedFilter,null,"\t"));
+        settings.oInstance.fnDraw(); 
     }
 };
 
@@ -323,7 +359,7 @@ if ( typeof $.fn.dataTable === "function" &&
  * @param {type} param
  */
 $.fn.dataTableExt.afnFiltering.push( function( oSettings, aData, iDataIndex ) {
-    //console.debug(iDataIndex+' oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.aoAdvancedFilter,null,"\t"));
+//    console.debug(iDataIndex+' oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.aoAdvancedFilter,null,"\t"));
     //console.debug('aData '+aData);
     //console.debug('iDataIndex '+iDataIndex);
     var result = true;
@@ -331,7 +367,7 @@ $.fn.dataTableExt.afnFiltering.push( function( oSettings, aData, iDataIndex ) {
         for (var i=0; i<oSettings.aoAdvancedFilter.length; i++){
             //var sTitle = oSettings.aoAdvancedFilter[i].sTitle;
             var sTypeTemp, mDataTemp;
-            //console.debug(i+' oSettings.aoColumns: '+JSON.stringify(oSettings.aoColumns,null,"\t"));
+//            console.debug(i+' oSettings.aoColumns: '+JSON.stringify(oSettings.aoColumns,null,"\t"));
             for (var j=0; j<oSettings.aoColumns.length; j++){
             //console.debug(oSettings.aoColumns[j].sTitle+' === '+oSettings.aoAdvancedFilter[i].sTitle);
                 if(oSettings.aoColumns[j].sTitle===oSettings.aoAdvancedFilter[i].sTitle){
@@ -340,7 +376,7 @@ $.fn.dataTableExt.afnFiltering.push( function( oSettings, aData, iDataIndex ) {
                     break;
                 }
             }
-            console.debug('sTypeTemp: '+sTypeTemp+' ,mDataTemp: '+mDataTemp);
+//            console.debug('sTypeTemp: '+sTypeTemp+' ,mDataTemp: '+mDataTemp);
             var partialResult = false;
             for (var j=0; j<oSettings.aoAdvancedFilter[i].aoOperations.length; j++){
                 var compareTo, value;
