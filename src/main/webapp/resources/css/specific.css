@@ -108,6 +108,14 @@ div.dataTables_wrapper div.dataTables_advancedFilter{
     margin: 7px 10px 0 0;
     float: right !important;
 }
+div.dataTables_wrapper table tfoot{
+    background: none repeat scroll 0 0 #FAFAFA;
+}
+
+div.dataTables_wrapper table tfoot tr th .form-control  {
+    width: 100%;
+    margin-bottom: 4px;
+}
 
 /*
 * smart-style

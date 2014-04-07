@@ -186,7 +186,7 @@ AdvancedFilter.prototype = {
             if(sTypeTemp.indexOf("date")!==-1){
                 optionsList = ["equal","notEqual","less/before","greater/after","lessEqual/beforeAnd","greaterEqual/afterThan","between","notBetween"];
             }else if(sTypeTemp.indexOf("numeric")!==-1){
-                optionsList = ["equal","notEqual","less/before","greater/after","lessEqual/beforeAnd","greaterEqual/afterThan","between","notBetween"];
+                optionsList = ["equal","notEqual","contains","notContains","less/before","greater/after","lessEqual/beforeAnd","greaterEqual/afterThan","between","notBetween"];
             }else {
                 optionsList = ["equal","notEqual","contains","notContains","starts","ends","less/before","greater/after","lessEqual/beforeAnd","greaterEqual/afterThan","between","notBetween"];
             }
