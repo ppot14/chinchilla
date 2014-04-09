@@ -96,6 +96,16 @@
  
 
     $(document).ready(function() {
+        
+        /*
+         * i18n for javascript
+         */
+        var clientSideResources = /*[[@{/resources/}]]*/null;
+        jQuery.i18n.properties({
+            name:'messages',
+            path:clientSideResources,
+            mode:'both'
+          });
 			
 //	pageSetUp();
         /*

@@ -35,6 +35,7 @@ var dataTablesLanguage = {
         "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
         "sInfoPostFix":    "",
         "sSearch":         "Buscar:",
+        "sAdvancedFilter": "Filtro Avanzado",
         "sUrl":            "",
         "sInfoThousands":  ",",
         "sLoadingRecords": "Cargando...",
@@ -106,6 +107,7 @@ var AdvancedFilter = function( oDTSettings, oInit ) {
         this.s.oDataTable = $.fn.dataTable.Api ?
 		new $.fn.dataTable.Api( oDTSettings ).settings()[0] :
 		oDTSettings;
+//        console.debug("AdvancedFilter oDTSettings: "+JSON.stringify(oDTSettings,null,"\t"));
         
         this._fnConstruct( oDTSettings, oInit );
 	return this;
@@ -130,7 +132,7 @@ AdvancedFilter.prototype = {
                         'class': this.dom.active ? "btn btn-default btn-xs active" : "btn btn-default btn-xs",
                         'id': settings.sTableId+"_ShowHideFilter"
                 } )
-                .append( '<i class="icon-filter"></i> Filtro' )
+                .append( '<i class="icon-filter"></i> '+settings.oInit.oLanguage.sAdvancedFilter )
                 .bind(  "click", function (e) {
                         e.preventDefault();
                         that._fnToggle(settings, init );
@@ -164,17 +166,23 @@ AdvancedFilter.prototype = {
 //            console.debug("AdvancedFilter._fnCreateFilterForm settings.aoColumns["+i+"]: "+JSON.stringify(settings.aoColumns[i]));
             var operationSelectElement = $('<select id="operation_'+mDataTemp+'" class="form-control input-sm"/>').bind("change",function (e) {
 				e.preventDefault();
-				that._fnSetUpFields();
+                                if(this.value === "between" || this.value === "not-between"){
+                                    $( this ).next().next().prop('disabled', false);
+                                }else{
+                                    $( this ).next().next().prop('disabled', true);
+                                }
 			});
             var value1FieldElement = $('<input type="text" id="value1_'+mDataTemp+'" class="form-control input-sm"/>').bind("keyup",function (e) {
 				e.preventDefault();
                                 var index = $( "tfoot tr th" ).index( $( this ).parent() );
-				that._fnApplyAdvancedFilter(this.value, $( this ).siblings("select").val(), settings, init, index );
+                                var value2 = $( this ).next().val();
+				that._fnApplyAdvancedFilter(this.value, value2, $( this ).siblings("select").val(), settings, init, index );
 			});
-            var value2FieldElement = $('<input type="text" id="value2_'+mDataTemp+'" class="form-control input-sm"/>').bind("keyup",function (e) {
+            var value2FieldElement = $('<input type="text" id="value2_'+mDataTemp+'" class="form-control input-sm" disabled/>').bind("keyup",function (e) {
 				e.preventDefault();
                                 var index = $( "tfoot tr th" ).index( $( this ).parent() );
-				that._fnApplyAdvancedFilter(this.value, $( this ).siblings("select").val(), settings, init, index  );
+                                var value1 = $( this ).prev().val();
+				that._fnApplyAdvancedFilter(value1, this.value, $( this ).siblings("select").val(), settings, init, index  );
 			});
             
             //Only one operation from now
@@ -184,15 +192,18 @@ AdvancedFilter.prototype = {
             }
             var optionsList;
             if(sTypeTemp.indexOf("date")!==-1){
-                optionsList = ["equal","notEqual","less/before","greater/after","lessEqual/beforeAnd","greaterEqual/afterThan","between","notBetween"];
+                //TODO
+//                value1FieldElement.datepicker();
+//                value2FieldElement.datepicker();
+                optionsList = ["equals","not-equals","before","after","before-and","after-and","between","not-between"];
             }else if(sTypeTemp.indexOf("numeric")!==-1){
-                optionsList = ["equal","notEqual","contains","notContains","less/before","greater/after","lessEqual/beforeAnd","greaterEqual/afterThan","between","notBetween"];
+                optionsList = ["equals","not-equals","contains","not-contains","less","greater","less-equal","greater-equal","between","not-between"];
             }else {
-                optionsList = ["equal","notEqual","contains","notContains","starts","ends","less/before","greater/after","lessEqual/beforeAnd","greaterEqual/afterThan","between","notBetween"];
+                optionsList = ["equals","not-equals","contains","not-contains","starts","ends","before","after","before-and","after-and","between","not-between"];
             }
             for(var j=0; j<optionsList.length; j++){
                 var selected = (filter && filter.aoOperations[0] && optionsList[j]===filter.aoOperations[0].sOperation)?'selected':'';
-                operationSelectElement.append('<option value="'+optionsList[j]+'" ' +selected+'>'+ optionsList[j]+'</option>');;
+                operationSelectElement.append('<option value="'+optionsList[j]+'" ' +selected+'>'+ $.i18n.prop(optionsList[j])+'</option>');;
             }
             
             var thFoot = $('<th/>');
@@ -254,10 +265,7 @@ AdvancedFilter.prototype = {
         }
         
     },
-    "_fnSetUpFields": function ( settings, init ) {
-        //disable or enable input2 depending on the operation... only for 'between'
-    },
-    "_fnApplyAdvancedFilter": function (value, operation, settings, init, mDataTemp  ) {
+    "_fnApplyAdvancedFilter": function (value1, value2, operation, settings, init, mDataTemp  ) {
         var sTitleTemp;
         for (var j=0; j<settings.aoColumns.length; j++){
             if(settings.aoColumns[j].mData===mDataTemp){
@@ -265,6 +273,8 @@ AdvancedFilter.prototype = {
                 break;
             }
         }
+//        console.debug('_fnApplyAdvancedFilter value1: '+value1);
+//        console.debug('_fnApplyAdvancedFilter value2: '+value2);
         
 //        console.debug('_fnApplyAdvancedFilter mDataTemp: '+mDataTemp);
 //        console.debug('_fnApplyAdvancedFilter sTitleTemp: '+sTitleTemp);
@@ -281,14 +291,14 @@ AdvancedFilter.prototype = {
             
             if(settings.aoAdvancedFilter[i].sTitle===sTitleTemp){
                 
-                if(value===""){
+                if(value1===""){
                     settings.aoAdvancedFilter.splice(i, 1);
                 }else{
                     settings.aoAdvancedFilter[i].iIndex = mDataTemp;
                     settings.aoAdvancedFilter[i].aoOperations = [{
                                 sOperation:operation,
-                                sValue1:value,
-                                sValue2:""
+                                sValue1:value1,
+                                sValue2:value2
                                 }] ;
                 }
                 
@@ -299,7 +309,7 @@ AdvancedFilter.prototype = {
         }
 //    console.debug('_fnApplyAdvancedFilter found: '+found);
         
-        if(!found && value!==""){
+        if(!found && value1!==""){
 //    console.debug('_fnApplyAdvancedFilter mTitleTemp: '+JSON.stringify(sTitleTemp,null,"\t"));
             
             var filter = {
@@ -307,8 +317,8 @@ AdvancedFilter.prototype = {
                         iIndex:mDataTemp,
                         aoOperations:[{
                                 sOperation:operation,
-                                sValue1:value,
-                                sValue2:""
+                                sValue1:value1,
+                                sValue2:value2
                                 }]
                     };
         
@@ -379,51 +389,58 @@ $.fn.dataTableExt.afnFiltering.push( function( oSettings, aData, iDataIndex ) {
 //            console.debug('sTypeTemp: '+sTypeTemp+' ,mDataTemp: '+mDataTemp);
             var partialResult = false;
             for (var j=0; j<oSettings.aoAdvancedFilter[i].aoOperations.length; j++){
-                var compareTo, value;
+                var compareTo, value1, value2, value1temp, value2temp;
+                value1temp = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue1;
+                value2temp = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue2;
+//                console.debug('['+aData[mDataTemp]+'],['+value1temp+'],['+value2temp+']');                
                 //Prepare values
                 if(sTypeTemp==="date-spain"){
                     var partsCompareTo = aData[mDataTemp].split('/');
-                    compareTo = new Date(partsCompareTo[2], partsCompareTo[1]-1, partsCompareTo[0]);
-                    var partsValue = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue1.split('/');
-                    value = new Date(partsValue[2], partsValue[1]-1, partsValue[0]);
+                    compareTo = partsCompareTo[2] + partsCompareTo[1] + partsCompareTo[0];
+                    var partsValue1 = value1temp.split('/');
+                    var partsValue2 = value2temp.split('/');
+                    value1 = partsValue1[2] + partsValue1[1] + partsValue1[0];
+                    value2 = partsValue2[2] + partsValue2[1] + partsValue2[0];
                 }else if(sTypeTemp==="numeric-comma"){
                     var replacedValue = aData[mDataTemp].replace( /\./, "" ).replace( /,/, "." );
                     compareTo = parseFloat( replacedValue );
-                    value = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue1;
-                }else {
-                    compareTo = aData[mDataTemp];
-                    value = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue1;
+                    value1 = value1temp;
+                    value2 = value2temp;
+                }else if(sTypeTemp==="html"){
+                    compareTo = $( aData[mDataTemp] ).text().toLowerCase();
+                    value1 = value1temp?value1temp.toLowerCase():value1temp;
+                    value2 = value2temp?value2temp.toLowerCase():value2temp;
+                }else{
+                    compareTo = aData[mDataTemp].toLowerCase();
+                    value1 = value1temp?value1temp.toLowerCase():value1temp;
+                    value2 = value2temp?value2temp.toLowerCase():value2temp;
                 }
-//                console.debug(oSettings.aoAdvancedFilter[i].sTitle+' '+mDataTemp+' - Type: '+sTypeTemp+', '+compareTo+' '+oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation+' '+value);                
-                if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="equals" &&
-                        compareTo===value){
+                
+                var operation = oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation;
+//                console.debug(oSettings.aoAdvancedFilter[i].sTitle+' '+mDataTemp+' - Type: '+sTypeTemp+', '+compareTo+' '+operation+' '+value1+' '+value2);                
+                if(operation==="equals" && compareTo===value1){
                     partialResult = true; break;
-                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="notEqual" &&
-                        compareTo!==value){
+                }else if(operation==="not-equals" && compareTo!==value1){
                     partialResult = true; break;
-                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="contains" &&
-                        compareTo.indexOf(value)!==-1){
+                }else if(operation==="contains" && compareTo.indexOf(value1)!==-1){
                     partialResult = true; break;
-                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="notContains" &&
-                        compareTo.indexOf(value)===-1){
+                }else if(operation==="not-contains" && compareTo.indexOf(value1)===-1){
                     partialResult = true; break;
-                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="starts" &&
-                        compareTo.indexOf(value)===0 ){
+                }else if(operation==="starts" && compareTo.indexOf(value1)===0 ){
                     partialResult = true; break;
-                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="ends" &&
-                        compareTo.indexOf(value, compareTo.length - value.length) !== -1){
+                }else if(operation==="ends" && compareTo.indexOf(value1, compareTo.length - value1.length) !== -1){
                     partialResult = true; break;
-                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="less/before" &&
-                        compareTo<value){
+                }else if((operation==="less" || operation==="before") && compareTo<value1){
                     partialResult = true; break;
-                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="greater/after" &&
-                        compareTo>value){
+                }else if((operation==="greater" || operation==="after") && compareTo>value1){
                     partialResult = true; break;
-                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="lessEqual/beforeAnd" &&
-                        compareTo<=value){
+                }else if((operation==="less-equal" || operation==="before-and") && compareTo<=value1){
                     partialResult = true; break;
-                }else if(oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation==="greaterEqual/afterThan" &&
-                        compareTo>=oSettings.aoAdvancedFilter[i].aoOperations[j].sValue){
+                }else if((operation==="greater-equal" || operation==="after-and") && compareTo>=value1){
+                    partialResult = true; break;
+                }else if(operation==="between" && compareTo>=value1 && compareTo<=value2){
+                    partialResult = true; break;
+                }else if(operation==="not-between" && (compareTo<value1 || compareTo>value2)){
                     partialResult = true; break;
                 }
             }

@@ -5,57 +5,12 @@
     $(window).load(function () {
         
         tabla_opciones.aaSorting = [[ 4, "desc" ]];
-        
-        $.fn.dataTableExt.afnFiltering.push(
-            function( oSettings, aData, iDataIndex ) {
-                console.debug('oSettings: '+JSON.stringify(oSettings,null,"\t"));
-                console.debug('aData '+aData);
-                console.debug('iDataIndex '+iDataIndex);
-//                console.debug('desde '+$( "#fecha_desde" ).val());
-//                console.debug('hasta '+$( "#fecha_hasta" ).val());
-//                console.debug('fecha_comienzo '+aData[4]);
-                var parts_desde = $( "#fecha_desde" ).val()!==""?$( "#fecha_desde" ).val().split('/'):"";
-                var parts_hasta = $( "#fecha_hasta" ).val()!==""?$( "#fecha_hasta" ).val().split('/'):"";
-                var parts = aData[4].split('/');
-                var fecha_comienzo = new Date(parts[2], parts[1]-1, parts[0]);
-                var desde = $( "#fecha_desde" ).val()!==""?new Date(parts_desde[2], parts_desde[1]-1, parts_desde[0]):"";
-                var hasta = $( "#fecha_hasta" ).val()!==""?new Date(parts_hasta[2], parts_hasta[1]-1, parts_hasta[0]):"";
-//                console.debug('desde '+desde);
-//                console.debug('hasta '+hasta);
-//                console.debug('fecha_comienzo '+fecha_comienzo);
-                if ( desde === "" && hasta === "" )
-                {
-                    return true;
-                }
-                else if ( desde === "" && fecha_comienzo < hasta )
-                {
-                    return true;
-                }
-                else if ( desde < fecha_comienzo && "" === hasta )
-                {
-                    return true;
-                }
-                else if ( desde < fecha_comienzo && fecha_comienzo < hasta )
-                {
-                    return true;
-                }
-                return false;
-            }
-        );
     
         var tabla_labores = $('#tabla_labores').dataTable(tabla_opciones);
         
          $( "#fecha_desde" ).datepicker();
          
          $( "#fecha_hasta" ).datepicker();
-         
-         $( "#fecha_desde" ).on("change", function(){
-                tabla_labores.fnDraw(); 
-         });
-         
-         $( "#fecha_hasta" ).on("change", function(){
-                tabla_labores.fnDraw(); 
-         });
         
     });
     
@@ -96,22 +51,6 @@
                                th:href="@{/labores/tabla/form/labor.html(id=-1)}">
                                  <span class="glyphicon glyphicon-plus"></span> [[#{anadir-labor}]]
                             </a>
-                        </div>			
-                        <div class="widget-toolbar"> 
-                            <!--<div class="input-group">-->
-                                <input id="fecha_desde" name="fecha_desde" 
-                                        class="input-sx datepicker" 
-                                        style="display:inline-block; width: 6em" 
-                                       placeholder="Desde"></input> 
-<!--                                <span class="input-group-addon"><i class="icon-calendarthree"></i></span>
-                            </div>
-                            <div class="input-group">-->
-                                <input id="fecha_hasta" name="fecha_hasta" 
-                                       class="input-sx datepicker" 
-                                       style="display:inline-block; width: 6em" 
-                                       placeholder="Hasta"></input> 
-<!--                                <span class="input-group-addon"><i class="icon-calendarthree"></i></span>
-</div>-->			
                         </div>	
                     </header>
 

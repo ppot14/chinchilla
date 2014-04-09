@@ -92,7 +92,7 @@ div.dataTables_wrapper div.dataTables_filter {
     position: inherit;
     left: inherit;
     top: inherit;
-    margin: 7px 10px 0 0;
+    margin: 8px 10px 0 0;
     float: right !important;
 }
 
@@ -105,7 +105,7 @@ div.dataTables_wrapper div.dataTables_paginate {
 }
 
 div.dataTables_wrapper div.dataTables_advancedFilter{
-    margin: 7px 10px 0 0;
+    margin: 8px 10px 0 0;
     float: right !important;
 }
 div.dataTables_wrapper table tfoot{
