@@ -63,7 +63,7 @@ var tabla_opciones = {
 //            "bScrollCollapse": true,
 //            "bStateSave": true
 //            
-    "sDom": "<'row header'<'col-xs-6'l><'col-xs-6'fA>r>" + "t" + "<'row footer'<'col-xs-6'i><'col-xs-6'p>>",
+    "sDom": "<'row header'<'col-xs-6'l><'col-xs-6'fA>>" + "<'row tableContent'<'col-xs-12'rt>>" + "<'row footer'<'col-xs-6'i><'col-xs-6'p>>",
 //            "sDom" : "R<'dt-top-row'Clf>r<'dt-wrapper't><'dt-row dt-bottom-row'<'row'<'col-sm-6'i><'col-sm-6 text-right'p>>",
 //            "fnInitComplete" : function(oSettings, json) {
 //                $('.ColVis_Button').addClass('btn btn-default btn-sm').html('Columnas <i class="icon-arrow-down"></i>');
@@ -139,6 +139,10 @@ AdvancedFilter.prototype = {
                 } )
                 .appendTo( this.dom.wrapper )[0];
         
+//      console.debug('AdvancedFilter._fnConstruct, init: '+JSON.stringify(init,null,"\t"));
+        
+        settings.oInstance.fnDraw(); 
+        
     },
     "_fnCreateFilterForm": function ( settings, init ) {
         
@@ -171,6 +175,10 @@ AdvancedFilter.prototype = {
                                 }else{
                                     $( this ).next().next().prop('disabled', true);
                                 }
+                                var index = $( "tfoot tr th" ).index( $( this ).parent() );
+                                var value1 = $( this ).next().val();
+                                var value2 = $( this ).next().next().val();
+				that._fnApplyAdvancedFilter(value1, value2, this.value, settings, init, index );
 			});
             var value1FieldElement = $('<input type="text" id="value1_'+mDataTemp+'" class="form-control input-sm"/>').bind("keyup",function (e) {
 				e.preventDefault();
@@ -197,7 +205,7 @@ AdvancedFilter.prototype = {
 //                value2FieldElement.datepicker();
                 optionsList = ["equals","not-equals","before","after","before-and","after-and","between","not-between"];
             }else if(sTypeTemp.indexOf("numeric")!==-1){
-                optionsList = ["equals","not-equals","contains","not-contains","less","greater","less-equal","greater-equal","between","not-between"];
+                optionsList = ["equals","not-equals","less","greater","less-equal","greater-equal","between","not-between"];
             }else {
                 optionsList = ["equals","not-equals","contains","not-contains","starts","ends","before","after","before-and","after-and","between","not-between"];
             }
@@ -232,8 +240,10 @@ AdvancedFilter.prototype = {
         $('#'+settings.sTableId).append(tFoot);
         
 //        console.debug("AdvancedFilter._fnCreateFilterForm sTableId: "+$('#'+settings.sTableId).html());
+
+        if(this.dom.active === true) $('#'+settings.sTableId+' tfoot').slideDown( "slow" );
         
-        $('#'+settings.sTableId+"_ShowHideFilter").removeClass("active");
+//        $('#'+settings.sTableId+"_ShowHideFilter").removeClass("active");
         
     },
     "_fnToggle": function ( settings, init ) {
@@ -273,12 +283,7 @@ AdvancedFilter.prototype = {
                 break;
             }
         }
-//        console.debug('_fnApplyAdvancedFilter value1: '+value1);
-//        console.debug('_fnApplyAdvancedFilter value2: '+value2);
-        
-//        console.debug('_fnApplyAdvancedFilter mDataTemp: '+mDataTemp);
-//        console.debug('_fnApplyAdvancedFilter sTitleTemp: '+sTitleTemp);
-//        console.debug('_fnApplyAdvancedFilter operation: '+operation);
+        console.debug('_fnApplyAdvancedFilter value1: '+value1+', value2: '+value2+', operation: '+operation+', sTitleTemp: '+sTitleTemp+', mDataTemp: '+mDataTemp);
         
         if(!settings.aoAdvancedFilter){
             settings.aoAdvancedFilter = [];
@@ -348,8 +353,8 @@ if ( typeof $.fn.dataTable === "function" &&
 	$.fn.dataTableExt.aoFeatures.push( {
 		"fnInit": function( oDTSettings ) {
 			var init = oDTSettings.oInit;
-//                        console.debug('Pushing new feature AdvancedFilter, init: '+init);
-			var advancedFilter = new AdvancedFilter( oDTSettings, init.advancedFilter || [] );
+//                        console.debug('Pushing new feature AdvancedFilter, init: '+JSON.stringify(init,null,"\t"));
+			var advancedFilter = new AdvancedFilter( oDTSettings, init.aoAdvancedFilter || [] );
 //                        console.debug('Pushing new feature AdvancedFilter, advancedFilter: '+JSON.stringify(advancedFilter));
 //                        console.debug('Pushing new feature AdvancedFilter, advancedFilter.element(): '+JSON.stringify(advancedFilter.element()));
 			return advancedFilter.element();
@@ -398,22 +403,22 @@ $.fn.dataTableExt.afnFiltering.push( function( oSettings, aData, iDataIndex ) {
                     var partsCompareTo = aData[mDataTemp].split('/');
                     compareTo = partsCompareTo[2] + partsCompareTo[1] + partsCompareTo[0];
                     var partsValue1 = value1temp.split('/');
-                    var partsValue2 = value2temp.split('/');
+                    if(typeof value2temp !== 'undefined') var partsValue2 = value2temp.split('/');
                     value1 = partsValue1[2] + partsValue1[1] + partsValue1[0];
-                    value2 = partsValue2[2] + partsValue2[1] + partsValue2[0];
+                    if(typeof value2temp !== 'undefined') value2 = partsValue2[2] + partsValue2[1] + partsValue2[0];
                 }else if(sTypeTemp==="numeric-comma"){
                     var replacedValue = aData[mDataTemp].replace( /\./, "" ).replace( /,/, "." );
                     compareTo = parseFloat( replacedValue );
-                    value1 = value1temp;
-                    value2 = value2temp;
+                    value1 = parseFloat( value1temp.replace( /\./, "" ).replace( /,/, "." ));
+                    if(typeof value2temp !== 'undefined') value2 = parseFloat( value2temp.replace( /\./, "" ).replace( /,/, "." ));
                 }else if(sTypeTemp==="html"){
                     compareTo = $( aData[mDataTemp] ).text().toLowerCase();
                     value1 = value1temp?value1temp.toLowerCase():value1temp;
-                    value2 = value2temp?value2temp.toLowerCase():value2temp;
+                    if(typeof value2temp !== 'undefined') value2 = value2temp?value2temp.toLowerCase():value2temp;
                 }else{
                     compareTo = aData[mDataTemp].toLowerCase();
                     value1 = value1temp?value1temp.toLowerCase():value1temp;
-                    value2 = value2temp?value2temp.toLowerCase():value2temp;
+                    if(typeof value2temp !== 'undefined') value2 = value2temp?value2temp.toLowerCase():value2temp;
                 }
                 
                 var operation = oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation;

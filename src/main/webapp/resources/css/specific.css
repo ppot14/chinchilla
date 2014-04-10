@@ -71,6 +71,18 @@ h2 {
 /*
 * data table
 */
+
+.dataTables_wrapper .tableContent {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.dataTables_wrapper .tableContent div{
+    overflow-x: auto;     
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
 .dataTables_wrapper table.table {
     border-top: 1px solid #CCCCCC !important;
     border-bottom: 1px solid #CCCCCC !important;
@@ -96,6 +108,10 @@ div.dataTables_wrapper div.dataTables_filter {
     float: right !important;
 }
 
+div.dataTables_wrapper div.dataTables_filter input{
+    width:150px;
+}
+
 div.dataTables_wrapper div.dataTables_info {
     margin: 6px 0 0 10px;
 }
@@ -108,6 +124,7 @@ div.dataTables_wrapper div.dataTables_advancedFilter{
     margin: 8px 10px 0 0;
     float: right !important;
 }
+
 div.dataTables_wrapper table tfoot{
     background: none repeat scroll 0 0 #FAFAFA;
 }

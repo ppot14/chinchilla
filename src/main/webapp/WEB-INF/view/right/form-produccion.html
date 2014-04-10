@@ -152,6 +152,40 @@ $(window).load(function () {
         });
 
          $( "#fecha" ).datepicker();
+         
+        var formulario-produccion = $('#formulario-produccion').validate({
+            rules : {
+                    id_parcela : {
+                            required : true
+                    },
+                    id_cultivo : {
+                            required : true
+                    },
+                    kilos : {
+                            required : true
+                    },
+                    fecha : {
+                            required : true
+                    }
+            },
+            messages : {
+                    id_parcela : {
+                            required : 'Parcela es obligatoria'
+                    },
+                    id_cultivo : {
+                            required : 'Cultivo es obligatorio'
+                    },
+                    kilos : {
+                            required : 'Kilos es obligatorio'
+                    },
+                    fecha : {
+                            required : 'Fecha es obligatorio'
+                    }
+            },
+            errorPlacement : function(error, element) {
+                    error.insertAfter(element.parent());
+            }
+        });
     
   });
   /*]]>*/</script>
