@@ -1,4 +1,4 @@
 chinchilla
 ==========
 
-Aplicacion web para costes agricolas - Farming costs webapp
+Aplicacion web para gestion agricola - Farm management web application
