@@ -193,30 +193,35 @@ AdvancedFilter.prototype = {
 				that._fnApplyAdvancedFilter(value1, this.value, $( this ).siblings("select").val(), settings, init, index  );
 			});
             
-            //Only one operation from now
-            if(filter && filter.aoOperations[0]){
-                value1FieldElement.val(filter.aoOperations[0].sValue1);
-                value2FieldElement.val(filter.aoOperations[0].sValue2);
-            }
-            var optionsList;
-            if(sTypeTemp.indexOf("date")!==-1){
-                //TODO
-//                value1FieldElement.datepicker();
-//                value2FieldElement.datepicker();
-                optionsList = ["equals","not-equals","before","after","before-and","after-and","between","not-between"];
-            }else if(sTypeTemp.indexOf("numeric")!==-1){
-                optionsList = ["equals","not-equals","less","greater","less-equal","greater-equal","between","not-between"];
-            }else {
-                optionsList = ["equals","not-equals","contains","not-contains","starts","ends","before","after","before-and","after-and","between","not-between"];
-            }
-            for(var j=0; j<optionsList.length; j++){
-                var selected = (filter && filter.aoOperations[0] && optionsList[j]===filter.aoOperations[0].sOperation)?'selected':'';
-                operationSelectElement.append('<option value="'+optionsList[j]+'" ' +selected+'>'+ $.i18n.prop(optionsList[j])+'</option>');;
+            
+            if(sTypeTemp){
+                
+                //Only one operation from now
+                if(filter && filter.aoOperations[0]){
+                    value1FieldElement.val(filter.aoOperations[0].sValue1);
+                    value2FieldElement.val(filter.aoOperations[0].sValue2);
+                }
+                var optionsList;
+                if(sTypeTemp.indexOf("date")!==-1){
+                    //TODO
+    //                value1FieldElement.datepicker();
+    //                value2FieldElement.datepicker();
+                    optionsList = ["equals","not-equals","before","after","before-and","after-and","between","not-between"];
+                }else if(sTypeTemp.indexOf("numeric")!==-1){
+                    optionsList = ["equals","not-equals","less","greater","less-equal","greater-equal","between","not-between"];
+                }else {
+                    optionsList = ["equals","not-equals","contains","not-contains","starts","ends","before","after","before-and","after-and","between","not-between"];
+                }
+                for(var j=0; j<optionsList.length; j++){
+                    var selected = (filter && filter.aoOperations[0] && optionsList[j]===filter.aoOperations[0].sOperation)?'selected':'';
+                    operationSelectElement.append('<option value="'+optionsList[j]+'" ' +selected+'>'+ $.i18n.prop(optionsList[j])+'</option>');;
+                }
+            
             }
             
             var thFoot = $('<th/>');
             
-            thFoot.append(operationSelectElement).append(value1FieldElement).append(value2FieldElement);
+            if(sTypeTemp) thFoot.append(operationSelectElement).append(value1FieldElement).append(value2FieldElement);
             
             trFoot.append(thFoot);
             

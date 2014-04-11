@@ -20,11 +20,10 @@
     </div>-->
       
     <div class="form-group">
-    <label for="id-elemento" class="col-md-4 control-label">[[#{id-elemento}]]</label>
+    <label for="id-elemento" class="col-md-4 control-label">[[#{elemento}]]</label>
         <div class="col-md-8">
             <select id="id_elemento" 
                     class="select2"  style="width:100%"
-                    placeholder="Seleccionar tipo registro..."
                     th:field="*{id_elemento}">
                 <option  th:each="elemento_item : ${elementos}" 
                          th:value="${elemento_item.key}">[[${elemento_item.value}]]</option>
@@ -148,6 +147,41 @@ $(window).load(function () {
         });
 
          $( "#fecha" ).datepicker();
+         
+         var formularioRegistro = $('#formulario-registro').validate({
+            rules : {
+                    id_elemento : {
+                            required : true
+                    },
+                    cantidad : {
+                            required : true,
+                            minNumber : 0.01
+                    },
+                    precio : {
+                            minNumber : 0.00
+                    },
+                    fecha : {
+                            required : true
+                    }
+            },
+            messages : {
+                    id_elemento : {
+                            required : 'Elemento es obligatoria'
+                    },
+                    cantidad : {
+                            required : 'Cantidad es obligatoria'
+                    },
+                    precio : {
+                            required : 'Precio es obligatorio'
+                    },
+                    fecha : {
+                            required : 'Fecha es obligatorio'
+                    }
+            },
+            errorPlacement : function(error, element) {
+                    error.insertAfter(element.parent());
+            }
+        });
     
   });
   /*]]>*/</script>

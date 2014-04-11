@@ -46,8 +46,8 @@
     </select>
 	
     <insert id="createOrdenCompra" keyColumn="id_orden_compra" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.OrdenCompra">
-        insert into gonzalol_chinchilla.t_ordenes_compra (id_orden_compra, id_elemento, cantidad, precio, marca, proveedor, fecha, medida)
-        values (#{id_orden_compra}, #{id_elemento}, #{cantidad}, #{precio}, #{marca}, #{proveedor}, #{fecha}, #{medida})		
+        insert into gonzalol_chinchilla.t_ordenes_compra ( id_elemento, cantidad, precio, marca, proveedor, fecha, medida)
+        values ( #{id_elemento}, #{cantidad}, #{precio}, #{marca}, #{proveedor}, #{fecha}, #{medida})		
     </insert>
 	
     <update id="updateOrdenCompra" parameterType="com.chinchilla.persistence.objects.OrdenCompra">

@@ -93,9 +93,18 @@
             "spacing2": 0
         };
         
+        //Custom validators
+        jQuery.validator.addMethod("minNumber", function(value, element, params) {
+            return this.optional(element) || parseFloat( params ) <= parseFloat( value.replace( /\./, "" ).replace( /,/, "." ) );
+          }, "El numero debe ser mayor a {0}");
+        
  
 
     $(document).ready(function() {
+        
+        var lang = navigator.language || navigator.userLanguage;
+        
+        console.debug("lang: "+lang);
         
         /*
          * i18n for javascript

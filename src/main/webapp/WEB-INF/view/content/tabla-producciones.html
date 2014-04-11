@@ -6,34 +6,34 @@
         
         tabla_opciones.aaSorting = [[ 3, "desc" ]];
         
-        var parcelaTitle = /*[[#{parcela}]]*/null;
-        var fechaTitle = /*[[#{fecha}]]*/null;     
+//        var parcelaTitle = /*[[#{parcela}]]*/null;
+//        var fechaTitle = /*[[#{fecha}]]*/null;     
         
-        var aoAdvancedFilter = [{
-                sTitle: parcelaTitle,
-                aoOperations:[{
-                        sOperation:"contains",
-                        sValue1:"Chinchilla"
-                        }]
-                },{
-                sTitle: fechaTitle,
-                aoOperations:[{
-                        sOperation:"after",
-                        sValue1:"30/12/2013"
-                        }]
-                }];
-            
-         tabla_opciones.aoAdvancedFilter = aoAdvancedFilter;
+//        var aoAdvancedFilter = [{
+//                sTitle: parcelaTitle,
+//                aoOperations:[{
+//                        sOperation:"contains",
+//                        sValue1:"Chinchilla"
+//                        }]
+//                },{
+//                sTitle: fechaTitle,
+//                aoOperations:[{
+//                        sOperation:"after",
+//                        sValue1:"30/12/2013"
+//                        }]
+//                }];
+//            
+//         tabla_opciones.aoAdvancedFilter = aoAdvancedFilter;
             
 //        console.debug('tabla_opciones.aoAdvancedFilter '+JSON.stringify(aoAdvancedFilter,null,'\t') ); 
     
         var tabla_producciones = $('#tabla_producciones').dataTable(tabla_opciones);
         
-        tabla_producciones.fnSettings().aoAdvancedFilter = aoAdvancedFilter;
+//        tabla_producciones.fnSettings().aoAdvancedFilter = aoAdvancedFilter;
         
 //        console.debug('tabla_producciones.oSettings '+JSON.stringify(tabla_producciones.fnSettings(),null,'\t') );
         
-        tabla_producciones.fnDraw(); 
+//        tabla_producciones.fnDraw(); 
         
         var grafico_tarta_produccion_parcela = /*[[${grafico_tarta_produccion_parcela}]]*/null;
         

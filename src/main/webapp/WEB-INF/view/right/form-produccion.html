@@ -24,8 +24,7 @@
     <label for="id_cultivo" class="col-md-4 control-label">[[#{cultivo}]]</label>
         <div class="col-md-8">
             <select id="id_cultivo" 
-                    class="form-control input-sm" 
-                    placeholder="Seleccionar tipo de cultivo..."
+                    class="select2"  style="width:100%"
                     th:field="*{id_cultivo}">
                 <option  th:each="cultivo : ${cultivos}" 
                          th:value="${cultivo.id_cultivo}">
@@ -39,8 +38,7 @@
     <label for="id_parcela" class="col-md-4 control-label">[[#{parcela}]]</label>
         <div class="col-md-8">
             <select id="id_parcela"  
-                    class="form-control input-sm" 
-                    placeholder="Seleccionar parcela..."
+                    class="select2"  style="width:100%" 
                     th:field="*{id_parcela}">
                 <option  th:each="parcela : ${parcelas}" 
                          th:value="${parcela.id_parcela}">[[${parcela.nombre}]]</option>
@@ -53,7 +51,7 @@
         <div class="col-md-8"><div class="input-group">
             <input id="fecha" name="fecha" 
                     class="form-control input-sm datepicker"  
-                   placeholder="Seleccionar fecha" 
+                   placeholder="Seleccionar fecha..." 
                    th:value="*{fecha}? ${#dates.format(produccion.fecha,'dd/MM/yyyy')} : ''"></input> 
             <span class="input-group-addon"><i class="icon-calendarthree"></i></span>
             <!--th:field="*{fecha}" th:value="${produccion.fecha}? ${#dates.format(produccion.fecha,'dd/MM/yyyy')} : ''"-->
@@ -132,6 +130,10 @@ $(window).load(function () {
             $('#boton_modificar').attr('disabled','disabled');
             $('#boton_eliminar').attr('disabled','disabled');
         }
+        
+        $( "#id_parcela" ).select2({placeholder: "Seleccionar parcela..."});
+        
+        $( "#id_cultivo" ).select2({placeholder: "Seleccionar cultivo..."});
           
         $( "#precio_kilo" ).spinner({
           min: 0,
@@ -153,7 +155,7 @@ $(window).load(function () {
 
          $( "#fecha" ).datepicker();
          
-        var formulario-produccion = $('#formulario-produccion').validate({
+        var formularioProduccion = $('#formulario-produccion').validate({
             rules : {
                     id_parcela : {
                             required : true
@@ -162,10 +164,14 @@ $(window).load(function () {
                             required : true
                     },
                     kilos : {
-                            required : true
+                            required : true,
+                            minNumber : 0.01
                     },
                     fecha : {
                             required : true
+                    },
+                    precio_kilo : {
+                            minNumber : 0
                     }
             },
             messages : {

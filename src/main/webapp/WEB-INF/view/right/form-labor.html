@@ -24,7 +24,7 @@
             <select id="id_parcelas" 
                     class="select2"  style="width:100%" 
                     multiple="multiple" 
-                    placeholder="Seleccionar parcelas..."
+                    placeholder="Seleccionar parcela(s)..."
                     th:field="*{id_parcelas}">
                 <option  th:each="parcela : ${parcelas}" 
                          th:value="${parcela.id_parcela}">[[${parcela.nombre}]]</option>
@@ -52,7 +52,7 @@
             <select id="id_productos" 
                     class="select2"  style="width:100%"
                     multiple="multiple" 
-                    placeholder="Seleccionar productos..."
+                    placeholder="Seleccionar producto(s)..."
                     th:field="*{id_productos}">
                 <option  th:each="prod : ${productos}" 
                          th:value="${prod.id_producto}">[[${prod.grupo}+' '+${prod.nombre}+' '+${prod.tipo}]]</option>
