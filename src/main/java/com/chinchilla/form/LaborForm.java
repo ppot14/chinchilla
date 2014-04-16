@@ -41,6 +41,7 @@ public class LaborForm extends Labor{
     
     private List<Integer> id_maquinarias;
     private List<Integer> id_productos;
+    private List<Double> cantidad_productos;
     private List<Integer> id_costes_personal;
     private List<Integer> id_parcelas;
     
@@ -125,6 +126,7 @@ public class LaborForm extends Labor{
     public void setUpListIds(){
         id_maquinarias = new ArrayList<>();
         id_productos = new ArrayList<>();
+        cantidad_productos = new ArrayList<>();
         id_costes_personal = new ArrayList<>();
         id_parcelas = new ArrayList<>();
         
@@ -142,6 +144,7 @@ public class LaborForm extends Labor{
         
         for(LaborProducto lpr : getLabor_producto()){
             id_productos.add(lpr.getProducto().getId_producto());
+            cantidad_productos.add(lpr.getMultiplicador());
         }
     }
 
@@ -150,7 +153,22 @@ public class LaborForm extends Labor{
         return "LaborForm{" + "insertar_modificar_eliminar=" + insertar_modificar_eliminar + 
                 ", id_maquinarias=" + id_maquinarias + 
                 ", id_productos=" + id_productos + 
+                ", cantidad_productos=" + cantidad_productos + 
                 ", id_costes_personal=" + id_costes_personal + 
                 ", id_parcelas=" + id_parcelas + ", " + super.toString() + "}";
+    }
+
+    /**
+     * @return the cantidad_productos
+     */
+    public List<Double> getCantidad_productos() {
+        return cantidad_productos;
+    }
+
+    /**
+     * @param cantidad_productos the cantidad_productos to set
+     */
+    public void setCantidad_productos(List<Double> cantidad_productos) {
+        this.cantidad_productos = cantidad_productos;
     }
 }

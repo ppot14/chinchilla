@@ -1,0 +1,18 @@
+{
+"equals" : "Igual",
+"not-equals" : "Distinto",
+"contains" : "Contiene",
+"not-contains" : "No contiene",
+"starts" : "Empieza con",
+"ends" : "Termina con",
+"less" : "Menor que",
+"before" : "Antes de",
+"greater" : "Mayor que",
+"after" : "Despues de",
+"less-equal" : "Menor o igual que",
+"before-and" : "Antes de/Y",
+"greater-equal" : "Mayor o igual que",
+"after-and" : "Despues de/Y",
+"between" : "Entre",
+"not-between" : "Fuera de"
+}

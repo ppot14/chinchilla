@@ -213,8 +213,9 @@ AdvancedFilter.prototype = {
                     optionsList = ["equals","not-equals","contains","not-contains","starts","ends","before","after","before-and","after-and","between","not-between"];
                 }
                 for(var j=0; j<optionsList.length; j++){
+//                console.debug(optionsList[j]+': '+$.t(optionsList[j]));
                     var selected = (filter && filter.aoOperations[0] && optionsList[j]===filter.aoOperations[0].sOperation)?'selected':'';
-                    operationSelectElement.append('<option value="'+optionsList[j]+'" ' +selected+'>'+ $.i18n.prop(optionsList[j])+'</option>');;
+                    operationSelectElement.append('<option value="'+optionsList[j]+'" ' +selected+'>'+ $.t(optionsList[j])+'</option>');;
                 }
             
             }

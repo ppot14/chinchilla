@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+<!--    <div class="form-group">
         <label for="productos" class="col-md-4 control-label">[[#{productos}]]</label>
         <div class="col-md-8">
             <select id="id_productos" 
@@ -58,6 +58,60 @@
                          th:value="${prod.id_producto}">[[${prod.grupo}+' '+${prod.nombre}+' '+${prod.tipo}]]</option>
             </select>
         </div>
+    </div>-->
+
+<!--    <div class="form-group">
+        <label for="cantidad-productos" class="col-md-4 control-label">[[#{cantidad-productos}]]</label>
+        <div class="col-md-8"><div class="input-group">
+            <input id="cantidad_productos" name="cantidad_productos" 
+                    class="select2"  style="width:100%"  
+                    placeholder="Cantidad producto(s)..."
+                    th:field="*{cantidad_productos}"></input>
+        </div></div>
+    </div>-->
+
+    <!--Table for products and amount-->
+    <div class="form-group">
+        <table id="table_form_producto_cantidad" class="table table-striped table-bordered table-hover table-condensed table-form">
+            <thead>
+                <tr>
+                  <th>[[#{producto}]]</th>
+                  <th>[[#{cantidad}]]</th>
+                  <th><button type="button" id="addProduct" class="btn btn-default btn-xs"><i class="icon-plus"></i></button></th>
+                </tr>
+<!--                <tr>
+                  <th><select id="productosHeader" 
+                            class="select2" 
+                            placeholder="Seleccionar producto(s)...">
+                        <option  th:each="prod : ${productos}" 
+                                 th:value="${prod.id_producto}">[[${prod.tipo}+' '+${prod.nombre}]]</option>
+                    </select>
+                  </th>
+                  <th><input id="cantidadHeader" class="form-control input-sm" placeholder=""></input></th>
+                  <th>
+                      <button type="button" id="addProduct" class="btn btn-default btn-xs"><i class="icon-plus"></i></button>
+                  </th>
+                </tr>-->
+            </thead>
+            <tbody>
+                
+                <tr th:each="laborProducto, rowStat : *{labor_producto}">
+                    <td>
+                        <select class="select2" style="width:100%"
+                        placeholder="Seleccionar producto(s)..."
+                        th:field="*{labor_producto[__${rowStat.index}__].producto.id_producto}">
+                            <option  th:each="prod : ${productos}" 
+                                     th:value="${prod.id_producto}">[[${prod.tipo}+' '+${prod.nombre}]]</option>
+                        </select>
+                        <!--<input type="text" th:field="*{labor_producto[__${rowStat.index}__].producto.id_producto}" readonly="readonly" />-->
+                    </td>
+                    <td><input type="text" th:field="*{labor_producto[__${rowStat.index}__].multiplicador}" style="width:8em"/></td>
+                    <td><button type="button" class="btn btn-default btn-xs delete-row"><i class="icon-trash"></i></button></td>
+                </tr>
+                
+            </tbody>
+        </table>
+        
     </div>
 
     <div class="form-group">
@@ -128,6 +182,36 @@
 <script  th:inline="javascript">/*<![CDATA[*/
         
     $(document).ready(function(){
+        
+        var addRow = function(productoId, productoNombre, productoCantidad){
+            
+//            <td><input type="text" th:field="*{labor_producto[__${rowStat.index}__].producto.id_producto}" readonly="readonly" /></td>
+//                    <td><input type="text" th:field="*{labor_producto[__${rowStat.index}__].multiplicador}" readonly="readonly"/></td>
+            
+            var row = '<tr><td><input type="text" '+productoId+'</span> - <span>'+productoNombre+'</span></td><td>'+productoCantidad+'</td><td></td></tr>';
+            
+//            console.log(row);
+            
+            $('#table_form_producto_cantidad tbody').append(row);
+            
+            var buttonDeleteString =  '<button type="button" class="btn btn-default btn-xs delete-row"><i class="icon-trash"></i></button>';
+            
+            var buttonDelete = $('#table_form_producto_cantidad tbody tr:last td:last').append(buttonDeleteString);
+            
+            buttonDelete.click(function(){
+//                console.log('$(this) '+$(this));
+                $(this).closest("tr").remove();
+            });
+        };
+        
+        $('#addProduct').click(function() {
+            var productoId = $('#productosHeader').val();
+            var productoNombre = $("#productosHeader option:selected").text();
+            var productoCantidad = $('#cantidadHeader').val(); 
+            
+            addRow(productoId, productoNombre, productoCantidad);
+            
+        });
     
         var action = '';
         
@@ -148,6 +232,8 @@
           });
           
         $('#boton_modificar').click(function() {
+            var labor = /*[[${labor}]]*/null; 
+      console.debug('labor: '+JSON.stringify(labor,null,"\t"));
             $('#insertar_modificar_eliminar').val('modificar');
             $('#formulario-labor').submit();
           });
@@ -167,6 +253,25 @@
 //              $("#parcelas").val(idParcela);
 //            
 //          }
+        var labor_producto = /*[[${labor.labor_producto}]]*/null; 
+
+        console.log("labor_producto: "+labor_producto);
+
+        if(labor_producto){
+//            for(var i=0; i<labor_producto.length; i++){
+//                var productoId = labor_producto[i].producto.id_producto;
+//                var productoNombre = labor_producto[i].producto.tipo+' '+labor_producto[i].producto.nombre;
+//                var productoCantidad = labor_producto[i].multiplicador.toString().replace( /,/, "" ).replace( /\./, "," );
+//                
+//                addRow(productoId, productoNombre, productoCantidad);
+//            }
+        
+            $(".delete-row").click(function(){
+                $(this).closest("tr").remove();
+            });
+        }
+
+//        console.log("cantidad_productos: "+cantidad_productos);
           
         var labor = /*[[${labor}]]*/null;
         
@@ -179,9 +284,24 @@
         
         $( "#id_maquinarias" ).select2();
         
-        $( "#id_productos" ).select2();
+//        $( "#id_productos" ).select2();
+        
+//        $( "#cantidad_productos" ).select2({
+//                      tags:[],
+//                      tokenSeparators: [" "]});
         
         $( "#id_costes_personal" ).select2();
+        
+        $( "select[id$='id_producto']" ).select2();
+
+        $( "input[id$='multiplicador']" ).spinner({
+          min: 0,
+          max: 999999,
+          step: 1,
+          page: 100,
+          numberFormat: "n",
+          culture: "es"
+        });
 
         $( "#cantidad" ).spinner({
           min: 0,

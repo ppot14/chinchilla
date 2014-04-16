@@ -4,7 +4,7 @@
   
     $(window).load(function () {
         
-        tabla_opciones.aaSorting = [[ 4, "desc" ]];
+        tabla_opciones.aaSorting = [[ 2, "desc" ]];
     
         var tabla_labores = $('#tabla_labores').dataTable(tabla_opciones);
         
@@ -71,8 +71,8 @@
                                       <th>[[#{id-labor}]]</th>
                                       <!--<th>[[#{id-tipo-labor}]]</th>-->
                                       <th>[[#{parcela}]]</th>
-                                      <th>[[#{grupo}]]</th>
-                                      <th>[[#{nombre}]]</th>
+<!--                                      <th>[[#{grupo}]]</th>
+                                      <th>[[#{nombre}]]</th>-->
                                       <th>[[#{fecha-comienzo}]]</th>
                                       <!--<th>[[#{cantidad-dosis-por-ha}]]</th>-->
                                       <th>[[#{litros-gasoil}]]</th>
@@ -100,8 +100,8 @@
                                                 style="margin-bottom: 3px">[[${laborParcela_item.parcela.nombre}]]</li>
                                           </ul>
                                       </td>
-                                      <td>[[${labores_item.grupo}]]</td>
-                                      <td>[[${labores_item.nombre}]]</td>
+<!--                                      <td>[[${labores_item.grupo}]]</td>
+                                      <td>[[${labores_item.nombre}]]</td>-->
                                       <td>[[${#dates.format(labores_item.fecha_comienzo,'dd/MM/yyyy')}]]</td>
                                       <!--<td>[[#{#numbers.formatDecimal(labores_item.cantidad_dosis_por_ha,1,'POINT',0,'COMMA')}]]</td>-->
                                       <td>[[${#numbers.formatDecimal(labores_item.litros_gasoil,1,'POINT',2,'COMMA')}]]</td>
@@ -117,7 +117,7 @@
                                           <ul  th:if="${not #lists.isEmpty(labores_item.labor_producto)}"
                                                 class="nav nav-pills nav-stacked">
                                             <li th:each="laborProducto_item : ${labores_item.labor_producto}"  class="label label-primary"
-                                                style="margin-bottom: 3px">[[${laborProducto_item.producto.nombre}]]</li>
+                                                style="margin-bottom: 3px">[[${laborProducto_item.producto.nombre}]] ([[${#numbers.formatDecimal(laborProducto_item.multiplicador,1,'POINT',2,'COMMA')}]] [[#{kg}]])</li>
                                           </ul>
                                       </td>
                                       <td>
