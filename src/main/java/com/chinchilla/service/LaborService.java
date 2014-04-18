@@ -201,21 +201,28 @@ public class LaborService {
             
             createLaborPersonal = laborDAO.createLaborPersonal(laborPersonalList);
         }
-        if(model_labor.getId_productos()!=null&&!model_labor.getId_productos().isEmpty()){
+        if(model_labor.getLabor_producto()!=null&&!model_labor.getLabor_producto().isEmpty()){
             
-            List<LaborProducto> laborProductoList = new ArrayList<LaborProducto>(model_labor.getId_productos().size());
-
-            for(int i = 0; i < model_labor.getId_productos().size(); i++){
-                LaborProducto o = new LaborProducto();
-                Producto u = new Producto();
-                u.setId_producto(model_labor.getId_productos().get(i));
-                o.setId_labor(model_labor.getId_labor());
-                o.setProducto(u);
-                o.setPosicion_formula(i+1);
-                laborProductoList.add(o);
-            }
+//            List<LaborProducto> laborProductoList;
             
-            createLaborProducto = laborDAO.createLaborProducto(laborProductoList);
+            log.debug("getLabor_producto: "+model_labor.getLabor_producto());
+            
+//            log.debug("getId_productos: "+model_labor.getId_productos());
+            
+//            if(model_labor.getLabor_producto()!=null && !model_labor.getLabor_producto().isEmpty()){
+                
+//            } else{
+            
+//                laborProductoList = new ArrayList<LaborProducto>(model_labor.getId_productos().size());
+//
+                for(int i = 0; i < model_labor.getLabor_producto().size(); i++){
+                    model_labor.getLabor_producto().get(i).setId_labor(model_labor.getId_labor());
+                    model_labor.getLabor_producto().get(i).setPosicion_formula(i+1);
+                }
+            
+//            }
+            
+            createLaborProducto = laborDAO.createLaborProducto(model_labor.getLabor_producto());
         }
 
         log.info("createdLaborMaquinaria "+createdLaborMaquinaria);
@@ -226,7 +233,7 @@ public class LaborService {
         return ((model_labor.getId_maquinarias()==null || model_labor.getId_maquinarias().size()==createdLaborMaquinaria) &&
                 (model_labor.getId_parcelas()==null || model_labor.getId_parcelas().size()==createLaborParcela) &&
                 (model_labor.getId_costes_personal()==null || model_labor.getId_costes_personal().size()==createLaborPersonal) &&
-                (model_labor.getId_productos()==null || model_labor.getId_productos().size()==createLaborProducto));
+                (model_labor.getLabor_producto()==null || model_labor.getLabor_producto().size()==createLaborProducto));
    }
    
    private static boolean deleteLabor(LaborDAO laborDAO, LaborForm model_labor){
@@ -255,7 +262,7 @@ public class LaborService {
           deleteLaborParcela = laborDAO.deleteLaborParcela(model_labor.getId_labor());
         if(model_labor.getId_costes_personal()!=null&&!model_labor.getId_costes_personal().isEmpty())
           deleteLaborPersonal = laborDAO.deleteLaborPersonal(model_labor.getId_labor());
-        if(model_labor.getId_productos()!=null&&!model_labor.getId_productos().isEmpty())
+        if(model_labor.getLabor_producto()!=null&&!model_labor.getLabor_producto().isEmpty())
           deleteLaborProducto = laborDAO.deleteLaborProducto(model_labor.getId_labor());
 
         log.info("deleteLaborMaquinaria "+deleteLaborMaquinaria);

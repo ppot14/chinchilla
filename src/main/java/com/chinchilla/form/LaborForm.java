@@ -40,7 +40,7 @@ public class LaborForm extends Labor{
     private String insertar_modificar_eliminar;
     
     private List<Integer> id_maquinarias;
-    private List<Integer> id_productos;
+//    private List<Integer> id_productos;
     private List<Double> cantidad_productos;
     private List<Integer> id_costes_personal;
     private List<Integer> id_parcelas;
@@ -84,16 +84,16 @@ public class LaborForm extends Labor{
     /**
      * @return the id_productos
      */
-    public List<Integer> getId_productos() {
-        return id_productos;
-    }
+//    public List<Integer> getId_productos() {
+//        return id_productos;
+//    }
 
     /**
      * @param id_productos the id_productos to set
      */
-    public void setId_productos(List<Integer> id_productos) {
-        this.id_productos = id_productos;
-    }
+//    public void setId_productos(List<Integer> id_productos) {
+//        this.id_productos = id_productos;
+//    }
 
     /**
      * @return the id_costes_personal
@@ -125,7 +125,7 @@ public class LaborForm extends Labor{
     
     public void setUpListIds(){
         id_maquinarias = new ArrayList<>();
-        id_productos = new ArrayList<>();
+//        id_productos = new ArrayList<>();
         cantidad_productos = new ArrayList<>();
         id_costes_personal = new ArrayList<>();
         id_parcelas = new ArrayList<>();
@@ -142,17 +142,17 @@ public class LaborForm extends Labor{
             id_costes_personal.add(lpe.getCoste_personal().getId_coste_personal());
         }
         
-        for(LaborProducto lpr : getLabor_producto()){
-            id_productos.add(lpr.getProducto().getId_producto());
-            cantidad_productos.add(lpr.getMultiplicador());
-        }
+//        for(LaborProducto lpr : getLabor_producto()){
+//            id_productos.add(lpr.getProducto().getId_producto());
+//            cantidad_productos.add(lpr.getMultiplicador());
+//        }
     }
 
     @Override
     public String toString() {
         return "LaborForm{" + "insertar_modificar_eliminar=" + insertar_modificar_eliminar + 
                 ", id_maquinarias=" + id_maquinarias + 
-                ", id_productos=" + id_productos + 
+//                ", id_productos=" + id_productos + 
                 ", cantidad_productos=" + cantidad_productos + 
                 ", id_costes_personal=" + id_costes_personal + 
                 ", id_parcelas=" + id_parcelas + ", " + super.toString() + "}";

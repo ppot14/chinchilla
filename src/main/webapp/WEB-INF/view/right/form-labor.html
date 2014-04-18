@@ -185,23 +185,66 @@
         
         var addRow = function(productoId, productoNombre, productoCantidad){
             
-//            <td><input type="text" th:field="*{labor_producto[__${rowStat.index}__].producto.id_producto}" readonly="readonly" /></td>
-//                    <td><input type="text" th:field="*{labor_producto[__${rowStat.index}__].multiplicador}" readonly="readonly"/></td>
+            var rowCount = $('#table_form_producto_cantidad tbody tr').length;
             
-            var row = '<tr><td><input type="text" '+productoId+'</span> - <span>'+productoNombre+'</span></td><td>'+productoCantidad+'</td><td></td></tr>';
+            var row = $('<tr></tr>');
             
-//            console.log(row);
+            var selectProducto = $('<select></select>');
             
-            $('#table_form_producto_cantidad tbody').append(row);
+            selectProducto.addClass('select2')
+                    .css('width','100%')
+                    .attr('placeholder', 'Seleccionar producto(s)...')
+                    .attr('id','labor_producto'+rowCount+'.producto.id_producto')
+                    .attr('name','labor_producto['+rowCount+'].producto.id_producto');
+                
+            var productos = /*[[${productos}]]*/null; 
             
-            var buttonDeleteString =  '<button type="button" class="btn btn-default btn-xs delete-row"><i class="icon-trash"></i></button>';
+            if(productos){
+                
+                for(var i=0; i<productos.length; i++){
+                    selectProducto.append( $('<option></option>')
+                        .attr('value',productos[i].id_producto)
+                        .text(productos[i].tipo+' '+productos[i].nombre) );
+                }
+                
+            }
             
-            var buttonDelete = $('#table_form_producto_cantidad tbody tr:last td:last').append(buttonDeleteString);
+            console.debug("selectProducto "+selectProducto);
             
-            buttonDelete.click(function(){
+            row.append( $('<td></td>').append(selectProducto) );
+            
+            //TODO bug in select2 o jquery
+//            selectProducto.select2(); 
+            
+            var cantidadSpinner = $('<input id="labor_producto'+rowCount+'.multiplicador"'
+                                    +'name="labor_producto['+rowCount+'].multiplicador"'
+                                    +'class="form-control input-sm" placeholder=""></input>');
+            
+            console.debug("cantidadSpinner "+cantidadSpinner);
+            
+            row.append( $('<td></td>').append(cantidadSpinner) );
+
+            cantidadSpinner.spinner({
+              min: 0,
+              max: 999999,
+              step: 1,
+              page: 100,
+              numberFormat: "n",
+              culture: "es"
+            });
+            
+            var buttonDeleteString =  $('<button type="button" class="btn btn-default btn-xs delete-row"><i class="icon-trash"></i></button>');
+            
+            row.append( $('<td></td>').append(buttonDeleteString) );
+            
+            buttonDeleteString.click(function(){
 //                console.log('$(this) '+$(this));
                 $(this).closest("tr").remove();
             });
+            
+            console.log('row '+row);
+            
+            $('#table_form_producto_cantidad tbody').append(row);
         };
         
         $('#addProduct').click(function() {
