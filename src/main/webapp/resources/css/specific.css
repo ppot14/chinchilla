@@ -62,7 +62,7 @@ h2 {
 }
 
 /*
-* bootstrap
+* Bootstrap
 */
 .well {
     border-radius: 0px;
@@ -74,9 +74,43 @@ h2 {
     font-size: 12px;
 }
 
+.table-striped > tbody > tr:nth-child(2n+1) > td, 
+.table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: transparent;
+}
+
+.table-striped > tbody > tr:nth-child(2n) > td, 
+.table-striped > tbody > tr:nth-child(2n) > th {
+    background-color: #F9F9F9;
+}
+
+/*
+* Widget Module
+*/
+
+.widget-module{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.widget-module .panel-body{
+    padding: 0px;
+    min-height: 100px;
+    position: relative;
+}
+
+.widget-module .panel-heading h2 {
+    font-size: 20px;
+    margin: 5px 0;
+}
+
 /*
 * data table
 */
+
+.dataTables_wrapper {
+    position: relative;
+}
 
 .dataTables_wrapper .tableContent {
     margin-left: 0px;
@@ -89,10 +123,14 @@ h2 {
     padding-right: 0px;
 }
 
-.dataTables_wrapper table.table {
-    border-top: 1px solid #CCCCCC !important;
+.dataTables_wrapper    table.table {
+    /*border-top: 1px solid #CCCCCC !important;
     border-bottom: 1px solid #CCCCCC !important;
     margin-top: 0px !important;
+    margin-bottom: 0px !important;*/
+    border: 0 none !important;
+    margin-bottom: 0 !important;
+    max-width: none !important;
 }
 
 div.dataTables_wrapper .footer{
@@ -220,18 +258,6 @@ ol.breadcrumb{
 
 .select2-container, .select2-drop, .select2-search, .select2-search input {
     font-size: 12px;
-}
-
-/*
-* Bootstrap
-*/
-.table-striped > tbody > tr:nth-child(2n+1) > td, 
-.table-striped > tbody > tr:nth-child(2n+1) > th {
-    background-color: transparent;
-}
-.table-striped > tbody > tr:nth-child(2n) > td, 
-.table-striped > tbody > tr:nth-child(2n) > th {
-    background-color: #F9F9F9;
 }
 
 /*

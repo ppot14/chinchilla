@@ -10,40 +10,62 @@
     
     
 /*]]>*/</script> 
-<div class="row">
-<h2 th:text="#{productos}">[productos]</h2>
+
+<div class="row" th:inline="text">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark" ><i class="icon-shovel"></i> [[#{productos}]]</h1>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+    </div>
 </div>
-<div class="row text-right">
-<a id="anadir-producto-link" 
-   class="btn btn-default btn-sm disabled" 
-   th:href="@{/productos/tabla/form/producto.html(id=-1)}" >
-    <span class="glyphicon glyphicon-plus"></span> <span th:text="#{anadir-producto}">[anadir-producto]</span></a>
+
+<div class="row" th:inline="text">
+    <div class="panel panel-default widget-module">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <h2 class="pull-left"><i class="fa fa-lg fa-fw fa-table"></i> <strong>[[#{tabla}]]</strong></h2>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <a id="anadir-tipo-labor-link" class="btn btn-default btn-sm disabled pull-right"  
+                       th:href="@{/productos/tabla/form/producto.html(id=-1)}">
+                         <span class="glyphicon glyphicon-plus"></span> [[#{anadir-producto}]]
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            
+            <table id="tabla_productos" class="table table-striped table-bordered table-hover table-condensed">
+                <!--class="table table-stripped table-bordered table-hover table-condensed"-->
+                <thead>
+                    <tr>
+                      <th>[[#{id-producto}]]</th>
+                      <th>[[#{grupo}]]</th>
+                      <th>[[#{tipo}]]</th>
+                      <th>[[#{nombre}]]</th>
+                      <th>[[#{descripcion}]]</th>
+                      <th>[[#{num-reg-ma}]]</th>
+                      <th>[[#{plazo-seguridad}]]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  th:each="productos_item : ${productos}">
+                      <td>[[${productos_item.id_producto}]]</td>
+                          <!--<a th:href="@{/productos/tabla/form/producto.html(id=${productos_item.id_producto})}" th:text="${productos_item.id_producto}">[id_producto]</a>-->
+                      <td>[[${productos_item.grupo}]]</td>
+                      <td>[[${productos_item.tipo}]]</td>
+                      <td>[[${productos_item.nombre}]]</td>
+                      <td>[[${productos_item.descripcion}]]</td>
+                      <td>[[${productos_item.num_reg_ma}]]</td>
+                      <td>[[${productos_item.plazo_seguridad}]]</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+      </div>
+
 </div>
-<div class="row">
-<table id="tabla_productos" class="tabla-jqueryui">
-    <!--class="table table-stripped table-bordered table-hover table-condensed"-->
-    <thead>
-        <tr>
-          <th th:text="#{id-producto}"></th>
-          <th th:text="#{grupo}"></th>
-          <th th:text="#{tipo}"></th>
-          <th th:text="#{nombre}"></th>
-          <th th:text="#{descripcion}"></th>
-          <th th:text="#{num-reg-ma}"></th>
-          <th th:text="#{plazo-seguridad}"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr  th:each="productos_item : ${productos}">
-          <td th:text="${productos_item.id_producto}"><a th:href="@{/productos/tabla/form/producto.html(id=${productos_item.id_producto})}" th:text="${productos_item.id_producto}">[id_producto]</a></td>
-          <td th:text="${productos_item.grupo}">[grupo]</td>
-          <td th:text="${productos_item.tipo}">[tipo]</td>
-          <td th:text="${productos_item.nombre}">[nombre]</td>
-          <td th:text="${productos_item.descripcion}">[descripcion]</td>
-          <td th:text="${productos_item.num_reg_ma}">[num_reg_ma]</td>
-          <td th:text="${productos_item.plazo_seguridad}">[plazo_seguridad]</td>
-        </tr>
-    </tbody>
-</table>
-</div>
+
 </html>
