@@ -73,10 +73,10 @@
         var pieChartProduccionCultivo;
 
         tabla_opciones.fnDrawCallback = function( oSettings ) {
-            console.log( 'DataTables has redrawn the table' );
-            console.log( 'oSettings.aoData.length: ' + oSettings.aoData.length);
-            console.log( 'oSettings.aoColumns.length: ' + oSettings.aoColumns.length);
-            console.log( 'oSettings.aoAdvancedFilter: ' + JSON.stringify(oSettings.aoAdvancedFilter,null,'\t') );
+//            console.log( 'DataTables has redrawn the table: ' + oSettings.aiDisplay  );
+//            console.log( 'oSettings.aiDisplay.length: ' + oSettings.aiDisplay.length);
+//            console.log( 'oSettings.aoColumns.length: ' + oSettings.aoColumns.length);
+//            console.log( 'oSettings.aoAdvancedFilter: ' + JSON.stringify(oSettings.aoAdvancedFilter,null,'\t') );
             
             var graficoTartaProduccionParcela = {};
 
@@ -97,16 +97,16 @@
 //            console.log( 'kilosColumn: ' + kilosColumn);
 
             //TODO Change to aoData instead of producciones
-            for(var i=0; i<oSettings.aoData.length; i++){
+            for(var i=0; i<oSettings.aiDisplay.length; i++){
                 
                 
 //            console.log( 'oSettings.aoData['+i+']._aData: ' + JSON.stringify(oSettings.aoData[i]._aData,null,'\t') );
                 
-                var parcelaString = oSettings.aoData[i]._aData[parcelaColumn];
+                var parcelaString = oSettings.aoData[oSettings.aiDisplay[i]]._aData[parcelaColumn];
                 
-                var cultivoString = oSettings.aoData[i]._aData[cultivoColumn];
+                var cultivoString = oSettings.aoData[oSettings.aiDisplay[i]]._aData[cultivoColumn];
                 
-                var kilosDouble = parseFloat( oSettings.aoData[i]._aData[kilosColumn].replace( /\./, "" ).replace( /,/, "." ) );
+                var kilosDouble = parseFloat( oSettings.aoData[oSettings.aiDisplay[i]]._aData[kilosColumn].replace( /\./, "" ).replace( /,/, "." ) );
                 
                 if(parcelaString in graficoTartaProduccionParcela){
                     graficoTartaProduccionParcela[parcelaString] = graficoTartaProduccionParcela[parcelaString] + kilosDouble;
@@ -120,9 +120,9 @@
                 }
             }
 
-            console.info("graficoTartaProduccionParcela: "+JSON.stringify(graficoTartaProduccionParcela,null,'\t'));  
+//            console.info("graficoTartaProduccionParcela: "+JSON.stringify(graficoTartaProduccionParcela,null,'\t'));  
 
-            console.info("graficoTartaProduccionCultivo: "+JSON.stringify(graficoTartaProduccionCultivo,null,'\t'));
+//            console.info("graficoTartaProduccionCultivo: "+JSON.stringify(graficoTartaProduccionCultivo,null,'\t'));
         
             var data_pie_produccion_parcela = new Array();
 
@@ -162,25 +162,25 @@
     //        options_cultivo.legend.noColumns = Math.ceil(data_pie_produccion_cultivo.length/14);
     
     
-            console.info("starting plot? "+(!pieChartProduccionParcela && !pieChartProduccionCultivo));
+//            console.info("starting plot? "+(!pieChartProduccionParcela && !pieChartProduccionCultivo));
     
-            if(!pieChartProduccionParcela && !pieChartProduccionCultivo){
+//            if(!pieChartProduccionParcela && !pieChartProduccionCultivo){
 
                 pieChartProduccionParcela = $.plot($("#pie-chart-produccion-parcela"), data_pie_produccion_parcela, options_parcela);
 
                 pieChartProduccionCultivo = $.plot($("#pie-chart-produccion-cultivo"), data_pie_produccion_cultivo, options_cultivo);   
 
-            }else{
-                
-                pieChartProduccionParcela.setData(data_pie_produccion_parcela);
+//            }else{
+//                
+//                pieChartProduccionParcela.setData(data_pie_produccion_parcela);
 //                pieChartProduccionParcela.setupGrid(); //only necessary if your new data will change the axes or grid
-                pieChartProduccionParcela.draw();
-                
-                pieChartProduccionCultivo.setData(data_pie_produccion_cultivo);
+//                pieChartProduccionParcela.draw();
+//                
+//                pieChartProduccionCultivo.setData(data_pie_produccion_cultivo);
 //                pieChartProduccionCultivo.setupGrid(); //only necessary if your new data will change the axes or grid
-                pieChartProduccionCultivo.draw();
-                
-            }
+//                pieChartProduccionCultivo.draw();
+//                
+//            }
         };
     
         var tabla_producciones = $('#tabla_producciones').dataTable(tabla_opciones);
@@ -263,11 +263,11 @@
                                           [[${producciones_item.id_produccion}]]
                                       </a>
                                   </td>
+                                      <!--<a th:href="@{/cultivos/tabla/form/cultivo.html(id=${cultivos_item.id_cultivo})}">-->
+                                      <!--</a>-->
                                   <td th:each="cultivos_item : ${cultivos}" 
                                       th:if="${cultivos_item.id_cultivo == producciones_item.id_cultivo}">
-                                      <!--<a th:href="@{/cultivos/tabla/form/cultivo.html(id=${cultivos_item.id_cultivo})}">-->
                                           [[${cultivos_item.especie+' - '+cultivos_item.variedad}]]
-                                      <!--</a>-->
                                   </td>
                                   <td th:each="parcelas_item : ${parcelas}" 
                                       th:if="${parcelas_item.id_parcela == producciones_item.id_parcela}">

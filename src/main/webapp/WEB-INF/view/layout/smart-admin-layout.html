@@ -5,6 +5,18 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
         <script src="/resources/js/i18next-1.7.2.min.js" th:src="@{/resources/js/i18next-1.7.2.min.js}"></script>
+        <script th:inline="javascript">/*<![CDATA[*/
+            /*
+             * i18next for javascript
+             */
+            var lang = navigator.language || navigator.userLanguage;
+
+//            console.debug("lang: "+lang);
+            var clientSideResources = /*[[@{/resources/}]]*/null;
+            i18n.init({resGetPath: clientSideResources+'__ns__-__lng__.json',
+                         ns: 'messages',
+                         lng: lang });
+        /*]]>*/</script>
         <script src="/resources/js/jquery.ui.datepicker-es.js" th:src="@{/resources/js/jquery.ui.datepicker-es.js}"></script> 
 <!--        <script src="/resources/js/datatable/jquery.dataTables.min.js" th:src="@{/resources/js/datatable/jquery.dataTables.min.js}"></script> -->
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/jquery.dataTables.min.js"></script>
@@ -98,22 +110,8 @@
         jQuery.validator.addMethod("minNumber", function(value, element, params) {
             return this.optional(element) || parseFloat( params ) <= parseFloat( value.replace( /\./, "" ).replace( /,/, "." ) );
           }, "El numero debe ser mayor a {0}");
-        
- 
 
     $(document).ready(function() {
-        
-        var lang = navigator.language || navigator.userLanguage;
-        
-//        console.debug("lang: "+lang);
-        
-        /*
-         * i18next for javascript
-         */
-        var clientSideResources = /*[[@{/resources/}]]*/null;
-        i18n.init({resGetPath: clientSideResources+'__ns__-__lng__.json',
-                     ns: 'messages',
-                     lng: lang });
        
 //        tabla_opciones.oLanguage = $.t("dataTablesLanguage");
 //        console.debug("$.i18n.lng "+JSON.stringify(i18n.lng,null,"\t"));
