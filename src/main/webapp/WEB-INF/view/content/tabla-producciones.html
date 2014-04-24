@@ -6,63 +6,6 @@
         
         tabla_opciones.aaSorting = [[ 3, "desc" ]];
         
-//        var parcelaTitle = /*[[#{parcela}]]*/null;
-//        var fechaTitle = /*[[#{fecha}]]*/null;     
-        
-//        var aoAdvancedFilter = [{
-//                sTitle: parcelaTitle,
-//                aoOperations:[{
-//                        sOperation:"contains",
-//                        sValue1:"Chinchilla"
-//                        }]
-//                },{
-//                sTitle: fechaTitle,
-//                aoOperations:[{
-//                        sOperation:"after",
-//                        sValue1:"30/12/2013"
-//                        }]
-//                }];
-//            
-//         tabla_opciones.aoAdvancedFilter = aoAdvancedFilter;
-            
-//        console.debug('tabla_opciones.aoAdvancedFilter '+JSON.stringify(aoAdvancedFilter,null,'\t') ); 
-    
-        var tabla_producciones = $('#tabla_producciones').dataTable(tabla_opciones);
-        
-//        tabla_producciones.fnSettings().aoAdvancedFilter = aoAdvancedFilter;
-        
-//        console.debug('tabla_producciones.oSettings '+JSON.stringify(tabla_producciones.fnSettings(),null,'\t') );
-        
-//        tabla_producciones.fnDraw(); 
-        
-        var grafico_tarta_produccion_parcela = /*[[${grafico_tarta_produccion_parcela}]]*/null;
-        
-        var grafico_tarta_produccion_cultivo = /*[[${grafico_tarta_produccion_cultivo}]]*/null;
-        
-        var data_pie_produccion_parcela = new Array();
-        
-        var j = 0;
-        
-        for (var i in grafico_tarta_produccion_parcela) {
-            data_pie_produccion_parcela[j] = {
-                label : i,
-                data : grafico_tarta_produccion_parcela[i]
-            };
-            j++;
-        }
-        
-        var data_pie_produccion_cultivo = new Array();
-        
-        j = 0;
-        
-        for (var k in grafico_tarta_produccion_cultivo) {
-            data_pie_produccion_cultivo[j] = {
-                label : k,
-                data : grafico_tarta_produccion_cultivo[k]
-            };
-            j++;
-        }
-        
         var options = {
             series : {
                     pie : {
@@ -97,23 +40,161 @@
                     hoverable : true,
                     clickable : true
             }
+        };        
+        
+//        var parcelaTitle = /*[[#{parcela}]]*/null;
+//        var fechaTitle = /*[[#{fecha}]]*/null;     
+        
+//        var aoAdvancedFilter = [{
+//                sTitle: parcelaTitle,
+//                aoOperations:[{
+//                        sOperation:"contains",
+//                        sValue1:"Chinchilla"
+//                        }]
+//                },{
+//                sTitle: fechaTitle,
+//                aoOperations:[{
+//                        sOperation:"after",
+//                        sValue1:"30/12/2013"
+//                        }]
+//                }];
+//            
+//         tabla_opciones.aoAdvancedFilter = aoAdvancedFilter;
+            
+//        console.debug('tabla_opciones.aoAdvancedFilter '+JSON.stringify(aoAdvancedFilter,null,'\t') ); 
+        
+//        var producciones = /*[[${producciones}]]*/null;
+//        var cultivos = /*[[${cultivos}]]*/null;  
+//        var parcelas = /*[[${parcelas}]]*/null;  
+//            console.log( 'producciones: ' +producciones);
+//            console.log( 'cultivos: ' +cultivos);
+//            console.log( 'parcelas: ' +parcelas);
+        var pieChartProduccionParcela;
+        var pieChartProduccionCultivo;
+
+        tabla_opciones.fnDrawCallback = function( oSettings ) {
+            console.log( 'DataTables has redrawn the table' );
+            console.log( 'oSettings.aoData.length: ' + oSettings.aoData.length);
+            console.log( 'oSettings.aoColumns.length: ' + oSettings.aoColumns.length);
+            console.log( 'oSettings.aoAdvancedFilter: ' + JSON.stringify(oSettings.aoAdvancedFilter,null,'\t') );
+            
+            var graficoTartaProduccionParcela = {};
+
+            var graficoTartaProduccionCultivo = {};
+            
+            var parcelaColumn, cultivoColumn, kilosColumn;
+            
+            for(var i=0; i<oSettings.aoColumns.length; i++){
+                if(oSettings.aoColumns[i].sTitle === $.t("parcela"))
+                    parcelaColumn = oSettings.aoColumns[i].mData;
+                if(oSettings.aoColumns[i].sTitle === $.t("cultivo"))
+                    cultivoColumn = oSettings.aoColumns[i].mData;
+                if(oSettings.aoColumns[i].sTitle === $.t("kilos"))
+                    kilosColumn = oSettings.aoColumns[i].mData;
+            }
+//            console.log( 'parcelaColumn: ' + parcelaColumn);
+//            console.log( 'cultivoColumn: ' + cultivoColumn);
+//            console.log( 'kilosColumn: ' + kilosColumn);
+
+            //TODO Change to aoData instead of producciones
+            for(var i=0; i<oSettings.aoData.length; i++){
+                
+                
+//            console.log( 'oSettings.aoData['+i+']._aData: ' + JSON.stringify(oSettings.aoData[i]._aData,null,'\t') );
+                
+                var parcelaString = oSettings.aoData[i]._aData[parcelaColumn];
+                
+                var cultivoString = oSettings.aoData[i]._aData[cultivoColumn];
+                
+                var kilosDouble = parseFloat( oSettings.aoData[i]._aData[kilosColumn].replace( /\./, "" ).replace( /,/, "." ) );
+                
+                if(parcelaString in graficoTartaProduccionParcela){
+                    graficoTartaProduccionParcela[parcelaString] = graficoTartaProduccionParcela[parcelaString] + kilosDouble;
+                }else{
+                    graficoTartaProduccionParcela[parcelaString] = kilosDouble;
+                }
+                if(cultivoString in graficoTartaProduccionCultivo){
+                    graficoTartaProduccionCultivo[cultivoString] = graficoTartaProduccionCultivo[cultivoString] + kilosDouble;
+                }else{
+                    graficoTartaProduccionCultivo[cultivoString] = kilosDouble;
+                }
+            }
+
+            console.info("graficoTartaProduccionParcela: "+JSON.stringify(graficoTartaProduccionParcela,null,'\t'));  
+
+            console.info("graficoTartaProduccionCultivo: "+JSON.stringify(graficoTartaProduccionCultivo,null,'\t'));
+        
+            var data_pie_produccion_parcela = new Array();
+
+            var j = 0;
+
+            for (var i in graficoTartaProduccionParcela) {
+                data_pie_produccion_parcela[j] = {
+                    label : i,
+                    data : graficoTartaProduccionParcela[i]
+                };
+                j++;
+            }
+
+            var data_pie_produccion_cultivo = new Array();
+
+            j = 0;
+
+            for (var k in graficoTartaProduccionCultivo) {
+                data_pie_produccion_cultivo[j] = {
+                    label : k,
+                    data : graficoTartaProduccionCultivo[k]
+                };
+                j++;
+            }           
+
+        
+            var options_parcela = $.extend({}, options);
+
+            var options_cultivo = $.extend({}, options);
+
+            options_parcela.colors = Util.getRainbowColors(data_pie_produccion_parcela.length);
+
+            options_cultivo.colors = Util.getRainbowColors(data_pie_produccion_cultivo.length);
+
+    //        options_parcela.legend.noColumns = Math.ceil(data_pie_produccion_parcela.length/14);
+    //        
+    //        options_cultivo.legend.noColumns = Math.ceil(data_pie_produccion_cultivo.length/14);
+    
+    
+            console.info("starting plot? "+(!pieChartProduccionParcela && !pieChartProduccionCultivo));
+    
+            if(!pieChartProduccionParcela && !pieChartProduccionCultivo){
+
+                pieChartProduccionParcela = $.plot($("#pie-chart-produccion-parcela"), data_pie_produccion_parcela, options_parcela);
+
+                pieChartProduccionCultivo = $.plot($("#pie-chart-produccion-cultivo"), data_pie_produccion_cultivo, options_cultivo);   
+
+            }else{
+                
+                pieChartProduccionParcela.setData(data_pie_produccion_parcela);
+//                pieChartProduccionParcela.setupGrid(); //only necessary if your new data will change the axes or grid
+                pieChartProduccionParcela.draw();
+                
+                pieChartProduccionCultivo.setData(data_pie_produccion_cultivo);
+//                pieChartProduccionCultivo.setupGrid(); //only necessary if your new data will change the axes or grid
+                pieChartProduccionCultivo.draw();
+                
+            }
         };
+    
+        var tabla_producciones = $('#tabla_producciones').dataTable(tabla_opciones);
         
-        var options_parcela = $.extend({}, options);
+//        tabla_producciones.fnSettings().aoAdvancedFilter = aoAdvancedFilter;
         
-        var options_cultivo = $.extend({}, options);
+//        console.debug('tabla_producciones.oSettings '+JSON.stringify(tabla_producciones.fnSettings(),null,'\t') );
         
-        options_parcela.colors = Util.getRainbowColors(data_pie_produccion_parcela.length);
+//        tabla_producciones.fnDraw(); 
         
-        options_cultivo.colors = Util.getRainbowColors(data_pie_produccion_cultivo.length);
+//        var grafico_tarta_produccion_parcela = /*[[${grafico_tarta_produccion_parcela}]]*/null;
         
-//        options_parcela.legend.noColumns = Math.ceil(data_pie_produccion_parcela.length/14);
-//        
-//        options_cultivo.legend.noColumns = Math.ceil(data_pie_produccion_cultivo.length/14);
-        
-        $.plot($("#pie-chart-produccion-parcela"), data_pie_produccion_parcela, options_parcela);
-        
-        $.plot($("#pie-chart-produccion-cultivo"), data_pie_produccion_cultivo, options_cultivo);
+//        var grafico_tarta_produccion_cultivo = /*[[${grafico_tarta_produccion_cultivo}]]*/null;
+
         
     });
     

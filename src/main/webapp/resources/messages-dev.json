@@ -39,5 +39,8 @@
     "greater-equal" : "Mayor o igual que",
     "after-and" : "Despues de/Y",
     "between" : "Entre",
-    "not-between" : "Fuera de"
+    "not-between" : "Fuera de",
+    "parcela" : "Parcela",
+    "cultivo" : "Cultivo",
+    "kilos" : "Kilos"
 }

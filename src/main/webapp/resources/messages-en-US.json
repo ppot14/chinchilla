@@ -14,5 +14,8 @@
 "greater-equal" : "Greater or Equals",
 "after-and" : "After and",
 "between" : "Between",
-"not-between" : "Not Between"
+"not-between" : "Not Between",
+    "parcela" : "Plot",
+    "cultivo" : "Crop",
+    "kilos" : "Weight"
 }

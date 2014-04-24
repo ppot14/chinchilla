@@ -50,48 +50,48 @@ public class ProduccionesController extends AbstractController{
 
         List<Parcela> parcelas = parcelaDAO.getAll();
 
-        Map<String, Integer> graficoTartaProduccionParcela = new LinkedHashMap<String, Integer>();
-
-        Map<String, Integer> graficoTartaProduccionCultivo = new LinkedHashMap<String, Integer>();
-        
-        for(Produccion p: producciones){
-            String parcelaString = "";
-            for(Parcela pa: parcelas){
-                if(pa.getId_parcela()==p.getId_parcela()){
-                    parcelaString = pa.getNombre();
-                    break;
-                }
-            }
-            String cultivoString = "";
-            for(Cultivo cu: cultivos){
-                if(cu.getId_cultivo()==p.getId_cultivo()){
-                    cultivoString = cu.getEspecie()+" "+cu.getVariedad();
-                    break;
-                }
-            }
-            if(graficoTartaProduccionParcela.containsKey(parcelaString)){
-                graficoTartaProduccionParcela.put(parcelaString, graficoTartaProduccionParcela.get(parcelaString) + p.getKilos());
-            }else{
-                graficoTartaProduccionParcela.put(parcelaString, p.getKilos());
-            }
-            if(graficoTartaProduccionCultivo.containsKey(cultivoString)){
-                graficoTartaProduccionCultivo.put(cultivoString, graficoTartaProduccionCultivo.get(cultivoString) + p.getKilos());
-            }else{
-                graficoTartaProduccionCultivo.put(cultivoString, p.getKilos());
-            }
-        }
-
-        log.info("grafico_tarta_produccion_cultivo: "+graficoTartaProduccionCultivo);
-
-        log.info("grafico_tarta_produccion_parcela: "+graficoTartaProduccionParcela);
+//        Map<String, Integer> graficoTartaProduccionParcela = new LinkedHashMap<String, Integer>();
+//
+//        Map<String, Integer> graficoTartaProduccionCultivo = new LinkedHashMap<String, Integer>();
+//        
+//        for(Produccion p: producciones){
+//            String parcelaString = "";
+//            for(Parcela pa: parcelas){
+//                if(pa.getId_parcela()==p.getId_parcela()){
+//                    parcelaString = pa.getNombre();
+//                    break;
+//                }
+//            }
+//            String cultivoString = "";
+//            for(Cultivo cu: cultivos){
+//                if(cu.getId_cultivo()==p.getId_cultivo()){
+//                    cultivoString = cu.getEspecie()+" "+cu.getVariedad();
+//                    break;
+//                }
+//            }
+//            if(graficoTartaProduccionParcela.containsKey(parcelaString)){
+//                graficoTartaProduccionParcela.put(parcelaString, graficoTartaProduccionParcela.get(parcelaString) + p.getKilos());
+//            }else{
+//                graficoTartaProduccionParcela.put(parcelaString, p.getKilos());
+//            }
+//            if(graficoTartaProduccionCultivo.containsKey(cultivoString)){
+//                graficoTartaProduccionCultivo.put(cultivoString, graficoTartaProduccionCultivo.get(cultivoString) + p.getKilos());
+//            }else{
+//                graficoTartaProduccionCultivo.put(cultivoString, p.getKilos());
+//            }
+//        }
+//
+//        log.info("grafico_tarta_produccion_cultivo: "+graficoTartaProduccionCultivo);
+//
+//        log.info("grafico_tarta_produccion_parcela: "+graficoTartaProduccionParcela);
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
         modelMap.put("producciones", producciones);
         modelMap.put("cultivos", cultivos);
         modelMap.put("parcelas", parcelas);
-        modelMap.put("grafico_tarta_produccion_parcela", graficoTartaProduccionParcela);
-        modelMap.put("grafico_tarta_produccion_cultivo", graficoTartaProduccionCultivo);
+//        modelMap.put("grafico_tarta_produccion_parcela", graficoTartaProduccionParcela);
+//        modelMap.put("grafico_tarta_produccion_cultivo", graficoTartaProduccionCultivo);
         
         model.addAllAttributes(modelMap);
 
