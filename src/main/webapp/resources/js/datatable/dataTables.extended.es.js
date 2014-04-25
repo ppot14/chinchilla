@@ -289,7 +289,7 @@ AdvancedFilter.prototype = {
                 break;
             }
         }
-        console.debug('_fnApplyAdvancedFilter value1: '+value1+', value2: '+value2+', operation: '+operation+', sTitleTemp: '+sTitleTemp+', mDataTemp: '+mDataTemp);
+//        console.debug('_fnApplyAdvancedFilter value1: '+value1+', value2: '+value2+', operation: '+operation+', sTitleTemp: '+sTitleTemp+', mDataTemp: '+mDataTemp);
         
         if(!settings.aoAdvancedFilter){
             settings.aoAdvancedFilter = [];

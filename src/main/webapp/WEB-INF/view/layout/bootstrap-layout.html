@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:tiles="http://www.thymeleaf.org">
+    <head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        <script src="/resources/js/i18next-1.7.2.min.js" th:src="@{/resources/js/i18next-1.7.2.min.js}"></script>
+        <script th:inline="javascript">/*<![CDATA[*/
+            /*
+             * i18next for javascript
+             */
+            var lang = navigator.language || navigator.userLanguage;
+
+//            console.debug("lang: "+lang);
+            var clientSideResources = /*[[@{/resources/}]]*/null;
+            i18n.init({resGetPath: clientSideResources+'__ns__-__lng__.json',
+                         ns: 'messages',
+                         lng: lang });
+        /*]]>*/</script>
+        <script src="/resources/js/jquery.ui.datepicker-es.js" th:src="@{/resources/js/jquery.ui.datepicker-es.js}"></script> 
+<!--        <script src="/resources/js/datatable/jquery.dataTables.min.js" th:src="@{/resources/js/datatable/jquery.dataTables.min.js}"></script> -->
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/jquery.dataTables.min.js"></script>
+        <script src="/resources/js/datatable/dataTables.colReorder.min.js" th:src="@{/resources/js/datatable/dataTables.colReorder.min.js}"></script> 
+        <script src="/resources/js/datatable/dataTables.colVis.min.js" th:src="@{/resources/js/datatable/dataTables.colVis.min.js}"></script> 
+        <script src="/resources/js/datatable/dataTables.fixedColumns.min.js" th:src="@{/resources/js/datatable/dataTables.fixedColumns.min.js}"></script> 
+        <script src="/resources/js/datatable/dataTables.tableTools.min.js" th:src="@{/resources/js/datatable/dataTables.tableTools.min.js}"></script>
+        <script src="/resources/js/datatable/dataTables.bootstrap.js" th:src="@{/resources/js/datatable/dataTables.bootstrap.js}"></script> 
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.min.js"></script>
+        <script src="/resources/js/datatable/dataTables.extended.es.js" th:src="@{/resources/js/datatable/dataTables.extended.es.js}"></script> 
+        <!--<script th:src="@{/resources/js/flot/jquery.flot.fillbetween.min.js}"></script>-->
+        <!--<script th:src="@{/resources/js/flot/jquery.flot.orderBar.min.js}"></script>-->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.pie.min.js"></script>
+        <!--<script th:src="@{/resources/js/flot/jquery.flot.resize.min.js}"></script>-->
+        <!--<script th:src="@{/resources/js/flot/jquery.flot.tooltip.min.js}"></script>-->
+        <script src="/resources/js/jquery.validate.js" th:src="@{/resources/js/jquery.validate.js}"></script> 
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.6/select2.min.js"></script> 
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="/resources/js/additional-methods.js" th:src="@{/resources/js/additional-methods.js}"></script> 
+        <script src="/resources/js/globalize.js" th:src="@{/resources/js/globalize.js}"></script> 
+        <script src="/resources/js/globalize.culture.es-ES.js" th:src="@{/resources/js/globalize.culture.es-ES.js}"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/pnotify/1.3.1/jquery.pnotify.min.js"></script>
+	<!--<script src="/resources/js/jarvis.widget.js" th:src="@{/resources/js/jarvis.widget.js}"></script>-->
+	<!--<script src="/resources/js/SmartNotification.js" th:src="@{/resources/js/SmartNotification.js}"></script>-->
+	<script src="/resources/js/tinycolor-min.js" th:src="@{/resources/js/tinycolor-min.js}"></script>
+	<!--<script src="/resources/js/app.js" th:src="@{/resources/js/app.js}"></script>-->
+	<script src="/resources/js/utilities.js" th:src="@{/resources/js/utilities.js}"></script>
+        
+        <!--<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>-->
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootswatch/3.1.1/lumen/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/resources/css/font-awesome.min.css" th:href="@{/resources/css/font-awesome.min.css}" media="all"/>
+        <link rel="stylesheet" type="text/css" href="/resources/css/whhg.css" th:href="@{/resources/css/whhg.css}" media="all"/>
+        <!--<link rel="stylesheet" type="text/css" href="/resources/css/smartadmin-production.css" th:href="@{/resources/css/smartadmin-production.css}" media="screen"/>-->
+        <!--<link rel="stylesheet" type="text/css" href="/resources/css/smartadmin-skins.css" th:href="@{/resources/css/smartadmin-skins.css}" media="screen"/>-->
+        <link rel="stylesheet" type="text/css" href="/resources/css/dataTables.tableTools.css" th:href="@{/resources/css/dataTables.tableTools.css}" media="screen"/>
+        <link rel="stylesheet" type="text/css" href="/resources/css/dataTables.bootstrap.css" th:href="@{/resources/css/dataTables.bootstrap.css}" media="screen"/>
+        <!--<link rel="stylesheet" type="text/css" href="/resources/css/bootstrap-theme.css" th:href="@{/resources/css/bootstrap-theme.css}"/>-->
+        <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/pnotify/1.3.1/jquery.pnotify.default.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/resources/css/jquery.pnotify.default.icons.css" th:href="@{/resources/css/jquery.pnotify.default.icons.css}"/>
+        <link rel="stylesheet" type="text/css" href="/resources/css/specific.css" th:href="@{/resources/css/specific.css}"/>
+        <link rel="icon" type="image/ico" href="/resources/favicon.ico" th:href="@{/resources/favicon.ico}"/>
+        
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700"/>
+        
+        <title>Chinchilla</title>
+    </head>
+    
+    <body class="smart-style-3">
+        
+        <nav  id="header" tiles:include="inc_header" class="navbar navbar-default navbar-static-top navbar-orange" role="navigation"></nav>
+        
+        <div class="row">
+            
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="left-panel" tiles:include="inc_leftpanel"></div>
+            
+            <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10" id="main">
+        
+                <div class="row" id="content">
+                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" id="middle-panel" tiles:include="inc_content"></div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" id="right-panel" tiles:include="inc_rightpanel" style="display: none"></div>
+                </div>
+                <div class="row" id="content">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="lower-panel" tiles:include="inc_second_content"></div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div id="layout_notification"  class="layout" hidden="true">
+        </div>
+        
+        <div id="layout_hidden"  class="layout" hidden="true">
+        </div>
+        
+    </body>
+    
+<script th:inline="javascript">/*<![CDATA[*/
+    
+    var stack_bar_bottom = {
+            "dir1": "down", 
+            "dir2": "right", 
+            "push": "top", 
+            "spacing1": 0, 
+            "spacing2": 0
+        };
+        
+        //Custom validators
+        jQuery.validator.addMethod("minNumber", function(value, element, params) {
+            return this.optional(element) || parseFloat( params ) <= parseFloat( value.replace( /\./, "" ).replace( /,/, "." ) );
+          }, "El numero debe ser mayor a {0}");
+
+    $(document).ready(function() {
+       
+//        tabla_opciones.oLanguage = $.t("dataTablesLanguage");
+//        console.debug("$.i18n.lng "+JSON.stringify(i18n.lng,null,"\t"));
+//        var temp = i18n.removeResourceBundle(lang, 'dataTablesLanguage');
+//        console.debug("temp "+JSON.stringify(temp,null,"\t"));
+//        console.debug("$.i18n.resStore "+JSON.stringify(resStore,null,"\t"));
+//        jQuery.i18n.properties({
+//            name:'messages',
+//            path:clientSideResources,
+//            mode:'both'
+//          });
+			
+//	pageSetUp();
+        /*
+         * Notificador
+         */
+        var notificacion = /*[[${notificacion}]]*/null;
+        
+        if(notificacion){
+            
+            $.pnotify.defaults.delay = 10000;
+            
+            $.pnotify({
+		title: notificacion.titulo,
+		text: notificacion.fecha +' - '+ notificacion.mensaje,
+                type: notificacion.tipo,
+                addclass: "stack-bar-bottom",
+                stack: stack_bar_bottom,
+                width: "40%",
+                styling: "bootstrap",
+                icon: true,
+                closer: true,
+                history: false
+            });
+            
+        }
+        
+        /*
+         * Hacer desaparecer panel derecho si no hay nada
+         */
+        var layout_rightpanel = $('#right-panel');
+        
+        var layout_middle_panel = $('#middle-panel');
+        
+        if(layout_rightpanel && layout_middle_panel){
+            
+            var rightContent = layout_rightpanel.html();
+            
+//            console.debug('contenidoDerecho '+rightContent);
+            
+            if( !rightContent || 
+                rightContent === '' || 
+                rightContent === 'vacio' || 
+                rightContent === 'empty' ){
+            
+                layout_middle_panel.removeClass('col-sm-8 col-md-8 col-lg-8').addClass('col-sm-12 col-md-12 col-lg-12');
+                layout_rightpanel.hide();
+                
+            }else {
+            
+                layout_middle_panel.removeClass('col-sm-12 col-md-12 col-lg-12').addClass('col-sm-8 col-md-8 col-lg-8');
+                layout_rightpanel.show();
+                
+            }
+            
+        }       
+        
+    });
+    
+/*]]>*/</script>     
+    
+</html>

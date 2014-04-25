@@ -8,67 +8,40 @@
         
         var options = {
             series : {
-                    pie : {
-                            show : true,
-                            innerRadius : 0.2,
-                            radius : 1,
-                            label : {
-                                    show : true,
-                                    radius : 1,
-                                    formatter : function(label, series) {
-                                            return '<div style="font-size:11px;text-align:center;padding:4px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
-                                    },
-                                    background: {
-                                        opacity: 0.5
-                                    },
-                                    threshold : 0.1
-                            }
+                pie : {
+                    show : true,
+                    innerRadius : 0.2,
+                    radius : 1,
+                    label : {
+                        show : true,
+                        radius : 1,
+                        formatter : function(label, series) {
+                            return '<div style="font-size:11px;text-align:center;padding:4px;color:white;">' + label + '<br/>' + Math.round(series.percent) + '%</div>';
+                        },
+                        background: {
+                            opacity: 0.5
+                        },
+                        threshold : 0.1
                     }
+                }
             },
             legend : {
-                    show : true,
-                    noColumns : 1, // number of colums in legend table
-                    labelFormatter : null, // fn: string -> string
-                    labelBoxBorderColor : "#C2C2C2", // border color for the little label boxes
-                    container : null, // container (as jQuery object) to put legend in, null means default on top of graph
-                    position : "ne", // position of default legend container within plot
-                    margin : [5, 5], // distance from grid edge to default legend container within plot
-                    backgroundColor : "#FAFAFA", // null means auto-detect
-                    backgroundOpacity : 1 // set to 0 to avoid background
+                show : true,
+                noColumns : 1, // number of colums in legend table
+                labelFormatter : null, // fn: string -> string
+                labelBoxBorderColor : "#C2C2C2", // border color for the little label boxes
+                container : null, // container (as jQuery object) to put legend in, null means default on top of graph
+                position : "ne", // position of default legend container within plot
+                margin : [5, 5], // distance from grid edge to default legend container within plot
+                backgroundColor : "#FAFAFA", // null means auto-detect
+                backgroundOpacity : 1 // set to 0 to avoid background
             },
             grid : {
-                    hoverable : true,
-                    clickable : true
+                hoverable : true,
+                clickable : true
             }
         };        
         
-//        var parcelaTitle = /*[[#{parcela}]]*/null;
-//        var fechaTitle = /*[[#{fecha}]]*/null;     
-        
-//        var aoAdvancedFilter = [{
-//                sTitle: parcelaTitle,
-//                aoOperations:[{
-//                        sOperation:"contains",
-//                        sValue1:"Chinchilla"
-//                        }]
-//                },{
-//                sTitle: fechaTitle,
-//                aoOperations:[{
-//                        sOperation:"after",
-//                        sValue1:"30/12/2013"
-//                        }]
-//                }];
-//            
-//         tabla_opciones.aoAdvancedFilter = aoAdvancedFilter;
-            
-//        console.debug('tabla_opciones.aoAdvancedFilter '+JSON.stringify(aoAdvancedFilter,null,'\t') ); 
-        
-//        var producciones = /*[[${producciones}]]*/null;
-//        var cultivos = /*[[${cultivos}]]*/null;  
-//        var parcelas = /*[[${parcelas}]]*/null;  
-//            console.log( 'producciones: ' +producciones);
-//            console.log( 'cultivos: ' +cultivos);
-//            console.log( 'parcelas: ' +parcelas);
         var pieChartProduccionParcela;
         var pieChartProduccionCultivo;
 
@@ -84,21 +57,27 @@
             
             var parcelaColumn, cultivoColumn, kilosColumn;
             
+            var parcelaLocale = /*[[#{parcela}]]*/null;
+            var cultivoLocale = /*[[#{cultivo}]]*/null;
+            var kilosLocale = /*[[#{kilos}]]*/null;
+//            console.log( 'parcelaLocale ' + parcelaLocale);
+//            console.log( 'cultivoLocale ' + cultivoLocale);
+//            console.log( 'okilosLocale ' + kilosLocale);
+            
             for(var i=0; i<oSettings.aoColumns.length; i++){
-                if(oSettings.aoColumns[i].sTitle === $.t("parcela"))
+                if(oSettings.aoColumns[i].sTitle === parcelaLocale)
                     parcelaColumn = oSettings.aoColumns[i].mData;
-                if(oSettings.aoColumns[i].sTitle === $.t("cultivo"))
+                if(oSettings.aoColumns[i].sTitle === cultivoLocale)
                     cultivoColumn = oSettings.aoColumns[i].mData;
-                if(oSettings.aoColumns[i].sTitle === $.t("kilos"))
+                if(oSettings.aoColumns[i].sTitle === kilosLocale)
                     kilosColumn = oSettings.aoColumns[i].mData;
             }
+            
 //            console.log( 'parcelaColumn: ' + parcelaColumn);
 //            console.log( 'cultivoColumn: ' + cultivoColumn);
 //            console.log( 'kilosColumn: ' + kilosColumn);
 
-            //TODO Change to aoData instead of producciones
             for(var i=0; i<oSettings.aiDisplay.length; i++){
-                
                 
 //            console.log( 'oSettings.aoData['+i+']._aData: ' + JSON.stringify(oSettings.aoData[i]._aData,null,'\t') );
                 
@@ -157,30 +136,14 @@
 
             options_cultivo.colors = Util.getRainbowColors(data_pie_produccion_cultivo.length);
 
-    //        options_parcela.legend.noColumns = Math.ceil(data_pie_produccion_parcela.length/14);
-    //        
-    //        options_cultivo.legend.noColumns = Math.ceil(data_pie_produccion_cultivo.length/14);
-    
-    
-//            console.info("starting plot? "+(!pieChartProduccionParcela && !pieChartProduccionCultivo));
-    
-//            if(!pieChartProduccionParcela && !pieChartProduccionCultivo){
+//            options_parcela.legend.noColumns = Math.ceil(data_pie_produccion_parcela.length/14);
+//
+//            options_cultivo.legend.noColumns = Math.ceil(data_pie_produccion_cultivo.length/14);
 
-                pieChartProduccionParcela = $.plot($("#pie-chart-produccion-parcela"), data_pie_produccion_parcela, options_parcela);
+            pieChartProduccionParcela = $.plot($("#pie-chart-produccion-parcela"), data_pie_produccion_parcela, options_parcela);
 
-                pieChartProduccionCultivo = $.plot($("#pie-chart-produccion-cultivo"), data_pie_produccion_cultivo, options_cultivo);   
-
-//            }else{
-//                
-//                pieChartProduccionParcela.setData(data_pie_produccion_parcela);
-//                pieChartProduccionParcela.setupGrid(); //only necessary if your new data will change the axes or grid
-//                pieChartProduccionParcela.draw();
-//                
-//                pieChartProduccionCultivo.setData(data_pie_produccion_cultivo);
-//                pieChartProduccionCultivo.setupGrid(); //only necessary if your new data will change the axes or grid
-//                pieChartProduccionCultivo.draw();
-//                
-//            }
+            pieChartProduccionCultivo = $.plot($("#pie-chart-produccion-cultivo"), data_pie_produccion_cultivo, options_cultivo);   
+                
         };
     
         var tabla_producciones = $('#tabla_producciones').dataTable(tabla_opciones);
@@ -190,11 +153,6 @@
 //        console.debug('tabla_producciones.oSettings '+JSON.stringify(tabla_producciones.fnSettings(),null,'\t') );
         
 //        tabla_producciones.fnDraw(); 
-        
-//        var grafico_tarta_produccion_parcela = /*[[${grafico_tarta_produccion_parcela}]]*/null;
-        
-//        var grafico_tarta_produccion_cultivo = /*[[${grafico_tarta_produccion_cultivo}]]*/null;
-
         
     });
     

@@ -1,0 +1,148 @@
+<!--
+The MIT License
+
+Copyright 2014 Pepe.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<!DOCTYPE html>
+<html>
+    
+    <script>
+
+        var url_wunderground = "http://api.wunderground.com/api/b7c6967273eb1adf/geolookup/conditions/lang:SP/q/37.3258,-5.2061.json";
+
+        var weather;
+
+        function setUpWeatherBar(){
+            var iconUrl = weather.current_observation.icon_url.replace('i/c/k','i/c/i');
+            var weather_string = (weather.current_observation.weather+'');
+            var temp_c = (weather.current_observation.temp_c+'').replace('.',',')+' \u00BAC';
+            var feelslike_c = (weather.current_observation.feelslike_c+'').replace('.',',')+' \u00BAC';
+            var wind_kph = (weather.current_observation.wind_kph+'').replace('.',',')+' Km\/h';
+            var wind_dir = (weather.current_observation.wind_dir+'');
+            var relative_humidity = (weather.current_observation.relative_humidity+'').replace('.',',');
+            var precip_today_metric = (weather.current_observation.precip_today_metric+'').replace('.',',')+' mm';
+
+            var deg = {};
+            deg.Norte='0';
+            deg.NNE='22';
+            deg.NE='45';
+            deg.ENE='67';
+            deg.Este='90';
+            deg.ESE='112';
+            deg.SE='135';
+            deg.SSE='157';
+            deg.Sur='180';
+            deg.SSO='202';
+            deg.SO='225';
+            deg.OSO='247';
+            deg.Oeste='270';
+            deg.ONO='292';
+            deg.NO='315';
+            deg.NNO='337';
+
+//                    $("#icon-wind").css( 'transform',  'rotate('+deg[wind_dir]+'deg)'); 
+            if(deg[wind_dir]!=deg.N)
+                $("#icon-wind").addClass('fa-rotate-'+deg[wind_dir]);
+
+            $('#weather-icon').attr('src',iconUrl);
+            $('#weather-icon').attr('alt',weather_string);
+            $('#weather-temp').text(temp_c);
+            $('#weather-feelslike').text(feelslike_c);
+            $('#weather-windspeed').text(wind_kph);
+            $('#weather-winddir').append("&nbsp;"+wind_dir);
+            $('#weather-humidity').text(relative_humidity);
+            $('#weather-precip').text(precip_today_metric);
+            $('#weather-bar').show();
+        }
+
+        jQuery(document).ready(function($) {
+
+          $.ajax({
+                  url : url_wunderground,
+                  dataType : "jsonp",
+                  success : function(parsed_json) {weather = parsed_json; setUpWeatherBar();}
+          });
+
+        });
+    </script>
+
+    <div class="container-fluid">
+        
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span id="logo" class="navbar-brand">
+                <img alt="Chinchilla" th:src="@{/resources/img/chaparro-logo-chinchilla-minimal.png}" src="resources/img/chaparro-logo-chinchilla-minimal.png" style="height: auto; width: auto;"/>
+            </span> 
+        </div>
+        
+        <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+
+            <!-- pulled right: nav area -->
+            <div class="navbar-right">
+
+                <!-- configuration -->
+                <div id="configuration-menu" class="btn-header pull-right">
+                        <span> <a th:href="@{/configuracion.html}" title="Configuration"><i class="icon-cog"></i></a> </span>
+                </div>
+
+                <!-- collapse menu button -->
+                <div id="hide-menu" class="btn-header pull-right">
+                        <span> <a href="javascript:void(0);" title="Collapse Menu"><i class="icon-twocolumnsright"></i></a> </span>
+                </div>
+
+                <!-- dashboard -->
+                <div id="dashboard-menu" class="btn-header pull-right">
+                        <span> <a th:href="@{/portal.html}" title="Portal"><i class="icon-home"></i></a> </span>
+                </div>
+
+            </div>
+
+            <!--Weather-->
+            <div id="weather-bar" class="navbar-right" style="display: none; margin-right: 15px; padding-top: 5px">
+                <img id="weather-icon" style="height: 40px; width: 40px; margin-top: -20px; display: inline-block;" src="" alt=""/>
+                <ul style="display: inline-block; list-style-type:none; margin: 0px; padding-left: 10px;">
+                    <li id="weather-temp" class="font-md txt-color-white" ></li>
+                    <li id="weather-feelslike" class="font-xs txt-color-white text-right" ></li>
+                </ul>
+                <ul style="display: inline-block; list-style-type:none; margin: 0px; padding-left: 10px;">
+                    <li id="weather-windspeed" class="font-xs txt-color-white" style=""></li>
+                    <li id="weather-winddir" class="font-xs txt-color-white" style="">
+                        <i id="icon-wind" class="fa fa-long-arrow-up" style="margin-right: 3px"></i>
+                    </li>
+                </ul>
+                <ul style="display: inline-block; list-style-type:none; margin: 0px; padding-left: 10px;">
+                    <li id="weather-humidity" class="font-xs txt-color-white" style=""></li>
+                    <li id="weather-precip" class="font-xs txt-color-white" style=""></li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>    
+    
+</html>
+
+        

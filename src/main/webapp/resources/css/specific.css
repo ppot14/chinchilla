@@ -64,6 +64,16 @@ h2 {
 /*
 * Bootstrap
 */
+
+.navbar-orange {
+    background-color: #f78c40;
+    border-color: #d67632;
+}
+
+.navbar-brand {
+    padding: 10px;
+}
+
 .well {
     border-radius: 0px;
 }
