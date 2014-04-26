@@ -108,67 +108,37 @@
     
     
 /*]]>*/</script> 
+
 <div class="row" th:inline="text">
     <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-        <h1 class="page-title txt-color-blueDark" ><i class="fa fa-lg fa-fw fa-table"></i> [[#{meteorologia}]]</h1>
+        <h1 class="page-title" ><i class="icon-rain"></i> [[#{meteorologia}]]</h1>
     </div>
     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
     </div>
 </div>
 
-    <!-- widget grid -->
-    <section id="widget-grid" class="" th:inline="text">
+<div class="row" th:inline="text">
 
-        <!-- row -->
-        <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-            <!-- NEW WIDGET START -->
-            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="panel panel-primary panel-module">
+            
+            <div class="panel-heading">
 
-                <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false"
-                                                        data-widget-editbutton="false"
-                                                        data-widget-togglebutton="true"
-                                                        data-widget-deletebutton="false"
-                                                        data-widget-fullscreenbutton="false"
-                                                        data-widget-custombutton="false"
-                                                        data-widget-collapsed="false" 
-                                                        data-widget-sortable="false">
-                    <header>
-                        <h2><i class="icon-calendarthree"></i> <strong>[[#{calendario}]]</strong></h2>					
-<!--                        <div class="widget-toolbar"> 
-                            <a id="anadir-tipo-labor-link" class="btn btn-default btn-sm" th:href="@{/labores/tabla/form/labor.html(id=-1)}">
-                                 <span class="glyphicon glyphicon-plus"></span> [[#{anadir-labor}]]
-                            </a>
-                        </div>-->
-                    </header>
+                    <h2><i class="icon-calendarthree"></i> [[#{calendario}]]</h2>	
 
-                    <!-- widget div-->
-                    <div class="">
-                        <!-- widget edit box -->
-<!--                        <div class="jarviswidget-editbox">
-                        </div>-->
-                        <!-- widget content no-padding-->
-                        <div class="widget-body no-padding">
-<!--                            <div class="widget-body-toolbar">
-				
-                                <div id="calendar-buttons">
+            </div>
 
-                                        <div class="btn-group">
-                                                <a href="javascript:void(0)" class="btn btn-default btn-xs" id="btn-prev"><i class="fa fa-chevron-left"></i></a>
-                                                <a href="javascript:void(0)" class="btn btn-default btn-xs" id="btn-next"><i class="fa fa-chevron-right"></i></a>
-                                        </div>
-                                </div>
+            <div class="panel-body">
 
-                            </div>-->
-                            
-                            <div id="calendar"></div>
-                            
-                        </div>
-                    </div>
+                    <div id="calendar"></div>
 
-                </div>
-            </article>
+            </div>
+
         </div>
-    </section>
+
+    </div>
+            
+</div>
+
 </html>

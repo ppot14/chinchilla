@@ -101,28 +101,28 @@ THE SOFTWARE.
         <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
 
             <!-- pulled right: nav area -->
-            <div class="navbar-right">
+            <div class="navbar-form navbar-right">
 
                 <!-- configuration -->
-                <div id="configuration-menu" class="btn-header pull-right">
-                        <span> <a th:href="@{/configuracion.html}" title="Configuration"><i class="icon-cog"></i></a> </span>
-                </div>
+                <a th:href="@{/configuracion.html}" title="Configuration" class="btn btn-default">
+                    <i class="icon-cog"></i>
+                </a> 
 
                 <!-- collapse menu button -->
-                <div id="hide-menu" class="btn-header pull-right">
-                        <span> <a href="javascript:void(0);" title="Collapse Menu"><i class="icon-twocolumnsright"></i></a> </span>
-                </div>
+                <a href="javascript:void(0);" title="Collapse Menu" class="btn btn-default">
+                    <i class="icon-twocolumnsright"></i>
+                </a> 
 
                 <!-- dashboard -->
-                <div id="dashboard-menu" class="btn-header pull-right">
-                        <span> <a th:href="@{/portal.html}" title="Portal"><i class="icon-home"></i></a> </span>
-                </div>
+                <a th:href="@{/portal.html}" title="Portal" class="btn btn-default">
+                    <i class="icon-home"></i>
+                </a>
 
             </div>
 
             <!--Weather-->
-            <div id="weather-bar" class="navbar-right" style="display: none; margin-right: 15px; padding-top: 5px">
-                <img id="weather-icon" style="height: 40px; width: 40px; margin-top: -20px; display: inline-block;" src="" alt=""/>
+            <div id="weather-bar" class="navbar-right" style="display: none; margin-right: 15px; padding-top: 3px">
+                <img id="weather-icon" style="height: 40px; width: 40px; margin-top: -24px; display: inline-block;" src="" alt=""/>
                 <ul style="display: inline-block; list-style-type:none; margin: 0px; padding-left: 10px;">
                     <li id="weather-temp" class="font-md txt-color-white" ></li>
                     <li id="weather-feelslike" class="font-xs txt-color-white text-right" ></li>

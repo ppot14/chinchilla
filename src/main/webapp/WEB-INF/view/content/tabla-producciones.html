@@ -140,10 +140,13 @@
 //
 //            options_cultivo.legend.noColumns = Math.ceil(data_pie_produccion_cultivo.length/14);
 
-            pieChartProduccionParcela = $.plot($("#pie-chart-produccion-parcela"), data_pie_produccion_parcela, options_parcela);
+            setTimeout(function(){
 
-            pieChartProduccionCultivo = $.plot($("#pie-chart-produccion-cultivo"), data_pie_produccion_cultivo, options_cultivo);   
-                
+                pieChartProduccionParcela = $.plot($("#pie-chart-produccion-parcela"), data_pie_produccion_parcela, options_parcela);
+
+                pieChartProduccionCultivo = $.plot($("#pie-chart-produccion-cultivo"), data_pie_produccion_cultivo, options_cultivo);   
+             
+            },1000);   
         };
     
         var tabla_producciones = $('#tabla_producciones').dataTable(tabla_opciones);
@@ -160,162 +163,116 @@
 /*]]>*/</script> 
 <div class="row" th:inline="text">
     <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-        <h1 class="page-title txt-color-blueDark" ><i class="glyphicon glyphicon-inbox"></i> [[#{producciones}]]</h1>
+        <h1 class="page-title" ><i class="glyphicon glyphicon-inbox"></i> [[#{producciones}]]</h1>
     </div>
     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
     </div>
 </div>
-<!-- widget grid -->
-<section id="widget-grid" class="" th:inline="text">
 
-    <!-- row -->
-    <div class="row">
+<div class="row" th:inline="text">
 
-        <!-- NEW WIDGET START -->
-        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-            <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false"
-                                                    data-widget-editbutton="false"
-                                                    data-widget-togglebutton="true"
-                                                    data-widget-deletebutton="false"
-                                                    data-widget-fullscreenbutton="false"
-                                                    data-widget-custombutton="false"
-                                                    data-widget-collapsed="false" 
-                                                    data-widget-sortable="false">
-                <header>
-                    <h2><i class="fa fa-lg fa-fw fa-table"></i> <strong>[[#{tabla}]]</strong></h2>					
-                    <div class="widget-toolbar"> 
-                        <a id="anadir-tipo-labor-link" class="btn btn-default btn-sm" th:href="@{/producciones/tabla/form/produccion.html(id=-1)}">
-                             <span class="glyphicon glyphicon-plus"></span> [[#{anadir-produccion}]]
-                        </a>
-                    </div>
-                </header>
+        <div class="panel panel-primary panel-module">
+            
+            <div class="panel-heading">
+                
+                <h2 class="pull-left"><i class="fa fa-table"></i> [[#{tabla}]]</h2>					
+                <div class="pull-right"> 
+                    <a id="anadir-tipo-labor-link" class="btn btn-default btn-xs" th:href="@{/producciones/tabla/form/produccion.html(id=-1)}">
+                         <span class="glyphicon glyphicon-plus"></span> [[#{anadir-produccion}]]
+                    </a>
+                </div>	
 
-                <!-- widget div-->
-                <div class="no-padding">
-                    <!-- widget edit box -->
-                    <div class="jarviswidget-editbox">
-                    </div>
-                    <!-- widget content -->
-                    <div class="widget-body">
-<!--                        <div class="widget-body-toolbar">
+            </div>
 
-                        </div>-->
+            <div class="panel-body">
                             
-                        <table id="tabla_producciones" class="table table-striped table-bordered table-hover table-condensed">
-                            <thead>
-                                <tr>
-                                  <th>[[#{id-produccion}]]</th>
-                                  <th>[[#{cultivo}]]</th>
-                                  <th>[[#{parcela}]]</th>
-                                  <th>[[#{fecha}]]</th>
-                                  <th>[[#{kilos}]]</th>
-                                  <th>[[#{precio-kilo}]]</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr  th:each="producciones_item : ${producciones}">
-                                  <td>
-                                      <a th:href="@{/producciones/tabla/form/produccion.html(id=${producciones_item.id_produccion})}">
-                                          [[${producciones_item.id_produccion}]]
-                                      </a>
-                                  </td>
-                                      <!--<a th:href="@{/cultivos/tabla/form/cultivo.html(id=${cultivos_item.id_cultivo})}">-->
-                                      <!--</a>-->
-                                  <td th:each="cultivos_item : ${cultivos}" 
-                                      th:if="${cultivos_item.id_cultivo == producciones_item.id_cultivo}">
-                                          [[${cultivos_item.especie+' - '+cultivos_item.variedad}]]
-                                  </td>
-                                  <td th:each="parcelas_item : ${parcelas}" 
-                                      th:if="${parcelas_item.id_parcela == producciones_item.id_parcela}">
-                                      [[${parcelas_item.zona+' - '+parcelas_item.nombre}]]
-                                  </td>
-                                  <td>[[${#dates.format(producciones_item.fecha,'dd/MM/yyyy')}]]</td>
-                                  <td>[[${producciones_item.kilos}]]</td>
-                                  <td>[[${#numbers.formatDecimal(producciones_item.precio_kilo,1,'POINT',3,'COMMA')}]]</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                    </div>
-                </div>
+                <table id="tabla_producciones" class="table table-striped table-bordered table-hover table-condensed">
+                    <thead>
+                        <tr>
+                          <th>[[#{id-produccion}]]</th>
+                          <th>[[#{cultivo}]]</th>
+                          <th>[[#{parcela}]]</th>
+                          <th>[[#{fecha}]]</th>
+                          <th>[[#{kilos}]]</th>
+                          <th>[[#{precio-kilo}]]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  th:each="producciones_item : ${producciones}">
+                          <td>
+                              <a th:href="@{/producciones/tabla/form/produccion.html(id=${producciones_item.id_produccion})}">
+                                  [[${producciones_item.id_produccion}]]
+                              </a>
+                          </td>
+                              <!--<a th:href="@{/cultivos/tabla/form/cultivo.html(id=${cultivos_item.id_cultivo})}">-->
+                              <!--</a>-->
+                          <td th:each="cultivos_item : ${cultivos}" 
+                              th:if="${cultivos_item.id_cultivo == producciones_item.id_cultivo}">
+                                  [[${cultivos_item.especie+' - '+cultivos_item.variedad}]]
+                          </td>
+                          <td th:each="parcelas_item : ${parcelas}" 
+                              th:if="${parcelas_item.id_parcela == producciones_item.id_parcela}">
+                              [[${parcelas_item.zona+' - '+parcelas_item.nombre}]]
+                          </td>
+                          <td>[[${#dates.format(producciones_item.fecha,'dd/MM/yyyy')}]]</td>
+                          <td>[[${producciones_item.kilos}]]</td>
+                          <td>[[${#numbers.formatDecimal(producciones_item.precio_kilo,1,'POINT',3,'COMMA')}]]</td>
+                        </tr>
+                    </tbody>
+                </table>
 
             </div>
-        </article>
+
+        </div>
+
     </div>
-    <!-- row -->
-    <div class="row">
-        
-        <!-- NEW WIDGET START -->
-        <article class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             
-            <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget" id="wid-id-1" data-widget-colorbutton="false"
-                                                    data-widget-editbutton="false"
-                                                    data-widget-togglebutton="true"
-                                                    data-widget-deletebutton="false"
-                                                    data-widget-fullscreenbutton="false"
-                                                    data-widget-custombutton="false"
-                                                    data-widget-collapsed="false" 
-                                                    data-widget-sortable="false">
-                <header>
-                    <h2><i class="icon-statistics"></i> <strong>[[#{produccion-por-parcela}]]</strong></h2>					
-<!--                    <div class="widget-toolbar"> 
-                    </div>-->
-                </header>
+</div>
 
-                <!-- widget div-->
-                <div class="no-padding">
-                    <!-- widget edit box -->
-                    <div class="jarviswidget-editbox">
-                    </div>
-                    <!-- widget content -->
-                    <div class="widget-body">
-                        <div id="pie-chart-produccion-parcela" class="chart"></div>
-                        
-                    </div>
-                </div>
+<div class="row" th:inline="text">
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+        <div class="panel panel-primary panel-module">
+            
+            <div class="panel-heading">
+                
+                <h2><i class="icon-statistics"></i> [[#{produccion-por-parcela}]]</h2>
 
             </div>
-            
-        </article>
-        
-        <!-- NEW WIDGET START -->
-        <article class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            
-            <!-- Widget ID (each widget will need unique ID)-->
-            <div class="jarviswidget" id="wid-id-2" data-widget-colorbutton="false"
-                                                    data-widget-editbutton="false"
-                                                    data-widget-togglebutton="true"
-                                                    data-widget-deletebutton="false"
-                                                    data-widget-fullscreenbutton="false"
-                                                    data-widget-custombutton="false"
-                                                    data-widget-collapsed="false" 
-                                                    data-widget-sortable="false">
-                <header>
-                    <h2><i class="icon-statistics"></i> <strong>[[#{produccion-por-cultivo}]]</strong></h2>					
-<!--                    <div class="widget-toolbar"> 
-                    </div>-->
-                </header>
 
-                <!-- widget div-->
-                <div class="no-padding">
-                    <!-- widget edit box -->
-                    <div class="jarviswidget-editbox">
-                    </div>
-                    <!-- widget content -->
-                    <div class="widget-body">
-                        <div id="pie-chart-produccion-cultivo" class="chart"></div>
-                        
-                    </div>
-                </div>
+            <div class="panel-body">
+                
+                <div id="pie-chart-produccion-parcela" class="chart"></div>
 
             </div>
-            
-        </article>
-        
+
+        </div>
+
     </div>
-</section>
+
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+        <div class="panel panel-primary panel-module">
+            
+            <div class="panel-heading">
+                
+                <h2><i class="icon-statistics"></i> [[#{produccion-por-cultivo}]]</h2>	
+
+            </div>
+
+            <div class="panel-body">
+                
+                <div id="pie-chart-produccion-cultivo" class="chart"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+        
+</div>
     
 </html>

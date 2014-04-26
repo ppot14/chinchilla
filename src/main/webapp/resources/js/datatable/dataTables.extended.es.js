@@ -58,8 +58,8 @@ var tabla_opciones = {
     "oLanguage": dataTablesLanguage,
     "bProcessing": true,
     
-//            "sScrollX": "100%"
-//            "sScrollXInner": "150%"
+//            "sScrollX": "100%",
+            "sScrollXInner": "150%",
 //            "bScrollCollapse": true,
 //            "bStateSave": true
 //            

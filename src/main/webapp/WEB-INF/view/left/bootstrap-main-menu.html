@@ -34,14 +34,14 @@ THE SOFTWARE.
         </span>
     </div>
     <div class="well well-sm"  id="menu-nav" th:inline="text">
-         <ul>
+         <ul class="nav nav-pills nav-stacked">
              <li>
                  <a href="#" id="menu-parcelas">
                      <i class="icon-fence"></i> [[#{parcelas}]]
                  </a>
-                 <ul style="display: none;">
-                    <li><a th:href="@{/parcelas/mapa.html}">[[#{mapa}]]</a></li>
-                    <li><a th:href="@{/parcelas/tabla.html}">[[#{tabla}]]</a></li>
+                 <ul  class="nav nav-pills nav-stacked" style="margin-left: 20px">
+                    <li><a th:href="@{/parcelas/mapa.html}"><i class="icon-map"></i> [[#{mapa}]]</a></li>
+                    <li><a th:href="@{/parcelas/tabla.html}"><i class="fa fa-table"></i> [[#{tabla}]]</a></li>
                  </ul>
              </li>
              <li>
@@ -84,7 +84,7 @@ THE SOFTWARE.
              </li>
              <li>
                  <a th:href="@{/productos/tabla.html}" id="menu-productos">
-                     <i class="icon-barcode"></i> [[#{producto}]]
+                     <i class="icon-barcode"></i> [[#{productos}]]
                  </a>
              </li>
              <li>

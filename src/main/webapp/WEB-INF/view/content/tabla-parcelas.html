@@ -10,83 +10,61 @@
     
     
 /*]]>*/</script> 
+
 <div class="row" th:inline="text">
     <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-        <h1 class="page-title txt-color-blueDark"><i class="icon-fence"></i> [[#{parcela}]]</h1>
+        <h1 class="page-title"><i class="icon-fence"></i> [[#{parcela}]]</h1>
     </div>
     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
     </div>
 </div>
-<!--<div class="row text-right">
-<a id="anadir-tipo-parcela-link" 
-   class="btn btn-default btn-sm disabled" 
-   th:href="@{/parcela/tabla/form/parcela.html(id=-1)}" >
-    <span class="glyphicon glyphicon-plus"></span> <span th:text="#{anadir-parcela}">[anadir-parcela]</span></a>
-</div>-->
-    <!-- widget grid -->
-    <section id="widget-grid" class="" th:inline="text">
 
-        <!-- row -->
-        <div class="row">
+<div class="row" th:inline="text">
 
-            <!-- NEW WIDGET START -->
-            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-                <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false"
-                                                        data-widget-editbutton="false"
-                                                        data-widget-togglebutton="true"
-                                                        data-widget-deletebutton="false"
-                                                        data-widget-fullscreenbutton="false"
-                                                        data-widget-custombutton="false"
-                                                        data-widget-collapsed="false" 
-                                                        data-widget-sortable="false">
-                    <header>
-                        <h2><i class="fa fa-lg fa-fw fa-table"></i> <strong>[[#{tabla}]]</strong></h2>	
-                    </header>
+        <div class="panel panel-primary panel-module">
+            
+            <div class="panel-heading">
+                
+                <h2><i class="fa fa-table"></i> [[#{tabla}]]</h2>		
 
-                    <!-- widget div-->
-                    <div class="no-padding">
-                        <!-- widget edit box -->
-                        <div class="jarviswidget-editbox">
-                        </div>
-                        <!-- widget content -->
-                        <div class="widget-body">
-<!--                            <div class="widget-body-toolbar">
+            </div>
 
-                            </div>-->
+            <div class="panel-body">
                             
-                            <table id="tabla_parcela" class="table table-striped table-bordered table-hover table-hover table-condensed">
-                                <!--class="table table-stripped table-bordered table-hover table-condensed"-->
-                                <thead>
-                                    <tr>
-                                      <th th:text="#{id-parcela}"></th>
-                                      <th th:text="#{nombre}"></th>
-                                        <th th:text="#{nombre-corto}"></th>
-                                        <th th:text="#{zona}"></th>
-                                        <th th:text="#{extension}"></th>
-                                        <th th:text="#{cultivo-fijo}"></th>
-                                        <th th:text="#{color}"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr  th:each="parcela_item : ${parcelas}">
-                                        <td th:text="${parcela_item.id_parcela}"><a th:href="@{/parcela/tabla/form/parcela.html(id=${parcela_item.id_parcela})}" th:text="${parcela_item.id_parcela}">[id_parcela]</a></td>
-                                        <td th:text="${parcela_item.nombre}"></td>
-                                        <td th:text="${parcela_item.nombre_corto}"></td>
-                                        <td th:text="${parcela_item.zona}"></td>
-                                        <td th:text="${#numbers.formatDecimal(parcela_item.extension,1,'POINT',2,'COMMA')}"></td>
-                                        <td th:text="${parcela_item.cultivo_fijo}"></td>
-                                        <td th:text="${parcela_item.color}" th:style="${'color: #'+parcela_item.color}"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            
-                        </div>
-                    </div>
+                <table id="tabla_parcela" class="table table-striped table-bordered table-hover table-hover table-condensed">
+                    
+                    <thead>
+                        <tr>
+                          <th th:text="#{id-parcela}"></th>
+                          <th th:text="#{nombre}"></th>
+                            <th th:text="#{nombre-corto}"></th>
+                            <th th:text="#{zona}"></th>
+                            <th th:text="#{extension}"></th>
+                            <th th:text="#{cultivo-fijo}"></th>
+                            <th th:text="#{color}"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  th:each="parcela_item : ${parcelas}">
+                            <td th:text="${parcela_item.id_parcela}"><a th:href="@{/parcela/tabla/form/parcela.html(id=${parcela_item.id_parcela})}" th:text="${parcela_item.id_parcela}">[id_parcela]</a></td>
+                            <td th:text="${parcela_item.nombre}"></td>
+                            <td th:text="${parcela_item.nombre_corto}"></td>
+                            <td th:text="${parcela_item.zona}"></td>
+                            <td th:text="${#numbers.formatDecimal(parcela_item.extension,1,'POINT',2,'COMMA')}"></td>
+                            <td th:text="${parcela_item.cultivo_fijo}"></td>
+                            <td th:text="${parcela_item.color}" th:style="${'color: #'+parcela_item.color}"></td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                </div>
-            </article>
+            </div>
+
         </div>
-    </section>
+
+    </div>
+            
+</div>
+
 </html>

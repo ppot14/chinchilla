@@ -100,56 +100,37 @@
 
     <div class="row" th:inline="text">
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-            <h1 class="page-title txt-color-blueDark"><i class="icon-fence"></i> [[#{parcelas}]]</h1>
+            <h1 class="page-title"><i class="icon-fence"></i> [[#{parcelas}]]</h1>
         </div>
         <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
         </div>
     </div>
-    
-    <!-- widget grid -->
-    <section id="widget-grid" class="" th:inline="text">
 
-        <!-- row -->
-        <div class="row">
+    <!-- row -->
+    <div class="row" th:inline="text">
 
-            <!-- NEW WIDGET START -->
-            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!-- NEW WIDGET START -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-                <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false"
-                                                        data-widget-editbutton="false"
-                                                        data-widget-togglebutton="true"
-                                                        data-widget-deletebutton="false"
-                                                        data-widget-fullscreenbutton="false"
-                                                        data-widget-custombutton="false"
-                                                        data-widget-collapsed="false" 
-                                                        data-widget-sortable="false">
-                    <header>
-                        <h2><i class="icon-map"></i> <strong>[[#{mapa}]]</strong></h2>				
-                        <div class="widget-toolbar"> 
-                            <a id="ir-todo-link" 
-                               class="btn btn-default btn-sm" href="#">Todo</a>
-                            <a id="ir-chinchilla-link" 
-                               class="btn btn-default btn-sm" href="#">Chinchilla</a>
-                            <a id="ir-rancho-link" 
-                               class="btn btn-default btn-sm" href="#">Rancho</a>
-                        </div>
-                    </header>
-
-                    <!-- widget div-->
-                    <div class="no-padding">
-                        <!-- widget edit box -->
-                        <div class="jarviswidget-editbox">
-                        </div>
-                        <!-- widget content -->
-                        <div class="widget-body">
-                            <div id="map_canvas" ></div>
-                        </div>
+            <div class="panel panel-primary panel-module">
+                <div class="panel-heading">
+                    <h2 class="pull-left"><i class="icon-map"></i> [[#{mapa}]]</h2>				
+                    <div class="pull-right"> 
+                        <a id="ir-todo-link" 
+                           class="btn btn-default btn-xs" href="#">Todo</a>
+                        <a id="ir-chinchilla-link" 
+                           class="btn btn-default btn-xs" href="#">Chinchilla</a>
+                        <a id="ir-rancho-link" 
+                           class="btn btn-default btn-xs" href="#">Rancho</a>
                     </div>
-
                 </div>
-            </article>
+                
+                <div class="panel-body">
+                    <div id="map_canvas" ></div>
+                </div>
+
+            </div>
         </div>
-    </section>
+    </div>
 
 </html>
