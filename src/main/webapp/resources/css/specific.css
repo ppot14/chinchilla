@@ -394,6 +394,55 @@ h2.page-title{
 }
 
 /*
+ * jQuery UI spinner 1.10.3
+ */
+.ui-spinner {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  padding: 0;
+  vertical-align: middle;
+}
+.ui-spinner-input {
+  margin-right: 22px;
+}
+.ui-spinner-button {
+    height: 50%;
+    position: absolute;
+    display: block;
+    overflow: hidden;
+    right: 0;
+    border-left: 0 none;
+    background-color: #EEEEEE;
+    color: #555555;
+    line-height: 1;
+    padding: 0px 12px;
+    text-align: center;
+}
+/* more specificity required here to overide default borders */
+.ui-spinner a.ui-spinner-button {
+}
+/* vertical centre icon */
+.ui-spinner .ui-icon {
+}
+.ui-spinner-up {
+    border-radius: 0 4px 0 0;
+    border: 1px solid #E7E7E7;
+    border-bottom: none;
+    top: 0;
+}
+.ui-spinner-down {
+    border-radius: 0 0 4px 0;
+    border: 1px solid #E7E7E7;
+    border-top: none;
+    bottom: 0;
+}
+/* need to fix icons sprite */
+.ui-spinner .ui-icon-triangle-1-s {
+  background-position: -65px -16px;
+}
+
+/*
 * Select2
 */
 .select2-container {
@@ -1688,7 +1737,7 @@ div.dataTables_wrapper table tfoot tr th .form-control  {
 * Spinner
 */
 
-.ui-widget {
+/*.ui-widget {
     font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
     font-size: 12px;
 }
@@ -1737,7 +1786,7 @@ div.dataTables_wrapper table tfoot tr th .form-control  {
 
 .select2-container, .select2-drop, .select2-search, .select2-search input {
     font-size: 12px;
-}
+}*/
 
 /*
 * Font Awesome

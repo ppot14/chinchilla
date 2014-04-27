@@ -59,7 +59,7 @@ var tabla_opciones = {
     "bProcessing": true,
     
 //            "sScrollX": "100%",
-            "sScrollXInner": "150%",
+//            "sScrollXInner": "150%",
 //            "bScrollCollapse": true,
 //            "bStateSave": true
 //            
