@@ -8,9 +8,15 @@
     
         var tabla_labores = $('#tabla_labores').dataTable(tabla_opciones);
         
-//         $( "#fecha_desde" ).datepicker();
-//         
-//         $( "#fecha_hasta" ).datepicker();
+        var aoAdvancedFilter = /*[[#{aoAdvancedFilter}]]*/null;
+        
+        console.debug('aoAdvancedFilter '+JSON.stringify(aoAdvancedFilter,null,'\t') );
+        
+//        tabla_labores.fnSettings().aoAdvancedFilter = aoAdvancedFilter;
+        
+//        console.debug('tabla_producciones.oSettings '+JSON.stringify(tabla_labores.fnSettings(),null,'\t') );
+        
+//        tabla_labores.fnDraw(); 
         
     });
     

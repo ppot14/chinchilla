@@ -1,9 +1,12 @@
 package com.chinchilla.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -29,27 +33,26 @@ public class IndexController extends AbstractController{
     }
     
     @RequestMapping("/portal.html")
-    public String portal(Model model, BindingResult result, SessionStatus status) throws Throwable {
+    public String portal(Model model) throws Exception {
         
         if(true==true)
-            throw new Throwable("BOOOOOMMMMMMMM!!!!!!!!!!!!!!!!!");
+            throw new Exception("BOOOOOMMMMMMMM!!!!!!!!!!!!!!!!!");
         
         return "portal";
     }
     
     // Error page
-    @ExceptionHandler(Throwable.class)
-    public String error(HttpServletRequest request, Throwable throwable, Model model) {
+    @ExceptionHandler(Exception.class)
+    public ModelAndView error(Exception exception, HttpServletRequest request) {
         
-        model.addAttribute("errorCode", request.getAttribute("javax.servlet.error.status_code"));
-        Throwable temp = (Throwable) request.getAttribute("javax.servlet.error.exception");
-        String errorMessage = null;
-        if (throwable != null) {
-            errorMessage = temp.getMessage();
-        }
-        model.addAttribute("errorMessage", errorMessage);
+        Map<String,Object> model =  new HashMap<String,Object>();
         
-        return "error";
+        model.put("errorCode", 500 );
+        model.put("errorMessage", exception.getMessage());
+        
+        ModelAndView modelView = new ModelAndView("error", model); 
+        
+        return modelView;
     }
 
 }

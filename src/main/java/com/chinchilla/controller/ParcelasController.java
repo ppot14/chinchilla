@@ -16,11 +16,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,15 +89,19 @@ public class ParcelasController extends AbstractController{
         modelMap.put("labores", labores);
         
         List<Parcela> parcelas = (List<Parcela>) modelMap.get("parcelas");
+       
+        log.info("parcelas: " + parcelas);
         
         Map<String,Object> aoAdvancedFilter = new HashMap<String,Object>();
         
         //TODO
         ApplicationContext context = new ClassPathXmlApplicationContext("**/spring-servlet.xml");
  
-	String column = context.getMessage("parcela", null,"Default", null);
+        Locale locale = LocaleContextHolder.getLocale();
         
-        if(column!=null && !"".equals(column)){
+	String column = context.getMessage("parcela", null, locale);
+        
+        if(column!=null && !"".equals(column) && parcelas!=null){
             
             for (Parcela temp : parcelas){
                 if(temp.getId_parcela() == id_parcela){

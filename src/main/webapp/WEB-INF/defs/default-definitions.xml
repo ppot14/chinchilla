@@ -19,7 +19,7 @@
 	</definition>
 
 	<definition name="error" extends="template">
-		<put-attribute name="content_main" value="content/error"/>
+		<put-attribute name="inc_content" value="content/error"/>
 	</definition>
 
         <!--Parcelas-->
