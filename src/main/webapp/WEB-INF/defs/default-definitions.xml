@@ -47,13 +47,13 @@
 		<put-attribute name="inc_secondary_content" value="content/tabla-producciones"/>
 	</definition>
         
-        <definition name="parcelas-mapa-form-produccion" extends="parcelas-mapa">
+<!--        <definition name="parcelas-mapa-form-produccion" extends="parcelas-mapa">
 		<put-attribute name="inc_rightpanel" value="right/form-produccion"/>
 	</definition>
         
         <definition name="parcelas-tabla-producciones" extends="parcelas-mapa">
 		<put-attribute name="inc_rightpanel" value="content/tabla-producciones"/>
-	</definition>
+	</definition>-->
         
         <!--Labores-->
         <definition name="labores-tabla" extends="template">
