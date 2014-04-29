@@ -402,6 +402,7 @@ h2.page-title{
   overflow: hidden;
   padding: 0;
   vertical-align: middle;
+  width: 100%;
 }
 .ui-spinner-input {
   margin-right: 22px;
@@ -449,6 +450,7 @@ h2.page-title{
   margin: 0;
   position: relative;
   display: inline-block;
+  height: auto;
   /* inline-block for ie7 */
   zoom: 1;
   *display: inline;
@@ -822,12 +824,12 @@ disabled look for disabled choices in the results dropdown
 }
 /* multiselect */
 .select2-container-multi .select2-choices {
-  height: auto !important;
-  height: 1%;
+/*  height: auto !important;
+  height: 1%;*/
   margin: 0;
   padding: 0;
   position: relative;
-  border: 1px solid #ccc;
+  /*border: 1px solid #ccc;*/
   cursor: text;
   overflow: hidden;
   background-color: #fff;
@@ -836,7 +838,7 @@ disabled look for disabled choices in the results dropdown
   padding: 3px 5px 3px 5px !important;
 }
 .select2-container-multi .select2-choices {
-  min-height: 26px;
+  /*min-height: 26px;*/
 }
 .select2-container-multi.select2-container-active .select2-choices {
   border: 1px solid #5D98CC;
@@ -852,8 +854,8 @@ disabled look for disabled choices in the results dropdown
   white-space: nowrap;
 }
 .select2-container-multi .select2-choices .select2-search-field input {
-  padding: 5px;
-  margin: 1px 0;
+  /*padding: 5px;*/
+  /*margin: 1px 0;*/
   font-family: sans-serif;
   font-size: 100%;
   color: #666;
@@ -871,12 +873,12 @@ disabled look for disabled choices in the results dropdown
 }
 .select2-container-multi .select2-choices .select2-search-choice {
   padding: 1px 28px 1px 8px;
-  margin: 4px 0 3px 5px;
+  margin: 1px 3px 1px 0;
   position: relative;
   line-height: 18px;
   color: #fff;
   cursor: default;
-  border: 1px solid #2a6395;
+  /*border: 1px solid #2a6395;*/
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   -webkit-touch-callout: none;
@@ -885,7 +887,8 @@ disabled look for disabled choices in the results dropdown
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: #3276b1;
+  background-color: #158CBA;
+  border-radius: 4px;
 }
 .select2-container-multi .select2-choices .select2-search-choice .select2-chosen {
   cursor: default;
@@ -895,32 +898,39 @@ disabled look for disabled choices in the results dropdown
 }
 .select2-search-choice-close {
   display: block;
-  min-width: 21px;
-  min-height: 20px;
+/*  min-width: 21px;
+  min-height: 20px;*/
   position: absolute;
   right: 3px;
   top: 3px;
   margin: 0;
   padding: 0;
-  font-size: 15px;
-  line-height: 12px;
+/*  font-size: 15px;
+  line-height: 12px;*/
   text-decoration: none!important;
-  font-family: FontAwesome;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1;
+    text-shadow: 0 1px 0 #FFFFFF;
+  /*font-family: FontAwesome;*/
+  /*font-style: normal;*/
+  /*font-weight: normal;*/
+  /*line-height: 1;*/
+/*  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;*/
 }
 .select2-search-choice-close:before {
   color: #ffffff;
-  content: "\f057";
+  content: "x";
+      opacity: 0.4;
+    text-decoration: none;
 }
 .select2-container-multi .select2-search-choice-close {
   display: block;
   top: 0;
   right: 0;
-  padding: 3px 4px 3px 6px;
+  padding: 0px 6px 4px;
 }
 .select2-container-multi .select2-search-choice-close:hover {
   background: rgba(0, 0, 0, 0.3);
