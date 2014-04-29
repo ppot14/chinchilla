@@ -5,8 +5,10 @@ import com.chinchilla.form.ProduccionForm;
 import com.chinchilla.persistence.objects.Coordenada;
 import com.chinchilla.persistence.objects.CostePersonal;
 import com.chinchilla.persistence.objects.Cultivo;
+import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.persistence.objects.Maquinaria;
 import com.chinchilla.persistence.objects.Parcela;
+import com.chinchilla.persistence.objects.Produccion;
 import com.chinchilla.persistence.objects.Producto;
 import com.chinchilla.service.LaborService;
 import com.chinchilla.service.ProduccionService;
@@ -14,10 +16,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -69,6 +75,77 @@ public class ParcelasController extends AbstractController{
         mapa(model);
 
         return "parcelas-tabla";
+    }
+    
+    @RequestMapping(value = "/mapa/labores/tabla.html",params = {"id"}, method=RequestMethod.GET)
+    public String mapaLaboresTabla(@RequestParam(value = "id") Integer id_parcela, Model model) throws Exception {
+        
+        mapa(model);
+        
+        List<Labor> labores = laborDAO.getAll();
+
+        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
+
+        modelMap.put("labores", labores);
+        
+        List<Parcela> parcelas = (List<Parcela>) modelMap.get("parcelas");
+       
+        log.info("parcelas: " + parcelas);
+        
+        Map<String,Object> aoAdvancedFilter = new HashMap<String,Object>();
+        
+        //TODO
+        ApplicationContext context = new ClassPathXmlApplicationContext("**/spring-servlet.xml");
+ 
+        Locale locale = LocaleContextHolder.getLocale();
+        
+	String column = context.getMessage("parcela", null, locale);
+        
+        if(column!=null && !"".equals(column) && parcelas!=null){
+            
+            for (Parcela temp : parcelas){
+                if(temp.getId_parcela() == id_parcela){
+                    aoAdvancedFilter.put("sTitle", column);
+                    Map<String,String> oOperation = new HashMap<String,String>();
+                    oOperation.put("sOperation", "equal");
+                    oOperation.put("sValue1", temp.getNombre());
+                    List<Map<String,String>> aoOperations = new ArrayList<Map<String,String>>();
+                    aoOperations.add(oOperation);
+                    aoAdvancedFilter.put("aoOperations", aoOperations);
+                    break;
+                }
+            }
+
+            modelMap.put("aoAdvancedFilter", aoAdvancedFilter);
+        
+        }
+        
+        model.addAllAttributes(modelMap);
+        
+        return "parcelas-tabla-labores";
+    }
+    
+    @RequestMapping(value = "/mapa/producciones/tabla.html",params = {"id"}, method=RequestMethod.GET)
+    public String mapaProduccionesTabla(@RequestParam(value = "id") Integer id_parcela, Model model) throws Exception {
+        
+        mapa(model);
+
+        List<Produccion> producciones = produccionDAO.getAll();
+
+        List<Cultivo> cultivos = cultivoDAO.getAll();
+
+        List<Parcela> parcelas = parcelaDAO.getAll();
+
+        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
+
+        modelMap.put("producciones", producciones);
+        modelMap.put("cultivos", cultivos);
+        modelMap.put("parcelas", parcelas);
+        
+        model.addAllAttributes(modelMap);
+        
+        return "parcelas-tabla-producciones";
+        
     }
     
     @RequestMapping(value = "/mapa/form/labor.html",params = {"id"}, method=RequestMethod.GET)
