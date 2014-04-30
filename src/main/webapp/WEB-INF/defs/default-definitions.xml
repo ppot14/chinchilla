@@ -18,6 +18,10 @@
 		<put-attribute name="inc_content" value="content/jumbotron"/>
 	</definition>
 
+	<definition name="portal" extends="template">
+		<put-attribute name="inc_content" value="content/dashboard"/>
+	</definition>
+
 	<definition name="error" extends="template">
 		<put-attribute name="inc_content" value="content/error"/>
 	</definition>
