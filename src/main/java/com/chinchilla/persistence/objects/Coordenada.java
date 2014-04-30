@@ -120,8 +120,8 @@ public class Coordenada implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "Coordenada [id_parcela=" + id_parcela + ", orden=" + orden
-				+ ", latitud=" + latitud + ", longitud=" + longitud + "]";
+		return "Coordenada {id_parcela=" + id_parcela + ", orden=" + orden
+				+ ", latitud=" + latitud + ", longitud=" + longitud + "}";
 	}
     
     

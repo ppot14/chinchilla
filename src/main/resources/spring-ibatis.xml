@@ -52,6 +52,9 @@
 <!--    <bean id="myBatisDAO" class="com.chinchilla.persistence.MyBatisDAO">
         <property name="sqlMapClient" ref="sqlMapClient"/>
       </bean>-->
+      <bean id="auditoriaDAO" class="com.chinchilla.persistence.dao.AuditoriaDAO">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+      </bean>
       <bean id="parcelaDAO" class="com.chinchilla.persistence.dao.ParcelaDAO">
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
       </bean>
