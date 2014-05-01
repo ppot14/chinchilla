@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<script>/*<![CDATA[*/
+<script th:inline="javascript">/*<![CDATA[*/
   
     $(window).load(function () {
         
@@ -8,9 +8,14 @@
     
         var tabla_labores = $('#tabla_labores').dataTable(tabla_opciones);
         
-        var aoAdvancedFilter = /*[[#{aoAdvancedFilter}]]*/null;
-        
-        console.debug('aoAdvancedFilter '+JSON.stringify(aoAdvancedFilter,null,'\t') );
+//        var aoAdvancedFilter = /*[[${aoAdvancedFilter}]]*/null;
+//        
+//        for ( var i = 0 ; i < aoAdvancedFilter.aoAdvancedFilter.length ; i++){
+//            var sTitleKey = aoAdvancedFilter.aoAdvancedFilter[i].sTitleKey;
+//            aoAdvancedFilter.aoAdvancedFilter[i].sTitle = sTitleKey;
+//        }
+//        
+//        console.debug('aoAdvancedFilter '+JSON.stringify(aoAdvancedFilter,null,'\t') );
         
 //        tabla_labores.fnSettings().aoAdvancedFilter = aoAdvancedFilter;
         

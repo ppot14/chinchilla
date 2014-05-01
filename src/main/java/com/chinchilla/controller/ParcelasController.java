@@ -80,43 +80,43 @@ public class ParcelasController extends AbstractController{
     @RequestMapping(value = "/mapa/labores/tabla.html",params = {"id"}, method=RequestMethod.GET)
     public String mapaLaboresTabla(@RequestParam(value = "id") Integer id_parcela, Model model) throws Exception {
         
-        mapa(model);
+        List<Parcela> parcelas = parcelaDAO.getAll();
+        
+        List<Coordenada> coordenadas = coordenadaDAO.getAll();
         
         List<Labor> labores = laborDAO.getAll();
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
+        modelMap.put("parcelas", parcelas);
+        
+        modelMap.put("coordenadas", coordenadas);
+
         modelMap.put("labores", labores);
         
-        List<Parcela> parcelas = (List<Parcela>) modelMap.get("parcelas");
-       
-        log.info("parcelas: " + parcelas);
+        List<Map<String,Object>> aoAdvancedFilter = new ArrayList<Map<String,Object>>();
         
-        Map<String,Object> aoAdvancedFilter = new HashMap<String,Object>();
-        
-        //TODO
-        ApplicationContext context = new ClassPathXmlApplicationContext("**/spring-servlet.xml");
- 
-        Locale locale = LocaleContextHolder.getLocale();
-        
-	String column = context.getMessage("parcela", null, locale);
-        
-        if(column!=null && !"".equals(column) && parcelas!=null){
+        if(parcelas!=null){
             
             for (Parcela temp : parcelas){
                 if(temp.getId_parcela() == id_parcela){
-                    aoAdvancedFilter.put("sTitle", column);
+                    Map<String,Object> oAdvancedFilter = new HashMap<String,Object>();
+//                    aoAdvancedFilter.put("sTitle", column);
+                    oAdvancedFilter.put("sTitleKey", "parcela");
                     Map<String,String> oOperation = new HashMap<String,String>();
                     oOperation.put("sOperation", "equal");
                     oOperation.put("sValue1", temp.getNombre());
                     List<Map<String,String>> aoOperations = new ArrayList<Map<String,String>>();
                     aoOperations.add(oOperation);
-                    aoAdvancedFilter.put("aoOperations", aoOperations);
+                    oAdvancedFilter.put("aoOperations", aoOperations);
+                    aoAdvancedFilter.add(oAdvancedFilter);
                     break;
                 }
             }
 
             modelMap.put("aoAdvancedFilter", aoAdvancedFilter);
+            
+            log.debug("aoAdvancedFilter: " + aoAdvancedFilter);
         
         }
         

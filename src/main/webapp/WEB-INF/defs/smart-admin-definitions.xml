@@ -36,7 +36,7 @@
 	</definition>
         
         <definition name="parcelas-tabla-labores" extends="parcelas-mapa">
-		<put-attribute name="inc_secondary_content" value="content/tabla-labores"/>
+		<put-attribute name="inc_second_content" value="content/tabla-labores"/>
 	</definition>
         
         <definition name="parcelas-mapa-form-produccion" extends="parcelas-mapa">
@@ -44,7 +44,7 @@
 	</definition>
         
         <definition name="parcelas-tabla-producciones" extends="parcelas-mapa">
-		<put-attribute name="inc_secondary_content" value="content/tabla-producciones"/>
+		<put-attribute name="inc_second_content" value="content/tabla-producciones"/>
 	</definition>
         
         <definition name="parcelas-mapa-form-produccion" extends="parcelas-mapa">

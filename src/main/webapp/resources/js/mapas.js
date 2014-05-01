@@ -196,8 +196,8 @@ function crearMenuParcela(parcela) {
 
     menuString += "<li role='presentation' class='dropdown-header'>" + parcela.nombre + " (" + parcela.extension + " ha)</li>";
     for(var i=0; i<contextMenu.length; i++){
-        console.debug("contextMenu "+contextMenu[i].link);
-        console.debug("contextMenu "+contextMenu[i].tag);
+//        console.debug("contextMenu "+contextMenu[i].link);
+//        console.debug("contextMenu "+contextMenu[i].tag);
         menuString += "<li role='presentation'><a role='menuitem' href='"+contextMenu[i].link+"?id=" + parcela.id_parcela + "'>"+contextMenu[i].tag+"</a></li>";
     }
 //    menuString += "<li role='presentation'><a role='menuitem' href='"+parcelasMapaFormLabor+"?id=" + parcela.id_parcela + "'>A&ntilde;adir labor</a></li>";
