@@ -1,22 +1,19 @@
 package com.chinchilla.controller;
 
 import com.chinchilla.persistence.objects.Labor;
+import com.chinchilla.util.Auditor;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -46,6 +43,8 @@ public class IndexController extends AbstractController{
         
         model.addAllAttributes(modelMap);
         
+//        if(true==true) throw new NullPointerException("BOOMMMMM!!!!!!!");
+        
         return "portal";
     }
     
@@ -56,9 +55,13 @@ public class IndexController extends AbstractController{
         Map<String,Object> model =  new HashMap<String,Object>();
         
         model.put("errorCode", 500 );
+        model.put("errorTitle", "Error desconocido cargando la página");
         model.put("errorMessage", exception.getMessage());
+        model.put("errorLog", ExceptionUtils.getStackTrace(exception));
         
         ModelAndView modelView = new ModelAndView("error", model); 
+        
+//        Auditor.incluirMensaje(model, "success", "Error desconocido cargando la página", exception.getMessage(), -1, exception);
         
         return modelView;
     }

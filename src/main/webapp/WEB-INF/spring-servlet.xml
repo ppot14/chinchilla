@@ -93,6 +93,8 @@
     <bean id="configuracionController" class="com.chinchilla.controller.ConfiguracionController" />
     <bean id="meteorologiaController" class="com.chinchilla.controller.MeteorologiaController" />
     
+    <bean id="auditor" class="com.chinchilla.util.Auditor"/>
+        
     <mvc:resources mapping="/resources/**" location="/resources/" />
     
 </beans>

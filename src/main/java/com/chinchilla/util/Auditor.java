@@ -29,15 +29,19 @@ import com.chinchilla.persistence.objects.Auditoria;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Pepe
  */
+@Component("auditor")
 public class Auditor {
     
     private static final Logger log = (Logger) LoggerFactory.getLogger(Auditor.class);
@@ -64,12 +68,19 @@ public class Auditor {
     public static Auditoria incluirMensaje( Map<String, Object > modelMap,
             String tipo, String titulo, String mensaje){
         
-        return incluirMensaje(modelMap, tipo, titulo, mensaje, -1);
+        return incluirMensaje(modelMap, tipo, titulo, mensaje, -1, null);
         
     }
     
     public static Auditoria incluirMensaje( Map<String, Object > modelMap,
             String tipo, String titulo, String mensaje, int id_objeto){
+        
+        return incluirMensaje(modelMap, tipo, titulo, mensaje, id_objeto, null);
+        
+    }
+    
+    public static Auditoria incluirMensaje( Map<String, Object > modelMap,
+            String tipo, String titulo, String mensaje, int id_objeto, Exception e){
         
         Date today = Calendar.getInstance().getTime(); 
         
@@ -84,6 +95,8 @@ public class Auditor {
         if(mensaje!=null) auditoria.setDescripcion(mensaje);
         
         if(id_objeto!=-1) auditoria.setId_objeto(id_objeto);
+        
+        if(e!=null) auditoria.setLog(ExceptionUtils.getStackTrace(e));
         
         int result = auditoriaDAO.create(auditoria);
         
