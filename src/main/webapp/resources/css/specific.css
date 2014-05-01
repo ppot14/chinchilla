@@ -62,6 +62,25 @@ html {
 }
 
 /*
+* Layout
+*/
+#layout_hidden {
+    float:left;
+    min-width:1000px;
+    max-width:1600px;
+    width:100%;
+}
+
+#layout_notification {
+    position:absolute;
+    top:0;
+    left:20%;
+    height:80px;
+    width:60%;
+    background-color:#dfbfbf;
+}
+
+/*
 * Bootstrap
 */
 
