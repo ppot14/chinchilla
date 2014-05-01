@@ -1,6 +1,9 @@
 package com.chinchilla.controller;
 
+import com.chinchilla.persistence.objects.Labor;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +37,14 @@ public class IndexController extends AbstractController{
     
     @RequestMapping("/portal.html")
     public String portal(Model model) throws Exception {
+
+        List<Labor> labores = laborDAO.getAll();
+
+        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
+
+        modelMap.put("labores", labores);
+        
+        model.addAllAttributes(modelMap);
         
         return "portal";
     }

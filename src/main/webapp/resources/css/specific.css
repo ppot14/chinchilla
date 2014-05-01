@@ -143,6 +143,15 @@ h2.page-title{
     background-color: #F9F9F9;
 }
 
+.navbar-toggle {
+    padding: 6px 10px;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 /*
 * Datepicker
 */
