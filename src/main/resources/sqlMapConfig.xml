@@ -11,6 +11,7 @@
     </settings>
     
     <typeAliases>
+        <typeAlias type="com.chinchilla.persistence.objects.Auditoria" alias="Auditoria"/>
         <typeAlias type="com.chinchilla.persistence.objects.Labor" alias="Labor"/>
         <typeAlias type="com.chinchilla.persistence.objects.OrdenCompra" alias="OrdenCompra"/>
         <typeAlias type="com.chinchilla.persistence.objects.Meteorologia" alias="Meteorologia"/>
@@ -28,6 +29,7 @@
     <!-- Identify all SQL Map XML files to be loaded by this SQL map.
          Notice the paths are relative to the classpath. For now, we only have one -->
     <mappers>
+        <mapper resource="com/chinchilla/persistence/mappers/AuditoriaMappers.xml" />
         <mapper resource="com/chinchilla/persistence/mappers/ParcelaMappers.xml" />
         <mapper resource="com/chinchilla/persistence/mappers/CoordenadaMappers.xml" />
         <mapper resource="com/chinchilla/persistence/mappers/ProduccionMappers.xml" />

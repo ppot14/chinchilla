@@ -22,7 +22,7 @@
     <label for="parcela" class="col-md-5 control-label">[[#{parcela}]]</label>
         <div class="col-md-7">
             <select id="id_parcelas" 
-                    class="select2"  style="width:100%" 
+                    class="form-control input-sm select2"  style="width:100%" 
                     multiple="multiple" 
                     placeholder="Seleccionar parcela(s)..."
                     th:field="*{id_parcelas}">
@@ -36,7 +36,7 @@
         <label for="maquinaria" class="col-md-5 control-label">[[#{maquinaria}]]</label>
         <div class="col-md-7">
             <select id="id_maquinarias"
-                    class="select2"  style="width:100%"
+                    class="form-control input-sm select2"  style="width:100%"
                     multiple="multiple" 
                     placeholder="Seleccionar maquinaria..."
                     th:field="*{id_maquinarias}">
@@ -97,7 +97,7 @@
                 
                 <tr th:each="laborProducto, rowStat : *{labor_producto}">
                     <td>
-                        <select class="select2" style="width:100%"
+                        <select class="form-control input-sm select2" style="width:100%"
                         placeholder="Seleccionar producto(s)..."
                         th:field="*{labor_producto[__${rowStat.index}__].producto.id_producto}">
                             <option  th:each="prod : ${productos}" 
@@ -118,7 +118,7 @@
         <label for="personal" class="col-md-5 control-label">[[#{personal}]]</label>
         <div class="col-md-7">
             <select id="id_costes_personal" 
-                    class="select2"  style="width:100%"
+                    class="form-control input-sm select2"  style="width:100%"
                     multiple="multiple" 
                     placeholder="Seleccionar personal..."
                     th:field="*{id_costes_personal}">
@@ -168,7 +168,7 @@
                 <button type="button" id="boton_crear" class="btn btn-default btn-xs"><i class="icon-plus"></i> [[#{insertar}]]</button>
                 <button type="button" id="boton_modificar" class="btn btn-default btn-xs"><i class="icon-editalt"></i> [[#{modificar}]]</button>
                 <button type="button" id="boton_eliminar" class="btn btn-default btn-xs"><i class="icon-trash"></i> [[#{eliminar}]]</button>
-                <button type="reset" class="btn btn-default btn-xs">[[#{limpiar}]]</button>
+                <button type="reset" class="btn btn-default btn-xs"><i class="icon-broom"></i> [[#{limpiar}]]</button>
             </div>
         </div>
     </div>
@@ -191,6 +191,7 @@
             
             var selectProducto = $('<select></select>');
             
+            //TODO bug in select2 o jquerym class selec2 eliminada temporalmente
             selectProducto.addClass('select2')
                     .css('width','100%')
                     .attr('placeholder', 'Seleccionar producto(s)...')
@@ -335,7 +336,8 @@
         
         $( "#id_costes_personal" ).select2();
         
-        $( "select[id$='id_producto']" ).select2();
+        //TODO bug in select2 o jquery
+//        $( "select[id$='id_producto']" ).select2();
 
         $( "input[id$='multiplicador']" ).spinner({
           min: 0,

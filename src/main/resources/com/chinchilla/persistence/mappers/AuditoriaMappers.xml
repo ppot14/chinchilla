@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chinchilla.persistence.mappers.AuditoriaMappers">
+	
+    <select id="getAuditoria" parameterType="java.lang.Integer" resultType="com.chinchilla.persistence.objects.Auditoria">
+        select 
+        id_auditoria as "id_auditoria",
+        fecha_evento as "fecha_evento",
+        tipo_evento as "tipo_evento",
+        codigo as "codigo",
+        mensaje as "mensaje",
+        descripcion as "descripcion",
+        log as "log"
+        from gonzalol_chinchilla.t_auditoria 
+        where id_auditoria = #{id_auditoria}
+    </select>
+	
+    <select id="getAllAuditoria" parameterType="int" resultType="com.chinchilla.persistence.objects.Auditoria">
+        select 
+        id_auditoria as "id_auditoria",
+        fecha_evento as "fecha_evento",
+        tipo_evento as "tipo_evento",
+        codigo as "codigo",
+        mensaje as "mensaje",
+        descripcion as "descripcion",
+        log as "log",
+        id_objeto as "id_objeto"
+        from gonzalol_chinchilla.t_auditoria 
+    </select>
+	
+    <select id="getAuditoriaPorNombre" parameterType="int" resultType="com.chinchilla.persistence.objects.Auditoria">
+        select 
+        id_auditoria as "id_auditoria",
+        fecha_evento as "fecha_evento",
+        tipo_evento as "tipo_evento",
+        codigo as "codigo",
+        mensaje as "mensaje",
+        descripcion as "descripcion",
+        log as "log",
+        id_objeto as "id_objeto"
+        from gonzalol_chinchilla.t_auditoria 
+        where fecha_evento = #{fecha_evento}
+    </select>
+	
+    <insert id="createAuditoria" keyColumn="id_auditoria" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.Auditoria">
+        insert into gonzalol_chinchilla.t_auditoria (fecha_evento,tipo_evento,codigo,mensaje,descripcion,log,"id_objeto")
+        values (#{fecha_evento},#{tipo_evento},#{codigo},#{mensaje},#{descripcion},#{log},#{"id_objeto"})		
+    </insert>
+	
+    <update id="updateAuditoria" parameterType="com.chinchilla.persistence.objects.Auditoria">
+        update gonzalol_chinchilla.t_auditoria set fecha_evento = #{fecha_evento},
+        tipo_evento = #{tipo_evento},
+        codigo =#{codigo},
+        mensaje = #{mensaje},
+        descripcion = #{descripcion} ,
+        log = #{log} ,
+        id_objeto = #{id_objeto}
+        where id_auditoria = #{id_auditoria}		
+    </update>
+	
+    <delete id="deleteAuditoria" parameterType="java.lang.Integer">
+        delete from gonzalol_chinchilla.t_auditoria where id_auditoria = #{id_auditoria}		
+    </delete>
+	
+	
+</mapper>
+

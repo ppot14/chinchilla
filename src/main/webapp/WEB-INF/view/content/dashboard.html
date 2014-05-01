@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <script type="text/javascript" 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0&amp;sensor=true&amp;libraries=geometry"></script>
+    <!--th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0(sensor=true)(libraries=geometry)}"></script>-->
+    <script src="/resources/js/mapas.js" th:src="@{/resources/js/mapas.js}" th:inline="javascript"></script> 
+    <style type="text/css">
+/*        @media screen and (max-width: 480px){
+                #grid[data-columns]::before {
+                        content: '1 .column.size-1of1';
+                }
+        }
+
+        @media screen and (min-width: 481px) and (max-width: 768px) {
+                #grid[data-columns]::before {
+                        content: '2 .column.size-1of2';
+                }
+        }
+        @media screen and (min-width: 769px) {
+                #grid[data-columns]::before {
+                        content: '3 .column.size-1of3';
+                }
+        }*/
+        
+        @media screen (max-width: 768px){
+            #grid[data-columns]::before {
+                content: '1 .col-xs-12';
+            }
+        }
+        @media screen  (min-width:768px) and (max-width: 992px){
+            #grid[data-columns]::before {
+                content: '2 .col-sm-6';
+            }
+        }
+        @media screen (min-width:992px) and (max-width: 1200px){
+            #grid[data-columns]::before {
+                content: '3 .col-md-4';
+            }
+        }
+        @media screen (min-width:1200px){
+            #grid[data-columns]::before {
+                content: '4 .col-lg-3';
+            }
+        }        
+
+        /* Again, you’re free to use and define the classes: */
+/*        .column { float: left; }
+        .size-1of1 { width: 100%; }
+        .size-1of2 { width: 50%; }
+        .size-1of3 { width: 33.333%; }      */
+    </style>
+
+    <script th:inline="javascript">/*<![CDATA[*/
+
+        $(window).load(function() { 
+
+            try {
+
+                var mapOptions = {
+                    //CHINCHILLA
+                    //center: new google.maps.LatLng(37.32637, -5.20889),
+                    //RANCHO
+                    //center: new google.maps.LatLng(37.319063,-5.185826),
+                    center: new google.maps.LatLng(37.323677, -5.200524),
+                    zoom: 14,
+                    mapTypeId: google.maps.MapTypeId.SATELLITE
+                };
+
+//                var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+            } catch (e) {
+
+                alert("Error al cargar mapa");
+
+            }
+
+        });
+
+        /*]]>*/</script> 
+
+    <div class="row" th:inline="text">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title"><i class="icon-fence"></i> [[#{panel}]]</h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+        </div>
+    </div>
+
+    <!-- row -->
+    <!--<div class="row" th:inline="text">-->
+
+        <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
+
+            <div id="grid" data-columns="" class="row" th:inline="text">
+
+                <div class="panel panel-primary panel-module">
+                    <div class="panel-heading">
+                        <h2 class="pull-left"><i class="icon-map"></i> [[#{mapa}]]</h2>
+                    </div>
+
+                    <div class="panel-body">
+                        <div id="map_canvas" ></div>
+                    </div>
+
+                </div>
+
+                <div class="panel panel-primary panel-module">
+                    <div class="panel-heading">
+                        <h2 class="pull-left"><i class="icon-map"></i> [[#{test}]]</h2>
+                    </div>
+
+                    <div class="panel-body">
+                        TEST
+                    </div>
+
+                </div>
+
+                <div class="panel panel-primary panel-module">
+                    <div class="panel-heading">
+                        <h2 class="pull-left"><i class="icon-map"></i> [[#{test}]]</h2>
+                    </div>
+
+                    <div class="panel-body">
+                        TEST
+                    </div>
+
+                </div>
+
+            </div>
+            
+        <!--</div>-->
+        
+    <!--</div>-->
+    
+    <!--<script src="/resources/js/salvattore.min.js" th:src="@{/resources/js/salvattore.min.js}" th:inline="javascript"></script>--> 
+    <script src="/resources/js/salvattore.js" th:src="@{/resources/js/salvattore.js}" th:inline="javascript"></script> 
+
+</html>

@@ -1,11 +1,11 @@
-<div class="jumbotron">
+<div class="jumbotron" th:inline="text">
   <div class="container">
-    <h1>Chinchilla</h1>
-    <p>Aplicaci&oacute;n de costes agr&iacute;colas</p>
+    <h1>[[#{chinchilla}]]</h1>
+    <p>[[#{aplicacion-gestion-agricola}]]</p>
     <p>
-        <a class="btn btn-primary btn-lg" th:href="@{/parcelas/mapa.html}" id="menu-parcelas">
-      <span class="glyphicon glyphicon-home"></span> Comenzar
-    </a>
+        <a class="btn btn-primary btn-lg" th:href="@{/portal.html}" id="menu-parcelas">
+        <span class="glyphicon glyphicon-home"></span> [[#{comenzar}]]
+      </a>
 
     </p>
   </div>

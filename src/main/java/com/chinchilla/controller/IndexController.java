@@ -35,9 +35,6 @@ public class IndexController extends AbstractController{
     @RequestMapping("/portal.html")
     public String portal(Model model) throws Exception {
         
-        if(true==true)
-            throw new Exception("BOOOOOMMMMMMMM!!!!!!!!!!!!!!!!!");
-        
         return "portal";
     }
     
