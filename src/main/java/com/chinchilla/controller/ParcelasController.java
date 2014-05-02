@@ -104,7 +104,7 @@ public class ParcelasController extends AbstractController{
 //                    aoAdvancedFilter.put("sTitle", column);
                     oAdvancedFilter.put("sTitleKey", "parcela");
                     Map<String,String> oOperation = new HashMap<String,String>();
-                    oOperation.put("sOperation", "equal");
+                    oOperation.put("sOperation", "equals");
                     oOperation.put("sValue1", temp.getNombre());
                     List<Map<String,String>> aoOperations = new ArrayList<Map<String,String>>();
                     aoOperations.add(oOperation);

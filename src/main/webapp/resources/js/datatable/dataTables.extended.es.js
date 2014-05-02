@@ -418,7 +418,7 @@ $.fn.dataTableExt.afnFiltering.push( function( oSettings, aData, iDataIndex ) {
                     value1 = parseFloat( value1temp.replace( /\./, "" ).replace( /,/, "." ));
                     if(typeof value2temp !== 'undefined') value2 = parseFloat( value2temp.replace( /\./, "" ).replace( /,/, "." ));
                 }else if(sTypeTemp==="html"){
-                    compareTo = $( aData[mDataTemp] ).text().toLowerCase();
+                    compareTo = $( aData[mDataTemp] ).text().toLowerCase().trim();
                     value1 = value1temp?value1temp.toLowerCase():value1temp;
                     if(typeof value2temp !== 'undefined') value2 = value2temp?value2temp.toLowerCase():value2temp;
                 }else{
