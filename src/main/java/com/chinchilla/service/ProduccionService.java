@@ -25,23 +25,30 @@
 package com.chinchilla.service;
 
 import com.chinchilla.form.ProduccionForm;
+import com.chinchilla.persistence.dao.LaborDAO;
 import com.chinchilla.persistence.dao.ProduccionDAO;
 import com.chinchilla.persistence.objects.Produccion;
-import com.chinchilla.util.Notificador;
-import java.util.HashMap;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Pepe
  */
-public class ProduccionService {
+@Service("produccionService")
+public class ProduccionService extends AbstractService{
     
     private static Logger log = (Logger) LoggerFactory.getLogger(ProduccionService.class);
     
-    public static boolean insertaModificarEliminarProduccion(ProduccionDAO produccionDAO, ProduccionForm produccionForm, Map<String, Object> modelMap){
+    @Autowired
+    @Qualifier("produccionDAO")
+    protected ProduccionDAO produccionDAO; 
+    
+    public boolean insertaModificarEliminarProduccion(ProduccionForm produccionForm, Map<String, Object> modelMap){
         
         String tipoOperacion = produccionForm.getInsertar_modificar_eliminar();
         
@@ -55,11 +62,11 @@ public class ProduccionService {
                 
                 success = true;
         
-                Notificador.incluirMensaje(modelMap, "success", "Producción añadida correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Producción añadida correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo produccion");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo produccion");
                 
             }
             
@@ -69,11 +76,11 @@ public class ProduccionService {
                 
                 success = true;
         
-                Notificador.incluirMensaje(modelMap, "success", "Producción modificada correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Producción modificada correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando produccion");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando produccion");
                 
             }
             
@@ -83,17 +90,17 @@ public class ProduccionService {
                 
                 success = true;
         
-                Notificador.incluirMensaje(modelMap, "success", "Producción eliminada correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Producción eliminada correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando produccion");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando produccion");
                 
             }
             
         }else{
             
-             Notificador.incluirMensaje(modelMap, "info", "No se ha podido identificar la operacion",
+             notificador.incluirMensaje(modelMap, "info", "No se ha podido identificar la operacion",
                      "Ninguna accion sera realizada");
             
         }

@@ -1,7 +1,7 @@
 package com.chinchilla.controller;
 
 import com.chinchilla.persistence.objects.CostePersonal;
-import com.chinchilla.util.Notificador;
+import com.chinchilla.component.Notificador;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -108,11 +108,11 @@ public class PersonalController extends AbstractController{
             
             if(created==1){
         
-                Notificador.incluirMensaje(modelMap, "success", "Producción añadida correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Producción añadida correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo costePersonal");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo costePersonal");
                 
             }
             
@@ -122,11 +122,11 @@ public class PersonalController extends AbstractController{
             
             if(updated==1){
         
-                Notificador.incluirMensaje(modelMap, "success", "Producción modificada correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Producción modificada correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando costePersonal");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando costePersonal");
                 
             }
             
@@ -136,17 +136,17 @@ public class PersonalController extends AbstractController{
             
             if(deleted==1){
         
-                Notificador.incluirMensaje(modelMap, "success", "Producción eliminada correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Producción eliminada correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando costePersonal");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando costePersonal");
                 
             }
             
         }else{
             
-             Notificador.incluirMensaje(modelMap, "info", "No se ha podido identificar la operacion",
+             notificador.incluirMensaje(modelMap, "info", "No se ha podido identificar la operacion",
                      "Ninguna accion sera realizada");
             
         }

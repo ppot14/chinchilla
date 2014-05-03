@@ -1,7 +1,7 @@
 package com.chinchilla.controller;
 
 import com.chinchilla.persistence.objects.Producto;
-import com.chinchilla.util.Notificador;
+import com.chinchilla.component.Notificador;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -102,11 +102,11 @@ public class ProductosController extends AbstractController{
             
             if(created==1){
         
-                Notificador.incluirMensaje(modelMap, "success", "Producción añadida correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Producción añadida correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo producto");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo producto");
                 
             }
             
@@ -116,11 +116,11 @@ public class ProductosController extends AbstractController{
             
             if(updated==1){
         
-                Notificador.incluirMensaje(modelMap, "success", "Producción modificada correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Producción modificada correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando producto");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando producto");
                 
             }
             
@@ -130,17 +130,17 @@ public class ProductosController extends AbstractController{
             
             if(deleted==1){
         
-                Notificador.incluirMensaje(modelMap, "success", "Producción eliminada correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Producción eliminada correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando producto");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando producto");
                 
             }
             
         }else{
             
-             Notificador.incluirMensaje(modelMap, "info", "No se ha podido identificar la operacion",
+             notificador.incluirMensaje(modelMap, "info", "No se ha podido identificar la operacion",
                      "Ninguna accion sera realizada");
             
         }

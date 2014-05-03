@@ -68,8 +68,6 @@
     
     <import resource="classpath:spring-ibatis.xml"/>
     
-    <!--<context:component-scan base-package="com.chinchilla.controller"/>-->
-    
     <context:annotation-config />
     
     <!--<mvc:default-servlet-handler/>-->
@@ -93,7 +91,15 @@
     <bean id="configuracionController" class="com.chinchilla.controller.ConfiguracionController" />
     <bean id="meteorologiaController" class="com.chinchilla.controller.MeteorologiaController" />
     
-    <bean id="auditor" class="com.chinchilla.util.Auditor"/>
+    <!-- components -->
+    <bean id="auditor" class="com.chinchilla.component.Auditor"/>
+    <bean id="notificador" class="com.chinchilla.component.Notificador"/>
+    
+    <!-- services -->
+    <bean id="laborService" class="com.chinchilla.service.LaborService"/>
+    <bean id="produccionService" class="com.chinchilla.service.ProduccionService"/>
+    
+    <!--<context:component-scan base-package="com.chinchilla.component"/>-->
         
     <mvc:resources mapping="/resources/**" location="/resources/" />
     

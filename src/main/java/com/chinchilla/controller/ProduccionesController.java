@@ -6,7 +6,7 @@ import com.chinchilla.persistence.objects.Cultivo;
 import com.chinchilla.persistence.objects.Parcela;
 import com.chinchilla.persistence.objects.Produccion;
 import com.chinchilla.service.ProduccionService;
-import com.chinchilla.util.Notificador;
+import com.chinchilla.component.Notificador;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -134,7 +134,7 @@ public class ProduccionesController extends AbstractController{
         
         Map<String, Object> modelMap = new HashMap<String, Object>();
         
-        boolean success = ProduccionService.insertaModificarEliminarProduccion(produccionDAO, model_produccion, modelMap);
+        boolean success = produccionService.insertaModificarEliminarProduccion(model_produccion, modelMap);
         
         model.addAllAttributes(modelMap);
 

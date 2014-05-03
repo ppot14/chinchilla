@@ -21,8 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.chinchilla.util;
+package com.chinchilla.component;
 
+import com.chinchilla.component.Auditor;
 import com.chinchilla.persistence.objects.Auditoria;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -39,24 +40,27 @@ public class Notificador extends Auditor{
     
     private static final Logger log = (Logger) LoggerFactory.getLogger(Notificador.class);
     
-    public static Auditoria incluirMensaje( Map<String, Object > modelMap,
+    @Override
+    public Auditoria incluirMensaje( Map<String, Object > modelMap,
             String tipo, String titulo){
         
         return incluirMensaje(modelMap, tipo, titulo, null);
         
     }
     
-    public static Auditoria incluirMensaje( Map<String, Object > modelMap,
+    @Override
+    public Auditoria incluirMensaje( Map<String, Object > modelMap,
             String tipo, String titulo, String mensaje){
         
         return incluirMensaje(modelMap, tipo, titulo, mensaje, -1);
         
     }
     
-    public static Auditoria incluirMensaje( Map<String, Object > modelMap,
+    @Override
+    public Auditoria incluirMensaje( Map<String, Object > modelMap,
             String tipo, String titulo, String mensaje, int id_objeto){
         
-        Auditoria auditoria = Auditor.incluirMensaje(modelMap, tipo, titulo, mensaje, id_objeto);
+        Auditoria auditoria = super.incluirMensaje(modelMap, tipo, titulo, mensaje, id_objeto);
         
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         
@@ -78,51 +82,51 @@ public class Notificador extends Auditor{
         
     }
     
-    public static void incluirMensajeExito( Map<String, Object > modelMap, String titulo, String mensaje, int id_objeto){
+    public void incluirMensajeExito( Map<String, Object > modelMap, String titulo, String mensaje, int id_objeto){
         incluirMensaje( modelMap, Auditor.SUCCESS, titulo, mensaje, id_objeto);
     }
     
-    public static void incluirMensajeError( Map<String, Object > modelMap, String titulo, String mensaje, int id_objeto){
+    public void incluirMensajeError( Map<String, Object > modelMap, String titulo, String mensaje, int id_objeto){
         incluirMensaje( modelMap, Auditor.ERROR, titulo, mensaje, id_objeto);
     }
     
-    public static void incluirMensajeAdvertencia( Map<String, Object > modelMap, String titulo, String mensaje, int id_objeto){
+    public void incluirMensajeAdvertencia( Map<String, Object > modelMap, String titulo, String mensaje, int id_objeto){
         incluirMensaje( modelMap, Auditor.WARNING, titulo, mensaje, id_objeto);
     }
     
-    public static void incluirMensajeInfo( Map<String, Object > modelMap, String titulo, String mensaje, int id_objeto){
+    public void incluirMensajeInfo( Map<String, Object > modelMap, String titulo, String mensaje, int id_objeto){
         incluirMensaje( modelMap, Auditor.INFO, titulo, mensaje, id_objeto);
     }    
     
-    public static void incluirMensajeExito( Map<String, Object > modelMap, String titulo, String mensaje){
+    public void incluirMensajeExito( Map<String, Object > modelMap, String titulo, String mensaje){
         incluirMensaje( modelMap, Auditor.SUCCESS, titulo, mensaje);
     }
     
-    public static void incluirMensajeError( Map<String, Object > modelMap, String titulo, String mensaje){
+    public void incluirMensajeError( Map<String, Object > modelMap, String titulo, String mensaje){
         incluirMensaje( modelMap, Auditor.ERROR, titulo, mensaje);
     }
     
-    public static void incluirMensajeAdvertencia( Map<String, Object > modelMap, String titulo, String mensaje){
+    public void incluirMensajeAdvertencia( Map<String, Object > modelMap, String titulo, String mensaje){
         incluirMensaje( modelMap, Auditor.WARNING, titulo, mensaje);
     }
     
-    public static void incluirMensajeInfo( Map<String, Object > modelMap, String titulo, String mensaje){
+    public void incluirMensajeInfo( Map<String, Object > modelMap, String titulo, String mensaje){
         incluirMensaje( modelMap, Auditor.INFO, titulo, mensaje);
     }
     
-    public static void incluirMensajeExito( Map<String, Object > modelMap, String titulo){
+    public void incluirMensajeExito( Map<String, Object > modelMap, String titulo){
         incluirMensaje( modelMap, Auditor.SUCCESS, titulo);
     }
     
-    public static void incluirMensajeError( Map<String, Object > modelMap, String titulo){
+    public void incluirMensajeError( Map<String, Object > modelMap, String titulo){
         incluirMensaje( modelMap, Auditor.ERROR, titulo);
     }
     
-    public static void incluirMensajeAdvertencia( Map<String, Object > modelMap, String titulo){
+    public void incluirMensajeAdvertencia( Map<String, Object > modelMap, String titulo){
         incluirMensaje( modelMap, Auditor.WARNING, titulo);
     }
     
-    public static void incluirMensajeInfo( Map<String, Object > modelMap, String titulo){
+    public void incluirMensajeInfo( Map<String, Object > modelMap, String titulo){
         incluirMensaje( modelMap, Auditor.INFO, titulo);
     }
     

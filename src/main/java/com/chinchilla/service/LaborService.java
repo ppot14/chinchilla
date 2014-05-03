@@ -31,26 +31,31 @@ import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.persistence.objects.LaborMaquinaria;
 import com.chinchilla.persistence.objects.LaborParcela;
 import com.chinchilla.persistence.objects.LaborPersonal;
-import com.chinchilla.persistence.objects.LaborProducto;
 import com.chinchilla.persistence.objects.Maquinaria;
 import com.chinchilla.persistence.objects.Parcela;
-import com.chinchilla.persistence.objects.Producto;
-import com.chinchilla.util.Notificador;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Pepe
  */
-public class LaborService {
+@Service("laborService")
+public class LaborService extends AbstractService{
     
     private static Logger log = (Logger) LoggerFactory.getLogger(LaborService.class);
     
-    public static boolean insertaModificarEliminarLabor(LaborDAO laborDAO, LaborForm laborForm, Map<String, Object> modelMap){
+    @Autowired
+    @Qualifier("laborDAO")
+    protected LaborDAO laborDAO; 
+    
+    public boolean insertaModificarEliminarLabor(LaborForm laborForm, Map<String, Object> modelMap){
         
         log.info(""+laborForm);
         
@@ -60,15 +65,15 @@ public class LaborService {
         
         if(tipoOperacion!=null&&tipoOperacion.equals("insertar")){
             
-            if(createLabor(laborDAO, laborForm)){
+            if(createLabor(laborForm)){
                 
                 success = true;
         
-                Notificador.incluirMensaje(modelMap, "success", "Labor añadida correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Labor añadida correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo Labor");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo Labor");
                 
             }
             
@@ -82,9 +87,9 @@ public class LaborService {
             
             log.info("modified "+modified);
             
-            boolean deletedContenidoLabor = deleteContenidoLabor(laborDAO, laborForm);
+            boolean deletedContenidoLabor = deleteContenidoLabor(laborForm);
             
-            boolean createdContenidoLabor = createContenidoLabor(laborDAO, laborForm);
+            boolean createdContenidoLabor = createContenidoLabor(laborForm);
             
             log.info("deletedContenidoLabor "+deletedContenidoLabor);
             
@@ -94,31 +99,31 @@ public class LaborService {
             
                 success = true;
         
-                Notificador.incluirMensaje(modelMap, "success", "Labor modificada correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Labor modificada correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando Labor");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando Labor");
                 
             }
             
         }else if(tipoOperacion!=null&&tipoOperacion.equals("eliminar")){
             
-            if(deleteLabor(laborDAO, laborForm)){
+            if(deleteLabor(laborForm)){
             
                 success = true;
         
-                Notificador.incluirMensaje(modelMap, "success", "Labor eliminado correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Labor eliminado correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando Labor");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando Labor");
                 
             }
             
         }else{
             
-             Notificador.incluirMensaje(modelMap, "info", "No se ha podido identificar la operacion",
+             notificador.incluirMensaje(modelMap, "info", "No se ha podido identificar la operacion",
                      "Ninguna accion sera realizada");
             
         }
@@ -127,7 +132,7 @@ public class LaborService {
         
     }
     
-    private static boolean createLabor(LaborDAO laborDAO, LaborForm model_labor){
+    private boolean createLabor(LaborForm model_labor){
        
         Labor labor = new Labor(model_labor);
         
@@ -141,12 +146,12 @@ public class LaborService {
 
         log.info("created "+created);
         
-        boolean createdContenidoLaborTemp = createContenidoLabor(laborDAO, model_labor);
+        boolean createdContenidoLaborTemp = createContenidoLabor(model_labor);
         
         return (created==1 && createdContenidoLaborTemp);
    }    
    
-   private static boolean createContenidoLabor(LaborDAO laborDAO, LaborForm model_labor){
+   private boolean createContenidoLabor(LaborForm model_labor){
         
         int createdLaborMaquinaria=0;
         int createLaborParcela=0;
@@ -236,7 +241,7 @@ public class LaborService {
                 (model_labor.getLabor_producto()==null || model_labor.getLabor_producto().size()==createLaborProducto));
    }
    
-   private static boolean deleteLabor(LaborDAO laborDAO, LaborForm model_labor){
+   private boolean deleteLabor(LaborForm model_labor){
        
         Labor labor = new Labor(model_labor);
        
@@ -244,12 +249,12 @@ public class LaborService {
         
         log.info("deleted labor "+deleted);
 
-        boolean deletedContenidoLaborTemp = deleteContenidoLabor(laborDAO, model_labor);
+        boolean deletedContenidoLaborTemp = deleteContenidoLabor(model_labor);
 
         return (deleted==1 && deletedContenidoLaborTemp);
    }
    
-   private static boolean deleteContenidoLabor(LaborDAO laborDAO, LaborForm model_labor){
+   private boolean deleteContenidoLabor(LaborForm model_labor){
 
         int deleteLaborMaquinaria =0;
         int deleteLaborParcela =0;

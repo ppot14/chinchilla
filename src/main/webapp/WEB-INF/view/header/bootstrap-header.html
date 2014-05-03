@@ -98,7 +98,7 @@ THE SOFTWARE.
         <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
 
             <!-- pulled right: nav area -->
-            <div class="navbar-form navbar-right">
+            <div class="navbar-form navbar-right" id="menu-header">
 
                 <!-- configuration -->
                 <a th:href="@{/configuracion.html}" title="Configuration" class="btn btn-default disabled">
@@ -112,6 +112,11 @@ THE SOFTWARE.
 
                 <!-- dashboard -->
                 <a th:href="@{/portal.html}" title="Portal" class="btn btn-default">
+                    <i class="icon-speedalt"></i>
+                </a>
+
+                <!-- home -->
+                <a th:href="@{/}" title="Home" class="btn btn-default">
                     <i class="icon-home"></i>
                 </a>
 
@@ -139,6 +144,36 @@ THE SOFTWARE.
         </div>
 
     </div>    
+    
+
+<script th:inline="javascript">/*<![CDATA[*/
+
+$(window).load(function () {
+
+    var ruta = window.location.pathname;
+    
+    $('div#menu-header a').each(function(){
+        
+        var enlace = $( this );
+        
+        if(enlace){
+            
+            if(ruta === enlace.attr('href')){
+                
+               enlace.addClass("active");
+               
+            }else{
+                
+               enlace.removeClass("active");
+               
+            }
+        }
+        
+    });
+    
+});
+
+/*]]>*/</script>    
     
 </html>
 

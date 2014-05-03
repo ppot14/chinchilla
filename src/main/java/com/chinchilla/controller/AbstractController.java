@@ -23,6 +23,7 @@
  */
 package com.chinchilla.controller;
 
+import com.chinchilla.component.Notificador;
 import com.chinchilla.persistence.dao.CoordenadaDAO;
 import com.chinchilla.persistence.dao.CostePersonalDAO;
 import com.chinchilla.persistence.dao.CultivoDAO;
@@ -33,6 +34,8 @@ import com.chinchilla.persistence.dao.OrdenCompraDAO;
 import com.chinchilla.persistence.dao.ParcelaDAO;
 import com.chinchilla.persistence.dao.ProduccionDAO;
 import com.chinchilla.persistence.dao.ProductoDAO;
+import com.chinchilla.service.LaborService;
+import com.chinchilla.service.ProduccionService;
 import java.beans.PropertyEditorSupport;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -55,8 +58,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public abstract class AbstractController {
     
     @Autowired
+    @Qualifier("notificador")
+    Notificador notificador;
+    
+    @Autowired
     @Qualifier("produccionDAO")
-    protected ProduccionDAO produccionDAO;   
+    protected ProduccionDAO produccionDAO;  
+    
+    @Autowired
+    @Qualifier("produccionService")
+    protected ProduccionService produccionService;  
     
     @Autowired
     @Qualifier("cultivoDAO")
@@ -76,7 +87,11 @@ public abstract class AbstractController {
     
     @Autowired
     @Qualifier("laborDAO")
-    protected LaborDAO laborDAO; 
+    protected LaborDAO laborDAO;
+    
+    @Autowired
+    @Qualifier("laborService")
+    protected LaborService laborService; 
     
     @Autowired
     @Qualifier("maquinariaDAO")

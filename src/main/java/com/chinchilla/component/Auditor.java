@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package com.chinchilla.util;
+package com.chinchilla.component;
 
 import com.chinchilla.persistence.dao.AuditoriaDAO;
 import com.chinchilla.persistence.objects.Auditoria;
@@ -35,7 +35,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 /**
  *
@@ -56,30 +55,30 @@ public class Auditor {
     
     @Autowired
     @Qualifier("auditoriaDAO")
-    protected static AuditoriaDAO auditoriaDAO; 
+    protected AuditoriaDAO auditoriaDAO; 
     
-    public static Auditoria incluirMensaje( Map<String, Object > modelMap,
+    public Auditoria incluirMensaje( Map<String, Object > modelMap,
             String tipo, String titulo){
         
         return incluirMensaje(modelMap, tipo, titulo, null);
         
     }
     
-    public static Auditoria incluirMensaje( Map<String, Object > modelMap,
+    public Auditoria incluirMensaje( Map<String, Object > modelMap,
             String tipo, String titulo, String mensaje){
         
         return incluirMensaje(modelMap, tipo, titulo, mensaje, -1, null);
         
     }
     
-    public static Auditoria incluirMensaje( Map<String, Object > modelMap,
+    public Auditoria incluirMensaje( Map<String, Object > modelMap,
             String tipo, String titulo, String mensaje, int id_objeto){
         
         return incluirMensaje(modelMap, tipo, titulo, mensaje, id_objeto, null);
         
     }
     
-    public static Auditoria incluirMensaje( Map<String, Object > modelMap,
+    public Auditoria incluirMensaje( Map<String, Object > modelMap,
             String tipo, String titulo, String mensaje, int id_objeto, Exception e){
         
         Date today = Calendar.getInstance().getTime(); 

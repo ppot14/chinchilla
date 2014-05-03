@@ -253,7 +253,7 @@ public class ParcelasController extends AbstractController{
         
         Map<String, Object> modelMap = new HashMap<String, Object>();
         
-        boolean success = LaborService.insertaModificarEliminarLabor(laborDAO, model_labor, modelMap);
+        boolean success = laborService.insertaModificarEliminarLabor(model_labor, modelMap);
 
         model.addAllAttributes(modelMap);
        
@@ -277,7 +277,7 @@ public class ParcelasController extends AbstractController{
         
         Map<String, Object> modelMap = new HashMap<String, Object>();
         
-        boolean success = ProduccionService.insertaModificarEliminarProduccion(produccionDAO, model_produccion, modelMap);
+        boolean success = produccionService.insertaModificarEliminarProduccion(model_produccion, modelMap);
 
         model.addAllAttributes(modelMap);
 

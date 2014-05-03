@@ -1,7 +1,7 @@
 package com.chinchilla.controller;
 
 import com.chinchilla.persistence.objects.Labor;
-import com.chinchilla.util.Auditor;
+import com.chinchilla.component.Auditor;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,6 +27,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController extends AbstractController{
 
     private static Logger log = (Logger) LoggerFactory.getLogger(IndexController.class);
+    
+    @Autowired
+    @Qualifier("auditor")
+    Auditor auditor;
 	
     @RequestMapping("/")
     public String index(Model model) throws Exception {
@@ -43,7 +49,7 @@ public class IndexController extends AbstractController{
         
         model.addAllAttributes(modelMap);
         
-//        if(true==true) throw new NullPointerException("BOOMMMMM!!!!!!!");
+        if(true==true) throw new NullPointerException("BOOOMMMMM!!!!!");
         
         return "portal";
     }
@@ -61,7 +67,7 @@ public class IndexController extends AbstractController{
         
         ModelAndView modelView = new ModelAndView("error", model); 
         
-//        Auditor.incluirMensaje(model, "success", "Error desconocido cargando la página", exception.getMessage(), -1, exception);
+        auditor.incluirMensaje(model, "success", "Error desconocido cargando la página", exception.getMessage(), -1, exception);
         
         return modelView;
     }

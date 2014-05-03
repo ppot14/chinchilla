@@ -24,7 +24,7 @@
 package com.chinchilla.controller;
 
 import com.chinchilla.persistence.objects.Cultivo;
-import com.chinchilla.util.Notificador;
+import com.chinchilla.component.Notificador;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -127,11 +127,11 @@ public class CultivosController extends AbstractController{
             
             if(created==1){
         
-                Notificador.incluirMensaje(modelMap, "success", "Cultivo añadida correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Cultivo añadida correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo cultivo");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo cultivo");
                 
             }
             
@@ -141,11 +141,11 @@ public class CultivosController extends AbstractController{
             
             if(updated==1){
         
-                Notificador.incluirMensaje(modelMap, "success", "Cultivo modificada correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Cultivo modificada correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando cultivo");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando cultivo");
                 
             }
             
@@ -155,17 +155,17 @@ public class CultivosController extends AbstractController{
             
             if(deleted==1){
         
-                Notificador.incluirMensaje(modelMap, "success", "Cultivo eliminado correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Cultivo eliminado correctamente");
                 
             }else{
         
-                Notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando cultivo");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando cultivo");
                 
             }
             
         }else{
             
-             Notificador.incluirMensaje(modelMap, "info", "No se ha podido identificar la operacion",
+             notificador.incluirMensaje(modelMap, "info", "No se ha podido identificar la operacion",
                      "Ninguna accion sera realizada");
             
         }

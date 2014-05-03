@@ -3,10 +3,9 @@
     
 <div class="jumbotron"  th:inline="text">
   <div class="container">
-    <h1><i class="fa fa-times-circle text-danger error-icon-shadow"></i> [[#{error}]] [[${errorCode}]]</h1>
-    <p>[[${errorTitle}]]</p>
+    <h1><i class="fa fa-times-circle text-danger error-icon-shadow"></i> [[#{error}]] [[${errorCode}]] <small>[[${errorTitle}]]</small></h1>
     <p>[[${errorMessage}]]</p>
-    <p>[[${errorLog}]]</p>
+    <p class="small">[[${errorLog}]]</p>
     <p>
         <a class="btn btn-primary btn-lg" href="javascript:window.history.back();">
             <i class="icon-pageback"></i> [[#{volver}]]

@@ -11,7 +11,8 @@
         codigo as "codigo",
         mensaje as "mensaje",
         descripcion as "descripcion",
-        log as "log"
+        log as "log",
+        id_objeto as "id_objeto"
         from gonzalol_chinchilla.t_auditoria 
         where id_auditoria = #{id_auditoria}
     </select>
@@ -44,8 +45,8 @@
     </select>
 	
     <insert id="createAuditoria" keyColumn="id_auditoria" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.Auditoria">
-        insert into gonzalol_chinchilla.t_auditoria (fecha_evento,tipo_evento,codigo,mensaje,descripcion,log,"id_objeto")
-        values (#{fecha_evento},#{tipo_evento},#{codigo},#{mensaje},#{descripcion},#{log},#{"id_objeto"})		
+        insert into gonzalol_chinchilla.t_auditoria (fecha_evento,tipo_evento,codigo,mensaje,descripcion,log,id_objeto)
+        values (#{fecha_evento},#{tipo_evento},#{codigo},#{mensaje},#{descripcion},#{log},#{id_objeto})		
     </insert>
 	
     <update id="updateAuditoria" parameterType="com.chinchilla.persistence.objects.Auditoria">

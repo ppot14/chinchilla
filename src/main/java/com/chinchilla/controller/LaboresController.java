@@ -113,7 +113,7 @@ public class LaboresController extends AbstractController{
         
         Map<String, Object> modelMap = new HashMap<String, Object>();
         
-        boolean success = LaborService.insertaModificarEliminarLabor(laborDAO, model_labor, modelMap);
+        boolean success = laborService.insertaModificarEliminarLabor(model_labor, modelMap);
 
         model.addAllAttributes(modelMap);
         

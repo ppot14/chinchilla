@@ -109,9 +109,9 @@ $(window).load(function () {
             
 //    console.log('ruta '+ruta);
     
-    $('nav#menu-nav li').each(function(){
+    $('div#menu-nav a').each(function(){
         
-        var enlace = $( this ).find('a');
+        var enlace = $( this );
         
         if(enlace){
             
@@ -119,27 +119,17 @@ $(window).load(function () {
             
 //            console.log('href '+href);
             
-//            console.log('indexOf '+ruta.indexOf(href.replace('.html','')));
-            
-            if(ruta.indexOf(href.replace('.html','')) >= 0 && href.indexOf('.html') >= 0){
+            if(ruta === href){
                 
                enlace.parent().addClass("active");
                
-               enlace.parent().parents( "li" ).addClass("open");
-               
-               enlace.parent().parents( "ul" ).css("display","block");
-               
-            //}else if(ruta.indexOf(href) >= 0 && ruta.indexOf('.html') < 0){
+            }else if(ruta.indexOf(href.replace('.html','')) >= 0){
                 
-               //$( this ).parent().addClass("active");
+               enlace.parent().addClass("active");
                
             }else{
                 
                enlace.parent().removeClass("active");
-               
-               enlace.parent().parents( "li" ).removeClass("open");
-               
-               //enlace.parent().parents( "ul" ).css("display","none");
                
             }
         }
