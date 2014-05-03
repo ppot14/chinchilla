@@ -21,20 +21,12 @@
 //            console.debug('titleKey '+JSON.stringify(titleKey,null,'\t') );
 
             for ( var i = 0 ; i < aoAdvancedFilter.length ; i++){
+                
                 var sTitleKey = aoAdvancedFilter[i].sTitleKey;
+                
                 if(titleKey[sTitleKey] && titleKey[sTitleKey]!==''){
-                    aoAdvancedFilter[i].sTitle = titleKey[sTitleKey];
                     
-        //            console.debug(i+' oSettings.aoColumns: '+JSON.stringify(oSettings.aoColumns,null,"\t"));
-//                    for (var j=0; j<tabla_labores.fnSettings().aoColumns.length; j++){
-//                    //console.debug(oSettings.aoColumns[j].sTitle+' === '+oSettings.aoAdvancedFilter[i].sTitle);
-//                        if(tabla_labores.fnSettings().aoColumns[j].sTitle===titleKey[sTitleKey]){
-//                            aoAdvancedFilter[i].sTypeTemp = tabla_labores.fnSettings().aoColumns[j].sType;
-//                            mDataTemp = tabla_labores.fnSettings().aoColumns[j].mData;
-//                            break;
-//                        }
-//                    }
-            
+                    aoAdvancedFilter[i].sTitle = titleKey[sTitleKey];
                 }
             }
 

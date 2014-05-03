@@ -6,7 +6,7 @@
         
         tabla_opciones.aaSorting = [[ 3, "desc" ]];
         
-        var options = {
+        var options_pie = {
             series : {
                 pie : {
                     show : true,
@@ -128,9 +128,9 @@
             }           
 
         
-            var options_parcela = $.extend({}, options);
+            var options_parcela = $.extend({}, options_pie);
 
-            var options_cultivo = $.extend({}, options);
+            var options_cultivo = $.extend({}, options_pie);
 
             options_parcela.colors = Util.getRainbowColors(data_pie_produccion_parcela.length);
 
@@ -151,11 +151,37 @@
     
         var tabla_producciones = $('#tabla_producciones').dataTable(tabla_opciones);
         
-//        tabla_producciones.fnSettings().aoAdvancedFilter = aoAdvancedFilter;
+        var aoAdvancedFilter = /*[[${aoAdvancedFilter}]]*/null;
         
-//        console.debug('tabla_producciones.oSettings '+JSON.stringify(tabla_producciones.fnSettings(),null,'\t') );
+//        console.debug('aoAdvancedFilter '+JSON.stringify(aoAdvancedFilter,null,'\t') );
         
-//        tabla_producciones.fnDraw(); 
+        if(aoAdvancedFilter){
+        
+            var titleKey =  new Object();
+
+            titleKey.parcela = /*[[#{parcela}]]*/null;
+
+//            console.debug('titleKey '+JSON.stringify(titleKey,null,'\t') );
+
+            for ( var i = 0 ; i < aoAdvancedFilter.length ; i++){
+                
+                var sTitleKey = aoAdvancedFilter[i].sTitleKey;
+                
+                if(titleKey[sTitleKey] && titleKey[sTitleKey]!==''){
+                    
+                    aoAdvancedFilter[i].sTitle = titleKey[sTitleKey];
+                }
+            }
+
+//            console.debug('aoAdvancedFilter '+JSON.stringify(aoAdvancedFilter,null,'\t') );
+
+            tabla_producciones.fnSettings().aoAdvancedFilter = aoAdvancedFilter;
+
+            console.debug('tabla_producciones.oSettings.aoAdvancedFilter '+JSON.stringify(tabla_producciones.fnSettings().aoAdvancedFilter,null,'\t') );
+
+            tabla_producciones.fnDraw(); 
+        
+        }
         
     });
     

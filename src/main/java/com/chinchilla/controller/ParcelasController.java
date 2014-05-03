@@ -128,19 +128,54 @@ public class ParcelasController extends AbstractController{
     @RequestMapping(value = "/mapa/producciones/tabla.html",params = {"id"}, method=RequestMethod.GET)
     public String mapaProduccionesTabla(@RequestParam(value = "id") Integer id_parcela, Model model) throws Exception {
         
-        mapa(model);
+        
+        List<Parcela> parcelas = parcelaDAO.getAll();
+        
+        List<Coordenada> coordenadas = coordenadaDAO.getAll();
+        
+        List<Labor> labores = laborDAO.getAll();
 
         List<Produccion> producciones = produccionDAO.getAll();
 
         List<Cultivo> cultivos = cultivoDAO.getAll();
 
-        List<Parcela> parcelas = parcelaDAO.getAll();
-
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
-        modelMap.put("producciones", producciones);
-        modelMap.put("cultivos", cultivos);
         modelMap.put("parcelas", parcelas);
+        
+        modelMap.put("coordenadas", coordenadas);
+
+        modelMap.put("labores", labores);
+
+        modelMap.put("producciones", producciones);
+        
+        modelMap.put("cultivos", cultivos);
+        
+        List<Map<String,Object>> aoAdvancedFilter = new ArrayList<Map<String,Object>>();
+        
+        if(parcelas!=null){
+            
+            for (Parcela temp : parcelas){
+                if(temp.getId_parcela() == id_parcela){
+                    Map<String,Object> oAdvancedFilter = new HashMap<String,Object>();
+//                    aoAdvancedFilter.put("sTitle", column);
+                    oAdvancedFilter.put("sTitleKey", "parcela");
+                    Map<String,String> oOperation = new HashMap<String,String>();
+                    oOperation.put("sOperation", "equals");
+                    oOperation.put("sValue1", temp.getZona()+" - "+temp.getNombre());
+                    List<Map<String,String>> aoOperations = new ArrayList<Map<String,String>>();
+                    aoOperations.add(oOperation);
+                    oAdvancedFilter.put("aoOperations", aoOperations);
+                    aoAdvancedFilter.add(oAdvancedFilter);
+                    break;
+                }
+            }
+
+            modelMap.put("aoAdvancedFilter", aoAdvancedFilter);
+            
+            log.debug("aoAdvancedFilter: " + aoAdvancedFilter);
+        
+        }
         
         model.addAllAttributes(modelMap);
         

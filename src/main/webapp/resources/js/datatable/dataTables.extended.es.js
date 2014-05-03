@@ -428,7 +428,7 @@ $.fn.dataTableExt.afnFiltering.push( function( oSettings, aData, iDataIndex ) {
                 }
                 
                 var operation = oSettings.aoAdvancedFilter[i].aoOperations[j].sOperation;
-//                console.debug(oSettings.aoAdvancedFilter[i].sTitle+' '+mDataTemp+' - Type: '+sTypeTemp+', '+compareTo+' '+operation+' '+value1+' '+value2);                
+                console.debug(oSettings.aoAdvancedFilter[i].sTitle+' '+mDataTemp+' - Type: '+sTypeTemp+', '+compareTo+' '+operation+' '+value1+' '+value2);                
                 if(operation==="equals" && compareTo===value1){
                     partialResult = true; break;
                 }else if(operation==="not-equals" && compareTo!==value1){
