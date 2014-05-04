@@ -87,30 +87,55 @@
             
             //Gasoil
             var today=new Date();
-            var oneDayInMs = 24 * 60 * 60 * 1000;
-            today = new Date( today.valueOf() - (today.valueOf()%oneDayInMs) );
-            var lastweek=new Date();
-            lastweek.setDate(today.getDate()-7);
+            today.setDate(today.getDate()+1);
+//            var oneDayInMs = 24 * 60 * 60 * 1000;
+//            today = new Date( today.valueOf() - (today.valueOf()%oneDayInMs) );
+//            var lastweek=new Date();
+//            lastweek.setDate(today.getDate()-7);
+            var last30days=new Date();
+            last30days.setDate(today.getDate()-30);
 //            console.log('today '+today); 
 //            console.log('lastweek '+lastweek); 
             var labores = /*[[${labores}]]*/null;
+            
+//            console.log('labores '+JSON.stringify(labores, null, '\t'));
             var todayDate = today.valueOf();
 //            console.log('todayDate '+todayDate); 
-            var data = [
-                            [todayDate-(4 * oneDayInMs), 30], 
-                            [todayDate-(3 * oneDayInMs), 37], 
-                            [todayDate-(2 * oneDayInMs), 30], 
-                            [todayDate-(oneDayInMs), 40], 
-                            [todayDate, 45]
-                        ];
-//            console.log('data: '+data);      
+//            var data = [
+//                            [todayDate-(4 * oneDayInMs), 30], 
+//                            [todayDate-(3 * oneDayInMs), 37], 
+//                            [todayDate-(2 * oneDayInMs), 30], 
+//                            [todayDate-(oneDayInMs), 40], 
+//                            [todayDate, 45]
+//                        ];
+           var data = new Array();
+           for(var i=0; i<labores.length; i++){
+               var tempDay = new Date(labores[i].fecha_comienzo.time);
+//               if(labores[i].fecha_comienzo)
+//            console.log('fecha_comienzo '+new Date(labores[i].fecha_comienzo.time)+' - '+labores[i].litros_gasoil);
+                if(last30days < tempDay && tempDay < today){
+                    var found = false;
+                    for(var j=0; j<data.length; j++){
+                        if(data[j][0].getTime() === tempDay.getTime() ){
+                            data[j][1] = data[j][1] + labores[i].litros_gasoil;
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(!found){
+                        data.push([tempDay, labores[i].litros_gasoil]);
+                    }
+                }
+           }
+                        
+            console.log('data: '+JSON.stringify(data, null, '\t'));      
             var opciones_gasoil = {
                                         xaxis : {
                                             mode : "time",
-                                            timeformat: "%d-%m",
+                                            timeformat: "%d/%m/%y",
 //                                                tickLength : 5,
-//                                                min: today,
-//                                                max: lastweek 
+                                                min: last30days.getTime(),
+                                                max: today.getTime()
                                         },
                                         yaxis:{
                                             min: 0
@@ -118,7 +143,8 @@
                                         series : {
                                                 bars : {
                                                         show : true,
-                                                        lineWidth : 5,
+                                                        barWidth : 24 * 60 * 60 * 1000,
+//                                                        align: "center",
                                                         fill : true
                                                 }
                                         },

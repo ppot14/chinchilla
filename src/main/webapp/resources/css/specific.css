@@ -95,6 +95,10 @@ h2.page-title{
     margin-bottom: 10px;
 }
 
+.jumbotron p.small {
+    font-size: 80%;
+}
+
 .panel-module .panel-heading{
     display: table;
     width: 100%;

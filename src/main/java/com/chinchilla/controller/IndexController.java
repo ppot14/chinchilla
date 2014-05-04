@@ -49,7 +49,7 @@ public class IndexController extends AbstractController{
         
         model.addAllAttributes(modelMap);
         
-        if(true==true) throw new NullPointerException("BOOOMMMMM!!!!!");
+//        if(true==true) throw new NullPointerException("BOOOMMMMM!!!!!");
         
         return "portal";
     }
