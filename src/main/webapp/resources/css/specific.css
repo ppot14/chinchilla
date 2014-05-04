@@ -450,6 +450,7 @@ h2.page-title{
 }
 /* more specificity required here to overide default borders */
 .ui-spinner a.ui-spinner-button {
+    text-decoration: none;
 }
 /* vertical centre icon */
 .ui-spinner .ui-icon {
@@ -1980,8 +1981,9 @@ input.error {
 /*
 * Table Form
 */
-table.table-form{
-    margin-bottom: 0px;
+table.table-form{    
+    margin: 0 4%;
+    width: 92%;
 }
 table.table-form thead tr{
     background-color: #E7E7E7;

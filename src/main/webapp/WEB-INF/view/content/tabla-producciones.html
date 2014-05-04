@@ -172,14 +172,18 @@
                     aoAdvancedFilter[i].sTitle = titleKey[sTitleKey];
                 }
             }
+            
+            AdvancedFilter.fnSetAdvancedFilter(aoAdvancedFilter,tabla_producciones);
 
 //            console.debug('aoAdvancedFilter '+JSON.stringify(aoAdvancedFilter,null,'\t') );
 
-            tabla_producciones.fnSettings().aoAdvancedFilter = aoAdvancedFilter;
+//            tabla_producciones.fnSettings().aoAdvancedFilter = aoAdvancedFilter;
+            
+//            tabla_producciones.fnSettings().aoAdvancedFilter.fnSetAdvancedFilter(aoAdvancedFilter);
 
-            console.debug('tabla_producciones.oSettings.aoAdvancedFilter '+JSON.stringify(tabla_producciones.fnSettings().aoAdvancedFilter,null,'\t') );
+//            console.debug('tabla_producciones.oSettings.aoAdvancedFilter '+JSON.stringify(tabla_producciones.fnSettings().aoAdvancedFilter,null,'\t') );
 
-            tabla_producciones.fnDraw(); 
+//            tabla_producciones.fnDraw(); 
         
         }
         

@@ -192,7 +192,7 @@
             var selectProducto = $('<select></select>');
             
             //TODO bug in select2 o jquerym class selec2 eliminada temporalmente
-            selectProducto.addClass('select2')
+            selectProducto.addClass('select2 form-control input-sm')
                     .css('width','100%')
                     .attr('placeholder', 'Seleccionar producto(s)...')
                     .attr('id','labor_producto'+rowCount+'.producto.id_producto')
@@ -210,7 +210,7 @@
                 
             }
             
-            console.debug("selectProducto "+selectProducto);
+//            console.debug("selectProducto "+selectProducto);
             
             row.append( $('<td></td>').append(selectProducto) );
             
@@ -221,7 +221,7 @@
                                     +'name="labor_producto['+rowCount+'].multiplicador"'
                                     +'class="form-control input-sm" placeholder=""></input>');
             
-            console.debug("cantidadSpinner "+cantidadSpinner);
+//            console.debug("cantidadSpinner "+cantidadSpinner);
             
             row.append( $('<td></td>').append(cantidadSpinner) );
 
@@ -243,7 +243,7 @@
                 $(this).closest("tr").remove();
             });
             
-            console.log('row '+row);
+//            console.log('row '+row);
             
             $('#table_form_producto_cantidad tbody').append(row);
         };
@@ -277,7 +277,7 @@
           
         $('#boton_modificar').click(function() {
             var labor = /*[[${labor}]]*/null; 
-      console.debug('labor: '+JSON.stringify(labor,null,"\t"));
+//      console.debug('labor: '+JSON.stringify(labor,null,"\t"));
             $('#insertar_modificar_eliminar').val('modificar');
             $('#formulario-labor').submit();
           });
@@ -299,7 +299,7 @@
 //          }
         var labor_producto = /*[[${labor.labor_producto}]]*/null; 
 
-        console.log("labor_producto: "+labor_producto);
+//        console.log("labor_producto: "+labor_producto);
 
         if(labor_producto){
 //            for(var i=0; i<labor_producto.length; i++){
