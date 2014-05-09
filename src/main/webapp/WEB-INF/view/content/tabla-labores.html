@@ -21,7 +21,7 @@
 
             $(window).load(function () {
 
-                tabla_opciones.aaSorting = [[ 2, "desc" ]];
+                tabla_opciones.aaSorting = [[ 4, "desc" ]];
 
                 var tabla_labores = $('#tabla_labores').dataTable(tabla_opciones);
 
@@ -76,14 +76,15 @@
                     <thead>
                         <tr>
                           <th>[[#{id-labor}]]</th>
-                          <!--<th>[[#{id-tipo-labor}]]</th>-->
                           <th>[[#{parcela}]]</th>
-<!--                                      <th>[[#{grupo}]]</th>
-                          <th>[[#{nombre}]]</th>-->
+                          <th>[[#{grupo}]]</th>
+                          <th>[[#{nombre}]]</th>
                           <th>[[#{fecha-comienzo}]]</th>
-                          <!--<th>[[#{cantidad-dosis-por-ha}]]</th>-->
+                          <th>[[#{fecha-fin}]]</th>
                           <th>[[#{litros-gasoil}]]</th>
                           <th>[[#{duracion}]]</th>
+                          <th>[[#{coste-fijo-total}]]</th>
+                          <th>[[#{descripcion}]]</th>
                           <th>[[#{maquinaria}]]</th>
                           <th>[[#{producto}]]</th>
                           <th>[[#{personal}]]</th>
@@ -92,14 +93,6 @@
                     <tbody>
                         <tr  th:each="labores_item : ${labores}">
                           <td><a th:href="@{/labores/tabla/form/labor.html(id=${labores_item.id_labor})}">[[${labores_item.id_labor}]]</a></td>
-                          <!--<td>[[#{labores_item.id_tipo_labor}"><a th:href="@{/labores/tipo/tabla/form/labor.html(id=${labores_item.id_tipo_labor})}" th:text="${labores_item.id_tipo_labor}">[id_tipo_labor]</a></td>-->
-                <!--          <td th:each="tipoLabor_item : ${tiposLabores}" 
-                              th:if="${tipoLabor_item.id_tipo_labor == labores_item.id_tipo_labor}"
-                              th:text="${tipoLabor_item.nombre}">
-                              <a th:href="@{/labores/tipos/tabla/form/tipoLabor.html(id=${labores_item.id_tipo_labor})}" 
-                                 th:text="${tipoLabor_item.nombre}">[tipolabor]</a>
-                          </td>-->
-
                           <td>
                               <ul  th:if="${not #lists.isEmpty(labores_item.labor_parcela)}"
                                     class="nav nav-pills nav-stacked">
@@ -107,12 +100,14 @@
                                     style="margin-bottom: 3px">[[${laborParcela_item.parcela.nombre}]]</li>
                               </ul>
                           </td>
-<!--                                      <td>[[${labores_item.grupo}]]</td>
-                          <td>[[${labores_item.nombre}]]</td>-->
+                          <td>[[${labores_item.grupo}]]</td>
+                          <td>[[${labores_item.nombre}]]</td>
                           <td>[[${#dates.format(labores_item.fecha_comienzo,'dd/MM/yyyy')}]]</td>
-                          <!--<td>[[#{#numbers.formatDecimal(labores_item.cantidad_dosis_por_ha,1,'POINT',0,'COMMA')}]]</td>-->
+                          <td>[[${labores_item.fecha_fin} ? ${#dates.format(labores_item.fecha_fin,'dd/MM/yyyy')} : '']]</td>
                           <td>[[${#numbers.formatDecimal(labores_item.litros_gasoil,1,'POINT',2,'COMMA')}]]</td>
                           <td>[[${#numbers.formatDecimal(labores_item.duracion,1,'POINT',2,'COMMA')}]]</td>
+                          <td>[[${#numbers.formatDecimal(labores_item.coste_fijo_total,1,'POINT',2,'COMMA')}]]</td>
+                          <td>[[${#objects.nullSafe(labores_item.descripcion,'')}]]</td>
                           <td>
                               <ul  th:if="${not #lists.isEmpty(labores_item.labor_maquinaria)}"
                                     class="nav nav-pills nav-stacked">

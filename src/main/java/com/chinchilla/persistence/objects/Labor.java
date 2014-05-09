@@ -39,9 +39,12 @@ public class Labor implements Serializable{
     private String grupo;
     private String nombre;
     private Date fecha_comienzo;
+    private Date fecha_fin;
     private double cantidad_dosis_por_ha;
     private double duracion;
     private double litros_gasoil;
+    private double coste_fijo_total;
+    private String descripcion;
     private List<LaborMaquinaria> labor_maquinaria;
     private List<LaborProducto> labor_producto;
     private List<LaborPersonal> labor_personal;
@@ -161,10 +164,15 @@ public class Labor implements Serializable{
 	@Override
 	public String toString() {
 		return "Labor{id_labor=" + id_labor 
+                                + ", grupo=" + grupo
+                                + ", nombre=" + nombre
                                 + ", fecha_comienzo=" + fecha_comienzo
+                                + ", fecha_fin=" + fecha_fin
 				+ ", cantidad_dosis_por_ha=" + cantidad_dosis_por_ha
 				+ ", duracion=" + duracion 
                                 + ", litros_gasoil=" + litros_gasoil
+                                + ", coste_fijo_total=" + coste_fijo_total
+                                + ", descripcion=" + descripcion
 				+ ", labor_maquinaria=" + labor_maquinaria 
                                 + ", labor_producto=" + labor_producto
 				+ ", labor_personal=" + labor_personal 
@@ -254,6 +262,48 @@ public class Labor implements Serializable{
      */
     public void setLabor_parcela(List<LaborParcela> labor_parcela) {
         this.labor_parcela = labor_parcela;
+    }
+
+    /**
+     * @return the coste_fijo_total
+     */
+    public double getCoste_fijo_total() {
+        return coste_fijo_total;
+    }
+
+    /**
+     * @param coste_fijo_total the coste_fijo_total to set
+     */
+    public void setCoste_fijo_total(double coste_fijo_total) {
+        this.coste_fijo_total = coste_fijo_total;
+    }
+
+    /**
+     * @return the descripcion
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    /**
+     * @param descripcion the descripcion to set
+     */
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    /**
+     * @return the fecha_fin
+     */
+    public Date getFecha_fin() {
+        return fecha_fin;
+    }
+
+    /**
+     * @param fecha_fin the fecha_fin to set
+     */
+    public void setFecha_fin(Date fecha_fin) {
+        this.fecha_fin = fecha_fin;
     }
     
 }

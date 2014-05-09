@@ -16,7 +16,23 @@
        
         <input th:field="*{id_labor}" 
                id="id_labor"  
-                type="hidden"/>       
+                type="hidden"/>   
+        
+    <div class="form-group">
+    <label for="grupo" class="col-md-5 control-label">[[#{grupo}]]</label>
+        <div class="col-md-7">
+            <input id="grupo" 
+                    class="form-control input-sm" placeholder="" th:field="*{grupo}"></input>
+        </div>
+    </div> 
+      
+    <div class="form-group">
+    <label for="nombre" class="col-md-5 control-label">[[#{nombre}]]</label>
+        <div class="col-md-7">
+            <input id="nombre" 
+                    class="form-control input-sm" placeholder="" th:field="*{nombre}"></input>
+        </div>
+    </div>        
       
     <div class="form-group">
     <label for="parcela" class="col-md-5 control-label">[[#{parcela}]]</label>
@@ -140,6 +156,17 @@
     </div>
       
     <div class="form-group">
+    <label for="fecha_fin" class="col-md-5 control-label">[[#{fecha-fin}]]</label>
+        <div class="col-md-7"><div class="input-group">
+            <input id="fecha_fin" name="fecha_fin" 
+                    class="form-control input-sm datepicker"  
+                   placeholder="Seleccionar fecha" 
+                   th:value="*{fecha_fin}? ${#dates.format(labor.fecha_fin,'dd/MM/yyyy')} : ''"></input> 
+            <span class="input-group-addon"><i class="icon-calendarthree"></i></span>
+        </div></div>
+    </div>
+      
+    <div class="form-group">
     <label for="duracion" class="col-md-5 control-label">[[#{duracion}]]</label>
         <div class="col-md-7">
             <input id="cantidad" 
@@ -154,6 +181,22 @@
                     class="form-control input-sm" placeholder="" th:field="*{litros_gasoil}"></input>
         </div>
     </div>
+    
+    <div class="form-group">
+    <label for="coste_fijo_total" class="col-md-5 control-label">[[#{coste-fijo-total}]]</label>
+        <div class="col-md-7">
+            <input id="coste_fijo_total" 
+                    class="form-control input-sm" placeholder="" th:field="*{coste_fijo_total}"></input>
+        </div>
+    </div> 
+      
+    <div class="form-group">
+    <label for="descripcion" class="col-md-5 control-label">[[#{descripcion}]]</label>
+        <div class="col-md-7">
+            <textarea id="descripcion" 
+                    class="form-control input-sm" placeholder="" th:field="*{descripcion}"></textarea>
+        </div>
+    </div> 
        
 <!--    <div class="form-group">
         <label for="cantidad_dosis_por_ha" class="col-md-5 control-label" th:text="#{cantidad-dosis-por-ha}">[Cantidad o dosis (por HA)]</label>
@@ -365,8 +408,19 @@
           numberFormat: "n",
           culture: "es"
         });
+
+        $( "#coste_fijo_total" ).spinner({
+          min: 0,
+          max: 999999,
+          step: 1,
+          page: 100,
+          numberFormat: "n",
+          culture: "es"
+        });
         
          $( "#fecha_comienzo" ).datepicker();
+        
+         $( "#fecha_fin" ).datepicker();
   });        
   /*]]>*/</script>
     
