@@ -8,9 +8,12 @@
         <result property="grupo" column="l_grupo"/>
         <result property="nombre" column="l_nombre"/>
         <result property="fecha_comienzo" column="l_fecha_comienzo"/>
+        <result property="fecha_fin" column="l_fecha_fin"/>
         <result property="cantidad_dosis_por_ha" column="l_cantidad_dosis_por_ha"/>
         <result property="duracion" column="l_duracion"/>
         <result property="litros_gasoil" column="l_litros_gasoil"/>
+        <result property="coste_fijo_total" column="coste_fijo_total"/>
+        <result property="descripcion" column="descripcion"/>
         <collection property="labor_parcela" 
                     javaType="ArrayList"  
                     columnPrefix="lpa_" 
@@ -153,9 +156,12 @@
         l.grupo as "l_grupo",
         l.nombre as "l_nombre", 
         l.fecha_comienzo as "l_fecha_comienzo", 
+        l.fecha_fin as "l_fecha_fin", 
         l.cantidad_dosis_por_ha as "l_cantidad_dosis_por_ha", 
         l.duracion as "l_duracion", 
         l.litros_gasoil as "l_litros_gasoil",
+        l.coste_fijo_total as "l_coste_fijo_total",
+        l.descripcion as "l_descripcion",
         
         lpa.id_labor as "lpa_id_labor",
         lpa.id_parcela as "lpa_id_parcela",
@@ -272,9 +278,12 @@
         l.grupo as "l_grupo",
         l.nombre as "l_nombre", 
         l.fecha_comienzo as "l_fecha_comienzo", 
+        l.fecha_fin as "l_fecha_fin", 
         l.cantidad_dosis_por_ha as "l_cantidad_dosis_por_ha", 
         l.duracion as "l_duracion", 
         l.litros_gasoil as "l_litros_gasoil",
+        l.coste_fijo_total as "l_coste_fijo_total",
+        l.descripcion as "l_descripcion",
         
         lpa.id_labor as "lpa_id_labor",
         lpa.id_parcela as "lpa_id_parcela",
@@ -377,9 +386,12 @@
         grupo as "grupo",
         nombre as "nombre",
         fecha_comienzo as "fecha_comienzo", 
+        fecha_fin as "fecha_fin", 
         cantidad_dosis_por_ha as "cantidad_dosis_por_ha", 
         duracion as "duracion", 
-        litros_gasoil as "litros_gasoil"
+        litros_gasoil as "litros_gasoil",
+        coste_fijo_total as "l_coste_fijo_total",
+        descripcion as "l_descripcion"
         FROM gonzalol_chinchilla.t_labores tl
         LEFT JOIN gonzalol_chinchilla.t_labores_parcelas lp 
         ON tl.id_labor = lp.id_labor
@@ -392,9 +404,12 @@
         grupo as "grupo",
         nombre as "nombre",
         fecha_comienzo as "fecha_comienzo", 
+        fecha_fin as "fecha_fin", 
         cantidad_dosis_por_ha as "cantidad_dosis_por_ha", 
         duracion as "duracion", 
-        extension as "litros_gasoil"
+        extension as "litros_gasoil",
+        coste_fijo_total as "l_coste_fijo_total",
+        descripcion as "l_descripcion"
         from gonzalol_chinchilla.t_labores 
         where nombre = #{nombre}
     </select>
@@ -434,8 +449,8 @@
         <selectKey resultType="int" keyProperty="id_labor" order="AFTER" >
             SELECT LAST_INSERT_ID() as id_labor
           </selectKey>
-          insert into gonzalol_chinchilla.t_labores (grupo, nombre, fecha_comienzo, cantidad_dosis_por_ha, duracion, litros_gasoil)
-        values (#{grupo}, #{nombre}, #{fecha_comienzo}, #{cantidad_dosis_por_ha}, #{duracion}, #{litros_gasoil})		
+          insert into gonzalol_chinchilla.t_labores (grupo, nombre, fecha_comienzo, fecha_fin, cantidad_dosis_por_ha, duracion, litros_gasoil, coste_fijo_total, descripcion)
+        values (#{grupo}, #{nombre}, #{fecha_comienzo}, #{fecha_fin}, #{cantidad_dosis_por_ha}, #{duracion}, #{litros_gasoil}, #{coste_fijo_total}, #{descripcion})		
     </insert>
 	
     <update id="updateLabor" parameterType="com.chinchilla.persistence.objects.Labor">
@@ -443,9 +458,12 @@
         grupo = #{grupo}, 
         nombre = #{nombre}, 
         fecha_comienzo = #{fecha_comienzo}, 
+        fecha_fin = #{fecha_fin}, 
         cantidad_dosis_por_ha =#{cantidad_dosis_por_ha}, 
         duracion = #{duracion}, 
-        litros_gasoil = #{litros_gasoil} 
+        litros_gasoil = #{litros_gasoil},
+        coste_fijo_total = #{coste_fijo_total},
+        descripcion = #{descripcion}
         where id_labor = #{id_labor}		
     </update>
 	
