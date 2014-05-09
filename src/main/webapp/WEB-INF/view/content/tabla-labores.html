@@ -22,6 +22,8 @@
             $(window).load(function () {
 
                 tabla_opciones.aaSorting = [[ 2, "desc" ]];
+                
+                tabla_opciones.aoColumnDefs = [{ "bSortable": false, "aTargets": [ 0 ] }];
 
                 var tabla_labores = $('#tabla_labores').dataTable(tabla_opciones);
 
@@ -75,6 +77,9 @@
                 <table id="tabla_labores" class="table table-striped table-bordered table-hover table-condensed">
                     <thead>
                         <tr>
+                          <th style="text-align: center;">
+                             <input type="checkbox" onclick="console.debug('checked: '+this.checked);$(this).closest('table').find('td :checkbox').attr('checked', this.checked);" />
+                          </th>
                           <th>[[#{id-labor}]]</th>
                           <!--<th>[[#{id-tipo-labor}]]</th>-->
                           <th>[[#{parcela}]]</th>
@@ -91,6 +96,10 @@
                     </thead>
                     <tbody>
                         <tr  th:each="labores_item : ${labores}">
+                          <td style="text-align: center;">
+                              <input type="checkbox" th:value="${labores_item.id_labor}" onclick="console.debug('class: '+$(this).closest('tr').attr('class')+' checked: '+this.checked);$(this).closest('tr').toggleClass('info', this.checked);"
+                                                                                          onchange="console.debug('checked: '+this.checked);"/>
+                          </td>
                           <td><a th:href="@{/labores/tabla/form/labor.html(id=${labores_item.id_labor})}">[[${labores_item.id_labor}]]</a></td>
                           <!--<td>[[#{labores_item.id_tipo_labor}"><a th:href="@{/labores/tipo/tabla/form/labor.html(id=${labores_item.id_tipo_labor})}" th:text="${labores_item.id_tipo_labor}">[id_tipo_labor]</a></td>-->
                 <!--          <td th:each="tipoLabor_item : ${tiposLabores}" 
