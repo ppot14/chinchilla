@@ -35,12 +35,16 @@ public class OrdenCompra implements Serializable{
     
     private int id_orden_compra;
     private int id_elemento;
+    private String num_factura;
     private double cantidad;
     private double precio;
+    private double total;
     private String marca;
     private String proveedor;
     private Date fecha;
+    private Date fecha_albaran;
     private String medida;
+    private String nota;
     
     public OrdenCompra(){
         
@@ -49,12 +53,16 @@ public class OrdenCompra implements Serializable{
     public OrdenCompra(OrdenCompra oc){
         id_orden_compra = oc.getId_orden_compra();
         id_elemento = oc.getId_elemento();
+        num_factura = oc.getNum_factura();
         cantidad = oc.getCantidad();
         precio = oc.getPrecio();
+        total = oc.getTotal();
         marca = oc.getMarca();
         proveedor = oc.getProveedor();
         fecha = oc.getFecha();
+        fecha_albaran = oc.getFecha_albaran();
         medida = oc.getMedida();
+        nota = oc.getNota();
     }
 
     /**
@@ -167,5 +175,76 @@ public class OrdenCompra implements Serializable{
      */
     public void setMedida(String medida) {
         this.medida = medida;
+    }
+
+    /**
+     * @return the total
+     */
+    public double getTotal() {
+        return total;
+    }
+
+    /**
+     * @param total the total to set
+     */
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    /**
+     * @return the fecha_albaran
+     */
+    public Date getFecha_albaran() {
+        return fecha_albaran;
+    }
+
+    /**
+     * @param fecha_albaran the fecha_albaran to set
+     */
+    public void setFecha_albaran(Date fecha_albaran) {
+        this.fecha_albaran = fecha_albaran;
+    }
+
+    /**
+     * @return the nota
+     */
+    public String getNota() {
+        return nota;
+    }
+
+    /**
+     * @param nota the nota to set
+     */
+    public void setNota(String nota) {
+        this.nota = nota;
+    }
+
+    /**
+     * @return the num_factura
+     */
+    public String getNum_factura() {
+        return num_factura;
+    }
+
+    /**
+     * @param num_factura the num_factura to set
+     */
+    public void setNum_factura(String num_factura) {
+        this.num_factura = num_factura;
+    }
+
+    @Override
+    public String toString() {
+        return "OrdenCompra{" + "id_orden_compra=" + id_orden_compra + 
+                ", id_elemento=" + id_elemento + 
+                ", num_factura=" + num_factura + 
+                ", cantidad=" + cantidad + 
+                ", precio=" + precio + 
+                ", total=" + total + 
+                ", marca=" + marca + 
+                ", proveedor=" + proveedor + 
+                ", fecha=" + fecha + 
+                ", fecha_albaran=" + fecha_albaran +
+                ", nota=" + nota + '}';
     }
 }

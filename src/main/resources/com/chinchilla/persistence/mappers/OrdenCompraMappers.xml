@@ -7,12 +7,15 @@
         select 
         id_orden_compra	as "id_orden_compra",
         id_elemento	as "id_elemento",
+        num_factura	as "num_factura",
         cantidad	as "cantidad",
         precio	as "precio",
+        total	as "total",
         marca	as "marca",
         proveedor	as "proveedor",
         fecha	as "fecha",
-        medida	as "medida"	
+        fecha_albaran	as "fecha_albaran",
+        nota	as "nota"	
         from gonzalol_chinchilla.t_ordenes_compra 
         where id_orden_compra = #{id_orden_compra}
     </select>
@@ -21,12 +24,15 @@
         select 
         id_orden_compra	as "id_orden_compra",
         id_elemento	as "id_elemento",
+        num_factura	as "num_factura",
         cantidad	as "cantidad",
         precio	as "precio",
+        total	as "total",
         marca	as "marca",
         proveedor	as "proveedor",
         fecha	as "fecha",
-        medida	as "medida"	
+        fecha_albaran	as "fecha_albaran",
+        nota	as "nota"	
         from gonzalol_chinchilla.t_ordenes_compra 
         order by id_orden_compra
     </select>
@@ -35,30 +41,36 @@
         select 
         id_orden_compra	as "id_orden_compra",
         id_elemento	as "id_elemento",
+        num_factura	as "num_factura",
         cantidad	as "cantidad",
         precio	as "precio",
+        total	as "total",
         marca	as "marca",
         proveedor	as "proveedor",
         fecha	as "fecha",
-        medida	as "medida"	
+        fecha_albaran	as "fecha_albaran",
+        nota	as "nota"	
         from gonzalol_chinchilla.t_ordenes_compra 
         where nombre = #{nombre}
     </select>
 	
     <insert id="createOrdenCompra" keyColumn="id_orden_compra" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.OrdenCompra">
-        insert into gonzalol_chinchilla.t_ordenes_compra ( id_elemento, cantidad, precio, marca, proveedor, fecha, medida)
-        values ( #{id_elemento}, #{cantidad}, #{precio}, #{marca}, #{proveedor}, #{fecha}, #{medida})		
+        insert into gonzalol_chinchilla.t_ordenes_compra ( id_elemento, num_factura, cantidad, precio, total, marca, proveedor, fecha, fecha_albaran, nota)
+        values ( #{id_elemento}, #{num_factura}, #{cantidad}, #{precio}, #{total}, #{marca}, #{proveedor}, #{fecha}, #{fecha_albaran}, #{nota})		
     </insert>
 	
     <update id="updateOrdenCompra" parameterType="com.chinchilla.persistence.objects.OrdenCompra">
         update gonzalol_chinchilla.t_ordenes_compra set  
         id_elemento	= #{id_elemento},
+        num_factura	= #{num_factura},
         cantidad	= #{cantidad},
         precio	= #{precio},
+        total	= #{total},
         marca	= #{marca},
         proveedor	= #{proveedor},
         fecha	= #{fecha},
-        medida	= #{medida}
+        fecha_albaran	= #{fecha_albaran},
+        nota	= #{nota}
         where id_orden_compra = #{id_orden_compra}		
     </update>
 	

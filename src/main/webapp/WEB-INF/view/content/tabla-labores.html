@@ -104,9 +104,9 @@
                           <td>[[${labores_item.nombre}]]</td>
                           <td>[[${#dates.format(labores_item.fecha_comienzo,'dd/MM/yyyy')}]]</td>
                           <td>[[${labores_item.fecha_fin} ? ${#dates.format(labores_item.fecha_fin,'dd/MM/yyyy')} : '']]</td>
-                          <td>[[${#numbers.formatDecimal(labores_item.litros_gasoil,1,'POINT',2,'COMMA')}]]</td>
-                          <td>[[${#numbers.formatDecimal(labores_item.duracion,1,'POINT',2,'COMMA')}]]</td>
-                          <td>[[${#numbers.formatDecimal(labores_item.coste_fijo_total,1,'POINT',2,'COMMA')}]]</td>
+                          <td class="text-align-right">[[${#numbers.formatDecimal(labores_item.litros_gasoil,1,'POINT',2,'COMMA')}]]</td>
+                          <td class="text-align-right">[[${#numbers.formatDecimal(labores_item.duracion,1,'POINT',2,'COMMA')}]]</td>
+                          <td class="text-align-right">[[${#numbers.formatDecimal(labores_item.coste_fijo_total,1,'POINT',2,'COMMA')}]]</td>
                           <td>[[${#objects.nullSafe(labores_item.descripcion,'')}]]</td>
                           <td>
                               <ul  th:if="${not #lists.isEmpty(labores_item.labor_maquinaria)}"

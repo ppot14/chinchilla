@@ -3,6 +3,8 @@
 <script>/*<![CDATA[*/
   
     $(window).load(function () {
+
+        tabla_opciones.aaSorting = [[ 8, "desc" ]];
     
         $('#tabla_registros').dataTable(tabla_opciones);
         
@@ -43,12 +45,15 @@
                             <tr>
                               <th>[[#{id}]]</th>
                               <th>[[#{id-elemento}]]</th>
+                              <th>[[#{num-factura}]]</th>
                               <th>[[#{cantidad}]]</th>
                               <th>[[#{precio}]]</th>
+                              <th>[[#{total}]]</th>
                               <th>[[#{marca}]]</th>
                               <th>[[#{proveedor}]]</th>
                               <th>[[#{fecha}]]</th>
-                              <th>[[#{medida}]]</th>
+                              <th>[[#{fecha-albaran}]]</th>
+                              <th>[[#{nota}]]</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,12 +69,15 @@
                                   th:if="${parcelas_item.id_parcela == ordenesCompra.id_parcela}">[id_parcela]
                               </td>-->
                               <td>[[${ordenesCompra_item.id_elemento}]]</td>
-                              <td>[[${#numbers.formatDecimal(ordenesCompra_item.cantidad,1,'POINT',3,'COMMA')}]]</td>
-                              <td>[[${#numbers.formatDecimal(ordenesCompra_item.precio,1,'POINT',3,'COMMA')}]]</td>
+                              <td>[[${ordenesCompra_item.num_factura}]]</td>
+                              <td class="text-align-right">[[${#numbers.formatDecimal(ordenesCompra_item.cantidad,1,'POINT',2,'COMMA')}]]</td>
+                              <td class="text-align-right">[[${ordenesCompra_item.precio != null and ordenesCompra_item.precio != 0} ? ${#numbers.formatDecimal(ordenesCompra_item.precio,1,'POINT',4,'COMMA')} : '']]</td>
+                              <td class="text-align-right">[[${ordenesCompra_item.total != null and ordenesCompra_item.total != 0} ? ${#numbers.formatDecimal(ordenesCompra_item.total,1,'POINT',2,'COMMA')} : '']]</td>
                               <td>[[${ordenesCompra_item.marca}]]</td>
                               <td>[[${ordenesCompra_item.proveedor}]]</td>
                               <td>[[${#dates.format(ordenesCompra_item.fecha,'dd/MM/yyyy')}]]</td>
-                              <td>[[${ordenesCompra_item.medida}]]</td>
+                              <td>[[${ordenesCompra_item.fecha_albaran} ? ${#dates.format(ordenesCompra_item.fecha_albaran,'dd/MM/yyyy')} : '']]</td>
+                              <td>[[${ordenesCompra_item.nota}]]</td>
                             </tr>
                         </tbody>
                     </table>

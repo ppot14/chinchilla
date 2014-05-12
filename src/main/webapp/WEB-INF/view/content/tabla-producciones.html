@@ -247,8 +247,8 @@
                               [[${parcelas_item.zona+' - '+parcelas_item.nombre}]]
                           </td>
                           <td>[[${#dates.format(producciones_item.fecha,'dd/MM/yyyy')}]]</td>
-                          <td>[[${producciones_item.kilos}]]</td>
-                          <td>[[${#numbers.formatDecimal(producciones_item.precio_kilo,1,'POINT',3,'COMMA')}]]</td>
+                          <td class="text-align-right">[[${producciones_item.kilos}]]</td>
+                          <td class="text-align-right">[[${#numbers.formatDecimal(producciones_item.precio_kilo,1,'POINT',3,'COMMA')}]]</td>
                         </tr>
                     </tbody>
                 </table>
