@@ -58,8 +58,10 @@ public class Labor implements Serializable{
         grupo = labor.getGrupo();
         nombre = labor.getNombre();
         fecha_comienzo = labor.getFecha_comienzo();
+        fecha_fin = labor.getFecha_fin();
         cantidad_dosis_por_ha = labor.getCantidad_dosis_por_ha();
         duracion = labor.getDuracion();
+        coste_fijo_total = labor.getCoste_fijo_total();
         litros_gasoil = labor.getLitros_gasoil();
         labor_maquinaria = labor.getLabor_maquinaria();
         labor_producto = labor.getLabor_producto();

@@ -32,6 +32,14 @@
     </div>
       
     <div class="form-group">
+    <label for="num_factura" class="col-md-4 control-label">[[#{num-factura}]]</label>
+        <div class="col-md-8">
+            <input id="num_factura" 
+                    class="form-control input-sm" placeholder="" th:field="*{num_factura}"></input>
+        </div>
+    </div>
+      
+    <div class="form-group">
     <label for="cantidad" class="col-md-4 control-label">[[#{cantidad}]]</label>
         <div class="col-md-8">
             <input id="cantidad" 
@@ -44,6 +52,14 @@
         <div class="col-md-8">
             <input id="precio" 
                     class="form-control input-sm" placeholder="" th:field="*{precio}"></input>
+        </div>
+    </div>
+      
+    <div class="form-group">
+    <label for="total" class="col-md-4 control-label">[[#{total}]]</label>
+        <div class="col-md-8">
+            <input id="total" 
+                    class="form-control input-sm" placeholder="" th:field="*{total}"></input>
         </div>
     </div>
       
@@ -75,10 +91,21 @@
     </div>
       
     <div class="form-group">
-    <label for="medida" class="col-md-4 control-label">[[#{medida}]]</label>
+    <label for="fecha_albaran" class="col-md-4 control-label">[[#{fecha-albaran}]]</label>
+        <div class="col-md-8"><div class="input-group">
+            <input id="fecha_albaran" name="fecha_albaran" 
+                    class="form-control input-sm datepicker"  
+                   placeholder="Seleccionar fecha" 
+                   th:value="*{fecha_albaran}? ${#dates.format(registro.fecha_albaran,'dd/MM/yyyy')} : ''"></input> 
+            <span class="input-group-addon"><i class="icon-calendarthree"></i></span>
+        </div></div>
+    </div>
+      
+    <div class="form-group">
+    <label for="nota" class="col-md-4 control-label">[[#{nota}]]</label>
         <div class="col-md-8">
-            <input id="medida" 
-                    class="form-control input-sm" placeholder="" th:field="*{medida}"></input>
+            <textarea id="nota" 
+                    class="form-control input-sm" placeholder="" th:field="*{nota}"></textarea>
         </div>
     </div>
     
@@ -145,8 +172,19 @@ $(window).load(function () {
           numberFormat: "C",
           culture: "es"
         });
+          
+        $( "#total" ).spinner({
+          min: 0,
+          max: 999999,
+          step: 0.01,
+          page: 100,
+          numberFormat: "C",
+          culture: "es"
+        });
 
          $( "#fecha" ).datepicker();
+
+         $( "#fecha_albaran" ).datepicker();
          
          var formularioRegistro = $('#formulario-registro').validate({
             rules : {
@@ -160,6 +198,9 @@ $(window).load(function () {
                     precio : {
                             minNumber : 0.00
                     },
+                    total : {
+                            minNumber : 0.00
+                    },
                     fecha : {
                             required : true
                     }
@@ -170,9 +211,6 @@ $(window).load(function () {
                     },
                     cantidad : {
                             required : 'Cantidad es obligatoria'
-                    },
-                    precio : {
-                            required : 'Precio es obligatorio'
                     },
                     fecha : {
                             required : 'Fecha es obligatorio'
