@@ -59,6 +59,8 @@
                                     <th>[[#{horas-dia}]]</th>
                                     <th>[[#{validez-inicio}]]</th>
                                     <th>[[#{validez-fin}]]</th>
+                                    <th>[[#{test}]]</th>
+                                    <th>[[#{coste-hora}]]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -77,6 +79,8 @@
                                     <td class="text-align-right">[[${#numbers.formatDecimal(coste_personal_item.horas_dia,1,'POINT',2,'COMMA')}]]</td>
                                     <td>[[${#dates.format(coste_personal_item.validez_inicio,'dd/MM/yyyy')}]]</td>
                                     <td>[[${#dates.format(coste_personal_item.validez_fin,'dd/MM/yyyy')}]]</td>
+                                    <td>[[${@UtilFormulas.precioGasoil()}]]</td>
+                                    <td>[[${@UtilFormulas.costeHoraPersonal(coste_personal_item)}]]</td>
                                </tr>
                             </tbody>
                         </table>

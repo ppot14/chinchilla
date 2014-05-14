@@ -125,6 +125,21 @@ AdvancedFilter.prototype = {
     fnGetButton: function () {
 	return this.dom.wrapper;
     },
+    fnSetCounter: function(settings){
+        
+        var counterSpan = '';
+        
+        var buttomFilter = $("#"+settings.sTableId+"_ShowHideFilter");
+        
+        if(settings.oInstance.fnSettings().aoAdvancedFilter && settings.oInstance.fnSettings().aoAdvancedFilter.length>0){
+            counterSpan = ' <span class="badge">'+settings.oInstance.fnSettings().aoAdvancedFilter.length+'</span>';
+        }
+        
+        buttomFilter.html('<i class="icon-filter"></i> '+settings.oInit.oLanguage.sAdvancedFilter + counterSpan)
+        
+        this.dom.button = buttomFilter;
+        
+    },
     fnSetAdvancedFilter: function(aoAdvancedFilter, settings){
         
 //        console.debug("setAdvancedFilter aoAdvancedFilter: "+JSON.stringify(aoAdvancedFilter,null,"\t"));
@@ -156,6 +171,8 @@ AdvancedFilter.prototype = {
         }
         
         settings.oInstance.fnSettings().aoAdvancedFilter = aoAdvancedFilter;
+        
+        this.fnSetCounter(settings);
         
         settings.oInstance.fnDraw();
         
@@ -380,6 +397,8 @@ AdvancedFilter.prototype = {
             
              settings.aoAdvancedFilter.push(filter);
         }
+        
+        this.fnSetCounter(settings);
         
 //    console.debug('_fnApplyAdvancedFilter settings.aoAdvancedFilter: '+JSON.stringify(settings.aoAdvancedFilter,null,"\t"));
         settings.oInstance.fnDraw(); 

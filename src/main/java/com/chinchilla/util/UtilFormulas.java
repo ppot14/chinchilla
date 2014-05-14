@@ -54,7 +54,7 @@ public class UtilFormulas {
     private static double HORAS_EXTRA = 120;
     private static double PRECIO_HORAS_EXTRA = 12.56;
     
-    public double costeHoraMaquinaria(Maquinaria maq){
+    public static double costeHoraMaquinaria(Maquinaria maq){
         double costeHora, totalAmortizacion, totalIntereses, totalReparaciones, totalAlojamiento, 
                 totalPrimaSeguro, totalConsumoGasoleoElectricidad, totalAceitesGrasas;
         
@@ -107,9 +107,9 @@ public class UtilFormulas {
         
     }
     
-    public static double precioGasoil(Date fecha, List registros, List<Labor> labores){
+    public static double precioGasoil(){
         
-        double precioGasoil = 0;
+        double precioGasoil = 10;
         
         
         
@@ -117,7 +117,17 @@ public class UtilFormulas {
         
     }
     
-    public double costeHoraMaquinaria(CostePersonal per){
+    public static double precioGasoil(Date fecha, List registros, List<Labor> labores){
+        
+        double precioGasoil = 10;
+        
+        
+        
+        return precioGasoil;
+        
+    }
+    
+    public static double costeHoraPersonal(CostePersonal per){
         
         double costeHora, totalPersonal, totalSeguridadSocial, contingenciasComunes,
                 desempleo, fgs, fp, atyep, km, pagasExtra, pagaAntiguedad, horasExtra,
@@ -125,7 +135,7 @@ public class UtilFormulas {
         
         String tipo = per.getTipo();
         
-        if(tipo.equalsIgnoreCase("fijo")){
+        if("fijo".equalsIgnoreCase(tipo)){
             
             pagasExtra = per.getPaga_extra()*90;
             
@@ -142,7 +152,7 @@ public class UtilFormulas {
             totalPersonal = pagasExtra + pagaAntiguedad + horasExtra + vacaciones +
                             horasAnuales + salarioBase;
             
-        }else if(tipo.equalsIgnoreCase("eventual")){
+        }else if("eventual".equalsIgnoreCase(tipo)){
             
             salarioBase = per.getSalario_base();
             
@@ -173,6 +183,8 @@ public class UtilFormulas {
         totalSeguridadSocial = totalSeguridadSocial / per.getHoras_dia();
         
         costeHora = totalPersonal + totalSeguridadSocial;
+        
+        log.trace("costeHoraPersonal - "+per.getFuncion()+" costeHora: "+costeHora);
         
         return costeHora;
         
