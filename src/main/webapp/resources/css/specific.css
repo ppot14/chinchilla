@@ -131,11 +131,11 @@ h2.page-title{
     border-radius: 0px;
 }
 
-.table tfoot tr, .fc-border-separate tfoot tr {
+/*.table tfoot tr, .fc-border-separate tfoot tr {
     background-color: #EEEEEE;
     background-image: -moz-linear-gradient(center top , #FAFAFA 0px, #F2F2F2 100%);
     font-size: 12px;
-}
+}*/
 
 .table-striped > tbody > tr:nth-child(2n+1) > td, 
 .table-striped > tbody > tr:nth-child(2n+1) > th {
@@ -1780,6 +1780,17 @@ div.dataTables_wrapper div.dataTables_advancedFilter{
 div.dataTables_wrapper table tfoot tr th .form-control  {
     width: 100%;
     margin-bottom: 4px;
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td.sorting_1{
+    background-color: #F9F9F9;
+}
+.table-striped > tbody > tr:nth-child(2n) > td.sorting_1{
+    background-color: #F3F3F3;
+}
+
+div.dataTables_wrapper .table-condensed{
+    font-size: 12px;
 }
 
 /*

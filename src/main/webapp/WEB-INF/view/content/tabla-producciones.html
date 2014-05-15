@@ -6,6 +6,34 @@
         
         tabla_opciones.aaSorting = [[ 3, "desc" ]];
         
+        tabla_opciones.fnFooterCallback = function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
+                    
+            var totalKg = 0;
+            var totalCost = 0;
+
+            for ( var i=0 ; i<aaData.length ; i++ )
+            {
+                totalKg += parseFloat( aaData[i][4].replace( /\./, "" ).replace( /,/, "." ) );
+                totalCost += parseFloat( aaData[i][6].replace( /\./, "" ).replace( /,/, "." ) );
+            }
+
+            var pageKg = 0;
+            var pageCost = 0;
+
+            for ( var i=iStart ; i<iEnd ; i++ )
+            {
+                pageKg += parseFloat( aaData[ aiDisplay[i] ][4].replace( /\./, "" ).replace( /,/, "." ) );
+                pageCost += parseFloat( aaData[ aiDisplay[i] ][6].replace( /\./, "" ).replace( /,/, "." ) );
+            }
+
+            var kgSumarize = parseInt(pageKg * 100)/100 + ' ('+ parseInt(totalKg * 100)/100 +' Total)';
+            var costSumarize = parseInt(pageCost * 100)/100 + ' ('+ parseInt(totalCost * 100)/100 +' Total)';
+
+            $(nRow).find('th').eq(4).html( kgSumarize );
+            $(nRow).find('th').eq(6).html( costSumarize );
+        };
+        
+        
         var options_pie = {
             series : {
                 pie : {
@@ -227,6 +255,7 @@
                           <th>[[#{fecha}]]</th>
                           <th>[[#{kilos}]]</th>
                           <th>[[#{precio-kilo}]]</th>
+                          <th>[[#{total}]]</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -249,8 +278,21 @@
                           <td>[[${#dates.format(producciones_item.fecha,'dd/MM/yyyy')}]]</td>
                           <td class="text-align-right">[[${producciones_item.kilos}]]</td>
                           <td class="text-align-right">[[${#numbers.formatDecimal(producciones_item.precio_kilo,1,'POINT',3,'COMMA')}]]</td>
+                          <td class="text-align-right txt-color-red">[[${#numbers.formatDecimal(producciones_item.precio_kilo*producciones_item.kilos,1,'POINT',2,'COMMA')}]]</td>
                         </tr>
                     </tbody>
+                
+                    <tfoot>
+                        <tr>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                    </tfoot>
                 </table>
 
             </div>

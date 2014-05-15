@@ -43,24 +43,24 @@ import org.slf4j.LoggerFactory;
  */
 public class UtilFormulas {
     
-    private static Logger log = (Logger) LoggerFactory.getLogger(UtilFormulas.class);
+    private static final Logger log = (Logger) LoggerFactory.getLogger(UtilFormulas.class);
     
     //TODO redefinir constantes en la base de datos y otros recalcular;
     //Constantes maquinaria
-    private static double PRECIO_LITRO_ACEITE = 2.6;
-    private static double PRECIO_LITRO_GASOIL = 0.61;
+    private static final double PRECIO_LITRO_ACEITE = 2.6;
+    private static final double PRECIO_LITRO_GASOIL = 0.61;
     
     //Constantes personal
-    private static double CONTINGENCIAS_COMUNES = 0.1595;
-    private static double DESEMPLEO = 0.067;
-    private static double F_G_S = 0.001;
-    private static double FORMACION_PROFESIONAL = 0.0015;
-    private static double A_T_y_E_P = 0.026;
-    private static double PRECIO_KM = 0.25;
-    private static double PAGA_ANTIGUEDAD = 1423;
-    private static double VACACIONES = 683.1;
-    private static double HORAS_EXTRA = 120;
-    private static double PRECIO_HORAS_EXTRA = 12.56;
+    private static final double CONTINGENCIAS_COMUNES = 0.1595;
+    private static final double DESEMPLEO = 0.067;
+    private static final double F_G_S = 0.001;
+    private static final double FORMACION_PROFESIONAL = 0.0015;
+    private static final double A_T_y_E_P = 0.026;
+    private static final double PRECIO_KM = 0.25;
+    private static final double PAGA_ANTIGUEDAD = 1423;
+    private static final double VACACIONES = 683.1;
+    private static final double HORAS_EXTRA = 120;
+    private static final double PRECIO_HORAS_EXTRA = 12.56;
     
     public static double costeHoraMaquinaria(Maquinaria maq){
         double costeHora, totalAmortizacion, totalIntereses, totalReparaciones, totalAlojamiento, 
