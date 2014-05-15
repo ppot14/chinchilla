@@ -99,6 +99,9 @@
     <bean id="laborService" class="com.chinchilla.service.LaborService"/>
     <bean id="produccionService" class="com.chinchilla.service.ProduccionService"/>
     
+    <!-- util -->
+    <bean id="utilFormulas" class="com.chinchilla.util.UtilFormulas"/>
+    
     <!--<context:component-scan base-package="com.chinchilla.component"/>-->
         
     <mvc:resources mapping="/resources/**" location="/resources/" />

@@ -23,7 +23,7 @@
     <label for="id-elemento" class="col-md-4 control-label">[[#{elemento}]]</label>
         <div class="col-md-8">
             <select id="id_elemento" 
-                    class="select2"  style="width:100%"
+                    class="form-control input-sm select2"  style="width:100%"
                     th:field="*{id_elemento}">
                 <option  th:each="elemento_item : ${elementos}" 
                          th:value="${elemento_item.key}">[[${elemento_item.value}]]</option>

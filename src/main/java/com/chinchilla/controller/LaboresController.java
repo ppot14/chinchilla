@@ -4,6 +4,7 @@ import com.chinchilla.form.LaborForm;
 import com.chinchilla.persistence.objects.CostePersonal;
 import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.persistence.objects.Maquinaria;
+import com.chinchilla.persistence.objects.OrdenCompra;
 import com.chinchilla.persistence.objects.Parcela;
 import com.chinchilla.persistence.objects.Producto;
 import com.chinchilla.service.LaborService;
@@ -47,10 +48,14 @@ public class LaboresController extends AbstractController{
     public String tabla(Model model) throws Exception {
 
         List<Labor> labores = laborDAO.getAll();
+        
+       List<OrdenCompra> ordenesCompra = ordenCompraDAO.getAll();
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
         modelMap.put("labores", labores);
+
+        modelMap.put("ordenesCompra", ordenesCompra);
         
         model.addAllAttributes(modelMap);
         

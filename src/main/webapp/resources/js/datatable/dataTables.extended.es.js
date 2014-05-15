@@ -125,6 +125,21 @@ AdvancedFilter.prototype = {
     fnGetButton: function () {
 	return this.dom.wrapper;
     },
+    fnSetCounter: function(settings){
+        
+        var counterSpan = '';
+        
+        var buttomFilter = $("#"+settings.sTableId+"_ShowHideFilter");
+        
+        if(settings.oInstance.fnSettings().aoAdvancedFilter && settings.oInstance.fnSettings().aoAdvancedFilter.length>0){
+            counterSpan = ' <span class="badge">'+settings.oInstance.fnSettings().aoAdvancedFilter.length+'</span>';
+        }
+        
+        buttomFilter.html('<i class="icon-filter"></i> '+settings.oInit.oLanguage.sAdvancedFilter + counterSpan)
+        
+        this.dom.button = buttomFilter;
+        
+    },
     fnSetAdvancedFilter: function(aoAdvancedFilter, settings){
         
 //        console.debug("setAdvancedFilter aoAdvancedFilter: "+JSON.stringify(aoAdvancedFilter,null,"\t"));
@@ -157,6 +172,8 @@ AdvancedFilter.prototype = {
         
         settings.oInstance.fnSettings().aoAdvancedFilter = aoAdvancedFilter;
         
+        this.fnSetCounter(settings);
+        
         settings.oInstance.fnDraw();
         
     },
@@ -167,7 +184,7 @@ AdvancedFilter.prototype = {
         this.dom.wrapper.id = settings.sTableId+"_advancedFilter";
 //        console.debug("AdvancedFilter._fnConstruct advancedFilter (init): "+init);
         this.dom.active = init && init.length>0;
-//        console.debug("AdvancedFilter._fnConstruct dom.active: "+this.dom.active);
+        console.debug("AdvancedFilter._fnConstruct dom.active: "+this.dom.active);
         
         that._fnCreateFilterForm( settings, init );
 
@@ -191,13 +208,7 @@ AdvancedFilter.prototype = {
         
         var that = this;
         
-        var tFoot = $('#'+settings.sTableId+' tfoot');
-        
-        var trFoot = $('<tr/>');
-        
-        if(true){
-            tFoot = $('<tfoot/>');
-        }
+        var trFoot = $('<tr id="advanced-filter-form"/>');
         
 //        console.debug("AdvancedFilter._fnCreateFilterForm tFoot: "+tFoot.html());
         
@@ -218,20 +229,20 @@ AdvancedFilter.prototype = {
                                 }else{
                                     $( this ).next().next().prop('disabled', true);
                                 }
-                                var index = $( "tfoot tr th" ).index( $( this ).parent() );
+                                var index = $( "tfoot tr#advanced-filter-form th" ).index( $( this ).parent() );
                                 var value1 = $( this ).next().val();
                                 var value2 = $( this ).next().next().val();
 				that._fnApplyAdvancedFilter(value1, value2, this.value, settings, init, index );
 			});
             var value1FieldElement = $('<input type="text" id="value1_'+mDataTemp+'" class="form-control input-sm"/>').bind("keyup",function (e) {
 				e.preventDefault();
-                                var index = $( "tfoot tr th" ).index( $( this ).parent() );
+                                var index = $( "tfoot tr#advanced-filter-form th" ).index( $( this ).parent() );
                                 var value2 = $( this ).next().val();
 				that._fnApplyAdvancedFilter(this.value, value2, $( this ).siblings("select").val(), settings, init, index );
 			});
             var value2FieldElement = $('<input type="text" id="value2_'+mDataTemp+'" class="form-control input-sm" disabled/>').bind("keyup",function (e) {
 				e.preventDefault();
-                                var index = $( "tfoot tr th" ).index( $( this ).parent() );
+                                var index = $( "tfoot tr#advanced-filter-form th" ).index( $( this ).parent() );
                                 var value1 = $( this ).prev().val();
 				that._fnApplyAdvancedFilter(value1, this.value, $( this ).siblings("select").val(), settings, init, index  );
 			});
@@ -271,9 +282,25 @@ AdvancedFilter.prototype = {
             
         }
         
-        tFoot.append(trFoot);
+        trFoot.css("display","none");
         
-        tFoot.css("display","none");
+        var tFoot = $('#'+settings.sTableId+' > tfoot');
+        
+        console.log('tFoot exist '+tFoot.length);
+        
+        if(tFoot.length){//check if exist
+        
+            tFoot.append(trFoot);
+        
+        }else{
+            
+            tFoot = $('<tfoot/>');
+        
+            tFoot.append(trFoot);
+
+            $('#'+settings.sTableId).append(tFoot);
+            
+        }
             
 //        this.dom.foot = tFoot;
             
@@ -285,8 +312,6 @@ AdvancedFilter.prototype = {
         settings.nTFoot = tFoot;
         
 //        console.debug("AdvancedFilter._fnCreateFilterForm tFoot: "+tFoot.html());
-        
-        $('#'+settings.sTableId).append(tFoot);
         
 //        console.debug("AdvancedFilter._fnCreateFilterForm sTableId: "+$('#'+settings.sTableId).html());
 
@@ -302,10 +327,10 @@ AdvancedFilter.prototype = {
 //        console.debug("AdvancedFilter._fnToggle hasClass.active "+$('#'+settings.sTableId+"_ShowHideFilter").hasClass("active"));
         
         if(!$('#'+settings.sTableId+"_ShowHideFilter").hasClass("active")){
-             $('#'+settings.sTableId+' tfoot').slideDown( "slow" );
+             $('#'+settings.sTableId+' tfoot tr#advanced-filter-form').slideDown( "slow" );
              $('#'+settings.sTableId+"_ShowHideFilter").addClass("active");
         }else{
-             $('#'+settings.sTableId+' tfoot').slideUp( "slow" );
+             $('#'+settings.sTableId+' tfoot tr#advanced-filter-form').slideUp( "slow" );
              $('#'+settings.sTableId+"_ShowHideFilter").removeClass("active");
         }
 //        console.debug("AdvancedFilter._fnToggle hasClass.active "+$('#'+settings.sTableId+"_ShowHideFilter").hasClass("active"));
@@ -380,6 +405,8 @@ AdvancedFilter.prototype = {
             
              settings.aoAdvancedFilter.push(filter);
         }
+        
+        this.fnSetCounter(settings);
         
 //    console.debug('_fnApplyAdvancedFilter settings.aoAdvancedFilter: '+JSON.stringify(settings.aoAdvancedFilter,null,"\t"));
         settings.oInstance.fnDraw(); 

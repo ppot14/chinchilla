@@ -24,7 +24,7 @@
     <label for="id_cultivo" class="col-md-4 control-label">[[#{cultivo}]]</label>
         <div class="col-md-8">
             <select id="id_cultivo" 
-                    class="select2"  style="width:100%"
+                    class="form-control input-sm select2"  style="width:100%"
                     th:field="*{id_cultivo}">
                 <option  th:each="cultivo : ${cultivos}" 
                          th:value="${cultivo.id_cultivo}">
@@ -38,7 +38,7 @@
     <label for="id_parcela" class="col-md-4 control-label">[[#{parcela}]]</label>
         <div class="col-md-8">
             <select id="id_parcela"  
-                    class="select2"  style="width:100%" 
+                    class="form-control input-sm select2"  style="width:100%" 
                     th:field="*{id_parcela}">
                 <option  th:each="parcela : ${parcelas}" 
                          th:value="${parcela.id_parcela}">[[${parcela.nombre}]]</option>

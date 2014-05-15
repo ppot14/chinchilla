@@ -12,8 +12,8 @@
         <result property="cantidad_dosis_por_ha" column="l_cantidad_dosis_por_ha"/>
         <result property="duracion" column="l_duracion"/>
         <result property="litros_gasoil" column="l_litros_gasoil"/>
-        <result property="coste_fijo_total" column="coste_fijo_total"/>
-        <result property="descripcion" column="descripcion"/>
+        <result property="coste_fijo_total" column="l_coste_fijo_total"/>
+        <result property="descripcion" column="l_descripcion"/>
         <collection property="labor_parcela" 
                     javaType="ArrayList"  
                     columnPrefix="lpa_" 
