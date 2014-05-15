@@ -22,6 +22,29 @@
             $(window).load(function () {
 
                 tabla_opciones.aaSorting = [[ 4, "desc" ]];
+                
+                tabla_opciones.fnFooterCallback = function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
+                    
+                    var totalCost = 0;
+                    for ( var i=0 ; i<aaData.length ; i++ )
+                    {
+                        totalCost += parseFloat( aaData[i][13].replace( /\./, "" ).replace( /,/, "." ) );
+                    }
+                    
+                    console.log('totalCost '+totalCost);
+                    
+                    var pageCost = 0;
+                    for ( var i=iStart ; i<iEnd ; i++ )
+                    {
+                        pageCost += parseFloat( aaData[ aiDisplay[i] ][13].replace( /\./, "" ).replace( /,/, "." ) );
+                    }
+                    
+                    console.log('pageCost '+pageCost);
+                    
+                    var costSumarize = parseInt(pageCost * 100)/100 + ' ('+ parseInt(totalCost * 100)/100 +' Total)';
+                    
+                    $(nRow).find('th').eq(13).html( costSumarize );
+                };
 
                 var tabla_labores = $('#tabla_labores').dataTable(tabla_opciones);
 
@@ -88,6 +111,7 @@
                           <th>[[#{maquinaria}]]</th>
                           <th>[[#{producto}]]</th>
                           <th>[[#{personal}]]</th>
+                          <th>[[#{coste-total}]]</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -129,8 +153,27 @@
                                     style="margin-bottom: 3px">[[${laborPersonal_item.coste_personal.tipo}]]</li>
                               </ul>
                           </td>
+                          <td class="text-align-right txt-color-white bg-color-orangeDark">[[${#numbers.formatDecimal(T(com.chinchilla.util.UtilFormulas).costeLabor(ordenesCompra, labores_item),1,'POINT',2,'COMMA')}]]</td>
                        </tr>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                    </tfoot>
                 </table>
 
             </div>

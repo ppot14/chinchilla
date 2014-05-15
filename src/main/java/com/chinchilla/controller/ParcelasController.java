@@ -7,6 +7,7 @@ import com.chinchilla.persistence.objects.CostePersonal;
 import com.chinchilla.persistence.objects.Cultivo;
 import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.persistence.objects.Maquinaria;
+import com.chinchilla.persistence.objects.OrdenCompra;
 import com.chinchilla.persistence.objects.Parcela;
 import com.chinchilla.persistence.objects.Produccion;
 import com.chinchilla.persistence.objects.Producto;
@@ -78,8 +79,12 @@ public class ParcelasController extends AbstractController{
         List<Coordenada> coordenadas = coordenadaDAO.getAll();
         
         List<Labor> labores = laborDAO.getAll();
+        
+       List<OrdenCompra> ordenesCompra = ordenCompraDAO.getAll();
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
+
+        modelMap.put("ordenesCompra", ordenesCompra);
 
         modelMap.put("parcelas", parcelas);
         
@@ -131,6 +136,8 @@ public class ParcelasController extends AbstractController{
         List<Produccion> producciones = produccionDAO.getAll();
 
         List<Cultivo> cultivos = cultivoDAO.getAll();
+        
+       List<OrdenCompra> ordenesCompra = ordenCompraDAO.getAll();
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
@@ -143,6 +150,8 @@ public class ParcelasController extends AbstractController{
         modelMap.put("producciones", producciones);
         
         modelMap.put("cultivos", cultivos);
+
+        modelMap.put("ordenesCompra", ordenesCompra);
         
         List<Map<String,Object>> aoAdvancedFilter = new ArrayList<Map<String,Object>>();
         

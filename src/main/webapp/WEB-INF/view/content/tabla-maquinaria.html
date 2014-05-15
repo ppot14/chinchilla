@@ -61,6 +61,7 @@
                                     <th>[[#{litros-cv-y-hora}]]</th>
                                     <th>[[#{horas-cambio-aceite}]]</th>
                                     <th>[[#{litros-aceite}]]</th>
+                                    <th>[[#{coste-hora}]]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -81,6 +82,7 @@
                                     <td class="text-align-right">[[${#numbers.formatDecimal(maquinaria_item.litros_cv_y_hora,1,'POINT',2,'COMMA')}]]</td>
                                     <td class="text-align-right">[[${maquinaria_item.horas_cambio_aceite}]]</td>
                                     <td class="text-align-right">[[${#numbers.formatDecimal(maquinaria_item.litros_aceite,1,'POINT',2,'COMMA')}]]</td>
+                                    <td class="text-align-right txt-color-white bg-color-orangeDark">[[${#numbers.formatDecimal(T(com.chinchilla.util.UtilFormulas).costeHoraMaquinaria(maquinaria_item),1,'POINT',2,'COMMA')}]]</td>
                                </tr>
                             </tbody>
                         </table>

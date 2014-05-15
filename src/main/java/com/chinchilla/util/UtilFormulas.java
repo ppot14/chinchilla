@@ -25,8 +25,13 @@ package com.chinchilla.util;
 
 import com.chinchilla.persistence.objects.CostePersonal;
 import com.chinchilla.persistence.objects.Labor;
+import com.chinchilla.persistence.objects.LaborMaquinaria;
+import com.chinchilla.persistence.objects.LaborPersonal;
+import com.chinchilla.persistence.objects.LaborProducto;
 import com.chinchilla.persistence.objects.Maquinaria;
+import com.chinchilla.persistence.objects.OrdenCompra;
 import com.chinchilla.persistence.objects.Personal;
+import com.chinchilla.persistence.objects.Producto;
 import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
@@ -41,8 +46,11 @@ public class UtilFormulas {
     private static Logger log = (Logger) LoggerFactory.getLogger(UtilFormulas.class);
     
     //TODO redefinir constantes en la base de datos y otros recalcular;
+    //Constantes maquinaria
     private static double PRECIO_LITRO_ACEITE = 2.6;
     private static double PRECIO_LITRO_GASOIL = 0.61;
+    
+    //Constantes personal
     private static double CONTINGENCIAS_COMUNES = 0.1595;
     private static double DESEMPLEO = 0.067;
     private static double F_G_S = 0.001;
@@ -107,21 +115,109 @@ public class UtilFormulas {
         
     }
     
-    public static double precioGasoil(){
+    public static double costeLabor(List<OrdenCompra> registros, Labor labor){
         
-        double precioGasoil = 10;
+        double costeTotalLabor = 0;
         
+        double costePersonalTotal = 0;
         
+        for(LaborPersonal laborPersonal : labor.getLabor_personal()){
+            
+            costePersonalTotal += costeHoraPersonal(laborPersonal.getCoste_personal());
+            
+        }
         
-        return precioGasoil;
+        log.trace("costePersonalTotal: "+costePersonalTotal);
+        
+        double costeMaquinariaTotal = 0;
+        
+        for(LaborMaquinaria laborMaquinaria : labor.getLabor_maquinaria()){
+            
+            costeMaquinariaTotal += costeHoraMaquinaria(laborMaquinaria.getMaquinaria());
+            
+        }
+        
+        log.trace("costeMaquinariaTotal: "+costeMaquinariaTotal);
+        
+        double costeProductoTotal = 0;
+        
+        for(LaborProducto laborProducto : labor.getLabor_producto()){
+            
+            costeProductoTotal += costeProducto(registros, labor.getFecha_comienzo(), laborProducto.getProducto())*
+                                    laborProducto.getMultiplicador();
+            
+        }
+        
+        log.trace("costeProductoTotal: "+costeProductoTotal);
+        
+        double costeTotalGasoil = costeGasoil(registros, labor)*labor.getLitros_gasoil();
+        
+        log.trace("costeTotalGasoil: "+costeTotalGasoil);
+        
+        costeTotalLabor = costePersonalTotal*labor.getDuracion() + 
+                        costeMaquinariaTotal*labor.getDuracion() + 
+                        costeProductoTotal +
+                        costeTotalGasoil +
+                        labor.getCoste_fijo_total();
+        
+        log.trace("costeTotalLabor: "+costeTotalLabor);
+        
+        return costeTotalLabor;
+    }
+    
+    public static double costeProducto(List<OrdenCompra> registros, Date referencia, Producto producto){
+        
+        Date fechaMasReciente = new Date(0);
+        
+        double costeProducto = 0;
+        
+        for(OrdenCompra ordenCompra : registros){
+            
+            if( ordenCompra.getId_elemento() == producto.getId_producto() && 
+                    ordenCompra.getFecha().after(fechaMasReciente) &&
+                    ordenCompra.getFecha().before(referencia) ){
+                
+                costeProducto = ordenCompra.getPrecio()!=0 ? 
+                                ordenCompra.getPrecio() : 
+                                ordenCompra.getTotal()/ordenCompra.getCantidad();
+                
+                fechaMasReciente = ordenCompra.getFecha();
+                
+            }
+            
+        }
+        
+        log.trace("costeProducto: "+costeProducto+", producto: "+producto.getNombre());
+        
+        return costeProducto;
         
     }
     
-    public static double precioGasoil(Date fecha, List registros, List<Labor> labores){
+    public static double costeGasoil(List<OrdenCompra> registros, Labor labor){
         
-        double precioGasoil = 10;
+        Date fechaLabor = labor.getFecha_comienzo();
         
+        Date fechaMasReciente = new Date(0);
         
+        double precioGasoil = 0;
+        
+        for(OrdenCompra ordenCompra : registros){
+            
+            if( ordenCompra.getId_elemento() == 3000084 && 
+                    ordenCompra.getFecha().after(fechaMasReciente) &&
+                    ordenCompra.getFecha().before(fechaLabor) ){
+                
+                precioGasoil = ordenCompra.getPrecio()!=0 ? 
+                                ordenCompra.getPrecio() : 
+                                ordenCompra.getTotal()/ordenCompra.getCantidad();
+                
+                fechaMasReciente = ordenCompra.getFecha();
+                
+            }
+            
+        }
+        
+        log.trace("precioGasoil: "+precioGasoil+", fechaLabor: "+fechaLabor);
         
         return precioGasoil;
         
@@ -137,7 +233,7 @@ public class UtilFormulas {
         
         if("fijo".equalsIgnoreCase(tipo)){
             
-            pagasExtra = per.getPaga_extra()*90;
+            pagasExtra = per.getSalario_base()*90;
             
             pagaAntiguedad = PAGA_ANTIGUEDAD;
             
@@ -149,8 +245,7 @@ public class UtilFormulas {
             
             salarioBase = per.getSalario_base() * 365;
             
-            totalPersonal = pagasExtra + pagaAntiguedad + horasExtra + vacaciones +
-                            horasAnuales + salarioBase;
+            totalPersonal = (pagasExtra + pagaAntiguedad + horasExtra + vacaciones + salarioBase)/horasAnuales;
             
         }else if("eventual".equalsIgnoreCase(tipo)){
             
@@ -168,6 +263,8 @@ public class UtilFormulas {
             
         }
         
+        log.trace("costeHoraPersonal - "+per.getFuncion()+" totalPersonal: "+totalPersonal);
+        
         contingenciasComunes = CONTINGENCIAS_COMUNES*per.getBase_ssp();
         
         desempleo = DESEMPLEO*per.getBase_ssp();
@@ -183,6 +280,8 @@ public class UtilFormulas {
         totalSeguridadSocial = totalSeguridadSocial / per.getHoras_dia();
         
         costeHora = totalPersonal + totalSeguridadSocial;
+        
+        log.trace("costeHoraPersonal - "+per.getFuncion()+" totalSeguridadSocial: "+totalSeguridadSocial);
         
         log.trace("costeHoraPersonal - "+per.getFuncion()+" costeHora: "+costeHora);
         
