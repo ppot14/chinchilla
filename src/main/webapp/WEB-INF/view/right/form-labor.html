@@ -196,27 +196,9 @@
             <textarea id="descripcion" 
                     class="form-control input-sm" placeholder="" th:field="*{descripcion}"></textarea>
         </div>
-    </div> 
-       
-<!--    <div class="form-group">
-        <label for="cantidad_dosis_por_ha" class="col-md-5 control-label" th:text="#{cantidad-dosis-por-ha}">[Cantidad o dosis (por HA)]</label>
-        <div class="col-md-7">
-            <input id="cantidad_dosis_por_ha" class="form-control input-sm" placeholder="9.50"></input>
-        </div>
-    </div>-->
-       
-    <div class="form-actions">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <button type="button" id="boton_crear" class="btn btn-default btn-xs"><i class="icon-plus"></i> [[#{insertar}]]</button>
-                <button type="button" id="boton_modificar" class="btn btn-default btn-xs"><i class="icon-editalt"></i> [[#{modificar}]]</button>
-                <button type="button" id="boton_eliminar" class="btn btn-default btn-xs"><i class="icon-trash"></i> [[#{eliminar}]]</button>
-                <button type="reset" class="btn btn-default btn-xs"><i class="icon-broom"></i> [[#{limpiar}]]</button>
-            </div>
-        </div>
     </div>
     
-    <input id="insertar_modificar_eliminar" name="insertar_modificar_eliminar" type="hidden"/>
+    <div th:replace="template/form-operation-buttons"></div>
        
    </form>
  
@@ -311,54 +293,17 @@
         }
         
         $('#formulario-labor').attr('action', action);
+    
+        crudInputBeforeSubmit('formulario-labor');
         
-        //Modificar hidden cuando click en nuevo o modificar
-        $('#boton_crear').click(function() {
-            $('#insertar_modificar_eliminar').val('insertar');
-            $('#formulario-labor').submit();
-          });
-          
-        $('#boton_modificar').click(function() {
-            var labor = /*[[${labor}]]*/null; 
-//      console.debug('labor: '+JSON.stringify(labor,null,"\t"));
-            $('#insertar_modificar_eliminar').val('modificar');
-            $('#formulario-labor').submit();
-          });
-          
-        $('#boton_eliminar').click(function() {
-            $('#insertar_modificar_eliminar').val('eliminar');
-            $('#formulario-labor').submit();
-          });
-          
-          
-//          var parcela = /*[[${parcela}]]*/null;
-//          
-//          if(parcela && parcela.id_parcela && parcela.id_parcela>0){
-//              
-//              var idParcela = parcela.id_parcela;
-//              
-//              $("#parcelas").val(idParcela);
-//            
-//          }
         var labor_producto = /*[[${labor.labor_producto}]]*/null; 
 
-//        console.log("labor_producto: "+labor_producto);
-
         if(labor_producto){
-//            for(var i=0; i<labor_producto.length; i++){
-//                var productoId = labor_producto[i].producto.id_producto;
-//                var productoNombre = labor_producto[i].producto.tipo+' '+labor_producto[i].producto.nombre;
-//                var productoCantidad = labor_producto[i].multiplicador.toString().replace( /,/, "" ).replace( /\./, "," );
-//                
-//                addRow(productoId, productoNombre, productoCantidad);
-//            }
         
             $(".delete-row").click(function(){
                 $(this).closest("tr").remove();
             });
         }
-
-//        console.log("cantidad_productos: "+cantidad_productos);
           
         var labor = /*[[${labor}]]*/null;
         

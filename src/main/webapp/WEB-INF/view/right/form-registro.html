@@ -109,19 +109,7 @@
         </div>
     </div>
     
-    
-    <div class="form-actions">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <button type="button" id="boton_crear" class="btn btn-default btn-xs"><i class="icon-plus"></i> [[#{insertar}]]</button>
-                <button type="button" id="boton_modificar" class="btn btn-default btn-xs"><i class="icon-editalt"></i> [[#{modificar}]]</button>
-                <button type="button" id="boton_eliminar" class="btn btn-default btn-xs"><i class="icon-trash"></i> [[#{eliminar}]]</button>
-                <button type="reset" class="btn btn-default btn-xs"><i class="icon-broom"></i> [[#{limpiar}]]</button>
-            </div>
-        </div>
-    </div>
-    
-    <input id="insertar_modificar_eliminar" name="insertar_modificar_eliminar" type="hidden"/>
+    <div th:replace="template/form-operation-buttons"></div>
     
 </form>
     </div>
@@ -129,22 +117,8 @@
 <script  th:inline="javascript">/*<![CDATA[*/
     
 $(window).load(function () { 
-        //Modificar hidden cuando click en nuevo o modificar
-        $('#boton_crear').click(function() {
-            $('#insertar_modificar_eliminar').val('insertar');
-            $('#formulario-registro').submit();
-          });
-          
-        $('#boton_modificar').click(function() {
-            $('#insertar_modificar_eliminar').val('modificar');
-            $('#formulario-registro').submit();
-          });
-          
-        $('#boton_eliminar').click(function() {
-            $('#insertar_modificar_eliminar').val('eliminar');
-            $('#formulario-registro').submit();
-          });
-          
+    
+        crudInputBeforeSubmit('formulario-registro');
           
         var registro = /*[[${registro}]]*/null;
         

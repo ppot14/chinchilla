@@ -52,19 +52,17 @@ var dataTablesLanguage = {
 };
     
 var tabla_opciones = {
-//            "sPaginationType": "full_numbers",
+//    "sPaginationType": "full_numbers",
     "sPaginationType": "bootstrap",
     "iDisplayLength": 10,
     "oLanguage": dataTablesLanguage,
     "bProcessing": true,
-    
-//            "sScrollX": "100%",
-//            "sScrollXInner": "150%",
-//            "bScrollCollapse": true,
-//            "bStateSave": true
-//            
+//    "bAutoWidth": true,
+//    "sScrollX": "100%",
+//    "sScrollXInner": "150%",
+//    "bScrollCollapse": true,
+    "bStateSave": true,       
     "sDom": "<'row header'<'col-xs-6'l><'col-xs-6'fA>>" + "<'row tableContent'<'col-xs-12'rt>>" + "<'row footer'<'col-xs-6'i><'col-xs-6'p>>",
-//            "sDom" : "R<'dt-top-row'Clf>r<'dt-wrapper't><'dt-row dt-bottom-row'<'row'<'col-sm-6'i><'col-sm-6 text-right'p>>",
 //            "fnInitComplete" : function(oSettings, json) {
 //                $('.ColVis_Button').addClass('btn btn-default btn-sm').html('Columnas <i class="icon-arrow-down"></i>');
 //            }

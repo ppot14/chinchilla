@@ -5,6 +5,7 @@ import com.chinchilla.form.ProduccionForm;
 import com.chinchilla.persistence.objects.Coordenada;
 import com.chinchilla.persistence.objects.CostePersonal;
 import com.chinchilla.persistence.objects.Cultivo;
+import com.chinchilla.persistence.objects.Electricidad;
 import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.persistence.objects.Maquinaria;
 import com.chinchilla.persistence.objects.OrdenCompra;
@@ -80,11 +81,15 @@ public class ParcelasController extends AbstractController{
         
         List<Labor> labores = laborDAO.getAll();
         
+       List<Electricidad> electricidad = electricidadDAO.getAll();
+        
        List<OrdenCompra> ordenesCompra = ordenCompraDAO.getAll();
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
         modelMap.put("ordenesCompra", ordenesCompra);
+
+        modelMap.put("electricidad", electricidad);
 
         modelMap.put("parcelas", parcelas);
         

@@ -24,6 +24,7 @@
         <typeAlias type="com.chinchilla.persistence.objects.Producto" alias="Producto"/>
         <typeAlias type="com.chinchilla.persistence.objects.LaborMaquinaria" alias="LaborMaquinaria"/>
         <typeAlias type="com.chinchilla.persistence.objects.Maquinaria" alias="Maquinaria"/>
+        <typeAlias type="com.chinchilla.persistence.objects.Electricidad" alias="Electricidad"/>
     </typeAliases>
 
     <!-- Identify all SQL Map XML files to be loaded by this SQL map.
@@ -40,5 +41,6 @@
         <mapper resource="com/chinchilla/persistence/mappers/MaquinariaMappers.xml" />
         <mapper resource="com/chinchilla/persistence/mappers/CostePersonalMappers.xml" />
         <mapper resource="com/chinchilla/persistence/mappers/ProductoMappers.xml" />
+        <mapper resource="com/chinchilla/persistence/mappers/ElectricidadMappers.xml" />
     </mappers>
 </configuration>

@@ -24,14 +24,15 @@
 package com.chinchilla.util;
 
 import com.chinchilla.persistence.objects.CostePersonal;
+import com.chinchilla.persistence.objects.Electricidad;
 import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.persistence.objects.LaborMaquinaria;
 import com.chinchilla.persistence.objects.LaborPersonal;
 import com.chinchilla.persistence.objects.LaborProducto;
 import com.chinchilla.persistence.objects.Maquinaria;
 import com.chinchilla.persistence.objects.OrdenCompra;
-import com.chinchilla.persistence.objects.Personal;
 import com.chinchilla.persistence.objects.Producto;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
@@ -43,24 +44,30 @@ import org.slf4j.LoggerFactory;
  */
 public class UtilFormulas {
     
-    private static Logger log = (Logger) LoggerFactory.getLogger(UtilFormulas.class);
+    private static final Logger log = (Logger) LoggerFactory.getLogger(UtilFormulas.class);
     
     //TODO redefinir constantes en la base de datos y otros recalcular;
     //Constantes maquinaria
-    private static double PRECIO_LITRO_ACEITE = 2.6;
-    private static double PRECIO_LITRO_GASOIL = 0.61;
+    private static final double PRECIO_LITRO_ACEITE = 2.6;
+    private static final double PRECIO_LITRO_GASOIL = 0.61;
     
     //Constantes personal
-    private static double CONTINGENCIAS_COMUNES = 0.1595;
-    private static double DESEMPLEO = 0.067;
-    private static double F_G_S = 0.001;
-    private static double FORMACION_PROFESIONAL = 0.0015;
-    private static double A_T_y_E_P = 0.026;
-    private static double PRECIO_KM = 0.25;
-    private static double PAGA_ANTIGUEDAD = 1423;
-    private static double VACACIONES = 683.1;
-    private static double HORAS_EXTRA = 120;
-    private static double PRECIO_HORAS_EXTRA = 12.56;
+    private static final double CONTINGENCIAS_COMUNES = 0.1595;
+    private static final double DESEMPLEO = 0.067;
+    private static final double F_G_S = 0.001;
+    private static final double FORMACION_PROFESIONAL = 0.0015;
+    private static final double A_T_y_E_P = 0.026;
+    private static final double PRECIO_KM = 0.25;
+    private static final double PAGA_ANTIGUEDAD = 1423;
+    private static final double VACACIONES = 683.1;
+    private static final double HORAS_EXTRA = 120;
+    private static final double PRECIO_HORAS_EXTRA = 12.56;
+    
+    //Constantes electricidad
+    private static final double IVA = 0.21;
+    private static final double POTENCIA_CONTRATADA = 10.392;
+    private static final double DIAS = 75;
+    private static final double IMPUESTO_ELECTRICIDA = 0.051127;
     
     public static double costeHoraMaquinaria(Maquinaria maq){
         double costeHora, totalAmortizacion, totalIntereses, totalReparaciones, totalAlojamiento, 
@@ -87,19 +94,19 @@ public class UtilFormulas {
         totalAmortizacion = (maq.getValor_compra()-maq.getValor_desecho())
                             /maq.getHoras_trabajo();
         
-        log.trace("costeHoraMaquinaria - totalAmortizacion: "+totalAmortizacion);
-        
-        log.trace("costeHoraMaquinaria - totalIntereses: "+totalIntereses);
-        
-        log.trace("costeHoraMaquinaria - totalReparaciones: "+totalReparaciones);
-        
-        log.trace("costeHoraMaquinaria - totalAlojamiento: "+totalAlojamiento);
-        
-        log.trace("costeHoraMaquinaria - totalPrimaSeguro: "+totalPrimaSeguro);
-        
-        log.trace("costeHoraMaquinaria - totalConsumoGasoleoElectricidad: "+totalConsumoGasoleoElectricidad);
-        
-        log.trace("costeHoraMaquinaria - totalAceitesGrasas: "+totalAceitesGrasas);
+//        log.trace("costeHoraMaquinaria - totalAmortizacion: "+totalAmortizacion);
+//        
+//        log.trace("costeHoraMaquinaria - totalIntereses: "+totalIntereses);
+//        
+//        log.trace("costeHoraMaquinaria - totalReparaciones: "+totalReparaciones);
+//        
+//        log.trace("costeHoraMaquinaria - totalAlojamiento: "+totalAlojamiento);
+//        
+//        log.trace("costeHoraMaquinaria - totalPrimaSeguro: "+totalPrimaSeguro);
+//        
+//        log.trace("costeHoraMaquinaria - totalConsumoGasoleoElectricidad: "+totalConsumoGasoleoElectricidad);
+//        
+//        log.trace("costeHoraMaquinaria - totalAceitesGrasas: "+totalAceitesGrasas);
         
         costeHora = totalAceitesGrasas+
                     totalConsumoGasoleoElectricidad+
@@ -109,7 +116,7 @@ public class UtilFormulas {
                 totalIntereses+
                 totalAmortizacion;
         
-        log.trace("costeHoraMaquinaria - costeHora: "+costeHora);
+        log.trace("costeHoraMaquinaria "+maq.getNombre()+" costeHora: "+costeHora);
         
         return costeHora;
         
@@ -117,7 +124,13 @@ public class UtilFormulas {
     
     public static double costeLabor(List<OrdenCompra> registros, Labor labor){
         
-        double costeTotalLabor = 0;
+        return costeLabor(registros, null, labor, null);
+        
+    }
+    
+    public static double costeLabor(List<OrdenCompra> registros, List<Electricidad> electricidad, Labor labor, List<Labor> labores){
+        
+        double costeTotalLabor;
         
         double costePersonalTotal = 0;
         
@@ -134,6 +147,14 @@ public class UtilFormulas {
         for(LaborMaquinaria laborMaquinaria : labor.getLabor_maquinaria()){
             
             costeMaquinariaTotal += costeHoraMaquinaria(laborMaquinaria.getMaquinaria());
+            
+            //Only for Irrigations, it will include electricity cost
+            if(laborMaquinaria.getMaquinaria().getId_coste_maquinaria() == 5000028 &&
+                    electricidad!=null && !electricidad.isEmpty()){
+                
+                costeMaquinariaTotal += costeElectricidad(electricidad, labor, labores);
+                
+            }
             
         }
         
@@ -163,6 +184,71 @@ public class UtilFormulas {
         log.trace("costeTotalLabor: "+costeTotalLabor);
         
         return costeTotalLabor;
+    }
+    
+    public static double costeElectricidad(List<Electricidad> electricidad, Labor labor, List<Labor> labores){
+        
+        for(Electricidad elecItem : electricidad){
+            
+            Calendar c = Calendar.getInstance(); 
+            c.setTime(elecItem.getFecha_fin()); 
+            c.add(Calendar.DATE, 1);
+            Date diaDespuesFechaFin = c.getTime();
+            
+            if(elecItem.getFecha_inicio().before( labor.getFecha_comienzo()) &&
+                     labor.getFecha_comienzo().before(diaDespuesFechaFin)){
+                
+                double consumoElectricidad = elecItem.getConsumo()*elecItem.getPrecio_kw();
+                
+                double totalPotencia = elecItem.getPrecio_potencia()*DIAS*POTENCIA_CONTRATADA;
+                
+                double totalImpuestos = (consumoElectricidad+totalPotencia)*IMPUESTO_ELECTRICIDA;
+                
+                double totalIva= (consumoElectricidad+totalImpuestos)*elecItem.getIva();
+                
+                double costeElectricidad = (totalIva + totalImpuestos +consumoElectricidad)/
+                              horasRiego(elecItem.getFecha_inicio(),diaDespuesFechaFin,labores);//Dividir entre el total de horas de riego en el periodo
+           
+                log.trace("costeElectricidad: "+costeElectricidad+" labor "+labor.getId_labor());
+                
+                return costeElectricidad;
+                
+            }
+            
+        }
+        
+        log.warn("Electricidad no encontrada para labor "+labor.getId_labor()+" con inicio "+labor.getFecha_comienzo());
+        
+        return 0;
+        
+    }
+    
+    public static double horasRiego(Date desde, Date hasta, List<Labor> labores){
+        
+        double horasDeRiego = 0;
+        
+        for(Labor l : labores){
+            
+            if(l.getFecha_comienzo().after(desde) &&
+                l.getFecha_comienzo().before(hasta)){
+                
+                for(LaborMaquinaria lm : l.getLabor_maquinaria()){
+                    
+                    if(lm.getMaquinaria().getId_coste_maquinaria() == 5000028){
+                        
+                        horasDeRiego += l.getDuracion();
+                        
+                    }
+                    
+                }
+                    
+            }
+            
+        }
+        
+        log.trace("horasDeRiego: "+horasDeRiego+" del "+desde+" al "+hasta);
+        
+        return horasDeRiego;
     }
     
     public static double costeProducto(List<OrdenCompra> registros, Date referencia, Producto producto){

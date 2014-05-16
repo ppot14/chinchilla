@@ -42,7 +42,7 @@
                 
                 <div class="panel-body">
                         
-                        <table id="tabla_coste_personal" class="table table-striped table-bordered table-hover table-condensed">
+                        <table id="tabla_coste_personal" class="table table-striped table-hover table-condensed">
                             <!--class="table table-stripped table-bordered table-hover table-condensed"-->
                             <thead>
                                 <tr>
@@ -78,7 +78,7 @@
                                     <td class="text-align-right">[[${#numbers.formatDecimal(coste_personal_item.horas_dia,1,'POINT',2,'COMMA')}]]</td>
                                     <td>[[${#dates.format(coste_personal_item.validez_inicio,'dd/MM/yyyy')}]]</td>
                                     <td>[[${#dates.format(coste_personal_item.validez_fin,'dd/MM/yyyy')}]]</td>
-                                    <td class="text-align-right txt-color-white bg-color-orangeDark">[[${#numbers.formatDecimal(T(com.chinchilla.util.UtilFormulas).costeHoraPersonal(coste_personal_item),1,'POINT',2,'COMMA')}]]</td>
+                                    <td class="text-align-right txt-color-red">[[${#numbers.formatDecimal(T(com.chinchilla.util.UtilFormulas).costeHoraPersonal(coste_personal_item),1,'POINT',2,'COMMA')}]]</td>
                                </tr>
                             </tbody>
                         </table>

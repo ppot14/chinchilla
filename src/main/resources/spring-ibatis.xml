@@ -85,6 +85,9 @@
       <bean id="meteorologiaDAO" class="com.chinchilla.persistence.dao.MeteorologiaDAO">
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
       </bean>
+      <bean id="electricidadDAO" class="com.chinchilla.persistence.dao.ElectricidadDAO">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+      </bean>
       
 <!--      <tx:jta-transaction-manager />
 	<tx:annotation-driven />-->

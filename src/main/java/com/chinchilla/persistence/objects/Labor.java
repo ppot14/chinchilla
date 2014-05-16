@@ -62,6 +62,7 @@ public class Labor implements Serializable{
         cantidad_dosis_por_ha = labor.getCantidad_dosis_por_ha();
         duracion = labor.getDuracion();
         coste_fijo_total = labor.getCoste_fijo_total();
+        descripcion = labor.getDescripcion();
         litros_gasoil = labor.getLitros_gasoil();
         labor_maquinaria = labor.getLabor_maquinaria();
         labor_producto = labor.getLabor_producto();

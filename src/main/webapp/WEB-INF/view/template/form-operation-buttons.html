@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+The MIT License
+
+Copyright 2014 Pepe.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    
+    <script>
+        var crudInputBeforeSubmit = function (formId){
+            //Modificar hidden cuando click en nuevo o modificar
+            $('#boton_crear').click(function() {
+                $('#insertar_modificar_eliminar').val('insertar');
+                $('#'+formId).submit();
+              });
+
+            $('#boton_modificar').click(function() {
+                $('#insertar_modificar_eliminar').val('modificar');
+                $('#'+formId).submit();
+              });
+
+            $('#boton_eliminar').click(function() {
+                $('#insertar_modificar_eliminar').val('eliminar');
+                $('#'+formId).submit();
+              });      
+          }
+    </script>
+    
+    <div class="form-actions" th:fragment="operation-buttons-group"  th:inline="text">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button type="button" id="boton_crear" class="btn btn-default btn-xs"><i class="icon-plus"></i> [[#{insertar}]]</button>
+                <button type="button" id="boton_modificar" class="btn btn-default btn-xs"><i class="icon-editalt"></i> [[#{modificar}]]</button>
+                <button type="button" id="boton_eliminar" class="btn btn-default btn-xs"><i class="icon-trash"></i> [[#{eliminar}]]</button>
+                <button type="reset" class="btn btn-default btn-xs"><i class="icon-broom"></i> [[#{limpiar}]]</button>
+            </div>
+        </div>
+    </div>    
+    
+    <input id="insertar_modificar_eliminar" name="insertar_modificar_eliminar" type="hidden" th:fragment="operation-input"/>
+        
+    
+</html>

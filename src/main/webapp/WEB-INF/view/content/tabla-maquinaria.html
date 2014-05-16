@@ -42,7 +42,7 @@
                 
                 <div class="panel-body">
 
-                        <table id="tabla_maquinaria" class="table table-striped table-bordered table-hover table-condensed">
+                        <table id="tabla_maquinaria" class="table table-striped table-hover table-condensed">
                             <!--class="table table-stripped table-bordered table-hover table-condensed"-->
                             <thead>
                                 <tr>
@@ -82,7 +82,7 @@
                                     <td class="text-align-right">[[${#numbers.formatDecimal(maquinaria_item.litros_cv_y_hora,1,'POINT',2,'COMMA')}]]</td>
                                     <td class="text-align-right">[[${maquinaria_item.horas_cambio_aceite}]]</td>
                                     <td class="text-align-right">[[${#numbers.formatDecimal(maquinaria_item.litros_aceite,1,'POINT',2,'COMMA')}]]</td>
-                                    <td class="text-align-right txt-color-white bg-color-orangeDark">[[${#numbers.formatDecimal(T(com.chinchilla.util.UtilFormulas).costeHoraMaquinaria(maquinaria_item),1,'POINT',2,'COMMA')}]]</td>
+                                    <td class="text-align-right txt-color-red">[[${#numbers.formatDecimal(T(com.chinchilla.util.UtilFormulas).costeHoraMaquinaria(maquinaria_item),1,'POINT',2,'COMMA')}]]</td>
                                </tr>
                             </tbody>
                         </table>
