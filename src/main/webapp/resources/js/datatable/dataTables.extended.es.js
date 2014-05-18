@@ -66,6 +66,27 @@ var tabla_opciones = {
 //            "fnInitComplete" : function(oSettings, json) {
 //                $('.ColVis_Button').addClass('btn btn-default btn-sm').html('Columnas <i class="icon-arrow-down"></i>');
 //            }
+    "fnStateSaveParams": 	function ( oSettings, sValue ) {
+//        console.log('fnStateSaveParams sValue: '+JSON.stringify(sValue));
+        sValue.aoAdvancedFilter = oSettings.aoAdvancedFilter;
+//        console.log('fnStateSaveParams oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.aoAdvancedFilter,null,'\t'));
+        console.log('fnStateSaveParams sValue: '+JSON.stringify(sValue));
+        return sValue;
+    },
+    "fnStateLoadParams"	: function ( oSettings, oData ) {
+          console.log('fnStateLoadParams this '+JSON.stringify(this,null,'\t'));
+        console.log('fnStateLoadParams oData: '+JSON.stringify(oData));
+
+//        console.log('fnStateLoadParams oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.oInit.aoAdvancedFilter,null,'\t'));
+        if(oData.aoAdvancedFilter){ 
+//            oSettings.oInstance.fnSettings().aoAdvancedFilter = oData.aoAdvancedFilter; 
+//            oSettings.oInit.aoAdvancedFilter = oData.aoAdvancedFilter; 
+          AdvancedFilter.fnSetAdvancedFilter(oData.aoAdvancedFilter,this);
+        }
+//        console.log('fnStateLoadParams oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.oInit.aoAdvancedFilter,null,'\t'));
+//        console.log('fnStateLoadParams oData: '+JSON.stringify(oData,null,'\t'));
+        return true;
+    }
 };
         
 //FILTER JSON FORMAT, include into $.fn.dataTableExt
@@ -140,7 +161,7 @@ AdvancedFilter.prototype = {
     },
     fnSetAdvancedFilter: function(aoAdvancedFilter, settings){
         
-//        console.debug("setAdvancedFilter aoAdvancedFilter: "+JSON.stringify(aoAdvancedFilter,null,"\t"));
+        console.debug("setAdvancedFilter aoAdvancedFilter: "+JSON.stringify(aoAdvancedFilter));
         
 //        var footer = settings.nTFoot;
         
@@ -426,12 +447,15 @@ AdvancedFilter.prototype = {
 AdvancedFilter.fnSetAdvancedFilter = function ( aoAdvancedFilter, oTable )
 {
 	var nTable = null;
+        console.log('.fnSetAdvancedFilter oTable '+JSON.stringify(oTable));
 	if ( typeof oTable !== 'undefined' )
 	{
 		nTable = oTable.fnSettings().nTable;
 	}
         
-//        console.debug('nTable: '+nTable);
+        console.debug('.fnSetAdvancedFilter nTable: '+nTable);
+        
+        console.debug('.fnSetAdvancedFilter AdvancedFilter.aInstances.length: '+AdvancedFilter.aInstances.length);
 
 	for ( var i=0, iLen=AdvancedFilter.aInstances.length ; i<iLen ; i++ )
 	{
