@@ -69,6 +69,8 @@ public class LaboresController extends AbstractController{
     
     @RequestMapping(value = "/tabla/form/labor.html",params = {"id"}, method=RequestMethod.GET)
     public String tablaFormLabor(@RequestParam(value = "id") Integer id_labor, Model model) throws Exception {
+        
+        long startTime = System.currentTimeMillis();
 
         LaborForm labor = null;
         
@@ -107,6 +109,10 @@ public class LaboresController extends AbstractController{
         modelMap.put("costesPersonal", costesPersonal);
         
         model.addAllAttributes(modelMap);
+       
+        long endTime = System.currentTimeMillis();
+       
+        log.info(getClass()+".tablaFormLabor execution time: " + (endTime-startTime) + "ms");
         
         return "labores-tabla-form-labor";
     }

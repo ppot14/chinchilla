@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script>/*<![CDATA[*/
+  
+    $(window).load(function () {
+
+        tabla_opciones.aaSorting = [[ 1, "desc" ]];
+                
+        tabla_opciones.fnFooterCallback = function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
+
+            var totalConsumo = 0;
+            var totalFactura = 0;
+            var totalHorasRiego = 0;
+
+            for ( var i=0 ; i<aaData.length ; i++ )
+            {
+                totalConsumo += parseFloat( aaData[i][3].replace( /\./, "" ).replace( /,/, "." ) );
+                totalFactura += parseFloat( aaData[i][8].replace( /\./, "" ).replace( /,/, "." ) );
+                totalHorasRiego += parseFloat( aaData[i][9].replace( /\./, "" ).replace( /,/, "." ) );
+            }
+
+            var pageConsumo = 0;
+            var pageFactura = 0;
+            var pageHorasRiego = 0;
+
+            for ( var i=iStart ; i<iEnd ; i++ )
+            {
+                pageConsumo += parseFloat( aaData[ aiDisplay[i] ][3].replace( /\./, "" ).replace( /,/, "." ) );
+                pageFactura += parseFloat( aaData[ aiDisplay[i] ][8].replace( /\./, "" ).replace( /,/, "." ) );
+                pageHorasRiego += parseFloat( aaData[ aiDisplay[i] ][9].replace( /\./, "" ).replace( /,/, "." ) );
+            }
+
+            var consumoSumarize = parseInt(pageConsumo * 100)/100 + ' &euro;&nbsp;<br/>('+ parseInt(totalConsumo * 100)/100 +' &euro;)';
+            var facturaSumarize = parseInt(pageFactura * 100)/100 + ' &euro;&nbsp;<br/>('+ parseInt(totalFactura * 100)/100 +' &euro;)';
+            var horasRiegoSumarize = parseInt(pageHorasRiego * 100)/100 + ' h&nbsp;<br/>('+ parseInt(totalHorasRiego * 100)/100 +' h)';
+
+            $(nRow).find('th').eq(3).html( consumoSumarize );
+            $(nRow).find('th').eq(8).html( facturaSumarize );
+            $(nRow).find('th').eq(9).html( horasRiegoSumarize );
+        };        
+    
+        $('#tabla_electricidad').dataTable(tabla_opciones);
+        
+    });
+    
+    
+/*]]>*/</script> 
+
+<div class="row" th:inline="text">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title" ><i class="icon-lightbulb-idea"></i> [[#{electricidad}]]</h1>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+    </div>
+</div>
+
+   <!-- row -->
+    <div class="row" th:inline="text">
+
+        <!-- NEW WIDGET START -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+            <div class="panel panel-primary panel-module">
+                <div class="panel-heading">
+                    
+                    <h2 class="pull-left"><i class="fa fa-table"></i> [[#{tabla}]]</h2>		
+                    <div class="pull-right"> 
+
+                        <a id="anadir-tipo-labor-link" class="btn btn-default btn-xs" 
+                           style="display:inline-block" th:href="@{/electricidad/tabla/form/electricidad.html(id=-1)}">
+                             <span class="glyphicon glyphicon-plus"></span> [[#{anadir-electricidad}]]
+                        </a>
+                    </div>
+                    
+                </div>
+                
+                <div class="panel-body">
+
+                        <table id="tabla_electricidad" class="table table-striped table-hover table-condensed">
+                            <!--class="table table-stripped table-bordered table-hover table-condensed"-->
+                            <thead>
+                                <tr>
+                                    <th>[[#{id-electricidad}]]</th>
+                                    <th>[[#{fecha-inicio}]]</th>
+                                    <th>[[#{fecha-fin}]]</th>
+                                    <th>[[#{consumo}]]</th>
+                                    <th>[[#{precio-kw}]]</th>
+                                    <th>[[#{precio-potencia}]]</th>
+                                    <th>[[#{impuesto-electricidad}]]</th>
+                                    <th>[[#{iva}]]</th>
+                                    <th>[[#{factura-electricidad}]]</th>
+                                    <th>[[#{horas-riego}]]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr  th:each="electricidad_item : ${electricidad}">
+                                    <td><a th:href="@{/electricidad/tabla/form/electricidad.html(id=${electricidad_item.id_electricidad})}">[[${electricidad_item.id_electricidad}]]</a></td>
+                                    <td>[[${#dates.format(electricidad_item.fecha_inicio,'dd/MM/yyyy')}]]</td>
+                                    <td>[[${#dates.format(electricidad_item.fecha_fin,'dd/MM/yyyy')}]]</td>
+                                    <td class="text-align-right">[[${#numbers.formatDecimal(electricidad_item.consumo,1,'POINT',0,'COMMA')}]]</td>
+                                    <td class="text-align-right">[[${#numbers.formatDecimal(electricidad_item.precio_kw,1,'POINT',6,'COMMA')}]]</td>
+                                    <td class="text-align-right">[[${#numbers.formatDecimal(electricidad_item.precio_potencia,1,'POINT',6,'COMMA')}]]</td>
+                                    <td class="text-align-right">[[${#numbers.formatDecimal(electricidad_item.impuesto_electricidad,1,'POINT',6,'COMMA')}]]</td>
+                                    <td class="text-align-right">[[${#numbers.formatDecimal(electricidad_item.iva,1,'POINT',3,'COMMA')}]]</td>
+                                    <td class="text-align-right txt-color-red">[[${#numbers.formatDecimal(T(com.chinchilla.util.UtilFormulas).costeElectricidad(electricidad_item),1,'POINT',2,'COMMA')}]]</td>
+                                    <td class="text-align-right txt-color-red">[[${#numbers.formatDecimal(T(com.chinchilla.util.UtilFormulas).horasRiego(electricidad_item.fecha_inicio,electricidad_item.fecha_fin,labores),1,'POINT',2,'COMMA')}]]</td>
+                               </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                  <th></th>
+                                  <th></th>
+                                  <th></th>
+                                  <th class="text-align-right"></th>
+                                  <th></th>
+                                  <th></th>
+                                  <th></th>
+                                  <th></th>
+                                  <th class="text-align-right"></th>
+                                  <th class="text-align-right"></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</html>

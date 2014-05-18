@@ -1732,13 +1732,18 @@ table.fc-border-separate {
     border-bottom: 1px solid #CCCCCC !important;
     margin-top: 0px !important;
     margin-bottom: 0px !important;*/
-    border: 0 none !important;
+    /*border: 0 none !important;*/
     margin-bottom: 0 !important;
     max-width: none !important;
+/*    border-top: 2px solid #E7E7E7;
+    border-bottom: 2px solid #E7E7E7;*/
 }
 
 div.dataTables_wrapper .footer{
     margin-top: 0;
+}
+
+div.dataTables_wrapper .header{
 }
 
 div.dataTables_wrapper div.dataTables_length {
@@ -1777,6 +1782,20 @@ div.dataTables_wrapper div.dataTables_advancedFilter{
     background: -moz-linear-gradient(center top , #FAFAFA 0px, #F2F2F2 100%);
 }*/
 
+
+div.dataTables_wrapper table thead{
+    background-color: #F3F3F3;    
+}
+div.dataTables_wrapper table tfoot tr{
+    /*border-top: 2px solid #E7E7E7 ;*/ 
+    background-color: #F3F3F3;  
+}
+
+div.dataTables_wrapper table tbody {
+/*    border-bottom: 3px solid #E7E7E7 ; 
+    border-top: 3px solid #E7E7E7 ; */
+}
+
 div.dataTables_wrapper table tfoot tr th .form-control  {
     width: 100%;
     margin-bottom: 4px;
@@ -1791,6 +1810,11 @@ div.dataTables_wrapper table tfoot tr th .form-control  {
 
 div.dataTables_wrapper .table-condensed{
     font-size: 12px;
+}
+
+div.dataTables_wrapper table tfoot tr#advanced-filter-form{
+    /*background-color: #F9F9F9;*/
+    border-top: 2px solid #E7E7E7 ; 
 }
 
 /*

@@ -152,7 +152,7 @@ public class UtilFormulas {
             if(laborMaquinaria.getMaquinaria().getId_coste_maquinaria() == 5000028 &&
                     electricidad!=null && !electricidad.isEmpty()){
                 
-                costeMaquinariaTotal += costeElectricidad(electricidad, labor, labores);
+                costeMaquinariaTotal += costeElectricidadPorFecha(electricidad, labor.getFecha_comienzo(), labores)/labor.getDuracion();
                 
             }
             
@@ -186,7 +186,7 @@ public class UtilFormulas {
         return costeTotalLabor;
     }
     
-    public static double costeElectricidad(List<Electricidad> electricidad, Labor labor, List<Labor> labores){
+    public static double costeElectricidadPorFecha(List<Electricidad> electricidad, Date fecha_electricidad, List<Labor> labores){
         
         for(Electricidad elecItem : electricidad){
             
@@ -195,21 +195,13 @@ public class UtilFormulas {
             c.add(Calendar.DATE, 1);
             Date diaDespuesFechaFin = c.getTime();
             
-            if(elecItem.getFecha_inicio().before( labor.getFecha_comienzo()) &&
-                     labor.getFecha_comienzo().before(diaDespuesFechaFin)){
+            if(elecItem.getFecha_inicio().before( fecha_electricidad ) &&
+                     fecha_electricidad.before(diaDespuesFechaFin)){
                 
-                double consumoElectricidad = elecItem.getConsumo()*elecItem.getPrecio_kw();
-                
-                double totalPotencia = elecItem.getPrecio_potencia()*DIAS*POTENCIA_CONTRATADA;
-                
-                double totalImpuestos = (consumoElectricidad+totalPotencia)*IMPUESTO_ELECTRICIDA;
-                
-                double totalIva= (consumoElectricidad+totalImpuestos)*elecItem.getIva();
-                
-                double costeElectricidad = (totalIva + totalImpuestos +consumoElectricidad)/
-                              horasRiego(elecItem.getFecha_inicio(),diaDespuesFechaFin,labores);//Dividir entre el total de horas de riego en el periodo
+                double costeElectricidad = costeElectricidad(elecItem)/
+                              horasRiego(elecItem.getFecha_inicio(),elecItem.getFecha_fin(),labores);//Dividir entre el total de horas de riego en el periodo
            
-                log.trace("costeElectricidad: "+costeElectricidad+" labor "+labor.getId_labor());
+                log.trace("costeElectricidad: "+costeElectricidad+" fecha "+fecha_electricidad);
                 
                 return costeElectricidad;
                 
@@ -217,20 +209,39 @@ public class UtilFormulas {
             
         }
         
-        log.warn("Electricidad no encontrada para labor "+labor.getId_labor()+" con inicio "+labor.getFecha_comienzo());
+        log.warn("Electricidad no encontrada para fecha "+fecha_electricidad);
         
         return 0;
+        
+    }
+    
+    public static double costeElectricidad(Electricidad elecItem){
+        
+        double consumoElectricidad = elecItem.getConsumo()*elecItem.getPrecio_kw();
+
+        double totalPotencia = elecItem.getPrecio_potencia()*DIAS*POTENCIA_CONTRATADA;
+
+        double totalImpuestos = (consumoElectricidad+totalPotencia)*IMPUESTO_ELECTRICIDA;
+
+        double totalIva= (consumoElectricidad+totalImpuestos)*elecItem.getIva();
+        
+        return (totalIva + totalImpuestos +consumoElectricidad);
         
     }
     
     public static double horasRiego(Date desde, Date hasta, List<Labor> labores){
         
         double horasDeRiego = 0;
+            
+        Calendar c = Calendar.getInstance(); 
+        c.setTime(hasta); 
+        c.add(Calendar.DATE, 1);
+        Date diaDespuesFechaFin = c.getTime();
         
         for(Labor l : labores){
             
             if(l.getFecha_comienzo().after(desde) &&
-                l.getFecha_comienzo().before(hasta)){
+                l.getFecha_comienzo().before(diaDespuesFechaFin)){
                 
                 for(LaborMaquinaria lm : l.getLabor_maquinaria()){
                     

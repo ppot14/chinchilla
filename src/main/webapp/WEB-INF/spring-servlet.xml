@@ -90,6 +90,7 @@
     <bean id="productosController" class="com.chinchilla.controller.ProductosController" />
     <bean id="configuracionController" class="com.chinchilla.controller.ConfiguracionController" />
     <bean id="meteorologiaController" class="com.chinchilla.controller.MeteorologiaController" />
+    <bean id="electricidadController" class="com.chinchilla.controller.ElectricidadController" />
     
     <!-- components -->
     <bean id="auditor" class="com.chinchilla.component.Auditor"/>

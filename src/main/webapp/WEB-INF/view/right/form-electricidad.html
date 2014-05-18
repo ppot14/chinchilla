@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div class="row" th:inline="text">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h2 class="page-title txt-color-blueDark" ><i class="icon-textfield"></i> [[${electricidadItem.id_electricidad} ? #{electricidad-id(${#numbers.formatInteger(electricidadItem.id_electricidad,3,'NONE')})} : #{nueva-electricidad}]]</h2>
+    </div>
+</div>
+    
+<div class="well" th:inline="text">
+
+  <form id="formulario-electricidad" class="form-horizontal"  
+        method="post" th:object="${electricidadItem}" role="form" 
+        action="/electricicad/tabla/form/procesar/electricidad.html" 
+        th:attr="action=@{/electricicad/tabla/form/procesar/electricidad.html}">
+
+    <input th:field="*{id_electricidad}" 
+           id="id_electricidad"  
+            type="hidden"/>
+      
+    <div class="form-group">
+    <label for="fecha_inicio" class="col-md-4 control-label">[[#{fecha-inicio}]]</label>
+        <div class="col-md-8"><div class="input-group">
+            <input id="fecha_inicio" name="fecha_inicio" 
+                    class="form-control input-sm datepicker"  
+                   placeholder="Seleccionar fecha inicio" 
+                   th:value="*{fecha_inicio}? ${#dates.format(electricidadItem.fecha_inicio,'dd/MM/yyyy')} : ''"></input> 
+            <span class="input-group-addon"><i class="icon-calendarthree"></i></span>
+        </div></div>
+    </div>
+      
+    <div class="form-group">
+    <label for="fecha_fin" class="col-md-4 control-label">[[#{fecha-fin}]]</label>
+        <div class="col-md-8"><div class="input-group">
+            <input id="fecha_fin" name="fecha_fin" 
+                    class="form-control input-sm datepicker"  
+                   placeholder="Seleccionar fecha fin" 
+                   th:value="*{fecha_fin}? ${#dates.format(electricidadItem.fecha_fin,'dd/MM/yyyy')} : ''"></input> 
+            <span class="input-group-addon"><i class="icon-calendarthree"></i></span>
+        </div></div>
+    </div>
+      
+    <div class="form-group">
+    <label for="consumo" class="col-md-4 control-label">[[#{consumo}]]</label>
+        <div class="col-md-8">
+            <input id="consumo" 
+                    class="form-control input-sm" placeholder="" th:field="*{consumo}"></input>
+        </div>
+    </div>
+      
+    <div class="form-group">
+    <label for="precio_kw" class="col-md-4 control-label">[[#{precio-kw}]]</label>
+        <div class="col-md-8">
+            <input id="precio_kw" 
+                    class="form-control input-sm" placeholder="" th:field="*{precio_kw}"></input>
+        </div>
+    </div>
+      
+    <div class="form-group">
+    <label for="precio_potencia" class="col-md-4 control-label">[[#{precio-potencia}]]</label>
+        <div class="col-md-8">
+            <input id="precio_potencia" 
+                    class="form-control input-sm" placeholder="" th:field="*{precio_potencia}"></input>
+        </div>
+    </div>
+      
+    <div class="form-group">
+    <label for="impuesto_electricidad" class="col-md-4 control-label">[[#{impuesto}]]</label>
+        <div class="col-md-8">
+            <input id="impuesto_electricidad" 
+                    class="form-control input-sm" placeholder="" th:field="*{impuesto_electricidad}"></input>
+        </div>
+    </div>
+      
+    <div class="form-group">
+    <label for="iva" class="col-md-4 control-label">[[#{iva}]]</label>
+        <div class="col-md-8">
+            <input id="iva" 
+                    class="form-control input-sm" placeholder="" th:field="*{iva}"></input>
+        </div>
+    </div>
+    
+    <div th:replace="template/form-operation-buttons"></div>
+    
+</form>
+    </div>
+
+<script  th:inline="javascript">/*<![CDATA[*/
+    
+$(window).load(function () { 
+    
+        crudInputBeforeSubmit('formulario-electricidad');
+          
+        var electricidadItem = /*[[${electricidadItem}]]*/null;
+        
+        if(!electricidadItem || electricidadItem.id_electricidad < 1){
+            $('#boton_modificar').attr('disabled','disabled');
+            $('#boton_eliminar').attr('disabled','disabled');
+        }
+
+        $( "#consumo" ).spinner({
+          min: 0,
+          max: 999999,
+          step: 0.01,
+          page: 100,
+          numberFormat: "n",
+          culture: "es"
+        });
+          
+        $( "#precio_kw" ).spinner({
+          min: 0,
+          max: 1,
+          step: 0.000001,
+          page: 1,
+          numberFormat: "C",
+          culture: "es"
+        });
+          
+        $( "#precio_potencia" ).spinner({
+          min: 0,
+          max: 1,
+          step: 0.000001,
+          page: 1,
+          numberFormat: "C",
+          culture: "es"
+        });
+          
+        $( "#impuesto_electriciad" ).spinner({
+          min: 0,
+          max: 1,
+          step: 0.000001,
+          page: 1,
+          numberFormat: "C",
+          culture: "es"
+        });
+          
+        $( "#iva" ).spinner({
+          min: 0,
+          max: 1,
+          step: 0.001,
+          page: 1,
+          numberFormat: "n",
+          culture: "es"
+        });
+
+         $( "#fecha_inicio" ).datepicker();
+
+         $( "#fecha_fin" ).datepicker();
+         
+         var formularioElectricidad = $('#formulario-electricidad').validate({
+            rules : {
+                    consumo : {
+                            required : true,
+                            minNumber : 0.00
+                    },
+                    precio_kw : {
+                            required : true,
+                            minNumber : 0.00
+                    },
+                    precio_potencia : {
+                            required : true,
+                            minNumber : 0.00
+                    },
+                    impuesto_electriciad : {
+                            required : true,
+                            minNumber : 0.00
+                    },
+                    iva : {
+                            required : true,
+                            minNumber : 0.00
+                    },
+                    fecha_inicio : {
+                            required : true
+                    },
+                    fecha_fin : {
+                            required : true
+                    }
+            },
+            messages : {
+                    consumo : {
+                            required : 'Consumo es obligatorio'
+                    },
+                    precio_kw : {
+                            required : 'Precio Kw es obligatoria'
+                    },
+                    precio_potencia : {
+                            required : 'Cantidad es obligatoria'
+                    },
+                    impuesto_electriciad : {
+                            required : 'Impuesto es obligatorio'
+                    },
+                    iva : {
+                            required : 'IVA es obligatorio'
+                    },
+                    fecha_inicio : {
+                            required : 'Fecha inicio es obligatorio'
+                    },
+                    fecha_fin : {
+                            required : 'Fecha fin es obligatorio'
+                    }
+            },
+            errorPlacement : function(error, element) {
+                    error.insertAfter(element.parent());
+            }
+        });
+    
+  });
+  /*]]>*/</script>
+
+</html>

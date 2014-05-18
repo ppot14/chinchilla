@@ -182,7 +182,7 @@ AdvancedFilter.prototype = {
         this.dom.wrapper.id = settings.sTableId+"_advancedFilter";
 //        console.debug("AdvancedFilter._fnConstruct advancedFilter (init): "+init);
         this.dom.active = init && init.length>0;
-        console.debug("AdvancedFilter._fnConstruct dom.active: "+this.dom.active);
+//        console.debug("AdvancedFilter._fnConstruct dom.active: "+this.dom.active);
         
         that._fnCreateFilterForm( settings, init );
 
@@ -284,7 +284,7 @@ AdvancedFilter.prototype = {
         
         var tFoot = $('#'+settings.sTableId+' > tfoot');
         
-        console.log('tFoot exist '+tFoot.length);
+//        console.log('tFoot exist '+tFoot.length);
         
         if(tFoot.length){//check if exist
         

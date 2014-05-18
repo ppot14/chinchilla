@@ -57,7 +57,7 @@ public class LaborService extends AbstractService{
     
     public boolean insertaModificarEliminarLabor(LaborForm laborForm, Map<String, Object> modelMap){
         
-        log.info(""+laborForm);
+        log.debug("insertaModificarEliminarLabor: "+laborForm);
         
         String tipoOperacion = laborForm.getInsertar_modificar_eliminar();
         
@@ -69,11 +69,11 @@ public class LaborService extends AbstractService{
                 
                 success = true;
         
-                notificador.incluirMensaje(modelMap, "success", "Labor añadida correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Labor añadida correctamente",null,laborForm.getId_labor());
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo Labor");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo Labor",null,laborForm.getId_labor());
                 
             }
             
@@ -85,25 +85,25 @@ public class LaborService extends AbstractService{
        
             int modified = laborDAO.update(labor);
             
-            log.info("modified "+modified);
+            log.debug("modified "+modified);
             
             boolean deletedContenidoLabor = deleteContenidoLabor(laborForm);
             
             boolean createdContenidoLabor = createContenidoLabor(laborForm);
             
-            log.info("deletedContenidoLabor "+deletedContenidoLabor);
+            log.debug("deletedContenidoLabor "+deletedContenidoLabor);
             
-            log.info("createdContenidoLabor "+createdContenidoLabor);
+            log.debug("createdContenidoLabor "+createdContenidoLabor);
             
             if(modified==1 && deletedContenidoLabor && createdContenidoLabor){
             
                 success = true;
         
-                notificador.incluirMensaje(modelMap, "success", "Labor modificada correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Labor modificada correctamente",null,labor.getId_labor());
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando Labor");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando Labor",null,labor.getId_labor());
                 
             }
             
@@ -113,11 +113,11 @@ public class LaborService extends AbstractService{
             
                 success = true;
         
-                notificador.incluirMensaje(modelMap, "success", "Labor eliminado correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Labor eliminado correctamente",null,laborForm.getId_labor());
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando Labor");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando Labor",null,laborForm.getId_labor());
                 
             }
             
@@ -144,7 +144,7 @@ public class LaborService extends AbstractService{
         
         log.debug("create labor.getId_labor "+model_labor.getId_labor());
 
-        log.info("created "+created);
+        log.debug("created "+created);
         
         boolean createdContenidoLaborTemp = createContenidoLabor(model_labor);
         
@@ -230,10 +230,10 @@ public class LaborService extends AbstractService{
             createLaborProducto = laborDAO.createLaborProducto(model_labor.getLabor_producto());
         }
 
-        log.info("createdLaborMaquinaria "+createdLaborMaquinaria);
-        log.info("createLaborParcela "+createLaborParcela);
-        log.info("createLaborPersonal "+createLaborPersonal);
-        log.info("createLaborProducto "+createLaborProducto);
+        log.debug("createdLaborMaquinaria "+createdLaborMaquinaria);
+        log.debug("createLaborParcela "+createLaborParcela);
+        log.debug("createLaborPersonal "+createLaborPersonal);
+        log.debug("createLaborProducto "+createLaborProducto);
         
         return ((model_labor.getId_maquinarias()==null || model_labor.getId_maquinarias().size()==createdLaborMaquinaria) &&
                 (model_labor.getId_parcelas()==null || model_labor.getId_parcelas().size()==createLaborParcela) &&
@@ -247,7 +247,7 @@ public class LaborService extends AbstractService{
        
         int deleted = laborDAO.delete(labor.getId_labor());
         
-        log.info("deleted labor "+deleted);
+        log.debug("deleted labor "+deleted);
 
         boolean deletedContenidoLaborTemp = deleteContenidoLabor(model_labor);
 
@@ -270,10 +270,10 @@ public class LaborService extends AbstractService{
         if(model_labor.getLabor_producto()!=null&&!model_labor.getLabor_producto().isEmpty())
           deleteLaborProducto = laborDAO.deleteLaborProducto(model_labor.getId_labor());
 
-        log.info("deleteLaborMaquinaria "+deleteLaborMaquinaria);
-        log.info("deleteLaborParcela "+deleteLaborParcela);
-        log.info("deleteLaborPersonal "+deleteLaborPersonal);
-        log.info("deleteLaborProducto "+deleteLaborProducto);
+        log.debug("deleteLaborMaquinaria "+deleteLaborMaquinaria);
+        log.debug("deleteLaborParcela "+deleteLaborParcela);
+        log.debug("deleteLaborPersonal "+deleteLaborPersonal);
+        log.debug("deleteLaborProducto "+deleteLaborProducto);
 
         return deleteLaborMaquinaria>-1 && deleteLaborParcela>-1 && deleteLaborPersonal>-1 && deleteLaborProducto>-1;
    }

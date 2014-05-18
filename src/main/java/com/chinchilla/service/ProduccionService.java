@@ -25,7 +25,6 @@
 package com.chinchilla.service;
 
 import com.chinchilla.form.ProduccionForm;
-import com.chinchilla.persistence.dao.LaborDAO;
 import com.chinchilla.persistence.dao.ProduccionDAO;
 import com.chinchilla.persistence.objects.Produccion;
 import java.util.Map;
@@ -62,11 +61,11 @@ public class ProduccionService extends AbstractService{
                 
                 success = true;
         
-                notificador.incluirMensaje(modelMap, "success", "Producción añadida correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Producción añadida correctamente",null,produccion.getId_produccion());
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo produccion");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo produccion",null,produccion.getId_produccion());
                 
             }
             
@@ -76,11 +75,11 @@ public class ProduccionService extends AbstractService{
                 
                 success = true;
         
-                notificador.incluirMensaje(modelMap, "success", "Producción modificada correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Producción modificada correctamente",null,produccion.getId_produccion());
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando produccion");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando produccion",null,produccion.getId_produccion());
                 
             }
             
@@ -90,11 +89,11 @@ public class ProduccionService extends AbstractService{
                 
                 success = true;
         
-                notificador.incluirMensaje(modelMap, "success", "Producción eliminada correctamente");
+                notificador.incluirMensaje(modelMap, "success", "Producción eliminada correctamente",null,produccion.getId_produccion());
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando produccion");
+                notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando produccion",null,produccion.getId_produccion());
                 
             }
             

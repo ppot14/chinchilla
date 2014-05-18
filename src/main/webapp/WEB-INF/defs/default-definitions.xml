@@ -86,6 +86,15 @@
 		<put-attribute name="inc_rightpanel" value="right/form-registro"/>
 	</definition>
         
+        <!--Electricidad-->
+        <definition name="electricidad-tabla" extends="template">
+		<put-attribute name="inc_content" value="content/tabla-electricidad"/>
+	</definition>
+        
+        <definition name="electricidad-tabla-form-electricidad" extends="electricidad-tabla">
+		<put-attribute name="inc_rightpanel" value="right/form-electricidad"/>
+	</definition>
+        
         <!--Meteorologia-->
         <definition name="meteorologia-calendario" extends="template">
 		<put-attribute name="inc_content" value="content/calendario-meteorologia"/>
