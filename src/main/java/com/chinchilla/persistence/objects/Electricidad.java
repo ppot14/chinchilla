@@ -56,6 +56,17 @@ public class Electricidad implements Serializable{
         this.impuesto_electricidad = impuesto_electricidad;
         this.iva = iva;
     }
+
+    public Electricidad(Electricidad e) {
+        this.id_electricidad = e.getId_electricidad();
+        this.fecha_inicio = e.getFecha_inicio();
+        this.fecha_fin = e.getFecha_fin();
+        this.consumo = e.getConsumo();
+        this.precio_kw = e.getPrecio_kw();
+        this.precio_potencia = e.getPrecio_potencia();
+        this.impuesto_electricidad = e.getImpuesto_electricidad();
+        this.iva = e.getIva();
+    }
     
     public int getId_electricidad() {
         return id_electricidad;

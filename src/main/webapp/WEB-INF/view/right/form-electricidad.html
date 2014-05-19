@@ -98,50 +98,50 @@ $(window).load(function () {
             $('#boton_eliminar').attr('disabled','disabled');
         }
 
-        $( "#consumo" ).spinner({
-          min: 0,
-          max: 999999,
-          step: 0.01,
-          page: 100,
-          numberFormat: "n",
-          culture: "es"
-        });
-          
-        $( "#precio_kw" ).spinner({
-          min: 0,
-          max: 1,
-          step: 0.000001,
-          page: 1,
-          numberFormat: "C",
-          culture: "es"
-        });
-          
-        $( "#precio_potencia" ).spinner({
-          min: 0,
-          max: 1,
-          step: 0.000001,
-          page: 1,
-          numberFormat: "C",
-          culture: "es"
-        });
-          
-        $( "#impuesto_electriciad" ).spinner({
-          min: 0,
-          max: 1,
-          step: 0.000001,
-          page: 1,
-          numberFormat: "C",
-          culture: "es"
-        });
-          
-        $( "#iva" ).spinner({
-          min: 0,
-          max: 1,
-          step: 0.001,
-          page: 1,
-          numberFormat: "n",
-          culture: "es"
-        });
+//        $( "#consumo" ).spinner({
+//          min: 0,
+//          max: 999999,
+//          step: 0.01,
+//          page: 100,
+//          numberFormat: "n",
+//          culture: "es"
+//        });
+//          
+//        $( "#precio_kw" ).spinner({
+//          min: 0,
+//          max: 1,
+//          step: 0.000001,
+//          page: 1,
+//          numberFormat: "C",
+//          culture: "es"
+//        });
+//          
+//        $( "#precio_potencia" ).spinner({
+//          min: 0,
+//          max: 1,
+//          step: 0.000001,
+//          page: 1,
+//          numberFormat: "C",
+//          culture: "es"
+//        });
+//          
+//        $( "#impuesto_electricidad" ).spinner({
+//          min: 0,
+//          max: 1,
+//          step: 0.000001,
+//          page: 1,
+//          numberFormat: "C",
+//          culture: "es"
+//        });
+//          
+//        $( "#iva" ).spinner({
+//          min: 0,
+//          max: 1,
+//          step: 0.001,
+//          page: 1,
+//          numberFormat: "n",
+//          culture: "es"
+//        });
 
          $( "#fecha_inicio" ).datepicker();
 
@@ -155,19 +155,19 @@ $(window).load(function () {
                     },
                     precio_kw : {
                             required : true,
-                            minNumber : 0.00
+                            minNumber : 0.000000
                     },
                     precio_potencia : {
                             required : true,
-                            minNumber : 0.00
+                            minNumber : 0.000000
                     },
                     impuesto_electriciad : {
                             required : true,
-                            minNumber : 0.00
+                            minNumber : 0.000000
                     },
                     iva : {
                             required : true,
-                            minNumber : 0.00
+                            minNumber : 0.000
                     },
                     fecha_inicio : {
                             required : true

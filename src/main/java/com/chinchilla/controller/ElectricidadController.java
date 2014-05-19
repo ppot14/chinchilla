@@ -1,21 +1,25 @@
 package com.chinchilla.controller;
 
 import com.chinchilla.component.Notificador;
+import com.chinchilla.form.ElectricidadForm;
 import com.chinchilla.persistence.objects.Electricidad;
 import com.chinchilla.persistence.objects.Labor;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 /**
  *
@@ -23,7 +27,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  */
 @Controller("electricidadController")
 @RequestMapping("/electricidad")
-@SessionAttributes({"electricidad"})
+@SessionAttributes({"electricidad","labores"})
 public class ElectricidadController extends AbstractController{
 
     private static Logger log = (Logger) LoggerFactory.getLogger(ElectricidadController.class);
@@ -57,9 +61,11 @@ public class ElectricidadController extends AbstractController{
     @RequestMapping(value = "/tabla/form/electricidad.html",params = {"id"}, method=RequestMethod.GET)
     public String tablaFormElectricidad(@RequestParam(value = "id") Integer id_electricidad, Model model) throws Exception {
 
+        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
+
         Electricidad electricidadItem = null;
         
-        if(id_electricidad.intValue()>0){
+        if(id_electricidad>0){
         
             electricidadItem = electricidadDAO.get(id_electricidad);
         
@@ -69,31 +75,34 @@ public class ElectricidadController extends AbstractController{
         
         }
         
-        log.info("electricidad "+electricidadItem);
-
-        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
+        log.info("electricidadItem "+electricidadItem);
 
         modelMap.put("electricidadItem", electricidadItem);
         
         model.addAllAttributes(modelMap);
 
-        log.info("Received request to show tablaFormInsertarElectricidad form: electricidad-tabla-form-electricidad");
+//        log.info("Received request to show tablaFormInsertarElectricidad form: electricidad-tabla-form-electricidad");
         
         return "electricidad-tabla-form-electricidad";
     }
     
     @RequestMapping(value = "/tabla/form/procesar/electricidad.html",method = RequestMethod.POST)
    public String tablaFormProcesarElectricidad(
-            @ ModelAttribute("model_electricidad") Electricidad model_electricidad, 
-            @ModelAttribute("insertar_modificar_eliminar") String insertar_modificar_eliminar, Model model) throws Exception {
+            @ModelAttribute("electricidad") ElectricidadForm model_electricidad,
+           BindingResult result,
+           SessionStatus status,
+           Model model,
+           HttpServletRequest request) throws Exception {
         
-        log.info(""+model_electricidad);
-        
-        String tipoOperacion = insertar_modificar_eliminar;
-        
-        Electricidad electricidadItem = model_electricidad;
+        long startTime = System.currentTimeMillis();
         
         Map<String, Object> modelMap = new HashMap<String, Object>();
+        
+        String tipoOperacion = model_electricidad.getInsertar_modificar_eliminar();
+        
+        Electricidad electricidadItem = new Electricidad(model_electricidad);
+        
+//        log.info(""+model_electricidad);
         
         int created = 0;
         
@@ -107,7 +116,7 @@ public class ElectricidadController extends AbstractController{
             
             if(created==1){
         
-                notificador.incluirMensaje(modelMap, "success", "Producción añadida correctamente",null,electricidadItem.getId_electricidad());
+                notificador.incluirMensaje(modelMap, "success", "Electricidad añadida correctamente",null,electricidadItem.getId_electricidad());
                 
             }else{
         
@@ -121,7 +130,7 @@ public class ElectricidadController extends AbstractController{
             
             if(updated==1){
         
-                notificador.incluirMensaje(modelMap, "success", "Producción modificada correctamente",null,electricidadItem.getId_electricidad());
+                notificador.incluirMensaje(modelMap, "success", "Electricidad modificada correctamente",null,electricidadItem.getId_electricidad());
                 
             }else{
         
@@ -135,7 +144,7 @@ public class ElectricidadController extends AbstractController{
             
             if(deleted==1){
         
-                notificador.incluirMensaje(modelMap, "success", "Producción eliminada correctamente",null,electricidadItem.getId_electricidad());
+                notificador.incluirMensaje(modelMap, "success", "Electricidad eliminada correctamente",null,electricidadItem.getId_electricidad());
                 
             }else{
         
@@ -164,7 +173,11 @@ public class ElectricidadController extends AbstractController{
         
         model.addAllAttributes(modelMap);
         
-        log.info("Received request to show tablaFormProcesarElectricidad: electricidad-tabla");
+//        log.info("Received request to show tablaFormProcesarElectricidad: electricidad-tabla");
+       
+        long endTime = System.currentTimeMillis();
+       
+        log.info(getClass()+".tablaFormProcesarElectricidad execution time: " + (endTime-startTime) + "ms");
 
         return "electricidad-tabla";
     }

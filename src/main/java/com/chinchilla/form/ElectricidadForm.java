@@ -1,7 +1,7 @@
-/* 
+/*
  * The MIT License
  *
- * Copyright 2014 Pepe.
+ * Copyright 2013 Pepe.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,57 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-function Util () {}
-    
-Util.randomRange = function(min, max) {
-    
-    return min + Math.random() * (max - min);
-    
-};
+package com.chinchilla.form;
 
-Util.getRainbowColors = function(num){
+import com.chinchilla.persistence.objects.Electricidad;
+
+/**
+ *
+ * @author Pepe
+ */
+public class ElectricidadForm extends Electricidad{
     
-    var colors = new Array();
+    private String insertar_modificar_eliminar;
     
-    for(var h=0 ; h < num; h++){
-        
-        var i = Math.round(360*h/num);
-        
-        colors[h] = tinycolor('hsl(' + i + ',' + '60' + '%,' + '60' + '%)').toHexString();
+    public ElectricidadForm(){
+        super();
     }
     
-    return colors;
-    
-};
+    public ElectricidadForm(Electricidad electricidad){
+        super(electricidad);
+    }
 
-Util.validateOrGetRandomColor =  function(c) {
+    /**
+     * @return the insertar_modificar_eliminar
+     */
+    public String getInsertar_modificar_eliminar() {
+        return insertar_modificar_eliminar;
+    }
 
-    var color;
-    
-    var colorRegex = /[0-9a-fA-F]{6}/g;
-    
-    if (c && colorRegex.exec(c)) {
-        
-        color = '#' + c;
-        
-    } else {
-        
-        var letters = '0123456789ABCDEF'.split('');
-        
-        color = '#';
-        
-        for (var i = 0; i < 6; i++) {
-            
-            color += letters[Math.round(Math.random() * 15)];
-            
-        }
+    /**
+     * @param insertar_modificar_eliminar the insertar_modificar_eliminar to set
+     */
+    public void setInsertar_modificar_eliminar(String insertar_modificar_eliminar) {
+        this.insertar_modificar_eliminar = insertar_modificar_eliminar;
+    }
+
+    @Override
+    public String toString() {
+        return "ElectricidadForm{" + "insertar_modificar_eliminar=" + insertar_modificar_eliminar + ", " + super.toString() + "}";
     }
     
-    return color;
-    
-};
-
-Util.checkAll =  function(bx) {
-  $(bx).closest('table').find('td input:checkbox').prop('checked', bx.checked);
-};
-
+}

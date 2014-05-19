@@ -44,6 +44,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.WebDataBinder;
@@ -57,6 +59,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes({"parcelas","coordenadas","producciones","cultivos","ordenesCompra",
                     "labores","maquinaria","costesPersonal","productos","meteo","electricidad"})
 public abstract class AbstractController {
+
+    private static Logger log = (Logger) LoggerFactory.getLogger(AbstractController.class);
     
     @Autowired
     @Qualifier("notificador")
@@ -139,6 +143,7 @@ public abstract class AbstractController {
             @Override
             public void setAsText(String value) {
                 try {
+                log.debug(value.trim()+"->"+DecimalFormat.getInstance(new Locale("es", "ES")).parse(value.trim()));
                     Number n = DecimalFormat.getInstance(new Locale("es", "ES")).parse(value.trim());
                     setValue( n.doubleValue() );
                 } catch(ParseException e) {
@@ -148,6 +153,7 @@ public abstract class AbstractController {
 
             @Override
             public String getAsText() {
+                log.debug(getValue()+"->"+DecimalFormat.getInstance(new Locale("es", "ES")).format(getValue()));
                 return DecimalFormat.getInstance(new Locale("es", "ES")).format(getValue());
             }        
 
@@ -157,6 +163,7 @@ public abstract class AbstractController {
             @Override
             public void setAsText(String value) {
                 try {
+                log.debug(value.trim()+"->"+DecimalFormat.getInstance(new Locale("es", "ES")).parse(value.trim()));
                     Number n = DecimalFormat.getInstance(new Locale("es", "ES")).parse(value.trim());
                     setValue( n.doubleValue() );
                 } catch(ParseException e) {
@@ -166,6 +173,7 @@ public abstract class AbstractController {
 
             @Override
             public String getAsText() {
+                log.debug(getValue()+"->"+DecimalFormat.getInstance(new Locale("es", "ES")).format(getValue()));
                 return DecimalFormat.getInstance(new Locale("es", "ES")).format(getValue());
             }        
 

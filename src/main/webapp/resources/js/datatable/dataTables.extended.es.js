@@ -70,12 +70,13 @@ var tabla_opciones = {
 //        console.log('fnStateSaveParams sValue: '+JSON.stringify(sValue));
         sValue.aoAdvancedFilter = oSettings.aoAdvancedFilter;
 //        console.log('fnStateSaveParams oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.aoAdvancedFilter,null,'\t'));
-        console.log('fnStateSaveParams sValue: '+JSON.stringify(sValue));
+//        console.log('fnStateSaveParams sValue: '+JSON.stringify(sValue));
         return sValue;
     },
     "fnStateLoadParams"	: function ( oSettings, oData ) {
-          console.log('fnStateLoadParams this '+JSON.stringify(this,null,'\t'));
-        console.log('fnStateLoadParams oData: '+JSON.stringify(oData));
+        //TODO
+//          console.log('fnStateLoadParams this '+JSON.stringify(this,null,'\t'));
+//        console.log('fnStateLoadParams oData: '+JSON.stringify(oData));
 
 //        console.log('fnStateLoadParams oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.oInit.aoAdvancedFilter,null,'\t'));
         if(oData.aoAdvancedFilter){ 
@@ -154,14 +155,14 @@ AdvancedFilter.prototype = {
             counterSpan = ' <span class="badge">'+settings.oInstance.fnSettings().aoAdvancedFilter.length+'</span>';
         }
         
-        buttomFilter.html('<i class="icon-filter"></i> '+settings.oInit.oLanguage.sAdvancedFilter + counterSpan)
+        buttomFilter.html('<i class="icon-filter"></i> '+settings.oInit.oLanguage.sAdvancedFilter + counterSpan);
         
         this.dom.button = buttomFilter;
         
     },
     fnSetAdvancedFilter: function(aoAdvancedFilter, settings){
         
-        console.debug("setAdvancedFilter aoAdvancedFilter: "+JSON.stringify(aoAdvancedFilter));
+//        console.debug("setAdvancedFilter aoAdvancedFilter: "+JSON.stringify(aoAdvancedFilter));
         
 //        var footer = settings.nTFoot;
         
@@ -440,22 +441,22 @@ AdvancedFilter.prototype = {
  * Rebuild the collection for a given table, or all tables if no parameter given
  *  @method  AdvancedFilter.fnSetAdvancedFilter
  *  @static
- *  @param   object aoAdvancedFilter JSON with the advanced filter
- *  @param   object oTable DataTable instance to consider - optional
+ *  @param   aoAdvancedFilter JSON with the advanced filter
+ *  @param   oTable DataTable instance to consider - optional
  *  @returns void
  */
 AdvancedFilter.fnSetAdvancedFilter = function ( aoAdvancedFilter, oTable )
 {
 	var nTable = null;
-        console.log('.fnSetAdvancedFilter oTable '+JSON.stringify(oTable));
+//        console.log('.fnSetAdvancedFilter oTable '+JSON.stringify(oTable));
 	if ( typeof oTable !== 'undefined' )
 	{
 		nTable = oTable.fnSettings().nTable;
 	}
         
-        console.debug('.fnSetAdvancedFilter nTable: '+nTable);
+//        console.debug('.fnSetAdvancedFilter nTable: '+nTable);
         
-        console.debug('.fnSetAdvancedFilter AdvancedFilter.aInstances.length: '+AdvancedFilter.aInstances.length);
+//        console.debug('.fnSetAdvancedFilter AdvancedFilter.aInstances.length: '+AdvancedFilter.aInstances.length);
 
 	for ( var i=0, iLen=AdvancedFilter.aInstances.length ; i<iLen ; i++ )
 	{

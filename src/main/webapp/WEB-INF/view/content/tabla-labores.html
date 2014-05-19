@@ -96,7 +96,13 @@
                 <h2 class="pull-left"><i class="fa fa-table"></i> [[#{tabla}]]</h2>				
                 <div class="pull-right"> 
 
-                    <a id="anadir-tipo-labor-link" class="btn btn-default btn-xs" 
+                    <a id="eliminar-labor-link" class="btn btn-default btn-xs disabled" 
+                        style="display:inline-block" 
+                        href="javascript:void(0)">
+                         <span class="icon-trash"></span> [[#{eliminar-labor-es}]]
+                    </a>
+
+                    <a id="anadir-labor-link" class="btn btn-default btn-xs" 
                         style="display:inline-block" 
                        th:href="@{/labores/tabla/form/labor.html(id=-1)}">
                          <span class="glyphicon glyphicon-plus"></span> [[#{anadir-labor}]]
@@ -111,7 +117,7 @@
                     <thead>
                         <tr>
                           <th style="text-align: center;">
-                             <input type="checkbox" onclick="console.debug('checked: '+this.checked);$(this).closest('table').find('td :checkbox').attr('checked', this.checked);" />
+                             <input type="checkbox" onclick="Util.checkAll(this)" />
                           </th>
                           <th>[[#{id-labor}]]</th>
                           <th>[[#{parcela}]]</th>
@@ -132,8 +138,7 @@
                     <tbody>
                         <tr  th:each="labores_item : ${labores}">
                           <td style="text-align: center;">
-                              <input type="checkbox" th:value="${labores_item.id_labor}" onclick="console.debug('class: '+$(this).closest('tr').attr('class')+' checked: '+this.checked);$(this).closest('tr').toggleClass('info', this.checked);"
-                                                                                          onchange="console.debug('checked: '+this.checked);"/>
+                              <input type="checkbox" th:value="${labores_item.id_labor}"/>
                           </td>
                           <td><a th:href="@{/labores/tabla/form/labor.html(id=${labores_item.id_labor})}">[[${labores_item.id_labor}]]</a></td>
                           <td>
