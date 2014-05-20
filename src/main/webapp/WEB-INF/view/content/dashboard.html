@@ -33,35 +33,11 @@
 
     <script th:inline="javascript">/*<![CDATA[*/
 
-        var url_forecast_wunderground = "http://api.wunderground.com/api/b7c6967273eb1adf/forecast/lang:SP/q/37.3258,-5.2061.json";
 
-        var forecast4days;
-        
-        function setUpWeatherPanel(){
-            
-//            console.log('forecast4days '+JSON.stringify(forecast4days, null, '\t'));
-            
-            var forecastday = forecast4days.forecast.simpleforecast.forecastday;
-            
-//            console.log('forecastday '+JSON.stringify(forecastday, null, '\t'));
-            
-            var divForecast = $('#forecastday');
-            
-            for(var i=0; i<forecastday.length; i++){
-                var day = $('<div style="padding:0px 10px; margin-bottom:10px"></div>');
-                day.append($('<h5></h5>').text(forecastday[i].date.weekday+' - '+forecastday[i].conditions));
-                day.append($('<div class="text-primary pull-right" style="margin-left:5px"></div>').text(forecastday[i].low.celsius.replace('.',',')+' \u00BAC'));
-                day.append($('<div class="pull-right" style="margin-left:5px"></div>').text('-'));
-                day.append($('<div class="text-warning pull-right" style="margin-left:5px"></div>').text(forecastday[i].high.celsius.replace('.',',')+' \u00BAC'));
-                day.append($('<img class="media-object"></img>').attr('src',forecastday[i].icon_url.replace('i/c/k','i/c/i')));
-                divForecast.append(day);
-            }
-            
-        }
 
         $(window).load(function() { 
 
-            //Mapa
+            //Mapa Widget
             try {
 
                 var mapOptions = {
@@ -78,24 +54,60 @@
 
             }
             
-            //Tiempo
+            //Tiempo Widget
+            
+            var url_forecast_wunderground = "http://api.wunderground.com/api/b7c6967273eb1adf/forecast/lang:SP/q/37.3258,-5.2061.json";
+
+            var forecast4days;
+
+            function setUpWeatherPanel(){
+
+    //            console.log('forecast4days '+JSON.stringify(forecast4days, null, '\t'));
+
+                var forecastday = forecast4days.forecast.simpleforecast.forecastday;
+
+    //            console.log('forecastday '+JSON.stringify(forecastday, null, '\t'));
+
+                var divForecast = $('#forecastday');
+
+                for(var i=0; i<forecastday.length; i++){
+
+                console.log('forecastday '+i+' '+JSON.stringify(forecastday[i], null, '\t'));
+                    var day = $('<div style="padding:0px 10px; margin-bottom:10px"></div>');
+                    day.append($('<h5 style="margin-bottom: 0px;"></h5>').text(forecastday[i].date.weekday));
+                    var box = $('<div class="" style="display: table; width: 100%;"></div>');
+                    var colLeft = $('<div class="" style="float: left;position: relative;width: 50%;"></div>');
+                    var colRight = $('<div class="" style="float: left;position: relative;width: 50%;"></div>');
+                    colLeft.append($('<img class="media-object" ></img>').attr('src',forecastday[i].icon_url.replace('i/c/k','i/c/i')));
+                    colRight.append($('<span></span>').text(forecastday[i].conditions));
+                    colRight.append($('<div class="text-primary pull-right" style="margin-left:5px"></div>').text(forecastday[i].low.celsius.replace('.',',')+' \u00BAC'));
+                    colRight.append($('<div class="pull-right" style="margin-left:5px"></div>').text('-'));
+                    colRight.append($('<div class="text-warning pull-right" style="margin-left:5px"></div>').text(forecastday[i].high.celsius.replace('.',',')+' \u00BAC'));
+                    box.append(colLeft);
+                    box.append(colRight);
+                    day.append(box);
+                    divForecast.append(day);
+                }
+
+            }            
+            
             $.ajax({
                     url : url_forecast_wunderground,
                     dataType : "jsonp",
                     success : function(parsed_json) {forecast4days = parsed_json; setUpWeatherPanel();}
             });
             
-            //Gasoil
+            //Gasoil Widget
             var today=new Date();
             today.setDate(today.getDate()+1);
 //            var oneDayInMs = 24 * 60 * 60 * 1000;
 //            today = new Date( today.valueOf() - (today.valueOf()%oneDayInMs) );
 //            var lastweek=new Date();
 //            lastweek.setDate(today.getDate()-7);
-            var last30days=new Date();
-            last30days.setDate(today.getDate()-30);
-//            console.log('today '+today); 
-//            console.log('lastweek '+lastweek); 
+            var lastXdays=new Date();
+            lastXdays.setDate(today.getDate()-365);
+            console.log('today '+today); 
+            console.log('lastXdays '+lastXdays); 
             var labores = /*[[${labores}]]*/null;
             
 //            console.log('labores '+JSON.stringify(labores, null, '\t'));
@@ -112,8 +124,8 @@
            for(var i=0; i<labores.length; i++){
                var tempDay = new Date(labores[i].fecha_comienzo.time);
 //               if(labores[i].fecha_comienzo)
-//            console.log('fecha_comienzo '+new Date(labores[i].fecha_comienzo.time)+' - '+labores[i].litros_gasoil);
-                if(last30days < tempDay && tempDay < today){
+            console.log('fecha_comienzo '+tempDay+' - '+labores[i].litros_gasoil);
+                if(lastXdays < tempDay && tempDay < today){
                     var found = false;
                     for(var j=0; j<data.length; j++){
                         if(data[j][0].getTime() === tempDay.getTime() ){
@@ -132,9 +144,9 @@
             var opciones_gasoil = {
                                         xaxis : {
                                             mode : "time",
-                                            timeformat: "%d/%m/%y",
+                                            timeformat: "%m-%y",
 //                                                tickLength : 5,
-                                                min: last30days.getTime(),
+                                                min: lastXdays.getTime(),
                                                 max: today.getTime()
                                         },
                                         yaxis:{

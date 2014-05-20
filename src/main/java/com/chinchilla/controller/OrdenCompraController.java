@@ -116,11 +116,11 @@ public class OrdenCompraController extends AbstractController{
             
             if(created==1){
         
-                notificador.incluirMensaje(modelMap, notificador.SUCCESS, "Registro añadido correctamente");
+                notificador.incluirMensaje(modelMap, Notificador.SUCCESS, "Registro añadido correctamente");
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, notificador.ERROR, "Error desconocido añadiendo registro");
+                notificador.incluirMensaje(modelMap, Notificador.ERROR, "Error desconocido añadiendo registro");
                 
             }
             
@@ -130,11 +130,11 @@ public class OrdenCompraController extends AbstractController{
             
             if(updated==1){
         
-                notificador.incluirMensaje(modelMap, notificador.SUCCESS, "Registro modificado correctamente");
+                notificador.incluirMensaje(modelMap, Notificador.SUCCESS, "Registro modificado correctamente");
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, notificador.ERROR, "Error desconocido modificando registro");
+                notificador.incluirMensaje(modelMap, Notificador.ERROR, "Error desconocido modificando registro");
                 
             }
             
@@ -144,17 +144,17 @@ public class OrdenCompraController extends AbstractController{
             
             if(deleted==1){
         
-                notificador.incluirMensaje(modelMap, notificador.SUCCESS, "Producción eliminada correctamente");
+                notificador.incluirMensaje(modelMap, Notificador.SUCCESS, "Producción eliminada correctamente");
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, notificador.ERROR, "Error desconocido eliminando ordenCompra");
+                notificador.incluirMensaje(modelMap, Notificador.ERROR, "Error desconocido eliminando ordenCompra");
                 
             }
             
         }else{
             
-             notificador.incluirMensaje(modelMap, notificador.INFO, "No se ha podido identificar la operacion",
+             notificador.incluirMensaje(modelMap, Notificador.INFO, "No se ha podido identificar la operacion",
                      "Ninguna accion sera realizada");
             
         }

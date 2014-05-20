@@ -24,6 +24,7 @@
 
 package com.chinchilla.service;
 
+import com.chinchilla.component.Notificador;
 import com.chinchilla.form.LaborForm;
 import com.chinchilla.persistence.dao.LaborDAO;
 import com.chinchilla.persistence.objects.CostePersonal;
@@ -69,11 +70,11 @@ public class LaborService extends AbstractService{
                 
                 success = true;
         
-                notificador.incluirMensaje(modelMap, "success", "Labor añadida correctamente",null,laborForm.getId_labor());
+                notificador.incluirMensaje(modelMap, Notificador.SUCCESS, "Labor añadida correctamente",null);
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo Labor",null,laborForm.getId_labor());
+                notificador.incluirMensaje(modelMap, Notificador.ERROR, "Error desconocido añadiendo Labor",null);
                 
             }
             
@@ -99,11 +100,11 @@ public class LaborService extends AbstractService{
             
                 success = true;
         
-                notificador.incluirMensaje(modelMap, "success", "Labor modificada correctamente",null,labor.getId_labor());
+                notificador.incluirMensaje(modelMap, Notificador.SUCCESS, "Labor modificada correctamente",null,labor.getId_labor());
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando Labor",null,labor.getId_labor());
+                notificador.incluirMensaje(modelMap, Notificador.ERROR, "Error desconocido modificando Labor",null,labor.getId_labor());
                 
             }
             
@@ -113,17 +114,17 @@ public class LaborService extends AbstractService{
             
                 success = true;
         
-                notificador.incluirMensaje(modelMap, "success", "Labor eliminado correctamente",null,laborForm.getId_labor());
+                notificador.incluirMensaje(modelMap, Notificador.SUCCESS, "Labor eliminado correctamente",null,laborForm.getId_labor());
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando Labor",null,laborForm.getId_labor());
+                notificador.incluirMensaje(modelMap, Notificador.ERROR, "Error desconocido eliminando Labor",null,laborForm.getId_labor());
                 
             }
             
         }else{
             
-             notificador.incluirMensaje(modelMap, "info", "No se ha podido identificar la operacion",
+             notificador.incluirMensaje(modelMap, Notificador.INFO, "No se ha podido identificar la operacion",
                      "Ninguna accion sera realizada");
             
         }

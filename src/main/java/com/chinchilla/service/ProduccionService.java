@@ -24,6 +24,7 @@
 
 package com.chinchilla.service;
 
+import com.chinchilla.component.Notificador;
 import com.chinchilla.form.ProduccionForm;
 import com.chinchilla.persistence.dao.ProduccionDAO;
 import com.chinchilla.persistence.objects.Produccion;
@@ -61,11 +62,11 @@ public class ProduccionService extends AbstractService{
                 
                 success = true;
         
-                notificador.incluirMensaje(modelMap, "success", "Producción añadida correctamente",null,produccion.getId_produccion());
+                notificador.incluirMensaje(modelMap, Notificador.SUCCESS, "Producción añadida correctamente",null);
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo produccion",null,produccion.getId_produccion());
+                notificador.incluirMensaje(modelMap, Notificador.ERROR, "Error desconocido añadiendo produccion",null);
                 
             }
             
@@ -75,11 +76,11 @@ public class ProduccionService extends AbstractService{
                 
                 success = true;
         
-                notificador.incluirMensaje(modelMap, "success", "Producción modificada correctamente",null,produccion.getId_produccion());
+                notificador.incluirMensaje(modelMap, Notificador.SUCCESS, "Producción modificada correctamente",null,produccion.getId_produccion());
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando produccion",null,produccion.getId_produccion());
+                notificador.incluirMensaje(modelMap, Notificador.ERROR, "Error desconocido modificando produccion",null,produccion.getId_produccion());
                 
             }
             
@@ -89,17 +90,17 @@ public class ProduccionService extends AbstractService{
                 
                 success = true;
         
-                notificador.incluirMensaje(modelMap, "success", "Producción eliminada correctamente",null,produccion.getId_produccion());
+                notificador.incluirMensaje(modelMap, Notificador.SUCCESS, "Producción eliminada correctamente",null,produccion.getId_produccion());
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando produccion",null,produccion.getId_produccion());
+                notificador.incluirMensaje(modelMap, Notificador.ERROR, "Error desconocido eliminando produccion",null,produccion.getId_produccion());
                 
             }
             
         }else{
             
-             notificador.incluirMensaje(modelMap, "info", "No se ha podido identificar la operacion",
+             notificador.incluirMensaje(modelMap, Notificador.INFO, "No se ha podido identificar la operacion",
                      "Ninguna accion sera realizada");
             
         }

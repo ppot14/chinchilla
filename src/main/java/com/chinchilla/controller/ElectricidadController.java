@@ -88,7 +88,7 @@ public class ElectricidadController extends AbstractController{
     
     @RequestMapping(value = "/tabla/form/procesar/electricidad.html",method = RequestMethod.POST)
    public String tablaFormProcesarElectricidad(
-            @ModelAttribute("electricidad") ElectricidadForm model_electricidad,
+            @ModelAttribute("electricidadItem") ElectricidadForm model_electricidad,
            BindingResult result,
            SessionStatus status,
            Model model,
@@ -116,11 +116,11 @@ public class ElectricidadController extends AbstractController{
             
             if(created==1){
         
-                notificador.incluirMensaje(modelMap, "success", "Electricidad añadida correctamente",null,electricidadItem.getId_electricidad());
+                notificador.incluirMensaje(modelMap, Notificador.SUCCESS, "Electricidad añadida correctamente",null,electricidadItem.getId_electricidad());
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, "error", "Error desconocido añadiendo electricidad",null,electricidadItem.getId_electricidad());
+                notificador.incluirMensaje(modelMap, Notificador.ERROR, "Error desconocido añadiendo electricidad",null,electricidadItem.getId_electricidad());
                 
             }
             
@@ -130,11 +130,11 @@ public class ElectricidadController extends AbstractController{
             
             if(updated==1){
         
-                notificador.incluirMensaje(modelMap, "success", "Electricidad modificada correctamente",null,electricidadItem.getId_electricidad());
+                notificador.incluirMensaje(modelMap, Notificador.SUCCESS, "Electricidad modificada correctamente",null,electricidadItem.getId_electricidad());
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, "error", "Error desconocido modificando electricidad",null,electricidadItem.getId_electricidad());
+                notificador.incluirMensaje(modelMap, Notificador.ERROR, "Error desconocido modificando electricidad",null,electricidadItem.getId_electricidad());
                 
             }
             
@@ -144,17 +144,17 @@ public class ElectricidadController extends AbstractController{
             
             if(deleted==1){
         
-                notificador.incluirMensaje(modelMap, "success", "Electricidad eliminada correctamente",null,electricidadItem.getId_electricidad());
+                notificador.incluirMensaje(modelMap, Notificador.SUCCESS, "Electricidad eliminada correctamente",null,electricidadItem.getId_electricidad());
                 
             }else{
         
-                notificador.incluirMensaje(modelMap, "error", "Error desconocido eliminando electricidad",null,electricidadItem.getId_electricidad());
+                notificador.incluirMensaje(modelMap, Notificador.ERROR, "Error desconocido eliminando electricidad",null,electricidadItem.getId_electricidad());
                 
             }
             
         }else{
             
-             notificador.incluirMensaje(modelMap, "info", "No se ha podido identificar la operacion",
+             notificador.incluirMensaje(modelMap, Notificador.INFO, "No se ha podido identificar la operacion",
                      "Ninguna accion sera realizada");
             
         }
