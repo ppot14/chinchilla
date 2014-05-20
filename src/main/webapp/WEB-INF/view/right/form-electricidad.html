@@ -98,21 +98,22 @@ $(window).load(function () {
             $('#boton_eliminar').attr('disabled','disabled');
         }
 
-//        $( "#consumo" ).spinner({
-//          min: 0,
-//          max: 999999,
-//          step: 0.01,
-//          page: 100,
-//          numberFormat: "n",
-//          culture: "es"
-//        });
-//          
+        $( "#consumo" ).spinner({
+          min: 0,
+          max: 999999,
+          step: 1,
+          page: 100,
+          numberFormat: "n",
+          culture: "es"
+        });
+          
 //        $( "#precio_kw" ).spinner({
 //          min: 0,
 //          max: 1,
 //          step: 0.000001,
-//          page: 1,
+//          page: 10000,
 //          numberFormat: "C",
+//          decimals:6,
 //          culture: "es"
 //        });
 //          
@@ -120,8 +121,9 @@ $(window).load(function () {
 //          min: 0,
 //          max: 1,
 //          step: 0.000001,
-//          page: 1,
+//          page: 10000,
 //          numberFormat: "C",
+//          decimals:6,
 //          culture: "es"
 //        });
 //          
@@ -129,19 +131,20 @@ $(window).load(function () {
 //          min: 0,
 //          max: 1,
 //          step: 0.000001,
-//          page: 1,
+//          page: 10000,
 //          numberFormat: "C",
+//          decimals:6,
 //          culture: "es"
 //        });
-//          
-//        $( "#iva" ).spinner({
-//          min: 0,
-//          max: 1,
-//          step: 0.001,
-//          page: 1,
-//          numberFormat: "n",
-//          culture: "es"
-//        });
+          
+        $( "#iva" ).spinner({
+          min: 0,
+          max: 1,
+          step: 0.01,
+          page: 10,
+          numberFormat: "n",
+          culture: "es"
+        });
 
          $( "#fecha_inicio" ).datepicker();
 

@@ -143,8 +143,9 @@ public abstract class AbstractController {
             @Override
             public void setAsText(String value) {
                 try {
-                log.debug(value.trim()+"->"+DecimalFormat.getInstance(new Locale("es", "ES")).parse(value.trim()));
-                    Number n = DecimalFormat.getInstance(new Locale("es", "ES")).parse(value.trim());
+                    NumberFormat numberFormat = DecimalFormat.getInstance(new Locale("es", "ES"));
+                    numberFormat.setMaximumFractionDigits(6);
+                    Number n = numberFormat.parse(value.trim());
                     setValue( n.doubleValue() );
                 } catch(ParseException e) {
                     setValue(null);
@@ -153,8 +154,9 @@ public abstract class AbstractController {
 
             @Override
             public String getAsText() {
-                log.debug(getValue()+"->"+DecimalFormat.getInstance(new Locale("es", "ES")).format(getValue()));
-                return DecimalFormat.getInstance(new Locale("es", "ES")).format(getValue());
+                NumberFormat numberFormat = DecimalFormat.getInstance(new Locale("es", "ES"));
+                numberFormat.setMaximumFractionDigits(6);
+                return numberFormat.format(getValue());
             }        
 
         });
@@ -163,8 +165,9 @@ public abstract class AbstractController {
             @Override
             public void setAsText(String value) {
                 try {
-                log.debug(value.trim()+"->"+DecimalFormat.getInstance(new Locale("es", "ES")).parse(value.trim()));
-                    Number n = DecimalFormat.getInstance(new Locale("es", "ES")).parse(value.trim());
+                    NumberFormat numberFormat = DecimalFormat.getInstance(new Locale("es", "ES"));
+                    numberFormat.setMaximumFractionDigits(6);
+                    Number n = numberFormat.parse(value.trim());
                     setValue( n.doubleValue() );
                 } catch(ParseException e) {
                     setValue(null);
@@ -173,8 +176,9 @@ public abstract class AbstractController {
 
             @Override
             public String getAsText() {
-                log.debug(getValue()+"->"+DecimalFormat.getInstance(new Locale("es", "ES")).format(getValue()));
-                return DecimalFormat.getInstance(new Locale("es", "ES")).format(getValue());
+                NumberFormat numberFormat = DecimalFormat.getInstance(new Locale("es", "ES"));
+                numberFormat.setMaximumFractionDigits(6);
+                return numberFormat.format(getValue());
             }        
 
         });
