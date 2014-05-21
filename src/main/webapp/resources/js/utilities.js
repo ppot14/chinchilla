@@ -75,3 +75,24 @@ Util.checkAll =  function(bx) {
   $(bx).closest('table').find('td input:checkbox').prop('checked', bx.checked);
 };
 
+Util.deg = {};
+Util.deg.Norte='0';
+Util.deg.N='0';
+Util.deg.NNE='22';
+Util.deg.NE='45';
+Util.deg.ENE='67';
+Util.deg.Este='90';
+Util.deg.E='90';
+Util.deg.ESE='112';
+Util.deg.SE='135';
+Util.deg.SSE='157';
+Util.deg.Sur='180';
+Util.deg.S='180';
+Util.deg.SSO='202';
+Util.deg.SO='225';
+Util.deg.OSO='247';
+Util.deg.Oeste='270';
+Util.deg.O='270';
+Util.deg.ONO='292';
+Util.deg.NO='315';
+Util.deg.NNO='337';

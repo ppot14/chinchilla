@@ -40,27 +40,9 @@ THE SOFTWARE.
             var relative_humidity = (weather.current_observation.relative_humidity+'').replace('.',',');
             var precip_today_metric = (weather.current_observation.precip_today_metric+'').replace('.',',')+' mm';
 
-            var deg = {};
-            deg.Norte='0';
-            deg.NNE='22';
-            deg.NE='45';
-            deg.ENE='67';
-            deg.Este='90';
-            deg.ESE='112';
-            deg.SE='135';
-            deg.SSE='157';
-            deg.Sur='180';
-            deg.SSO='202';
-            deg.SO='225';
-            deg.OSO='247';
-            deg.Oeste='270';
-            deg.ONO='292';
-            deg.NO='315';
-            deg.NNO='337';
-
 //                    $("#icon-wind").css( 'transform',  'rotate('+deg[wind_dir]+'deg)'); 
-            if(deg[wind_dir]!=deg.N)
-                $("#icon-wind").addClass('fa-rotate-'+deg[wind_dir]);
+            if(Util.deg[wind_dir]!=Util.deg.N)
+                $("#icon-wind").addClass('fa-rotate-'+Util.deg[wind_dir]);
 
             $('#weather-icon').attr('src',iconUrl);
             $('#weather-icon').attr('alt',weather_string);

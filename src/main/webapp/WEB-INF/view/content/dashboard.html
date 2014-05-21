@@ -34,6 +34,7 @@
     <script th:inline="javascript">/*<![CDATA[*/
 
 
+            var forecast4days;
 
         $(window).load(function() { 
 
@@ -58,7 +59,6 @@
             
             var url_forecast_wunderground = "http://api.wunderground.com/api/b7c6967273eb1adf/forecast/lang:SP/q/37.3258,-5.2061.json";
 
-            var forecast4days;
 
             function setUpWeatherPanel(){
 
@@ -72,17 +72,36 @@
 
                 for(var i=0; i<forecastday.length; i++){
 
-                console.log('forecastday '+i+' '+JSON.stringify(forecastday[i], null, '\t'));
+//                console.log('forecastday '+i+' '+JSON.stringify(forecastday[i], null, '\t'));
                     var day = $('<div style="padding:0px 10px; margin-bottom:10px"></div>');
                     day.append($('<h5 style="margin-bottom: 0px;"></h5>').text(forecastday[i].date.weekday));
                     var box = $('<div class="" style="display: table; width: 100%;"></div>');
-                    var colLeft = $('<div class="" style="float: left;position: relative;width: 50%;"></div>');
-                    var colRight = $('<div class="" style="float: left;position: relative;width: 50%;"></div>');
+                    var colLeft = $('<div class="" style="float: left;position: relative;width: 30%;"></div>');
+                    var colRight = $('<div class="" style="float: left;position: relative;width: 70%;"></div>');
                     colLeft.append($('<img class="media-object" ></img>').attr('src',forecastday[i].icon_url.replace('i/c/k','i/c/i')));
-                    colRight.append($('<span></span>').text(forecastday[i].conditions));
-                    colRight.append($('<div class="text-primary pull-right" style="margin-left:5px"></div>').text(forecastday[i].low.celsius.replace('.',',')+' \u00BAC'));
-                    colRight.append($('<div class="pull-right" style="margin-left:5px"></div>').text('-'));
-                    colRight.append($('<div class="text-warning pull-right" style="margin-left:5px"></div>').text(forecastday[i].high.celsius.replace('.',',')+' \u00BAC'));
+                    colRight.append($('<span style="display:table-row;"></span>').text(forecastday[i].conditions));
+                    var temp = $('<div style="display:table-row"></div>');
+                    temp.append($('<div class="text-primary" style="display:inline"></div>').text((forecastday[i].low.celsius+'').replace('.',',')+' \u00BAC'));
+                    temp.append($('<div class="" style="margin-left:5px;display:inline"></div>').text('-'));
+                    temp.append($('<div class="text-warning" style="margin-left:5px;display:inline"></div>').text((forecastday[i].high.celsius+'').replace('.',',')+' \u00BAC'));
+                    colRight.append(temp);
+                    if(forecastday[i].avewind.kph){
+                        var wing = $('<div style="display:table-row"></div>');
+                        wing.append($('<i id="icon-wind" class="fa fa-long-arrow-up fa-rotate-'+Util.deg[forecastday[i].avewind.dir]+'" style="margin: 0 5px"></i>'));
+                        wing.append($('<div class="" style="margin-left:5px;display:inline"></div>').text(forecastday[i].avewind.dir));
+                        wing.append($('<div class="" style="margin-left:5px;display:inline"></div>').text((forecastday[i].avewind.kph+'').replace('.',',')+' Km\/h'));
+                        colRight.append(wing);
+                    }
+                    if(forecastday[i].qpf_allday.mm){
+                        var rain = $('<div style="display:table-row"></div>');
+                        rain.append($('<div class="" style="display:inline"></div>').text((forecastday[i].qpf_allday.mm+'').replace('.',',')+' mm'));
+                        colRight.append(rain);
+                    }
+                    if(forecastday[i].avehumidity){
+                        var hum = $('<div style="display:table-row"></div>');
+                        hum.append($('<div class="" style="display:inline"></div>').text((forecastday[i].avehumidity+'').replace('.',',')+' %'));
+                        colRight.append(hum);
+                    }
                     box.append(colLeft);
                     box.append(colRight);
                     day.append(box);
@@ -94,6 +113,7 @@
             $.ajax({
                     url : url_forecast_wunderground,
                     dataType : "jsonp",
+//                    contentType: "application/json; charset=UTF-8",
                     success : function(parsed_json) {forecast4days = parsed_json; setUpWeatherPanel();}
             });
             
@@ -106,25 +126,17 @@
 //            lastweek.setDate(today.getDate()-7);
             var lastXdays=new Date();
             lastXdays.setDate(today.getDate()-365);
-            console.log('today '+today); 
-            console.log('lastXdays '+lastXdays); 
+//            console.log('today '+today); 
+//            console.log('lastXdays '+lastXdays); 
             var labores = /*[[${labores}]]*/null;
             
 //            console.log('labores '+JSON.stringify(labores, null, '\t'));
             var todayDate = today.valueOf();
-//            console.log('todayDate '+todayDate); 
-//            var data = [
-//                            [todayDate-(4 * oneDayInMs), 30], 
-//                            [todayDate-(3 * oneDayInMs), 37], 
-//                            [todayDate-(2 * oneDayInMs), 30], 
-//                            [todayDate-(oneDayInMs), 40], 
-//                            [todayDate, 45]
-//                        ];
+//            console.log('todayDate '+todayDate);
            var data = new Array();
            for(var i=0; i<labores.length; i++){
                var tempDay = new Date(labores[i].fecha_comienzo.time);
-//               if(labores[i].fecha_comienzo)
-            console.log('fecha_comienzo '+tempDay+' - '+labores[i].litros_gasoil);
+//            console.log('fecha_comienzo '+tempDay+' - '+labores[i].litros_gasoil);
                 if(lastXdays < tempDay && tempDay < today){
                     var found = false;
                     for(var j=0; j<data.length; j++){
@@ -140,7 +152,7 @@
                 }
            }
                         
-            console.log('data: '+JSON.stringify(data, null, '\t'));      
+//            console.log('data: '+JSON.stringify(data));      
             var opciones_gasoil = {
                                         xaxis : {
                                             mode : "time",
