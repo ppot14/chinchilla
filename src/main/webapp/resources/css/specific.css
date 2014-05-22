@@ -1399,7 +1399,7 @@ html .fc,
   border-style: solid;
   border-width: 0;
   font-size: .85em;
-  cursor: default;
+  cursor: default;    
 }
 a.fc-event,
 .fc-event-draggable {

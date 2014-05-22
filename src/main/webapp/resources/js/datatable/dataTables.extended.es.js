@@ -697,12 +697,15 @@ $.extend( $.fn.dataTableExt.oSort, {
  */
 $.extend( $.fn.dataTableExt.oSort, {
     "date-spain-pre": function ( a ) {
-        var b = a.match(/(\d{2})\/(\d{2})\/(\d{4})/),
-            day = b[1],
-            month = b[2],
-            year = b[3];
+        var b = a.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+        var tt = "00000000";
+        if(b){
+            var day = b[1];
+            var month = b[2];
+            var year = b[3];
 
-        var tt = year+month+day;
+            tt = year+month+day;
+        }
         return  tt;
     },
     "date-spain-asc": function ( a, b ) {

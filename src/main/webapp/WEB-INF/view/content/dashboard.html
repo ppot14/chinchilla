@@ -5,6 +5,7 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0&amp;sensor=true&amp;libraries=geometry"></script>
     <!--th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0(sensor=true)(libraries=geometry)}"></script>-->
     <script src="/resources/js/mapas.js" th:src="@{/resources/js/mapas.js}" th:inline="javascript"></script> 
+    <script src="/resources/js/jquery.fullcalendar.min.js" th:src="@{/resources/js/jquery.fullcalendar.min.js}"></script>
     <style type="text/css">
         @media screen and (max-width: 768px){
             #grid[data-columns]::before {
@@ -33,12 +34,10 @@
 
     <script th:inline="javascript">/*<![CDATA[*/
 
-
-            var forecast4days;
-
         $(window).load(function() { 
 
             //Mapa Widget
+            
             try {
 
                 var mapOptions = {
@@ -59,6 +58,7 @@
             
             var url_forecast_wunderground = "http://api.wunderground.com/api/b7c6967273eb1adf/forecast/lang:SP/q/37.3258,-5.2061.json";
 
+            var forecast4days;
 
             function setUpWeatherPanel(){
 
@@ -118,6 +118,7 @@
             });
             
             //Gasoil Widget
+            
             var today=new Date();
             today.setDate(today.getDate()+1);
 //            var oneDayInMs = 24 * 60 * 60 * 1000;
@@ -191,12 +192,71 @@
                                         colors : ["#FF851B"]
                                     };
                 
-               var plot = $.plot($("#gasoiltimebarchart"), [data], opciones_gasoil);                
-                     
+            var plot = $.plot($("#gasoiltimebarchart"), [data], opciones_gasoil);                
+               
+            //Calendario de labores
+            
+            var events;
 
-        });
+             if(labores){
 
-        /*]]>*/</script> 
+                 events = new Array(labores.length);
+
+                 for (var i=0; i<labores.length; i++){
+
+                     var background = 'bg-color-darken';
+
+                     events[i] = {
+                                 id: labores[i].id_labor,
+                                 title: labores[i].grupo+" - "+labores[i].nombre+" (Duracion: "+
+                                        labores[i].duracion+" h, Litros de Gasoil: "+labores[i].litros_gasoil+" l)\n",
+                                 start: new Date(labores[i].fecha_comienzo.time),
+                                 end: (labores[i].fecha_fin)?new Date(labores[i].fecha_fin.time):new Date(labores[i].fecha_comienzo.time),
+                                 allDay: true,
+                                 className: ["event", background]
+                     };
+                 }
+
+             }
+
+             $('#laborescalendario').fullCalendar({
+                     events: events,
+                     firstDay :1,
+                     monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+                     monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+                     dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','Sabado'],
+                     dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Jue','Vie','Sab'],
+                     buttonText: {
+                             prev: '&nbsp;&#9668;&nbsp;',
+                             next: '&nbsp;&#9658;&nbsp;',
+                             prevYear: '&nbsp;&lt;&lt;&nbsp;',
+                             nextYear: '&nbsp;&gt;&gt;&nbsp;', 
+                             today: 'hoy',
+                             month: 'mes',
+                             week: 'semana',
+                             day: 'dia'
+                     },		
+                     titleFormat: {
+                             month: 'MMMM yyyy',
+                             week: "d [ yyyy]{ '&#8212;'[ MMM] d MMM yyyy}",
+                             day: 'dddd, d MMM, yyyy'
+                     },
+                     columnFormat: {
+                             month: 'ddd',
+                             week: 'ddd d/M',
+                             day: 'dddd d/M'
+                     },
+                     allDayText: 'dia todo',
+                     axisFormat: 'H:mm',
+                     timeFormat: {
+                             '': 'H(:mm)',
+                             agenda: 'H:mm{ - H:mm}'
+                     }
+                 });
+
+          });
+
+    /*]]>*/</script> 
 
     <div class="row" th:inline="text">
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
@@ -251,6 +311,26 @@
         <!--</div>-->
         
     <!--</div>-->
+    
+    
+    <div class="row" th:inline="text">
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                <div class="panel panel-primary panel-module">
+                    <div class="panel-heading">
+                        <h2 class="pull-left"><i class="icon-shovel"></i> [[#{labores}]]</h2>
+                    </div>
+
+                    <div class="panel-body">
+                        <div id="laborescalendario"></div>
+                    </div>
+
+                </div>
+            
+        </div>
+        
+    </div>
     
     <!--<script src="/resources/js/salvattore.min.js" th:src="@{/resources/js/salvattore.min.js}" th:inline="javascript"></script>--> 
     <script src="/resources/js/salvattore.js" th:src="@{/resources/js/salvattore.js}" th:inline="javascript"></script> 

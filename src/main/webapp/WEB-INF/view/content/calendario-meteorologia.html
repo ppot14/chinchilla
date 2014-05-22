@@ -5,13 +5,9 @@
   
     $(window).load(function () {
         
-        var y=2014;
-        var m=3;
-        var d=14;
-        
         var meteo = /*[[${meteo}]]*/null;
         
-        console.debug('meteo: '+JSON.stringify(meteo));
+//        console.debug('meteo: '+JSON.stringify(meteo));
         
         var events = null;
         
@@ -21,7 +17,7 @@
         
             for (var i=0; i<meteo.length; i++){
                 
-                var background = '.bg-color-yellow';
+                var background = 'bg-color-yellow';
 
                 if(meteo[i].estado==='Despejado'){
                     background = 'bg-color-orange';
@@ -46,7 +42,7 @@
         
         }
         
-        console.debug('events '+JSON.stringify(events));
+//        console.debug('events '+JSON.stringify(events));
         
 //        var events = [{
 //                        title: 'All Day Event',
