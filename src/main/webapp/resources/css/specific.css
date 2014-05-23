@@ -1801,10 +1801,12 @@ div.dataTables_wrapper table tfoot tr th .form-control  {
     margin-bottom: 4px;
 }
 
-.table-striped > tbody > tr:nth-child(2n+1) > td.sorting_1{
+.table-striped > tbody > tr:nth-child(2n+1) > td.sorting_1,
+.table-striped > tbody > tr:nth-child(2n+1) > td.sorting_2{
     background-color: #F9F9F9;
 }
-.table-striped > tbody > tr:nth-child(2n) > td.sorting_1{
+.table-striped > tbody > tr:nth-child(2n) > td.sorting_1,
+.table-striped > tbody > tr:nth-child(2n) > td.sorting_2{
     background-color: #F3F3F3;
 }
 

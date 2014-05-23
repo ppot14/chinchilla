@@ -204,16 +204,21 @@
 
                  for (var i=0; i<labores.length; i++){
 
-                     var background = 'bg-color-darken';
+                    var background = 'bg-color-darken';
+                    if('tratamiento'===labores[i].grupo) background = 'bg-color-red';
+                    if('preparacion'===labores[i].grupo) background = 'bg-color-magenta';
+                    if('cultivo'===labores[i].grupo) background = 'bg-color-orange';
+                    if('otros'===labores[i].grupo) background = 'bg-color-blueDark';
+                    if('riego'===labores[i].grupo) background = 'bg-color-blue';
+                    if('recoleccion'===labores[i].grupo) background = 'bg-color-green';
 
                      events[i] = {
-                                 id: labores[i].id_labor,
-                                 title: labores[i].grupo+" - "+labores[i].nombre+" (Duracion: "+
-                                        labores[i].duracion+" h, Litros de Gasoil: "+labores[i].litros_gasoil+" l)\n",
-                                 start: new Date(labores[i].fecha_comienzo.time),
-                                 end: (labores[i].fecha_fin)?new Date(labores[i].fecha_fin.time):new Date(labores[i].fecha_comienzo.time),
-                                 allDay: true,
-                                 className: ["event", background]
+                        id: labores[i].id_labor,
+                        title: labores[i].nombre+" (Duracion: "+labores[i].duracion+" h, Litros de Gasoil: "+labores[i].litros_gasoil+" l)\n",
+                        start: new Date(labores[i].fecha_comienzo.time),
+                        end: (labores[i].fecha_fin)?new Date(labores[i].fecha_fin.time):new Date(labores[i].fecha_comienzo.time),
+                        allDay: true,
+                        className: ["event", background]
                      };
                  }
 

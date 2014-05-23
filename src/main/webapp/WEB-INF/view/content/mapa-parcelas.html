@@ -93,6 +93,31 @@
                 alert("Error al cargar mapa");
 
             }
+            
+            //Tabla
+            tabla_opciones.aaSorting = [[ 3, "asc" ],[ 1, "asc" ]];
+                
+            tabla_opciones.fnFooterCallback = function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
+
+                var totalHe = 0;
+
+                for ( var i=0 ; i<aaData.length ; i++ )
+                {
+                    totalHe += parseFloat( aaData[i][4].replace( /\./, "" ).replace( /,/, "." ) );
+                }
+                var pageHe = 0;
+
+                for ( var i=iStart ; i<iEnd ; i++ )
+                {
+                    pageHe += parseFloat( aaData[ aiDisplay[i] ][4].replace( /\./, "" ).replace( /,/, "." ) );
+                }
+
+                var heSumarize = parseInt(pageHe * 100)/100 + ' Ha&nbsp;<br/>('+ parseInt(totalHe * 100)/100 +' Ha)';
+
+                $(nRow).find('th').eq(4).html( heSumarize );
+            };        
+
+            $('#tabla_parcela').dataTable(tabla_opciones);
 
         });
 
@@ -127,6 +152,55 @@
                 
                 <div class="panel-body">
                     <div id="map_canvas" ></div>
+                </div>
+
+            </div>
+            
+
+            <div class="panel panel-primary panel-module">
+                <div class="panel-heading">
+                    <h2 class="pull-left"><i class="fa fa-table"></i> [[#{tabla}]]</h2>
+                </div>
+                
+                <div class="panel-body">
+                            
+                    <table id="tabla_parcela" class="table table-striped table-hover table-condensed">
+
+                        <thead>
+                            <tr>
+                                <th>[[#{id-parcela}]]</th>
+                                <th>[[#{nombre}]]</th>
+                                <th>[[#{nombre-corto}]]</th>
+                                <th>[[#{zona}]]</th>
+                                <th>[[#{extension}]]</th>
+                                <th>[[#{cultivo-fijo}]]</th>
+                                <th>[[#{color}]]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr  th:each="parcela_item : ${parcelas}">
+                                <td>[[${parcela_item.id_parcela}]]</td>
+                                <td>[[${parcela_item.nombre}]]</td>
+                                <td>[[${parcela_item.nombre_corto}]]</td>
+                                <td>[[${parcela_item.zona}]]</td>
+                                <td class="text-align-right">[[${#numbers.formatDecimal(parcela_item.extension,1,'POINT',2,'COMMA')}]]</td>
+                                <td>[[${parcela_item.cultivo_fijo}]]</td>
+                                <td th:style="${'color: #'+parcela_item.color}">[[${parcela_item.color}]]</td>
+                            </tr>
+                        </tbody>
+                            <tfoot>
+                                <tr>
+                                  <th></th>
+                                  <th></th>
+                                  <th></th>
+                                  <th></th>
+                                  <th class="text-align-right"></th>
+                                  <th></th>
+                                  <th></th>
+                                </tr>
+                            </tfoot>
+                    </table>
+                    
                 </div>
 
             </div>

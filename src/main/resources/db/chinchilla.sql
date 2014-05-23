@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.8
+-- version 4.1.8
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 01, 2014 at 04:27 PM
+-- Generation Time: May 23, 2014 at 02:33 PM
 -- Server version: 5.1.63-rel13.4
--- PHP Version: 5.3.17
+-- PHP Version: 5.4.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -25,11 +25,33 @@ USE `gonzalol_chinchilla`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_coordenadas_parcela`
+-- Table structure for table `t_auditoria`
 --
--- Creation: Feb 05, 2013 at 09:16 PM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
+
+DROP TABLE IF EXISTS `t_auditoria`;
+CREATE TABLE IF NOT EXISTS `t_auditoria` (
+  `id_auditoria` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha_evento` datetime NOT NULL,
+  `tipo_evento` varchar(10) NOT NULL,
+  `codigo` int(5) DEFAULT NULL,
+  `mensaje` varchar(500) NOT NULL,
+  `descripcion` varchar(2000) DEFAULT NULL,
+  `log` blob,
+  `id_objeto` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_auditoria`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15000028 ;
+
+--
+-- Dumping data for table `t_auditoria`
+--
+
+INSERT INTO `t_auditoria` (`id_auditoria`, `fecha_evento`, `tipo_evento`, `codigo`, `mensaje`, `descripcion`, `log`, `id_objeto`) VALUES
+(15000000, '2014-05-01 00:00:00', 'success', 200, 'Mensaje de prueba', 'Descripcion', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t_coordenadas_parcela`
 --
 
 DROP TABLE IF EXISTS `t_coordenadas_parcela`;
@@ -269,10 +291,6 @@ INSERT INTO `t_coordenadas_parcela` (`id_parcela`, `orden`, `latitud`, `longitud
 --
 -- Table structure for table `t_costes_maquinaria`
 --
--- Creation: Nov 15, 2012 at 12:34 PM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
---
 
 DROP TABLE IF EXISTS `t_costes_maquinaria`;
 CREATE TABLE IF NOT EXISTS `t_costes_maquinaria` (
@@ -292,7 +310,7 @@ CREATE TABLE IF NOT EXISTS `t_costes_maquinaria` (
   `horas_cambio_aceite` int(11) DEFAULT NULL,
   `litros_aceite` decimal(10,3) DEFAULT NULL,
   PRIMARY KEY (`id_coste_maquinaria`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5000031 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5000034 ;
 
 --
 -- Dumping data for table `t_costes_maquinaria`
@@ -329,16 +347,15 @@ INSERT INTO `t_costes_maquinaria` (`id_coste_maquinaria`, `nombre`, `tipo`, `val
 (5000027, 'Atomizador Fitosa', '', '8100.000', '1620.000', 1000, '0.035', 16, '0.600', '0.010', '0.000', 0, '0.200', 6, '0.020'),
 (5000028, 'Sistema riego olivos', '', '19421.560', '1000.000', 15000, '0.035', 16, '0.600', '0.010', '0.000', 10, '1.000', 6, '0.020'),
 (5000029, 'Vareadoras Olivelos 3', '', '3870.000', '300.000', 2000, '0.035', 16, '0.600', '0.010', '0.000', 0, '0.200', 6, '0.020'),
-(5000030, 'Pala Tenias', '', '7189.680', '2500.000', 2000, '0.035', 11, '0.600', '0.010', '0.000', 0, '0.200', 6, '0.020');
+(5000030, 'Pala Tenias', '', '7189.680', '2500.000', 2000, '0.035', 11, '0.600', '0.010', '0.000', 0, '0.200', 6, '0.020'),
+(5000031, 'Vareadoras Olivelos 4+1', '', '5170.000', '1000.000', 2000, '0.035', 16, '0.600', '0.010', '0.000', 0, '0.000', 6, '0.020'),
+(5000032, 'Desbrozadora Agri', '', '10000.000', '2500.000', 1000, '0.035', 16, '0.060', '0.010', '0.000', 0, '0.000', 6, '0.020'),
+(5000033, 'Sembra. Solá', '', '18271.000', '4600.000', 900, '0.035', 16, '0.600', '0.010', '0.000', 0, '0.000', 6, '0.020');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `t_costes_personal`
---
--- Creation: Aug 09, 2013 at 08:40 AM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
 --
 
 DROP TABLE IF EXISTS `t_costes_personal`;
@@ -348,35 +365,40 @@ CREATE TABLE IF NOT EXISTS `t_costes_personal` (
   `funcion` varchar(45) DEFAULT NULL,
   `salario_base` decimal(10,3) DEFAULT NULL,
   `paga_extra` decimal(10,3) DEFAULT NULL,
+  `paga_antiguedad` decimal(10,3) DEFAULT NULL,
+  `vacaciones` decimal(10,3) DEFAULT NULL,
+  `coste_hora_extra` decimal(10,3) DEFAULT NULL,
+  `horas_extra` int(10) DEFAULT NULL,
   `horas_anuales` int(11) DEFAULT NULL,
   `base_ssp` decimal(10,3) DEFAULT NULL,
-  `desempleo_pc` decimal(10,3) DEFAULT NULL,
+  `cont_comunes` decimal(10,4) DEFAULT NULL,
+  `desempleo_pc` decimal(10,4) DEFAULT NULL,
+  `f_g_s` decimal(10,4) DEFAULT NULL,
+  `f_p` decimal(10,4) DEFAULT NULL,
+  `a_t_y_e_p` decimal(10,4) DEFAULT NULL,
   `plus_distancia` decimal(10,3) DEFAULT NULL,
   `km` decimal(10,3) DEFAULT NULL,
   `horas_dia` decimal(10,3) DEFAULT NULL,
   `validez_inicio` date NOT NULL DEFAULT '1999-01-01',
   `validez_fin` date NOT NULL DEFAULT '2100-12-31',
   PRIMARY KEY (`id_coste_personal`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4000004 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4000005 ;
 
 --
 -- Dumping data for table `t_costes_personal`
 --
 
-INSERT INTO `t_costes_personal` (`id_coste_personal`, `tipo`, `funcion`, `salario_base`, `paga_extra`, `horas_anuales`, `base_ssp`, `desempleo_pc`, `plus_distancia`, `km`, `horas_dia`, `validez_inicio`, `validez_fin`) VALUES
-(4000000, 'Fijo', NULL, '28.590', '2573.100', 1785, '39.000', '0.055', '0.000', '0.000', '6.500', '1999-01-01', '2100-12-31'),
-(4000001, 'Eventual', 'Poda', '43.200', '0.000', 0, '39.000', '0.067', '1.090', '0.000', '6.330', '1999-01-01', '2100-12-31'),
-(4000002, 'Eventual', 'Desvarete y escarda', '41.750', '0.000', 0, '39.000', '0.067', '1.090', '0.000', '6.330', '1999-01-01', '2100-12-31'),
-(4000003, 'Eventual', 'Cogedores', '43.200', '0.000', 0, '39.000', '0.067', '1.090', '0.000', '6.330', '1999-01-01', '2100-12-31');
+INSERT INTO `t_costes_personal` (`id_coste_personal`, `tipo`, `funcion`, `salario_base`, `paga_extra`, `paga_antiguedad`, `vacaciones`, `coste_hora_extra`, `horas_extra`, `horas_anuales`, `base_ssp`, `cont_comunes`, `desempleo_pc`, `f_g_s`, `f_p`, `a_t_y_e_p`, `plus_distancia`, `km`, `horas_dia`, `validez_inicio`, `validez_fin`) VALUES
+(4000000, 'Fijo', '', '29.590', '2663.100', '1423.000', '683.100', '12.560', 120, 1853, '44.850', '0.1595', '0.0670', '0.0010', '0.0015', '0.0260', '0.000', '0.000', '6.500', '1999-01-01', '2100-12-31'),
+(4000001, 'Eventual', 'Poda', '44.710', '0.000', NULL, NULL, NULL, NULL, NULL, '39.000', '0.1595', '0.0670', '0.0010', '0.0015', '0.0260', '1.130', '0.000', '6.330', '1999-01-01', '2100-12-31'),
+(4000002, 'Eventual', 'Desvarete y escarda', '43.320', '0.000', NULL, NULL, NULL, NULL, NULL, '39.000', '0.1595', '0.0670', '0.0010', '0.0015', '0.0260', '1.130', '0.000', '6.330', '1999-01-01', '2100-12-31'),
+(4000003, 'Eventual', 'Cogedores', '43.200', '0.000', NULL, NULL, NULL, NULL, NULL, '39.000', '0.1595', '0.0670', '0.0010', '0.0015', '0.0260', '1.130', '0.000', '6.330', '1999-01-01', '2100-12-31'),
+(4000004, 'Eventual', 'Tractorista', '43.720', '0.000', NULL, NULL, NULL, NULL, NULL, '39.000', '0.1595', '0.0670', '0.0010', '0.0015', '0.0260', '1.130', '0.000', '6.330', '1999-01-01', '2100-12-31');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `t_cultivos`
---
--- Creation: Nov 10, 2012 at 11:16 AM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
 --
 
 DROP TABLE IF EXISTS `t_cultivos`;
@@ -386,7 +408,7 @@ CREATE TABLE IF NOT EXISTS `t_cultivos` (
   `especie` varchar(45) DEFAULT NULL,
   `destino` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_cultivo`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000019 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000024 ;
 
 --
 -- Dumping data for table `t_cultivos`
@@ -401,23 +423,52 @@ INSERT INTO `t_cultivos` (`id_cultivo`, `variedad`, `especie`, `destino`) VALUES
 (1000005, 'Hojiblancas', 'Aceituna', 'Molino'),
 (1000006, 'Aberquinos', 'Aceituna', 'Molino'),
 (1000007, 'Sirios', 'Garbanzo', ''),
-(1000008, 'Jerez', 'Habas', ''),
+(1000008, 'Jerez', 'Haba', ''),
 (1000009, 'Pioner A-76', 'Girasol', ''),
 (1000010, 'Pioner A-77', 'Girasol', ''),
 (1000011, 'Pioner A-78', 'Girasol', ''),
 (1000012, 'Pioner A-79', 'Girasol', ''),
 (1000013, 'Navio', 'Girasol', ''),
 (1000014, 'Duro Beldur', 'Trigo', NULL),
-(1000015, 'Blando Salma', 'Trigo', NULL);
+(1000015, 'Blando Salma', 'Trigo', NULL),
+(1000019, 'Pizarro', 'Girasol', NULL),
+(1000020, 'Bosfora', 'Girasol', NULL),
+(1000021, 'Haba', 'Haba', NULL),
+(1000022, 'Pedrosillanos', 'Garbanzo', NULL),
+(1000023, 'Castellano', 'Garbanzo', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t_electricidad`
+--
+
+DROP TABLE IF EXISTS `t_electricidad`;
+CREATE TABLE IF NOT EXISTS `t_electricidad` (
+  `id_electricidad` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date NOT NULL,
+  `consumo` decimal(10,2) NOT NULL,
+  `precio_kw` decimal(6,6) NOT NULL,
+  `precio_potencia` decimal(6,6) NOT NULL,
+  `impuesto_electricidad` decimal(6,6) NOT NULL,
+  `iva` decimal(3,3) NOT NULL,
+  PRIMARY KEY (`id_electricidad`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=140000006 ;
+
+--
+-- Dumping data for table `t_electricidad`
+--
+
+INSERT INTO `t_electricidad` (`id_electricidad`, `fecha_inicio`, `fecha_fin`, `consumo`, `precio_kw`, `precio_potencia`, `impuesto_electricidad`, `iva`) VALUES
+(140000001, '2013-05-02', '2013-06-27', '2770.00', '0.090756', '0.097307', '0.051127', '0.210'),
+(140000002, '2013-06-28', '2013-08-30', '10155.00', '0.090533', '0.102648', '0.051127', '0.210'),
+(140000003, '2013-08-31', '2013-10-28', '5516.00', '0.090246', '0.109529', '0.051127', '0.210');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `t_formulas`
---
--- Creation: Nov 10, 2012 at 11:16 AM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
 --
 
 DROP TABLE IF EXISTS `t_formulas`;
@@ -444,75 +495,248 @@ INSERT INTO `t_formulas` (`id_formula`, `funcion`, `sub_funcion`, `formula`, `de
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_l_costes_personal`
---
--- Creation: Aug 09, 2013 at 08:39 AM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
---
-
-DROP TABLE IF EXISTS `t_l_costes_personal`;
-CREATE TABLE IF NOT EXISTS `t_l_costes_personal` (
-  `id_labor` int(11) NOT NULL,
-  `id_coste_personal` int(11) NOT NULL,
-  `id_personal` int(11) NOT NULL DEFAULT '0',
-  `multiplicador` decimal(10,3) NOT NULL DEFAULT '1.000',
-  `constante` decimal(10,3) NOT NULL DEFAULT '0.000',
-  `posicion_formula` int(11) NOT NULL,
-  PRIMARY KEY (`id_labor`,`id_coste_personal`,`id_personal`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `t_l_costes_personal`
---
-
-INSERT INTO `t_l_costes_personal` (`id_labor`, `id_coste_personal`, `id_personal`, `multiplicador`, `constante`, `posicion_formula`) VALUES
-(9000001, 4000000, 0, '1.000', '0.000', 1),
-(9000002, 4000000, 0, '1.000', '0.000', 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `t_labores`
---
--- Creation: Aug 09, 2013 at 08:40 AM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
 --
 
 DROP TABLE IF EXISTS `t_labores`;
 CREATE TABLE IF NOT EXISTS `t_labores` (
   `id_labor` int(11) NOT NULL AUTO_INCREMENT,
-  `id_tipo_labor` int(11) NOT NULL,
+  `grupo` varchar(45) DEFAULT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
   `fecha_comienzo` date NOT NULL,
+  `fecha_fin` date DEFAULT NULL,
   `cantidad_dosis_por_ha` decimal(10,3) NOT NULL,
   `duracion` decimal(10,3) NOT NULL,
   `litros_gasoil` decimal(10,3) NOT NULL,
+  `coste_fijo_total` decimal(10,3) NOT NULL,
+  `descripcion` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`id_labor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9000003 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9000236 ;
 
 --
 -- Dumping data for table `t_labores`
 --
 
-INSERT INTO `t_labores` (`id_labor`, `id_tipo_labor`, `fecha_comienzo`, `cantidad_dosis_por_ha`, `duracion`, `litros_gasoil`) VALUES
-(9000001, 8000057, '2012-02-20', '1.000', '7.800', '48.260'),
-(9000002, 8000019, '2012-02-14', '1.000', '9.760', '120.540');
+INSERT INTO `t_labores` (`id_labor`, `grupo`, `nombre`, `fecha_comienzo`, `fecha_fin`, `cantidad_dosis_por_ha`, `duracion`, `litros_gasoil`, `coste_fijo_total`, `descripcion`) VALUES
+(9000001, 'OTROS', 'LABOR VACIA DE PRUEBAS', '1999-01-01', NULL, '0.000', '0.000', '0.000', '0.000', NULL),
+(9000034, '', 'gradas', '2012-08-03', '2012-08-09', '0.000', '8.390', '106.970', '0.000', 'Primi - J.D.6830 - Gradas Agruiz - IIIR'),
+(9000033, '', 'gradas', '2012-08-03', '2012-08-09', '0.000', '7.440', '94.860', '0.000', 'Primi - J.D.6830 - Gradas Agruiz - IIR'),
+(9000032, '', 'gradas', '2012-08-03', '2012-08-09', '0.000', '8.170', '104.170', '0.000', 'Primi - J.D.6830 - Gradas Agruiz - IR'),
+(9000031, '', 'limpieza trigos', '2012-07-09', '2012-07-13', '0.000', '32.500', '0.000', '0.000', 'Placido -  -  - '),
+(9000030, '', 'portes', '2012-07-06', '2012-07-14', '0.000', '21.000', '95.000', '0.000', 'Primi - J.D.6830 - Rmq Espejo - '),
+(9000035, '', 'gradas', '2012-08-09', '2012-08-10', '0.000', '10.000', '126.000', '0.000', 'Primi - J.D.6830 - Gradas Agruiz - IICh'),
+(9000036, '', 'gradas', '2012-08-11', '2012-08-20', '0.000', '15.000', '191.000', '0.000', 'Primi - J.D.6830 - Gradas Agruiz - VCh'),
+(9000037, '', 'gradas', '2012-08-18', '2012-08-22', '0.000', '10.000', '143.000', '0.000', 'Primi - J.D.6830 - Gradas Agruiz - ICh'),
+(9000038, '', 'despedregado', '2012-09-06', '2012-09-10', '0.000', '16.000', '87.000', '0.000', 'Primi - J.D.6220 - Despe Tasias - VR'),
+(9000039, '', 'gradas', '2012-09-11', '2012-09-14', '0.000', '10.760', '136.810', '0.000', 'Primi - J.D.6830 - Gradas Agruiz - IVR'),
+(9000040, '', 'gradas', '2012-09-11', '2012-09-14', '0.000', '10.240', '130.190', '0.000', 'Primi - J.D.6830 - Gradas Agruiz - VR'),
+(9000041, '', 'gradas', '2012-09-14', '2012-09-15', '0.000', '2.300', '32.970', '0.000', 'Primi - J.D.6830 - Gradas Agruiz - RP'),
+(9000042, '', 'gradas', '2012-09-14', '2012-09-15', '0.000', '0.700', '10.030', '0.000', 'Primi - J.D.6830 - Gradas Agruiz - RC'),
+(9000043, '', 'gradas', '2012-09-17', '2012-09-18', '0.000', '11.000', '144.000', '0.000', 'Primi - J.D.6830 - Gradas Agruiz - IR'),
+(9000044, '', 'gradas', '2012-09-19', '2012-09-21', '0.000', '9.590', '136.390', '0.000', 'Primi - J.D.6830 - Gradas Agruiz - VCh'),
+(9000045, '', 'gradas', '2012-09-21', '2012-09-22', '0.000', '8.410', '119.610', '0.000', 'Primi - J.D.6830 - Gradas Agruiz - ICh'),
+(9000046, '', 'cohecho', '2012-11-16', '2012-11-16', '0.000', '1.530', '21.730', '0.000', 'Primi - J.D.6830 - congkirde - RP'),
+(9000047, '', 'cohecho', '2012-11-16', '2012-11-16', '0.000', '0.470', '6.670', '0.000', 'Primi - J.D.6830 - congkirde - RC'),
+(9000048, '', 'portes', '2012-11-15', '2012-11-15', '0.000', '2.000', '10.000', '0.000', 'Primi - J.D.6830 - Rmq Espejo - '),
+(9000049, '', 'matenimiento', '2012-11-16', '2012-11-16', '0.000', '2.000', '15.600', '0.000', 'Primi - J.D.6830 -  - '),
+(9000050, '', 'herbicida', '2012-11-16', '2012-11-19', '0.000', '3.720', '18.750', '0.000', 'Primi - J.D.6220 - Fitosa - IVR'),
+(9000051, '', 'herbicida', '2012-11-19', '2012-11-20', '0.000', '5.000', '25.210', '0.000', 'Primi - J.D.6220 - Fitosa - IVCh'),
+(9000052, '', 'herbicida', '2012-11-20', '2012-11-21', '0.000', '6.250', '31.510', '0.000', 'Primi - J.D.6220 - Fitosa - VCh'),
+(9000053, '', 'herbicida', '2012-11-20', '2012-11-21', '0.000', '5.470', '27.580', '0.000', 'Primi - J.D.6220 - Fitosa - ICh'),
+(9000054, '', 'herbicida', '2012-11-21', '2012-11-22', '0.000', '3.560', '17.950', '0.000', 'Primi - J.D.6220 - Fitosa - IR'),
+(9000055, '', 'cultivador', '2012-11-22', '2012-11-23', '0.000', '7.800', '116.420', '0.000', 'Enrique - J.D.6830 - cultichisel - IVR'),
+(9000056, '', 'cultivador', '2012-11-23', '2012-11-24', '0.000', '7.500', '111.940', '0.000', 'Jesus - J.D.6830 - cultichisel - IR'),
+(9000057, '', 'cultivador', '2012-11-24', '2012-11-27', '0.000', '11.500', '171.640', '0.000', 'Enrique - J.D.6830 - cultichisel - ICh'),
+(9000058, '', 'siembra', '2012-11-23', '2012-11-23', '0.000', '1.000', '7.000', '0.000', 'Primi - J.D.6220 - Noli - RP'),
+(9000059, '', 'siembra', '2012-11-23', '2012-11-24', '0.000', '14.000', '103.000', '0.000', 'Primi - J.D.6220 - Noli - IVR'),
+(9000060, '', 'cultivador', '2012-11-27', '2012-11-28', '0.000', '13.200', '197.010', '0.000', 'Jesus - J.D.6830 - cultichisel - VCh'),
+(9000061, '', 'rulado', '2012-11-26', '2012-11-26', '0.000', '3.000', '31.000', '0.000', 'Jesus - J.D.6220 - rulo - IVR'),
+(9000062, '', 'portes', '2012-11-26', '2012-11-26', '0.000', '5.000', '25.000', '0.000', 'Primi - J.D.6830 - Rmq Espejo - '),
+(9000063, '', 'herbicida', '2012-11-26', '2012-11-27', '0.000', '5.440', '24.090', '0.000', 'Primi - J.D.6220 - Fitosa - IVR'),
+(9000064, '', 'herbicida', '2012-11-27', '2012-11-27', '0.000', '1.190', '5.270', '0.000', 'Primi - J.D.6220 - Fitosa - RP'),
+(9000065, '', 'herbicida', '2012-11-27', '2012-11-27', '0.000', '0.370', '1.640', '0.000', 'Primi - J.D.6220 - Fitosa - RC'),
+(9000066, '', 'siembra', '2012-11-28', '2012-12-04', '0.000', '23.020', '125.600', '0.000', 'Primi - J.D.6220 - Gil - ICh'),
+(9000067, '', 'siembra', '2012-12-04', '2012-12-06', '0.000', '14.980', '81.400', '0.000', 'Primi - J.D.6220 - Gil - IR'),
+(9000068, '', 'siembra', '2012-11-29', '2012-11-29', '0.000', '0.000', '0.000', '0.000', 'Seagro -  - Siembra directa - IVCh'),
+(9000069, '', 'portes', '2012-11-29', '2012-11-29', '0.000', '3.000', '18.000', '0.000', 'Primi - J.D.6830 - Pala - IVCh'),
+(9000070, '', 'gradas', '2012-12-03', '2012-12-03', '0.000', '8.000', '95.000', '0.000', 'Enri & Jesus - J.D.6830 - Gradas Agruiz - IR'),
+(9000071, '', 'herbicida', '2012-12-03', '2012-12-03', '0.000', '6.000', '30.000', '0.000', 'Primi - J.D.6220 - Fitosa - IVCh'),
+(9000072, '', 'siembra', '2012-12-04', '2012-12-06', '0.000', '28.000', '165.000', '0.000', 'Enri & Jesus - J.D.6830 - Noli - VCh'),
+(9000073, '', 'herbicida', '2012-12-10', '2012-12-10', '0.000', '5.930', '34.390', '0.000', 'Primi - J.D.6220 - Fitosa - IIICh'),
+(9000074, '', 'herbicida', '2012-12-10', '2012-12-11', '0.000', '3.740', '21.690', '0.000', 'Primi - J.D.6220 - Fitosa - IICh'),
+(9000075, '', 'herbicida', '2012-12-11', '2012-12-11', '0.000', '3.080', '17.860', '0.000', 'Primi - J.D.6220 - Fitosa - IIR'),
+(9000076, '', 'herbicida', '2012-12-12', '2012-12-12', '0.000', '3.470', '20.130', '0.000', 'Primi - J.D.6220 - Fitosa - IIIR'),
+(9000077, '', 'herbicida', '2012-12-12', '2012-12-12', '0.000', '3.360', '19.490', '0.000', 'Primi - J.D.6220 - Fitosa - VR'),
+(9000078, '', 'herbicida', '2012-12-12', '2012-12-12', '0.000', '0.420', '2.440', '0.000', 'Primi - J.D.6220 - Fitosa - RH'),
+(9000079, '', 'abonado', '2012-12-31', '2012-12-31', '0.000', '2.100', '13.500', '0.000', 'Primi - J.D.6220 - Aguirre - IR'),
+(9000080, '', 'abonado', '2012-12-31', '2012-12-31', '0.000', '3.200', '19.500', '0.000', 'Primi - J.D.6220 - Aguirre - ICh'),
+(9000081, '', 'abonado', '2012-12-31', '2012-12-31', '0.000', '3.700', '23.000', '0.000', 'Primi - J.D.6220 - Aguirre - VCh'),
+(9000082, '', 'cohecho', '2013-02-04', '2013-02-04', '0.000', '6.000', '88.000', '0.000', 'Jesus - J.D.6830 - congkirde - IIIR'),
+(9000083, '', 'cohecho', '2013-02-05', '2013-02-05', '0.000', '6.000', '87.000', '0.000', 'Jesus - J.D.6830 - congkirde - VR'),
+(9000084, '', 'siembra', '2013-02-04', '2013-02-06', '0.000', '17.300', '87.000', '0.000', 'Primi - J.D.6220 - Noli - IIIR'),
+(9000085, '', 'siembra', '2013-02-06', '2013-02-08', '0.000', '16.700', '84.000', '0.000', 'Primi - J.D.6220 - Noli - VR'),
+(9000086, '', 'cultivador', '2013-02-06', '2013-02-07', '0.000', '8.000', '104.000', '0.000', 'Jesus - J.D.6830 - cultichisel - IIR'),
+(9000087, '', 'rulado', '2013-02-07', '2013-02-07', '0.000', '4.500', '41.500', '0.000', 'Jesus - J.D.6830 - rulo - IIIR'),
+(9000088, '', 'rulado', '2013-02-08', '2013-02-08', '0.000', '4.500', '41.500', '0.000', 'Jesus - J.D.6830 - rulo - VR'),
+(9000089, '', 'herbicida', '2013-02-08', '2013-02-09', '0.000', '4.000', '22.000', '0.000', 'Primi - J.D.6220 - Fitosa - IIIR'),
+(9000090, '', 'herbicida', '2013-02-08', '2013-02-09', '0.000', '4.000', '22.000', '0.000', 'Primi - J.D.6220 - Fitosa - VR'),
+(9000091, '', 'cultivador', '2013-02-11', '2013-02-11', '0.000', '4.260', '73.580', '0.000', 'Primi - J.D.6830 - cultichisel - IICh'),
+(9000092, '', 'cultivador', '2013-02-11', '2013-02-12', '0.000', '6.740', '116.420', '0.000', 'Primi - J.D.6830 - cultichisel - IIICh'),
+(9000093, '', 'gradas', '2013-02-13', '2013-02-14', '0.000', '12.000', '183.000', '0.000', 'Jesus - J.D.6830 - Gradas Agruiz - IIICh'),
+(9000094, '', 'desbrozado', '2013-02-13', '2013-02-14', '0.000', '14.500', '83.250', '0.000', 'Primi - J.D.6220 - Agri - OSH'),
+(9000095, '', 'abonado', '2013-02-15', '2013-02-15', '0.000', '3.000', '15.900', '0.000', 'Primi - J.D.6220 - Aguirre - ICh'),
+(9000096, '', 'abonado', '2013-02-15', '2013-02-15', '0.000', '4.000', '21.200', '0.000', 'Primi - J.D.6220 - Aguirre - VCh'),
+(9000097, '', 'abonado', '2013-02-16', '2013-02-16', '0.000', '3.000', '15.900', '0.000', 'Primi - J.D.6220 - Aguirre - IR'),
+(9000098, '', 'portes', '2013-02-15', '2013-02-16', '0.000', '2.000', '10.000', '0.000', 'Jesus - J.D.6830 - Rmq Espejo - ICh'),
+(9000099, '', 'portes', '2013-02-15', '2013-02-16', '0.000', '2.000', '10.000', '0.000', 'Jesus - J.D.6830 - Rmq Espejo - VCh'),
+(9000100, '', 'portes', '2013-02-15', '2013-02-16', '0.000', '2.000', '12.000', '0.000', 'Jesus - J.D.6830 - Rmq Espejo - IR'),
+(9000101, '', 'desbrozado', '2013-02-18', '2013-02-27', '0.000', '7.000', '40.200', '0.000', 'Primi - J.D.6220 - Agri - ORH'),
+(9000102, '', 'desbrozado', '2013-02-18', '2013-02-27', '0.000', '9.500', '54.550', '0.000', 'Primi - J.D.6220 - Agri - ORA'),
+(9000103, '', 'poda', '2013-03-04', '2013-04-18', '0.000', '196.000', '0.000', '0.000', 'Chico+Rafael -  -  - OSH'),
+(9000104, '', 'poda', '2013-03-13', '2013-04-25', '0.000', '59.000', '0.000', '0.000', 'Chico+Rafael -  -  - ORA'),
+(9000105, '', 'poda', '2013-03-25', '2013-04-08', '0.000', '72.000', '0.000', '0.000', 'Chico+Rafael -  -  - ORH'),
+(9000106, '', 'herbicida', '2013-03-14', '2013-03-14', '0.000', '2.600', '16.550', '0.000', 'Primi - J.D.6830 - Fitosa - IIR'),
+(9000107, '', 'herbicida', '2013-03-14', '2013-03-15', '0.000', '5.000', '31.850', '0.000', 'Primi - J.D.6830 - Fitosa - IIICh'),
+(9000108, '', 'herbicida', '2013-03-15', '2013-03-15', '0.000', '0.400', '2.600', '0.000', 'Primi - J.D.6830 - Fitosa - RH'),
+(9000109, '', 'desbrozado', '2013-04-08', '2013-04-08', '0.000', '8.000', '55.600', '0.000', 'Primi - J.D.6830 - Agri - OSH'),
+(9000110, '', 'desbrozado', '2013-04-09', '2013-04-10', '0.000', '12.000', '83.400', '0.000', 'Primi - J.D.6830 - Agri - ORH'),
+(9000111, '', 'desbrozado', '2013-04-11', '2013-04-12', '0.000', '11.000', '42.780', '0.000', 'Primi - J.D.6220 - Agri - ORA'),
+(9000112, '', 'desbrozado', '2013-04-12', '2013-04-15', '0.000', '11.000', '42.780', '0.000', 'Jesus - J.D.6220 - Agri - OCHH'),
+(9000113, '', 'desbrozado', '2013-04-16', '2013-04-16', '0.000', '5.000', '19.440', '0.000', 'Primi - J.D.6220 - Agri - OHA'),
+(9000114, '', 'herbicida', '2013-04-15', '2013-04-15', '0.000', '2.350', '9.690', '0.000', 'Primi - J.D.6830 - Fitosa - IICh'),
+(9000115, '', 'herbicida', '2013-04-15', '2013-04-15', '0.000', '3.730', '15.390', '0.000', 'Primi - J.D.6830 - Fitosa - IIICh'),
+(9000116, '', 'herbicida', '2013-04-15', '2013-04-15', '0.000', '1.920', '7.920', '0.000', 'Primi - J.D.6830 - Fitosa - IIR'),
+(9000117, '', 'cohecho', '2013-04-16', '2013-04-16', '0.000', '10.000', '170.000', '0.000', 'Jesus - J.D.6830 - congkirde - IIICh'),
+(9000118, '', 'cohecho', '2013-04-17', '2013-04-17', '0.000', '6.000', '109.000', '0.000', 'Jesus - J.D.6830 - congkirde - IICh'),
+(9000119, '', 'cohecho', '2013-04-17', '2013-04-18', '0.000', '8.000', '108.000', '0.000', 'Primi - J.D.6830 - congkirde - IIR'),
+(9000120, '', 'herbicida', '2013-04-19', '2013-04-19', '0.000', '0.000', '0.000', '189.120', 'Carlos Perez -  -  - ICh'),
+(9000121, '', 'herbicida', '2013-04-19', '2013-04-19', '0.000', '0.000', '0.000', '215.790', 'Carlos Perez -  -  - VCh'),
+(9000122, '', 'herbicida', '2013-04-19', '2013-04-19', '0.000', '0.000', '0.000', '123.090', 'Carlos Perez -  -  - IR'),
+(9000123, '', 'siembra', '2013-04-18', '2013-04-20', '0.000', '12.070', '100.950', '0.000', 'Primi - J.D.6830 - Monosem - IICh'),
+(9000124, '', 'siembra', '2013-04-20', '2013-04-22', '0.000', '9.930', '83.050', '0.000', 'Primi - J.D.6830 - Monosem - IIR'),
+(9000125, '', 'siembra', '2013-04-22', '2013-04-24', '0.000', '13.000', '111.000', '0.000', 'Primi - J.D.6830 - Monosem - IIICh'),
+(9000126, '', 'rulado', '2013-04-24', '2013-04-25', '0.000', '3.420', '34.540', '0.000', 'Primi - J.D.6830 - rulo - IIR'),
+(9000127, '', 'rulado', '2013-04-25', '2013-04-25', '0.000', '6.580', '66.460', '0.000', 'Jesus - J.D.6830 - rulo - IIICh'),
+(9000128, '', 'escarda', '2013-04-23', '2013-04-29', '0.000', '94.950', '0.000', '0.000', 'Peones 3 -  -  - IIIR'),
+(9000129, '', 'desbrozado', '2013-04-25', '2013-04-26', '0.000', '4.000', '46.660', '0.000', 'Primi - J.D.6220 - Agri - OHA'),
+(9000130, '', 'desbrozado', '2013-04-26', '2013-04-26', '0.000', '5.000', '58.340', '0.000', 'Jesus - J.D.6220 - Agri - OSH'),
+(9000131, '', 'herbicida', '2013-04-26', '2013-04-26', '0.000', '4.800', '35.650', '0.000', 'Primi - J.D.6830 - Fitosa - IIICh'),
+(9000132, '', 'herbicida', '2013-04-26', '2013-04-26', '0.000', '2.200', '16.350', '0.000', 'Primi - J.D.6830 - Fitosa - IIR'),
+(9000133, '', 'cohecho', '2013-04-27', '2013-04-27', '0.000', '5.500', '64.000', '0.000', 'Jesus - J.D.6830 - congkirde - IIICh'),
+(9000134, '', 'rulado', '2013-04-27', '2013-04-27', '0.000', '2.500', '20.000', '0.000', 'Jesus - J.D.6830 - rulo - IIICh'),
+(9000135, '', 'herbicida', '2013-04-29', '2013-04-29', '0.000', '1.000', '5.000', '0.000', 'Primi - J.D.6830 - Fitosa - IIICh'),
+(9000136, '', 'siembra', '2013-04-27', '2013-04-29', '0.000', '7.000', '22.000', '0.000', 'Primi - J.D.6220 - Monosem - IIICh'),
+(9000137, '', 'desbrozado', '2013-04-30', '2013-04-30', '0.000', '8.000', '93.000', '0.000', 'Primi - J.D.6220 - Agri - OHA'),
+(9000138, '', 'tratamiento', '2013-05-02', '2013-05-03', '0.000', '2.150', '16.000', '0.000', 'Primi - J.D.6220 - Atomizador - OSH'),
+(9000139, '', 'tratamiento', '2013-05-02', '2013-05-03', '0.000', '1.700', '12.650', '0.000', 'Primi - J.D.6220 - Atomizador - OCHH'),
+(9000140, '', 'tratamiento', '2013-05-02', '2013-05-03', '0.000', '1.050', '7.850', '0.000', 'Primi - J.D.6220 - Atomizador - ORH'),
+(9000141, '', 'tratamiento', '2013-05-02', '2013-05-03', '0.000', '1.400', '10.400', '0.000', 'Primi - J.D.6220 - Atomizador - ORA'),
+(9000142, '', 'tratamiento', '2013-05-03', '2013-05-03', '0.000', '2.700', '20.100', '0.000', 'Primi - J.D.6220 - Atomizador - OHA'),
+(9000143, '', 'tratamiento', '2013-05-06', '2013-05-06', '0.000', '4.000', '18.770', '0.000', 'Primi - J.D.6220 - Fitosa - IIIR'),
+(9000144, '', 'tratamiento', '2013-05-06', '2013-05-06', '0.000', '4.000', '18.770', '0.000', 'Primi - J.D.6220 - Fitosa - VR'),
+(9000145, '', 'herbicida', '2013-05-07', NULL, '0.000', '3.000', '14.080', '0.000', 'Primi - J.D.6220 - Fitosa - IIIR'),
+(9000146, '', 'herbicida', '2013-05-07', NULL, '0.000', '2.000', '9.380', '0.000', 'Primi - J.D.6220 - Fitosa - IICh'),
+(9000147, '', 'siembra', '2013-05-08', '2013-05-08', '0.000', '4.000', '16.000', '0.000', 'Primi - J.D.6220 - Monosem - IICh'),
+(9000148, '', 'desbrozado', '2013-05-09', '2013-05-13', '0.000', '22.120', '140.620', '0.000', 'Primi - J.D.6220 - Agri - OHA'),
+(9000149, '', 'desbrozado', '2013-05-13', '2013-05-16', '0.000', '8.440', '53.650', '0.000', 'Primi - J.D.6220 - Agri - ORH'),
+(9000150, '', 'desbrozado', '2013-05-09', '2013-05-13', '0.000', '11.440', '72.730', '0.000', 'Primi - J.D.6220 - Agri - ORA'),
+(9000151, '', 'desbrozado', '2013-05-16', '2013-05-18', '0.000', '13.000', '75.000', '0.000', 'Primi - J.D.6220 - Agri - OSH'),
+(9000152, '', 'desbrozado', '2013-05-20', '2013-05-21', '0.000', '10.000', '67.000', '0.000', 'Primi - J.D.6220 - Agri - OCHH'),
+(9000153, '', 'escarda', '2013-05-14', '2013-05-16', '0.000', '18.990', '0.000', '0.000', 'Peones 2 -  -  - ORH'),
+(9000154, '', 'escarda', '2013-05-14', '2013-05-16', '0.000', '18.990', '0.000', '0.000', 'Peones 2 -  -  - ORA'),
+(9000155, '', 'escarda', '2013-05-17', '2013-05-20', '0.000', '25.320', '0.000', '0.000', 'Peones 2 -  -  - OSH'),
+(9000156, '', 'escarda', '2013-05-22', '2013-05-23', '0.000', '25.320', '0.000', '0.000', 'Peones 2 -  -  - OCHH'),
+(9000157, '', 'escarda', '2013-05-24', '2013-05-24', '0.000', '12.660', '0.000', '0.000', 'Peones 2 -  -  - OHA'),
+(9000158, '', 'binado', '2013-05-24', '2013-05-27', '0.000', '16.000', '77.000', '0.000', 'Primi - J.D.6220 - Regabina - IICh'),
+(9000159, '', 'binado', '2013-05-28', '2013-05-29', '0.000', '15.000', '71.000', '0.000', 'Primi - J.D.6220 - Regabina - IIR'),
+(9000160, '', 'binado', '2013-05-30', '2013-06-04', '0.000', '22.000', '116.000', '0.000', 'Primi - J.D.6220 - Regabina - IIICh'),
+(9000161, '', 'escarda', '2013-05-28', '2013-05-30', '0.000', '37.980', '0.000', '0.000', 'Peones 2 -  -  - VR'),
+(9000162, '', 'arranque y plantaci', '2013-06-03', '2013-06-10', '0.000', '8.720', '0.000', '0.000', 'Peones 2 -  -  - ORH'),
+(9000163, '', 'arranque y plantaci', '2013-06-03', '2013-06-10', '0.000', '11.830', '0.000', '0.000', 'Peones 2 -  -  - ORA'),
+(9000164, '', 'arranque y plantaci', '2013-06-03', '2013-06-10', '0.000', '14.400', '0.000', '0.000', 'Peones 2 -  -  - OCHH'),
+(9000165, '', 'arranque y plantaci', '2013-06-03', '2013-06-10', '0.000', '18.110', '0.000', '0.000', 'Peones 2 -  -  - OSH'),
+(9000166, '', 'arranque y plantaci', '2013-06-03', '2013-06-10', '0.000', '22.900', '0.000', '0.000', 'Peones 2 -  -  - OHA'),
+(9000167, '', 'arranque y plantaci', '2013-06-03', '2013-06-10', '0.000', '3.320', '11.910', '0.000', 'Primi - J.D.6830 - Pala - ORH'),
+(9000168, '', 'arranque y plantaci', '2013-06-03', '2013-06-10', '0.000', '4.520', '16.210', '0.000', 'Primi - J.D.6830 - Pala - ORA'),
+(9000169, '', 'arranque y plantaci', '2013-06-03', '2013-06-10', '0.000', '5.500', '19.720', '0.000', 'Primi - J.D.6830 - Pala - OCHH'),
+(9000170, '', 'arranque y plantaci', '2013-06-03', '2013-06-10', '0.000', '6.920', '24.820', '0.000', 'Primi - J.D.6830 - Pala - OSH'),
+(9000171, '', 'arranque y plantaci', '2013-06-03', '2013-06-10', '0.000', '8.740', '31.340', '0.000', 'Primi - J.D.6830 - Pala - OHA'),
+(9000172, '', 'revisi', '2013-06-11', '2013-06-14', '0.000', '5.820', '0.000', '0.000', 'Peones 2 -  -  - ORH'),
+(9000173, '', 'revisi', '2013-06-11', '2013-06-14', '0.000', '7.890', '0.000', '0.000', 'Peones 2 -  -  - ORA'),
+(9000174, '', 'revisi', '2013-06-11', '2013-06-14', '0.000', '9.600', '0.000', '0.000', 'Peones 2 -  -  - OCHH'),
+(9000175, '', 'revisi', '2013-06-11', '2013-06-14', '0.000', '12.080', '0.000', '0.000', 'Peones 2 -  -  - OSH'),
+(9000176, '', 'revisi', '2013-06-11', '2013-06-14', '0.000', '15.250', '0.000', '0.000', 'Peones 2 -  -  - OHA'),
+(9000177, '', 'riego olvios', '2013-06-06', '2013-06-14', '0.000', '1.150', '3.450', '0.000', 'Primi - J.D.6220 - Rmq Gomez - ORH'),
+(9000178, '', 'riego olvios', '2013-06-06', '2013-06-14', '0.000', '1.560', '4.680', '0.000', 'Primi - J.D.6220 - Rmq Gomez - ORA'),
+(9000179, '', 'riego olvios', '2013-06-06', '2013-06-14', '0.000', '1.900', '5.700', '0.000', 'Primi - J.D.6220 - Rmq Gomez - OCHH'),
+(9000180, '', 'riego olvios', '2013-06-06', '2013-06-14', '0.000', '2.380', '7.140', '0.000', 'Primi - J.D.6220 - Rmq Gomez - OSH'),
+(9000181, '', 'riego olvios', '2013-06-06', '2013-06-14', '0.000', '3.010', '9.030', '0.000', 'Primi - J.D.6220 - Rmq Gomez - OHA'),
+(9000182, '', 'tratamiento', '2013-06-14', '2013-06-15', '0.000', '1.150', '7.020', '0.000', 'Primi - J.D.6220 - Atomizador - ORH'),
+(9000183, '', 'tratamiento', '2013-06-14', '2013-06-15', '0.000', '1.560', '9.520', '0.000', 'Primi - J.D.6220 - Atomizador - ORA'),
+(9000184, '', 'tratamiento', '2013-06-14', '2013-06-15', '0.000', '1.900', '11.590', '0.000', 'Primi - J.D.6220 - Atomizador - OCHH'),
+(9000185, '', 'tratamiento', '2013-06-14', '2013-06-15', '0.000', '2.380', '14.520', '0.000', 'Primi - J.D.6220 - Atomizador - OSH'),
+(9000186, '', 'tratamiento', '2013-06-14', '2013-06-15', '0.000', '3.010', '18.350', '0.000', 'Primi - J.D.6220 - Atomizador - OHA'),
+(9000187, '', 'siega', '2013-06-15', '2013-06-17', '0.000', '0.000', '0.000', '1029.770', ' -  - Ramos - ICh'),
+(9000188, '', 'siega', '2013-06-17', '2013-06-18', '0.000', '0.000', '0.000', '1175.000', ' -  - Ramos - VCh'),
+(9000189, '', 'portes', '2013-06-17', '2013-06-19', '0.000', '11.000', '84.760', '0.000', 'Primi - J.D.6830 - Rmq Espejo - ICh'),
+(9000190, '', 'portes', '2013-06-17', '2013-06-19', '0.000', '5.000', '34.690', '0.000', 'Primi - J.D.6220 - Rmq Gomez - ICh'),
+(9000191, '', 'portes', '2013-06-17', '2013-06-18', '0.000', '6.000', '46.240', '0.000', 'Primi - J.D.6830 - Rmq Espejo - VCh'),
+(9000192, '', 'portes', '2013-06-17', '2013-06-18', '0.000', '7.000', '48.560', '0.000', 'Primi - J.D.6220 - Rmq Gomez - VCh'),
+(9000193, '', 'portes', '2013-06-18', '2013-06-26', '0.000', '3.000', '23.000', '0.000', 'Primi - J.D.6830 - Rmq Espejo - IR'),
+(9000194, '', 'portes', '2013-06-18', '2013-06-26', '0.000', '4.000', '27.750', '0.000', 'Primi - J.D.6220 - Rmq Gomez - IR'),
+(9000195, '', 'cortafuegos', '2013-06-20', '2013-06-20', '0.000', '1.400', '16.450', '0.000', 'Primi - J.D.6830 - septima - ICh'),
+(9000196, '', 'cortafuegos', '2013-06-20', '2013-06-20', '0.000', '1.600', '18.800', '0.000', 'Primi - J.D.6830 - septima - VCh'),
+(9000197, '', 'cortafuegos', '2013-06-20', '2013-06-20', '0.000', '1.000', '11.750', '0.000', 'Primi - J.D.6830 - septima - IR'),
+(9000198, '', 'siega', '2013-06-26', '2013-06-26', '0.000', '0.000', '0.000', '0.000', ' -  - Ramos - IR'),
+(9000199, '', 'herbicida', '2013-06-29', '2013-06-29', '0.000', '5.000', '19.000', '0.000', 'Primi - J.D.6220 - Fitosa - VR'),
+(9000200, '', 'riegos', '2013-06-11', '2013-06-27', '0.000', '67.800', '0.000', '0.000', '- - sistemas de riegos - ORA'),
+(9000201, '', 'riegos', '2013-06-11', '2013-06-27', '0.000', '67.800', '0.000', '0.000', ' -  - sistemas de riegos - ORA'),
+(9000202, '', 'riegos', '2013-06-11', '2013-06-27', '0.000', '59.000', '0.000', '0.000', ' -  - sistemas de riegos - OCHH'),
+(9000203, '', 'riegos', '2013-06-11', '2013-06-27', '0.000', '59.000', '0.000', '0.000', ' -  - sistemas de riegos - OSH'),
+(9000204, '', 'riegos', '2013-06-11', '2013-06-27', '0.000', '55.600', '0.000', '0.000', ' -  - sistemas de riegos - OHA'),
+(9000205, '', 'riegos', '2013-06-11', '2013-06-27', '0.000', '2.120', '0.000', '0.000', 'Primi -  -  - ORH'),
+(9000206, '', 'riegos', '2013-06-11', '2013-06-27', '0.000', '2.880', '0.000', '0.000', 'Primi -  -  - ORA'),
+(9000207, '', 'riegos', '2013-06-11', '2013-06-27', '0.000', '2.660', '0.000', '0.000', 'Primi -  -  - OCHH'),
+(9000208, '', 'riegos', '2013-06-11', '2013-06-27', '0.000', '3.340', '0.000', '0.000', 'Primi -  -  - OSH'),
+(9000209, '', 'riegos', '2013-06-11', '2013-06-27', '0.000', '5.000', '0.000', '0.000', 'Primi -  -  - OHA'),
+(9000210, '', 'desbrozado', '2013-07-11', '2013-07-12', '0.000', '17.000', '112.000', '0.000', 'Jesus - J.D.6220 - Agri - OHA'),
+(9000211, '', 'siega', '2013-07-15', '2013-07-15', '0.000', '0.000', '0.000', '0.000', ' -  - Ramos - IIIR'),
+(9000212, '', 'siega', '2013-07-15', '2013-07-15', '0.000', '0.000', '0.000', '0.000', ' -  - Ramos - VR'),
+(9000213, '', 'portes', '2013-07-15', '2013-07-16', '0.000', '3.000', '17.000', '0.000', 'Primi - J.D.6830 - Rmq Espejo - IIIR'),
+(9000214, '', 'portes', '2013-07-15', '2013-07-16', '0.000', '3.000', '17.000', '0.000', 'Primi - J.D.6830 - Rmq Espejo - VR'),
+(9000215, '', 'portes', '2013-07-15', '2013-07-15', '0.000', '4.000', '18.000', '0.000', 'Primi - J.D.6220 - Rmq Gomez - IIIR'),
+(9000216, '', 'herbicida', '2013-07-18', '2013-07-18', '0.000', '1.030', '4.000', '0.000', 'Primi - J.D.6220 - Asema - ORH'),
+(9000217, '', 'herbicida', '2013-07-18', '2013-07-18', '0.000', '1.400', '5.450', '0.000', 'Primi - J.D.6220 - Asema - ORA'),
+(9000218, '', 'herbicida', '2013-07-19', '2013-07-19', '0.000', '1.710', '6.650', '0.000', 'Primi - J.D.6220 - Asema - OCHH'),
+(9000219, '', 'herbicida', '2013-07-19', '2013-07-19', '0.000', '2.150', '8.360', '0.000', 'Primi - J.D.6220 - Asema - OSH'),
+(9000220, '', 'herbicida', '2013-07-20', '2013-07-20', '0.000', '2.710', '10.540', '0.000', 'Primi - J.D.6220 - Asema - OHA'),
+(9000221, '', 'riegos', '2013-06-28', '2013-07-31', '0.000', '143.100', '0.000', '0.000', ' -  - sistemas de riegos - ORH'),
+(9000222, '', 'riegos', '2013-06-28', '2013-07-31', '0.000', '143.100', '0.000', '0.000', ' -  - sistemas de riegos - ORA'),
+(9000223, '', 'riegos', '2013-06-28', '2013-07-31', '0.000', '114.900', '0.000', '0.000', ' -  - sistemas de riegos - OCHH'),
+(9000224, '', 'riegos', '2013-06-28', '2013-07-31', '0.000', '114.900', '0.000', '0.000', ' -  - sistemas de riegos - OSH'),
+(9000225, '', 'riegos', '2013-06-28', '2013-07-31', '0.000', '114.600', '0.000', '0.000', ' -  - sistemas de riegos - OHA'),
+(9000226, '', 'riegos', '2013-08-01', '2013-08-30', '0.000', '119.600', '0.000', '0.000', 'ñé -  - sistemas de riegos - ORH'),
+(9000227, '', 'riegos', '2013-08-01', '2013-08-30', '0.000', '38.300', '0.000', '0.000', ' -  - sistemas de riegos - ORA'),
+(9000228, '', 'riegos', '2013-08-01', '2013-08-30', '0.000', '119.600', '0.000', '0.000', ' -  - sistemas de riegos - OCHH'),
+(9000229, '', 'riegos', '2013-08-01', '2013-08-30', '0.000', '150.000', '0.000', '0.000', ' -  - sistemas de riegos - OSH'),
+(9000230, '', 'riegos', '2013-08-01', '2013-08-30', '0.000', '38.300', '0.000', '0.000', ' -  - sistemas de riegos - OHA'),
+(9000231, '', 'riegos', '2013-06-28', '2013-08-30', '0.000', '12.000', '0.000', '0.000', 'Primi -  -  - ORH'),
+(9000232, '', 'riegos', '2013-06-28', '2013-08-30', '0.000', '8.000', '0.000', '0.000', 'Primi -  -  - ORA'),
+(9000233, '', 'riegos', '2013-06-28', '2013-08-30', '0.000', '12.000', '0.000', '0.000', 'Primi -  -  - OCHH'),
+(9000234, '', 'riegos', '2013-06-28', '2013-08-30', '0.000', '17.500', '0.000', '0.000', 'Primi -  -  - OSH'),
+(9000235, '', 'riegos', '2013-06-28', '2013-08-30', '0.000', '12.500', '0.000', '0.000', 'Primi -  -  - OHA');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `t_labores_parcelas`
 --
--- Creation: Aug 08, 2013 at 03:49 PM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
---
 
 DROP TABLE IF EXISTS `t_labores_parcelas`;
 CREATE TABLE IF NOT EXISTS `t_labores_parcelas` (
   `id_labor` int(11) NOT NULL,
   `id_parcela` int(11) NOT NULL,
+  `posicion_formula` int(2) NOT NULL,
   PRIMARY KEY (`id_labor`,`id_parcela`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -520,64 +744,384 @@ CREATE TABLE IF NOT EXISTS `t_labores_parcelas` (
 -- Dumping data for table `t_labores_parcelas`
 --
 
-INSERT INTO `t_labores_parcelas` (`id_labor`, `id_parcela`) VALUES
-(9000001, 2000084),
-(9000002, 2000084);
+INSERT INTO `t_labores_parcelas` (`id_labor`, `id_parcela`, `posicion_formula`) VALUES
+(9000226, 2000087, 1),
+(9000201, 2000088, 1),
+(9000225, 2000089, 1),
+(9000224, 2000085, 1),
+(9000223, 2000086, 1),
+(9000222, 2000088, 1),
+(9000221, 2000087, 1),
+(9000200, 2000088, 1),
+(9000230, 2000089, 1),
+(9000229, 2000085, 1),
+(9000228, 2000086, 1),
+(9000227, 2000088, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t_l_costes_maquinaria`
+--
+
+DROP TABLE IF EXISTS `t_l_costes_maquinaria`;
+CREATE TABLE IF NOT EXISTS `t_l_costes_maquinaria` (
+  `id_labor` int(11) NOT NULL,
+  `id_coste_maquinaria` int(11) NOT NULL,
+  `multiplicador` decimal(10,3) DEFAULT '1.000',
+  `constante` decimal(10,3) DEFAULT '0.000',
+  `posicion_formula` int(2) DEFAULT NULL,
+  PRIMARY KEY (`id_labor`,`id_coste_maquinaria`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `t_l_costes_maquinaria`
+--
+
+INSERT INTO `t_l_costes_maquinaria` (`id_labor`, `id_coste_maquinaria`, `multiplicador`, `constante`, `posicion_formula`) VALUES
+(9000224, 5000028, '1.000', '0.000', 1),
+(9000226, 5000028, '1.000', '0.000', 1),
+(9000223, 5000028, '1.000', '0.000', 1),
+(9000222, 5000028, '1.000', '0.000', 1),
+(9000221, 5000028, '1.000', '0.000', 1),
+(9000200, 5000028, '1.000', '0.000', 1),
+(9000230, 5000028, '1.000', '0.000', 1),
+(9000229, 5000028, '1.000', '0.000', 1),
+(9000228, 5000028, '1.000', '0.000', 1),
+(9000227, 5000028, '1.000', '0.000', 1),
+(9000225, 5000028, '1.000', '0.000', 1),
+(9000201, 5000028, '1.000', '0.000', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t_l_costes_personal`
+--
+
+DROP TABLE IF EXISTS `t_l_costes_personal`;
+CREATE TABLE IF NOT EXISTS `t_l_costes_personal` (
+  `id_labor` int(11) NOT NULL,
+  `id_coste_personal` int(11) NOT NULL,
+  `id_personal` int(11) NOT NULL DEFAULT '0',
+  `multiplicador` decimal(10,3) DEFAULT '1.000',
+  `constante` decimal(10,3) DEFAULT '0.000',
+  `posicion_formula` int(11) NOT NULL,
+  PRIMARY KEY (`id_labor`,`id_coste_personal`,`id_personal`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t_l_productos`
+--
+
+DROP TABLE IF EXISTS `t_l_productos`;
+CREATE TABLE IF NOT EXISTS `t_l_productos` (
+  `id_labor` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `multiplicador` decimal(10,3) DEFAULT NULL,
+  `constante` decimal(10,3) DEFAULT NULL,
+  `posicion_formula` int(11) NOT NULL,
+  PRIMARY KEY (`id_labor`,`id_producto`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `t_meteo`
 --
--- Creation: Aug 09, 2013 at 08:41 AM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
---
 
 DROP TABLE IF EXISTS `t_meteo`;
 CREATE TABLE IF NOT EXISTS `t_meteo` (
-  `id_meteo` int(11) NOT NULL,
+  `id_meteo` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` date NOT NULL,
   `publio_chinchilla` decimal(10,3) NOT NULL,
   `publio_osuna` decimal(10,3) NOT NULL,
-  `viento` varchar(45) CHARACTER SET latin1 NOT NULL,
-  `estado` varchar(45) CHARACTER SET latin1 NOT NULL,
+  `viento` varchar(45) NOT NULL,
+  `estado` varchar(45) NOT NULL,
   `temp_max` decimal(10,3) NOT NULL,
   `temp_min` decimal(10,3) NOT NULL,
   PRIMARY KEY (`id_meteo`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12000184 ;
+
+--
+-- Dumping data for table `t_meteo`
+--
+
+INSERT INTO `t_meteo` (`id_meteo`, `fecha`, `publio_chinchilla`, `publio_osuna`, `viento`, `estado`, `temp_max`, `temp_min`) VALUES
+(12000003, '2013-09-01', '0.000', '0.000', 'S', 'Despejado', '34.500', '17.900'),
+(12000004, '2013-10-01', '3.200', '1.400', 'O', 'Nublado', '26.200', '20.000'),
+(12000005, '2013-11-01', '0.000', '0.000', 'E', 'Despejado', '23.500', '5.000'),
+(12000006, '2013-12-01', '0.000', '0.000', 'NE', 'Despejado', '12.500', '0.000'),
+(12000007, '2014-01-01', '0.000', '0.600', 'O', 'Nublado', '16.000', '12.200'),
+(12000008, '2014-02-01', '1.500', '1.000', 'O', 'Nublado', '16.000', '10.700'),
+(12000009, '2013-09-02', '0.000', '0.000', 'S', 'Despejado', '37.900', '19.000'),
+(12000010, '2013-10-02', '0.000', '0.000', 'O', 'Despejado', '28.500', '15.100'),
+(12000011, '2013-11-02', '0.000', '0.000', 'E', 'Despejado', '23.000', '5.200'),
+(12000012, '2013-12-02', '0.000', '0.000', 'E', 'Despejado', '14.300', '-0.500'),
+(12000013, '2014-01-02', '0.000', '0.200', 'O', 'Nublado', '16.000', '12.000'),
+(12000014, '2014-02-02', '0.000', '0.000', 'NE', 'Despejado', '11.500', '0.700'),
+(12000015, '2013-09-03', '0.000', '0.000', 'SE', 'Despejado', '34.000', '19.000'),
+(12000016, '2013-10-03', '0.000', '0.000', 'O', 'Nublado', '27.500', '18.800'),
+(12000017, '2013-11-03', '0.000', '0.000', 'NE', 'Despejado', '22.000', '6.400'),
+(12000018, '2013-12-03', '0.000', '0.000', 'E', 'Despejado', '16.700', '2.300'),
+(12000019, '2014-01-03', '3.300', '4.400', 'O', 'Nublado', '18.000', '12.700'),
+(12000020, '2014-02-03', '1.000', '0.200', 'O', 'Nublado', '13.000', '1.900'),
+(12000021, '2013-09-04', '0.000', '0.000', 'S', 'Despejado', '32.900', '19.800'),
+(12000022, '2013-10-04', '0.000', '0.400', 'O', 'Despejado', '27.500', '19.900'),
+(12000023, '2013-11-04', '0.000', '0.000', 'O', 'Despejado', '18.500', '8.100'),
+(12000024, '2013-12-04', '0.000', '0.000', 'E', 'Despejado', '16.800', '3.300'),
+(12000025, '2014-01-04', '6.400', '6.000', 'O', 'Nublado', '22.000', '13.100'),
+(12000026, '2014-02-04', '0.000', '0.000', 'O', 'Nublado', '14.500', '2.900'),
+(12000027, '2013-09-05', '0.000', '0.000', 'VARIABLE', 'Despejado', '32.600', '18.700'),
+(12000028, '2013-10-05', '0.000', '0.000', 'O', 'Despejado', '29.500', '14.000'),
+(12000029, '2013-11-05', '0.000', '0.000', 'O', 'Despejado', '22.900', '14.800'),
+(12000030, '2013-12-05', '0.000', '0.000', 'E', 'Despejado', '18.500', '2.300'),
+(12000031, '2014-01-05', '0.000', '0.000', 'N', 'Despejado', '22.000', '4.100'),
+(12000032, '2014-02-05', '0.000', '1.800', 'O', 'Nublado', '16.700', '11.400'),
+(12000033, '2013-09-06', '0.000', '0.000', 'O', 'Despejado', '30.400', '18.300'),
+(12000034, '2013-10-06', '0.000', '0.000', 'VARIABLE', 'Despejado', '29.000', '13.100'),
+(12000035, '2013-11-06', '0.000', '0.000', 'O', 'Despejado', '22.500', '9.600'),
+(12000036, '2013-12-06', '0.000', '0.000', 'NE', 'Despejado', '18.500', '2.300'),
+(12000037, '2014-01-06', '1.000', '0.000', 'NE', 'Despejado', '13.000', '2.700'),
+(12000038, '2014-02-06', '4.700', '3.000', 'O', 'Nublado', '17.300', '12.000'),
+(12000039, '2013-09-07', '0.000', '0.000', 'O', 'Nublado', '29.100', '17.800'),
+(12000040, '2013-10-07', '0.000', '0.000', 'S', 'Despejado', '29.500', '16.500'),
+(12000041, '2013-11-07', '0.000', '0.000', 'O', 'Despejado', '21.000', '9.200'),
+(12000042, '2013-12-07', '0.000', '0.000', 'E', 'Despejado', '16.500', '2.400'),
+(12000043, '2014-01-07', '0.000', '0.200', 'E', 'Despejado', '13.200', '1.900'),
+(12000044, '2014-02-07', '2.100', '0.000', 'O', 'Despejado', '14.100', '5.800'),
+(12000045, '2013-09-08', '0.000', '0.000', 'N', 'NyC', '31.700', '18.000'),
+(12000046, '2013-10-08', '0.000', '0.000', 'E', 'Despejado', '29.000', '16.700'),
+(12000047, '2013-11-08', '0.000', '0.000', 'O', 'Despejado', '21.200', '9.300'),
+(12000048, '2013-12-08', '0.000', '0.000', 'VARIABLE', 'Despejado', '16.500', '0.000'),
+(12000049, '2014-01-08', '0.000', '0.000', 'E', 'Despejado', '20.000', '3.600'),
+(12000050, '2014-02-08', '0.000', '7.000', 'O', 'Nublado', '16.000', '7.200'),
+(12000051, '2013-09-09', '0.000', '0.000', 'O', 'Despejado', '33.100', '16.000'),
+(12000052, '2013-10-09', '0.000', '0.000', 'E', 'Despejado', '29.200', '17.300'),
+(12000053, '2013-11-09', '0.000', '0.000', 'VARIABLE', 'Despejado', '21.500', '9.100'),
+(12000054, '2013-12-09', '0.000', '0.000', 'NE', 'Despejado', '14.700', '1.600'),
+(12000055, '2014-01-09', '0.000', '0.000', 'E', 'Despejado', '19.500', '6.000'),
+(12000056, '2014-02-09', '7.800', '19.400', 'O', 'Nublado', '26.000', '7.100'),
+(12000057, '2013-09-10', '0.000', '0.000', 'O', 'Despejado', '33.200', '17.500'),
+(12000058, '2013-10-10', '0.000', '0.000', 'SE', 'Despejado', '28.200', '16.300'),
+(12000059, '2013-11-10', '0.000', '0.000', 'NE', 'Despejado', '20.500', '6.100'),
+(12000060, '2013-12-10', '0.000', '0.000', 'E', 'Despejado', '16.300', '3.800'),
+(12000061, '2014-01-10', '0.000', '0.000', 'E', 'NyC', '15.700', '6.900'),
+(12000062, '2014-02-10', '32.900', '0.000', 'O', 'NyC', '12.300', '6.300'),
+(12000063, '2013-09-11', '0.000', '0.000', 'E', 'Despejado', '34.300', '17.400'),
+(12000064, '2013-10-11', '0.000', '0.000', 'O', 'Despejado', '28.200', '14.200'),
+(12000065, '2013-11-11', '0.000', '0.000', 'NE', 'Despejado', '22.600', '6.900'),
+(12000066, '2013-12-11', '0.000', '0.000', 'E', 'Despejado', '17.800', '5.600'),
+(12000067, '2014-01-11', '0.000', '0.000', 'E', 'NyC', '18.500', '8.200'),
+(12000068, '2014-02-11', '0.000', '2.400', 'O', 'Nublado', '12.900', '1.800'),
+(12000069, '2013-09-12', '0.000', '0.000', 'S', 'Despejado', '33.000', '19.700'),
+(12000070, '2013-10-12', '0.000', '0.000', 'O', 'Despejado', '30.000', '12.000'),
+(12000071, '2013-11-12', '0.000', '0.000', 'NE', 'Despejado', '22.500', '9.500'),
+(12000072, '2013-12-12', '0.000', '0.000', 'SE', 'NyC', '17.300', '4.800'),
+(12000073, '2014-01-12', '0.000', '0.000', 'E', 'NyC', '19.000', '7.000'),
+(12000074, '2014-02-12', '4.200', '1.800', 'O', 'Nublado', '16.400', '9.900'),
+(12000075, '2013-09-13', '0.000', '0.000', 'SO', 'Nublado', '33.500', '19.700'),
+(12000076, '2013-10-13', '0.000', '0.000', 'O', 'Despejado', '23.500', '10.500'),
+(12000077, '2013-11-13', '0.000', '0.800', 'NE', 'Despejado', '22.800', '8.500'),
+(12000078, '2013-12-13', '0.000', '0.000', 'NE', 'Nublado', '15.400', '7.300'),
+(12000079, '2014-01-13', '9.500', '7.400', 'S', 'Nublado', '12.500', '10.500'),
+(12000080, '2014-02-13', '2.000', '1.200', 'O', 'Nublado', '16.800', '13.800'),
+(12000081, '2013-09-14', '0.000', '0.000', 'S', 'Nublado', '32.300', '20.600'),
+(12000082, '2013-10-14', '0.000', '0.000', 'SO', 'NyC', '25.400', '10.300'),
+(12000083, '2013-11-14', '0.000', '0.000', 'NE', 'Despejado', '19.900', '1.300'),
+(12000084, '2013-12-14', '0.000', '0.000', 'E', 'Despejado', '18.000', '6.700'),
+(12000085, '2014-01-14', '0.000', '0.200', 'O', 'Nublado', '14.000', '6.100'),
+(12000086, '2014-02-14', '1.800', '0.000', 'O', 'Nublado', '17.700', '12.300'),
+(12000087, '2013-09-15', '0.000', '0.000', 'O', 'Despejado', '31.800', '18.900'),
+(12000088, '2013-10-15', '0.000', '0.000', 'O', 'Despejado', '27.600', '13.100'),
+(12000089, '2013-11-15', '0.000', '0.000', 'NE', 'Despejado', '16.700', '6.400'),
+(12000090, '2013-12-15', '0.000', '0.000', 'SE', 'Despejado', '16.700', '5.100'),
+(12000091, '2014-01-15', '0.000', '0.000', 'O', 'Nublado', '13.700', '8.300'),
+(12000092, '2014-02-15', '0.000', '8.000', 'O', 'Nublado', '16.300', '9.300'),
+(12000093, '2013-09-16', '0.000', '0.000', 'O', 'Despejado', '32.700', '17.300'),
+(12000094, '2013-10-16', '0.000', '0.000', 'NE', 'Despejado', '27.400', '12.300'),
+(12000095, '2013-11-16', '0.000', '0.000', 'NE', 'Despejado', '13.000', '1.800'),
+(12000096, '2013-12-16', '0.000', '0.000', 'E', 'Despejado', '17.800', '5.700'),
+(12000097, '2014-01-16', '7.100', '3.400', 'O', 'Nublado', '12.900', '10.900'),
+(12000098, '2014-02-16', '7.400', '0.000', 'O', 'NyC', '15.000', '8.300'),
+(12000099, '2013-09-17', '0.000', '0.000', 'O', 'Despejado', '29.200', '16.300'),
+(12000100, '2013-10-17', '0.000', '0.000', 'VARIABLE', 'Nublado', '28.600', '12.200'),
+(12000101, '2013-11-17', '0.000', '2.800', 'NE', 'Despejado', '12.500', '-1.300'),
+(12000102, '2013-12-17', '0.000', '1.800', 'SO', 'Nublado', '15.900', '8.200'),
+(12000103, '2014-01-17', '0.000', '2.800', 'O', 'Nublado', '13.300', '5.200'),
+(12000104, '2014-02-17', '0.000', '0.000', 'E', 'NyC', '15.300', '3.900'),
+(12000105, '2013-09-18', '0.000', '0.000', 'O', 'Nublado', '28.100', '16.300'),
+(12000106, '2013-10-18', '0.000', '0.000', 'O', 'Despejado', '26.500', '11.700'),
+(12000107, '2013-11-18', '3.900', '2.200', 'O', 'NyC', '14.600', '5.800'),
+(12000108, '2013-12-18', '0.000', '1.200', 'O', 'Nublado', '16.700', '10.000'),
+(12000109, '2014-01-18', '8.700', '3.000', 'O', 'Nublado', '13.100', '6.400'),
+(12000110, '2014-02-18', '1.900', '10.200', 'O', 'NyC', '16.000', '7.900'),
+(12000111, '2013-09-19', '0.000', '0.000', 'O', 'Nublado', '28.900', '16.600'),
+(12000112, '2013-10-19', '0.000', '0.000', 'O', 'NyC', '27.000', '15.200'),
+(12000113, '2013-11-19', '0.000', '0.000', 'VARIABLE', 'NyC', '14.300', '3.900'),
+(12000114, '2013-12-19', '11.000', '4.600', 'O', 'Nublado', '16.000', '9.000'),
+(12000115, '2014-01-19', '17.000', '15.800', 'O', 'NyC', '12.500', '6.000'),
+(12000116, '2014-02-19', '5.400', '0.000', 'O', 'Despejado', '13.100', '2.800'),
+(12000117, '2013-09-20', '0.000', '0.000', 'O', 'Despejado', '33.400', '15.600'),
+(12000118, '2013-10-20', '0.000', '0.000', 'O', 'Despejado', '24.900', '15.700'),
+(12000119, '2013-11-20', '0.000', '0.000', 'NE', 'Despejado', '13.000', '1.600'),
+(12000120, '2013-12-20', '0.000', '0.000', 'NE', 'Despejado', '11.000', '2.700'),
+(12000121, '2014-01-20', '0.000', '0.000', 'O', 'Despejado', '11.300', '1.400'),
+(12000122, '2014-02-20', '0.000', '0.200', 'O', 'Nublado', '14.200', '2.800'),
+(12000123, '2013-09-21', '0.000', '0.000', 'VARIABLE', 'Despejado', '34.000', '18.300'),
+(12000124, '2013-10-21', '0.000', '0.000', 'O', 'NyC', '26.200', '10.900'),
+(12000125, '2013-11-21', '0.000', '0.000', 'O', 'Despejado', '13.300', '-1.200'),
+(12000126, '2013-12-21', '0.000', '0.000', 'SE', 'Despejado', '11.400', '0.200'),
+(12000127, '2014-01-21', '0.000', '2.200', 'O', 'Nublado', '13.000', '4.100'),
+(12000128, '2014-02-21', '1.200', '1.600', 'O', 'NyC', '13.900', '9.200'),
+(12000129, '2013-09-22', '0.000', '0.000', 'S', 'Despejado', '32.000', '19.200'),
+(12000130, '2013-10-22', '0.000', '18.000', 'O', 'Nublado', '21.800', '13.700'),
+(12000131, '2013-11-22', '0.000', '0.400', 'VARIABLE', 'Nublado', '12.200', '5.000'),
+(12000132, '2013-12-22', '0.000', '0.200', 'E', 'Despejado', '13.200', '0.600'),
+(12000133, '2014-01-22', '7.400', '6.000', 'O', 'NyC', '14.400', '9.300'),
+(12000134, '2014-02-22', '0.000', '0.000', 'O', 'Despejado', '13.000', '1.800'),
+(12000135, '2013-09-23', '0.000', '0.000', 'NE', 'Despejado', '32.600', '19.700'),
+(12000136, '2013-10-23', '26.200', '1.400', 'O', 'Nublado', '30.500', '16.500'),
+(12000137, '2013-11-23', '0.000', '0.200', 'E', 'NyC', '15.500', '5.300'),
+(12000138, '2013-12-23', '0.000', '0.000', 'E', 'Despejado', '13.900', '0.500'),
+(12000139, '2014-01-23', '1.100', '0.000', 'NE', 'Despejado', '12.600', '4.200'),
+(12000140, '2014-02-23', '0.000', '0.000', 'SE', 'Despejado', '18.000', '2.200'),
+(12000141, '2013-09-24', '0.000', '0.000', 'VARIABLE', 'Despejado', '31.500', '16.800'),
+(12000142, '2013-10-24', '0.000', '0.200', 'O', 'Nublado', '25.500', '16.900'),
+(12000143, '2013-11-24', '0.000', '0.000', 'E', 'Despejado', '13.000', '1.500'),
+(12000144, '2013-12-24', '0.000', '0.200', 'VARIABLE', 'Nublado', '23.000', '1.900'),
+(12000145, '2014-01-24', '0.000', '0.000', 'SO', 'Despejado', '12.900', '1.100'),
+(12000146, '2014-02-24', '4.100', '4.000', 'O', 'NyC', '15.200', '8.100'),
+(12000147, '2013-09-25', '0.000', '0.000', 'O', 'NyC', '29.800', '16.600'),
+(12000148, '2013-10-25', '2.400', '0.000', 'NO', 'Nublado', '22.800', '16.500'),
+(12000149, '2013-11-25', '0.000', '0.000', 'E', 'Despejado', '13.200', '-0.700'),
+(12000150, '2013-12-25', '40.100', '42.800', 'O', 'Nublado', '17.000', '12.400'),
+(12000151, '2014-01-25', '0.000', '0.000', 'O', 'Despejado', '15.000', '2.600'),
+(12000152, '2014-02-25', '0.000', '0.000', 'O', 'NyC', '14.900', '4.700'),
+(12000153, '2013-09-26', '0.000', '0.000', 'O', 'NyC', '29.400', '15.000'),
+(12000154, '2013-10-26', '0.000', '0.600', 'NE', 'Nublado', '20.700', '15.700'),
+(12000155, '2013-11-26', '0.000', '0.000', 'E', 'Despejado', '14.100', '-1.400'),
+(12000156, '2013-12-26', '1.800', '0.000', 'O', 'Despejado', '14.100', '7.700'),
+(12000157, '2014-01-26', '0.000', '0.000', 'NE', 'Despejado', '16.200', '3.500'),
+(12000158, '2014-02-26', '0.000', '0.200', 'O', 'NyC', '15.400', '5.900'),
+(12000159, '2013-09-27', '0.000', '0.000', 'O', 'Nublado', '29.100', '16.900'),
+(12000160, '2013-10-27', '0.000', '0.200', 'NE', 'Despejado', '0.000', '11.700'),
+(12000161, '2013-11-27', '0.000', '0.000', 'E', 'Despejado', '14.900', '1.900'),
+(12000162, '2013-12-27', '0.000', '0.000', 'O', 'Nublado', '15.500', '10.700'),
+(12000163, '2014-01-27', '0.000', '0.000', 'O', 'Nublado', '17.000', '8.700'),
+(12000164, '2014-02-27', '0.000', '0.000', 'O', 'Despejado', '15.600', '4.300'),
+(12000165, '2013-09-28', '0.000', '0.200', 'O', 'Nublado', '32.000', '17.600'),
+(12000166, '2013-10-28', '0.000', '0.000', 'NO', 'Despejado', '25.600', '12.600'),
+(12000167, '2013-11-28', '0.000', '0.000', 'E', 'NyC', '15.100', '3.800'),
+(12000168, '2013-12-28', '0.700', '0.400', 'O', 'Nublado', '17.500', '11.500'),
+(12000169, '2014-01-28', '0.000', '1.600', 'O', 'NyC', '12.700', '3.200'),
+(12000170, '2014-02-28', '0.000', '0.000', 'O', 'NyC', '18.500', '5.800'),
+(12000171, '2013-09-29', '13.600', '13.200', 'O', 'Nublado', '24.500', '17.000'),
+(12000172, '2013-10-29', '0.000', '0.000', 'N', 'Despejado', '19.700', '12.700'),
+(12000173, '2013-11-29', '0.000', '0.000', 'NE', 'Despejado', '13.400', '1.900'),
+(12000174, '2013-12-29', '0.000', '0.000', 'NE', 'Despejado', '11.000', '0.700'),
+(12000175, '2014-01-29', '1.900', '0.600', 'O', 'NyC', '12.500', '8.500'),
+(12000176, '2013-09-30', '0.000', '3.000', 'O', 'Nublado', '24.000', '19.600'),
+(12000177, '2013-10-30', '0.000', '0.000', 'E', 'Despejado', '18.400', '7.700'),
+(12000178, '2013-11-30', '0.000', '0.000', 'E', 'Despejado', '16.000', '0.000'),
+(12000179, '2013-12-30', '0.000', '0.200', 'E', 'Despejado', '11.000', '-0.600'),
+(12000180, '2014-01-30', '0.000', '0.000', 'N', 'Despejado', '13.000', '1.700'),
+(12000181, '2013-10-31', '0.000', '0.000', 'E', 'Despejado', '18.900', '4.600'),
+(12000182, '2013-12-31', '0.000', '0.000', 'E', 'Despejado', '12.500', '0.100'),
+(12000183, '2014-01-31', '1.400', '1.600', 'O', 'Nublado', '13.900', '6.900');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `t_ordenes_compra`
 --
--- Creation: Aug 09, 2013 at 08:41 AM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
---
 
 DROP TABLE IF EXISTS `t_ordenes_compra`;
 CREATE TABLE IF NOT EXISTS `t_ordenes_compra` (
   `id_orden_compra` int(11) NOT NULL AUTO_INCREMENT,
-  `id_producto` int(11) NOT NULL,
+  `id_elemento` int(11) DEFAULT NULL,
+  `num_factura` varchar(20) DEFAULT '',
   `cantidad` decimal(10,3) NOT NULL,
-  `precio` decimal(10,3) NOT NULL,
-  `marca` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
-  `proveedor` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `precio` decimal(10,3) DEFAULT NULL,
+  `total` decimal(10,3) DEFAULT NULL,
+  `marca` varchar(45) CHARACTER SET latin1 DEFAULT '',
+  `proveedor` varchar(45) CHARACTER SET latin1 DEFAULT '',
   `fecha` date NOT NULL,
-  `medida` varchar(45) CHARACTER SET latin1 NOT NULL,
+  `fecha_albaran` date DEFAULT NULL,
+  `medida` varchar(45) CHARACTER SET latin1 DEFAULT '',
+  `nota` varchar(200) DEFAULT '',
   PRIMARY KEY (`id_orden_compra`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=110000064 ;
+
+--
+-- Dumping data for table `t_ordenes_compra`
+--
+
+INSERT INTO `t_ordenes_compra` (`id_orden_compra`, `id_elemento`, `num_factura`, `cantidad`, `precio`, `total`, `marca`, `proveedor`, `fecha`, `fecha_albaran`, `medida`, `nota`) VALUES
+(110000001, 3000084, '1971', '2501.000', '0.960', NULL, 'Cepsa', 'Cepsa', '2012-04-12', NULL, '', 'Primera entrada de gasoil'),
+(110000005, 3000084, '9748', '196.000', '1.034', NULL, 'Cepsa', 'Cepsa', '2012-05-11', NULL, NULL, ''),
+(110000007, 3000084, '5947', '2500.000', '0.979', NULL, 'Cepsa', 'Cepsa', '2012-09-15', NULL, NULL, ''),
+(110000008, 3000084, '8462', '2500.000', '0.895', NULL, 'Cepsa', 'Cepsa', '2012-12-14', NULL, NULL, ''),
+(110000009, 3000084, '2519', '2700.000', '0.865', NULL, 'Cepsa', 'Cepsa', '2013-04-16', NULL, NULL, ''),
+(110000011, NULL, '', '1700.000', NULL, '459.000', '', 'Propio', '2012-01-01', NULL, '', 'Haboncillo Jerez'),
+(110000012, NULL, '5757', '5600.000', NULL, '3500.220', '', 'SAT Sta Teresa', '2012-12-26', '2012-11-15', '', 'Haboncillo Jerez'),
+(110000013, 1000014, '', '11030.000', NULL, '3088.400', '', 'Propio', '2012-06-12', NULL, '', 'T.d. Beldur'),
+(110000014, 1000015, '', '9270.000', NULL, '2410.200', '', 'Propio', '2012-06-12', NULL, '', 'T.b. Salama'),
+(110000015, NULL, '1737', '1925.000', NULL, '4451.130', '', 'Agroquimar', '2011-12-19', '2011-12-05', '', 'Maxistar 10-31-0'),
+(110000016, 3000042, '1381', '240.000', NULL, '871.200', '', 'Agroquimar', '2012-11-20', NULL, '', 'Glifosato 36%'),
+(110000017, 3000042, '1503', '100.000', NULL, '368.500', 'Piton', 'Agroquimar', '2012-12-11', '2012-12-01', '', 'Glifosato 36% '),
+(110000018, 3000042, '365', '60.000', NULL, '224.400', 'Barbarian', 'Agroquimar', '2013-04-07', '2013-03-14', '', 'Glifosato 36% '),
+(110000019, 3000042, '130645', '40.000', NULL, '149.600', 'Herbolex', 'Agroquimar', '2013-04-24', '2013-04-14', '', 'Glifosato 36% '),
+(110000020, 3000042, '1390', '40.000', NULL, '149.600', 'Feglisato 36%', 'Agroquimar', '2013-07-29', '2013-07-28', '', 'Glifosato 36% '),
+(110000021, 3000049, '436', '10.000', NULL, '81.000', '', 'Agroquimar', '2012-04-24', '2012-04-11', '', 'Oxifluorfen 24%'),
+(110000022, 3000049, '1381', '20.000', NULL, '178.200', '', 'Agroquimar', '2012-11-20', NULL, '', 'Oxifluorfen 24%'),
+(110000023, 3000049, '1503', '20.000', NULL, '178.200', 'Galigan', 'Agroquimar', '2012-12-11', '2012-12-01', '', 'Oxifluorfen 24% '),
+(110000024, 3000049, '130645', '5.000', NULL, '46.200', 'Galigan', 'Agroquimar', '2013-04-24', '2013-04-15', '', 'Oxifluorfen 24% '),
+(110000025, 3000049, '130745', '25.000', NULL, '243.370', 'Galigan', 'Agroquimar', '2013-04-30', '2013-04-25', '', 'Oxifluorfen 24% '),
+(110000026, 3000049, '1390', '5.000', NULL, '48.950', 'Inteike', 'Agroquimar', '2013-07-29', '2013-07-28', '', 'Oxifluorfen 24% '),
+(110000027, NULL, '120025', '5.000', NULL, '10.800', '', 'Agroquimar', '2012-01-26', '2012-01-11', '', 'Herochec ph'),
+(110000028, 3000047, '121503', '80.000', NULL, '968.000', '', 'Agroquimar', '2012-12-11', '2012-11-27', '', 'Linuron 45%'),
+(110000029, 3000047, '152', '40.000', NULL, '462.000', 'Herbicruz Li Flow', 'Agroquimar', '2013-02-18', '2013-02-07', '', 'Linuron 45% '),
+(110000030, 3000047, '130745', '20.000', NULL, '241.400', 'Luron 45', 'Agroquimar', '2013-04-30', '2013-04-25', '', 'Linuron 45% '),
+(110000031, 3000019, '6043', '9160.000', NULL, '4171.460', '', 'SAT Sta Teresa', '2013-01-17', '2012-12-28', '', 'Urea 46%'),
+(110000032, 3000019, '915', '9330.000', NULL, '4248.880', '', 'SAT Sta Teresa', '2012-03-15', '2013-02-14', '', 'Urea 46%'),
+(110000033, 1000022, '', '1750.000', NULL, '1051.730', 'Pedrosillanos', 'Legumbres Luengo', '2013-07-16', '2013-01-21', '', 'Garbanzos'),
+(110000034, 1000023, '', '1860.000', NULL, '1397.330', 'Castellanos', 'Legumbres Luengo', '2013-07-16', '2013-01-21', '', 'Garbanzos'),
+(110000035, 3000039, '130263', '10.000', NULL, '269.600', 'Tomahawk', 'Agroquimar', '2013-03-12', '2013-02-26', '', 'Fluroxipir 20%'),
+(110000036, 3000039, '365', '5.000', NULL, '134.750', 'Tomahawk', 'Agroquimar', '2013-04-07', '2013-03-14', '', 'Fluroxipir 20%'),
+(110000037, NULL, '130645', '80.000', NULL, '2305.600', 'Fungicida', 'Agroquimar', '2013-04-24', '2013-04-16', '', 'Bumper'),
+(110000038, NULL, '130645', '20.000', NULL, '42.900', 'mojante', 'Agroquimar', '2013-04-24', '2013-04-16', '', 'Iberman-20'),
+(110000039, NULL, '130645', '4.000', NULL, '695.200', 'Avenicida', 'Agroquimar', '2013-04-24', '2013-04-16', '', 'Topik'),
+(110000040, NULL, '130645', '1.400', NULL, '693.000', 'hoja ancha', 'Agroquimar', '2013-04-24', '2013-04-17', '', 'Tribenuron'),
+(110000041, NULL, '130645', '6.000', NULL, '673.200', 'Avenicida', 'Agroquimar', '2013-04-24', '2013-04-19', '', 'Axial'),
+(110000042, NULL, '130645', '0.100', NULL, '49.500', 'hoja ancha', 'Agroquimar', '2013-04-24', '2013-04-19', '', 'Herbenuron'),
+(110000043, 1000019, '131023', '1800000.000', NULL, '2059.200', 'Semilla Girasol', 'Agroquimar', '2013-06-17', '2013-03-25', '', 'Pizarro'),
+(110000044, 1000020, '4208', '1650000.000', NULL, '1773.200', 'Semilla Girasol', 'SAT Sta Teresa', '2013-09-19', '2013-04-18', '', 'Bosfora'),
+(110000045, NULL, '50', '300000.000', NULL, '332.800', 'Semilla Girasol', 'A. G. Pi?a', '2013-06-01', '2013-04-27', '', 'Evora y Batisol'),
+(110000046, NULL, '1897', '25.000', NULL, '205.390', 'Hidroxido cuprico 50%', 'SAT Sta Teresa', '2013-05-16', '2013-04-26', '', 'Droxicuper'),
+(110000047, NULL, '1897', '25.000', NULL, '74.150', 'Boro 5%', 'SAT Sta Teresa', '2013-05-16', '2013-04-26', '', 'Klover'),
+(110000048, NULL, '1897', '50.000', NULL, '70.040', '', 'SAT Sta Teresa', '2013-05-16', '2013-04-26', '', 'Nutricol'),
+(110000049, NULL, '1897', '25.000', NULL, '93.280', 'Mg-Mn-Zn', 'SAT Sta Teresa', '2013-05-16', '2013-04-26', '', 'Poliver'),
+(110000050, NULL, '130823', '60.000', NULL, '389.400', 'Aminoacidos 7,9%', 'Agroquimar', '2013-05-14', '2013-05-04', '', 'Siapton'),
+(110000051, NULL, '130823', '15.000', NULL, '111.380', '', 'Agroquimar', '2013-05-14', '2013-05-04', '', 'Rogor L40 Dimetoato 40%'),
+(110000052, NULL, '130823', '12.000', NULL, '315.480', '', 'Agroquimar', '2013-05-14', '2013-05-04', '', 'Radar Plus Fluazifop'),
+(110000053, NULL, '130823', '12.000', NULL, '34.320', 'Mojante', 'Agroquimar', '2013-05-14', '2013-05-04', '', 'Volk Miacible '),
+(110000054, NULL, '2898', '20.000', NULL, '53.910', '', 'SAT Sta Teresa', '2013-06-12', '2013-06-12', '', 'Carbotec NPK32 N 3%+P 1%+K 20%'),
+(110000055, NULL, '2898', '15.000', NULL, '43.960', '', 'SAT Sta Teresa', '2013-06-12', '2013-06-12', '', 'Carbotec NPK32'),
+(110000056, NULL, '2898', '15.000', NULL, '93.390', '', 'SAT Sta Teresa', '2013-06-12', '2013-06-12', '', 'Cupper plus Oxicl cu 22%+Mancoced 17,5%'),
+(110000057, NULL, '2898', '20.000', NULL, '28.020', '', 'SAT Sta Teresa', '2013-06-12', '2013-06-12', '', 'Nutricol'),
+(110000058, NULL, '2898', '5.000', NULL, '34.360', '', 'SAT Sta Teresa', '2013-06-12', '2013-06-12', '', 'Danadim Progres Dimetoato 40%'),
+(110000059, NULL, '2898', '5.000', NULL, '18.300', '', 'SAT Sta Teresa', '2013-06-12', '2013-06-12', '', 'Ph-ptimus'),
+(110000060, NULL, '5023', '35.000', NULL, '102.520', '', 'SAT Sta Teresa', '2013-11-13', '2013-10-30', '', 'Carbotec NPK32'),
+(110000061, NULL, '5023', '30.000', NULL, '193.850', '', 'SAT Sta Teresa', '2013-11-13', '2013-10-30', '', 'Cupper plus'),
+(110000062, NULL, '5023', '5.000', NULL, '34.360', '', 'SAT Sta Teresa', '2013-11-13', '2013-10-30', '', 'Danadin Progress'),
+(110000063, NULL, '5023', '5.000', NULL, '18.300', '', 'SAT Sta Teresa', '2013-11-13', '2013-10-30', '', 'Ph-Optimus');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `t_parcelas`
---
--- Creation: Feb 05, 2013 at 10:17 PM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
 --
 
 DROP TABLE IF EXISTS `t_parcelas`;
@@ -621,27 +1165,26 @@ INSERT INTO `t_parcelas` (`id_parcela`, `nombre`, `nombre_corto`, `zona`, `exten
 --
 -- Table structure for table `t_personal`
 --
--- Creation: Aug 09, 2013 at 08:41 AM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
---
 
 DROP TABLE IF EXISTS `t_personal`;
 CREATE TABLE IF NOT EXISTS `t_personal` (
-  `id_personal` int(11) NOT NULL,
+  `id_personal` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   `apellidos` varchar(45) NOT NULL,
   PRIMARY KEY (`id_personal`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13000001 ;
+
+--
+-- Dumping data for table `t_personal`
+--
+
+INSERT INTO `t_personal` (`id_personal`, `nombre`, `apellidos`) VALUES
+(13000000, 'Primi', '');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `t_producciones`
---
--- Creation: Nov 10, 2012 at 11:16 AM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
 --
 
 DROP TABLE IF EXISTS `t_producciones`;
@@ -651,102 +1194,60 @@ CREATE TABLE IF NOT EXISTS `t_producciones` (
   `id_parcela` int(11) NOT NULL,
   `fecha` date DEFAULT NULL,
   `kilos` int(11) DEFAULT NULL,
-  `precio_kilo` decimal(10,3) DEFAULT NULL,
+  `precio_kilo` decimal(10,5) DEFAULT NULL,
   PRIMARY KEY (`id_produccion`),
   KEY `id_cultivo` (`id_cultivo`),
   KEY `id_parcela` (`id_parcela`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6000227 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6000045 ;
 
 --
 -- Dumping data for table `t_producciones`
 --
 
 INSERT INTO `t_producciones` (`id_produccion`, `id_cultivo`, `id_parcela`, `fecha`, `kilos`, `precio_kilo`) VALUES
-(6000000, 1000001, 2000072, '2010-01-01', 10845, NULL),
-(6000001, 1000001, 2000072, '2010-01-01', 8845, NULL),
-(6000002, 1000001, 2000072, '2010-01-01', 12955, NULL),
-(6000003, 1000001, 2000072, '2010-01-01', 13045, NULL),
-(6000004, 1000001, 2000072, '2010-01-01', 7530, NULL),
-(6000005, 1000009, 2000073, '2010-01-01', 5790, NULL),
-(6000006, 1000010, 2000073, '2010-01-01', 5885, NULL),
-(6000007, 1000011, 2000073, '2010-01-01', 5565, NULL),
-(6000008, 1000012, 2000073, '2010-01-01', 2000, NULL),
-(6000009, 1000013, 2000074, '2010-01-01', 6225, NULL),
-(6000010, 1000013, 2000074, '2010-01-01', 4330, NULL),
-(6000011, 1000008, 2000075, '2010-01-01', 7800, NULL),
-(6000012, 1000008, 2000075, '2010-01-01', 12820, NULL),
-(6000013, 1000008, 2000075, '2010-01-01', 4930, NULL),
-(6000014, 1000008, 2000075, '2010-01-01', 4735, NULL),
-(6000015, 1000001, 2000076, '2010-01-01', 12255, NULL),
-(6000016, 1000001, 2000076, '2010-01-01', 12515, NULL),
-(6000017, 1000001, 2000076, '2010-01-01', 11905, NULL),
-(6000018, 1000001, 2000076, '2010-01-01', 8830, NULL),
-(6000019, 1000001, 2000076, '2010-01-01', 13000, NULL),
-(6000020, 1000009, 2000078, '2010-01-01', 3000, NULL),
-(6000021, 1000009, 2000079, '2010-01-01', 1305, NULL),
-(6000022, 1000002, 2000080, '2010-01-01', 8230, NULL),
-(6000023, 1000002, 2000080, '2010-01-01', 12910, NULL),
-(6000024, 1000002, 2000080, '2010-01-01', 8410, NULL),
-(6000025, 1000002, 2000080, '2010-01-01', 10470, NULL),
-(6000026, 1000002, 2000080, '2010-01-01', 6000, NULL),
-(6000027, 1000002, 2000080, '2010-01-01', 4500, NULL),
-(6000028, 1000009, 2000081, '2010-01-01', 6050, NULL),
-(6000029, 1000010, 2000081, '2010-01-01', 6150, NULL),
-(6000030, 1000011, 2000081, '2010-01-01', 3420, NULL),
-(6000031, 1000012, 2000081, '2010-01-01', 6025, NULL),
-(6000032, 1000003, 2000082, '2010-01-01', 2782, NULL),
-(6000033, 1000003, 2000082, '2010-01-01', 4570, NULL),
-(6000034, 1000008, 2000083, '2010-01-01', 13090, NULL),
-(6000035, 1000008, 2000083, '2010-01-01', 9085, NULL),
-(6000036, 1000008, 2000083, '2010-01-01', 10275, NULL),
-(6000037, 1000008, 2000083, '2010-01-01', 13000, NULL),
-(6000038, 1000003, 2000084, '2010-01-01', 9984, NULL),
-(6000039, 1000003, 2000084, '2010-01-01', 4177, NULL),
-(6000040, 1000004, 2000087, '2010-01-01', 5392, NULL),
-(6000041, 1000005, 2000087, '2010-01-01', 5120, NULL),
-(6000042, 1000005, 2000087, '2010-01-01', 4777, NULL),
-(6000043, 1000005, 2000087, '2010-01-01', 4623, NULL),
-(6000044, 1000006, 2000088, '2010-01-01', 1232, NULL),
-(6000045, 1000006, 2000088, '2010-01-01', 224, NULL),
-(6000046, 1000006, 2000088, '2010-01-01', 1975, NULL),
-(6000047, 1000006, 2000088, '2010-01-01', 1742, NULL),
-(6000048, 1000006, 2000088, '2010-01-01', 1548, NULL),
-(6000049, 1000006, 2000088, '2010-01-01', 1377, NULL),
-(6000050, 1000006, 2000088, '2010-01-01', 112, NULL),
-(6000051, 1000004, 2000086, '2010-01-01', 1627, NULL),
-(6000052, 1000004, 2000086, '2010-01-01', 1900, NULL),
-(6000053, 1000004, 2000086, '2010-01-01', 2142, NULL),
-(6000054, 1000004, 2000086, '2010-01-01', 4121, NULL),
-(6000055, 1000004, 2000086, '2010-01-01', 3666, NULL),
-(6000056, 1000004, 2000086, '2010-01-01', 2926, NULL),
-(6000057, 1000004, 2000086, '2010-01-01', 1672, NULL),
-(6000058, 1000004, 2000085, '2010-01-01', 2788, NULL),
-(6000059, 1000004, 2000085, '2010-01-01', 5480, NULL),
-(6000060, 1000004, 2000085, '2010-01-01', 5905, NULL),
-(6000061, 1000004, 2000085, '2010-01-01', 5402, NULL),
-(6000062, 1000004, 2000085, '2010-01-01', 6550, NULL),
-(6000063, 1000004, 2000085, '2010-01-01', 6576, NULL),
-(6000064, 1000004, 2000085, '2010-01-01', 5851, NULL),
-(6000065, 1000004, 2000085, '2010-01-01', 6444, NULL),
-(6000066, 1000004, 2000085, '2010-01-01', 5712, NULL),
-(6000067, 1000006, 2000089, '2010-01-01', 1064, NULL),
-(6000068, 1000006, 2000089, '2010-01-01', 1121, NULL),
-(6000069, 1000006, 2000089, '2010-01-01', 1256, NULL),
-(6000070, 1000006, 2000089, '2010-01-01', 1748, NULL),
-(6000071, 1000006, 2000089, '2010-01-01', 716, NULL),
-(6000072, 1000006, 2000089, '2010-01-01', 1015, NULL),
-(6000073, 1000006, 2000089, '2010-01-01', 985, NULL),
-(6000074, 1000006, 2000089, '2010-01-01', 1031, NULL),
-(6000226, 1000012, 2000089, '2013-09-25', 999999, '0.567');
+(6000003, 1000014, 2000072, '2013-06-19', 12870, '0.25160'),
+(6000004, 1000014, 2000072, '2013-06-19', 9155, '0.25160'),
+(6000005, 1000014, 2000072, '2013-06-19', 13610, '0.25160'),
+(6000006, 1000014, 2000072, '2013-06-19', 8705, '0.25160'),
+(6000007, 1000014, 2000072, '2013-06-19', 13505, '0.25160'),
+(6000008, 1000014, 2000072, '2013-06-19', 9325, '0.25160'),
+(6000009, 1000014, 2000072, '2013-06-19', 14205, '0.25160'),
+(6000010, 1000014, 2000072, '2013-12-31', 12890, '0.25160'),
+(6000011, 1000019, 2000073, '2013-12-31', 6000, '0.00000'),
+(6000012, 1000019, 2000073, '2013-12-31', 6390, '0.00000'),
+(6000013, 1000019, 2000073, '2013-12-31', 300, '0.00000'),
+(6000014, 1000020, 2000074, '2013-12-31', 6695, '0.00000'),
+(6000015, 1000020, 2000074, '2013-12-31', 6795, '0.00000'),
+(6000016, 1000020, 2000074, '2013-12-31', 6855, '0.00000'),
+(6000017, 1000020, 2000074, '2013-12-31', 5875, '0.00000'),
+(6000018, 1000021, 2000075, '2013-12-31', 25420, '0.34930'),
+(6000019, 1000021, 2000075, '2013-12-31', 15920, '0.34930'),
+(6000020, 1000015, 2000076, '2013-06-18', 8570, '0.23790'),
+(6000021, 1000015, 2000076, '2013-06-18', 13105, '0.23790'),
+(6000022, 1000015, 2000076, '2013-06-18', 13790, '0.23790'),
+(6000023, 1000015, 2000076, '2013-06-18', 8955, '0.23790'),
+(6000024, 1000015, 2000076, '2013-06-18', 8815, '0.23790'),
+(6000025, 1000015, 2000076, '2013-06-18', 13435, '0.23790'),
+(6000026, 1000015, 2000076, '2013-06-18', 7220, '0.23790'),
+(6000027, 1000021, 2000078, '2013-12-31', 9000, '0.34930'),
+(6000028, 1000021, 2000079, '2013-12-31', 2000, '0.34930'),
+(6000029, 1000014, 2000080, '2013-06-26', 10975, '0.25160'),
+(6000030, 1000014, 2000080, '2013-06-26', 12790, '0.25160'),
+(6000031, 1000014, 2000080, '2013-06-26', 8665, '0.25160'),
+(6000032, 1000014, 2000080, '2013-06-26', 6280, '0.25160'),
+(6000033, 1000019, 2000081, '2013-12-31', 6260, '0.00000'),
+(6000034, 1000019, 2000081, '2013-12-31', 5190, '0.00000'),
+(6000035, 1000019, 2000081, '2013-12-31', 3260, '0.00000'),
+(6000036, 1000022, 2000082, '2013-07-15', 10380, '0.50390'),
+(6000037, 1000022, 2000082, '2013-07-15', 10580, '0.50390'),
+(6000038, 1000021, 2000083, '2013-12-31', 31600, '0.34930'),
+(6000039, 1000021, 2000083, '2013-12-31', 5700, '0.34930'),
+(6000040, 1000023, 2000084, '2013-07-15', 12500, '0.60540');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `t_productos`
---
--- Creation: Sep 30, 2013 at 12:51 PM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
 --
 
 DROP TABLE IF EXISTS `t_productos`;
@@ -857,10 +1358,6 @@ INSERT INTO `t_productos` (`id_producto`, `grupo`, `tipo`, `nombre`, `descripcio
 --
 -- Table structure for table `t_riegos`
 --
--- Creation: Aug 09, 2013 at 08:42 AM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
---
 
 DROP TABLE IF EXISTS `t_riegos`;
 CREATE TABLE IF NOT EXISTS `t_riegos` (
@@ -875,110 +1372,11 @@ CREATE TABLE IF NOT EXISTS `t_riegos` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_t_l_costes_maquinaria`
---
--- Creation: Aug 08, 2013 at 03:35 PM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
+-- Table structure for table `t_tipos_labores_OLD`
 --
 
-DROP TABLE IF EXISTS `t_t_l_costes_maquinaria`;
-CREATE TABLE IF NOT EXISTS `t_t_l_costes_maquinaria` (
-  `id_tipo_labor` int(11) NOT NULL,
-  `id_coste_maquinaria` int(11) NOT NULL,
-  `multiplicador` decimal(10,3) DEFAULT '1.000',
-  `constante` decimal(10,3) DEFAULT '0.000',
-  `posicion_formula` int(2) DEFAULT NULL,
-  PRIMARY KEY (`id_tipo_labor`,`id_coste_maquinaria`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `t_t_l_costes_maquinaria`
---
-
-INSERT INTO `t_t_l_costes_maquinaria` (`id_tipo_labor`, `id_coste_maquinaria`, `multiplicador`, `constante`, `posicion_formula`) VALUES
-(8000000, 5000000, '1.000', '0.000', 1),
-(8000000, 5000009, '1.000', '0.000', 2),
-(8000005, 5000000, '1.000', '0.000', 1),
-(8000005, 5000027, '1.000', '0.000', 2),
-(8000006, 5000000, '1.000', '0.000', 1),
-(8000006, 5000025, '1.000', '0.000', 2),
-(8000019, 5000001, '1.000', '0.000', 1),
-(8000019, 5000003, '1.000', '0.000', 2),
-(8000057, 5000001, '1.000', '0.000', 1),
-(8000057, 5000015, '1.000', '0.000', 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `t_t_l_productos`
---
--- Creation: Aug 09, 2013 at 08:42 AM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
---
-
-DROP TABLE IF EXISTS `t_t_l_productos`;
-CREATE TABLE IF NOT EXISTS `t_t_l_productos` (
-  `id_tipo_labor` int(11) NOT NULL,
-  `id_producto` int(11) NOT NULL,
-  `multiplicador` decimal(10,3) NOT NULL,
-  `constante` decimal(10,3) NOT NULL,
-  `posicion_formula` int(11) NOT NULL,
-  PRIMARY KEY (`id_tipo_labor`,`id_producto`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `t_t_l_productos`
---
-
-INSERT INTO `t_t_l_productos` (`id_tipo_labor`, `id_producto`, `multiplicador`, `constante`, `posicion_formula`) VALUES
-(8000020, 3000032, '1.000', '0.000', 1),
-(8000021, 3000039, '0.350', '0.000', 1),
-(8000021, 3000043, '3.000', '0.000', 2),
-(8000021, 3000024, '0.075', '0.000', 3);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `t_t_l_variables`
---
--- Creation: Aug 09, 2013 at 08:31 AM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
---
-
-DROP TABLE IF EXISTS `t_t_l_variables`;
-CREATE TABLE IF NOT EXISTS `t_t_l_variables` (
-  `id_tipo_labor` int(11) NOT NULL,
-  `posicion_formula` int(11) NOT NULL,
-  `valor` decimal(10,3) NOT NULL,
-  PRIMARY KEY (`id_tipo_labor`,`posicion_formula`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `t_t_l_variables`
---
-
-INSERT INTO `t_t_l_variables` (`id_tipo_labor`, `posicion_formula`, `valor`) VALUES
-(8000000, 1, '0.150'),
-(8000005, 1, '0.200'),
-(8000006, 1, '0.650'),
-(8000019, 1, '0.600'),
-(8000057, 1, '0.280');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `t_tipos_labores`
---
--- Creation: Jan 17, 2013 at 12:29 PM
--- Last update: Feb 17, 2014 at 09:33 AM
--- Last check: Feb 17, 2014 at 09:33 AM
---
-
-DROP TABLE IF EXISTS `t_tipos_labores`;
-CREATE TABLE IF NOT EXISTS `t_tipos_labores` (
+DROP TABLE IF EXISTS `t_tipos_labores_OLD`;
+CREATE TABLE IF NOT EXISTS `t_tipos_labores_OLD` (
   `id_tipo_labor` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` varchar(45) DEFAULT NULL,
   `nombre` varchar(100) DEFAULT NULL,
@@ -1016,10 +1414,10 @@ CREATE TABLE IF NOT EXISTS `t_tipos_labores` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8000090 ;
 
 --
--- Dumping data for table `t_tipos_labores`
+-- Dumping data for table `t_tipos_labores_OLD`
 --
 
-INSERT INTO `t_tipos_labores` (`id_tipo_labor`, `tipo`, `nombre`, `descripcion`, `id_coste_maquinaria_1`, `id_coste_maquinaria_2`, `id_coste_maquinaria_3`, `id_coste_maquinaria_4`, `id_coste_maquinaria_5`, `id_coste_personal`, `id_producto_1`, `id_producto_2`, `id_producto_3`, `id_producto_4`, `id_producto_5`, `variable_1`, `variable_2`, `variable_3`, `variable_4`, `variable_5`, `id_formula`) VALUES
+INSERT INTO `t_tipos_labores_OLD` (`id_tipo_labor`, `tipo`, `nombre`, `descripcion`, `id_coste_maquinaria_1`, `id_coste_maquinaria_2`, `id_coste_maquinaria_3`, `id_coste_maquinaria_4`, `id_coste_maquinaria_5`, `id_coste_personal`, `id_producto_1`, `id_producto_2`, `id_producto_3`, `id_producto_4`, `id_producto_5`, `variable_1`, `variable_2`, `variable_3`, `variable_4`, `variable_5`, `id_formula`) VALUES
 (8000000, 'Abono', 'Abonado', NULL, 5000000, 5000009, 0, 0, 0, 4000000, 0, 0, 0, 0, 0, '0.000', '0.000', '0.000', '0.000', '0.000', 7000000),
 (8000001, 'Abono', 'Abonado fondo 18-46-0', NULL, 0, 0, 0, 0, 0, 0, 3000001, 0, 0, 0, 0, '185.000', '0.000', '0.000', '0.000', '0.000', 7000001),
 (8000002, 'Abono', 'Abonado 50. Empre.', NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '6.000', '0.000', '0.000', '0.000', '0.000', 7000002),
@@ -1110,6 +1508,31 @@ INSERT INTO `t_tipos_labores` (`id_tipo_labor`, `tipo`, `nombre`, `descripcion`,
 (8000087, '', 'Vareadoras Olivelo 3 verdeo', NULL, 5000029, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '1.000', '0.000', '0.000', '0.000', '0.000', 7000000),
 (8000088, '', 'Vibradora B. Santi. Molino hora', NULL, 5000000, 5000017, 0, 0, 0, 4000000, 0, 0, 0, 0, 0, '1.000', '0.000', '0.000', '0.000', '0.000', 7000000),
 (8000089, '', 'Vibradora B. Santi. Verdo hora', NULL, 5000000, 5000017, 0, 0, 0, 4000000, 0, 0, 0, 0, 0, '1.000', '0.000', '0.000', '0.000', '0.000', 7000000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t_t_l_variables_OLD`
+--
+
+DROP TABLE IF EXISTS `t_t_l_variables_OLD`;
+CREATE TABLE IF NOT EXISTS `t_t_l_variables_OLD` (
+  `id_tipo_labor` int(11) NOT NULL,
+  `posicion_formula` int(11) NOT NULL,
+  `valor` decimal(10,3) NOT NULL,
+  PRIMARY KEY (`id_tipo_labor`,`posicion_formula`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `t_t_l_variables_OLD`
+--
+
+INSERT INTO `t_t_l_variables_OLD` (`id_tipo_labor`, `posicion_formula`, `valor`) VALUES
+(8000000, 1, '0.150'),
+(8000005, 1, '0.200'),
+(8000006, 1, '0.650'),
+(8000019, 1, '0.600'),
+(8000057, 1, '0.280');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
