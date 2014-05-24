@@ -17,14 +17,14 @@
         
             for (var i=0; i<meteo.length; i++){
                 
-                var background = 'bg-color-yellow';
+                var background = 'bg-color-grey';
 
                 if(meteo[i].estado==='Despejado'){
                     background = 'bg-color-orange';
                 }else if(meteo[i].estado==='Nublado'){
-                    background = 'bg-color-blueDark';
+                    background = 'bg-color-magenta';
                 }else if(meteo[i].estado==='NyC'){
-                    background = 'bg-color-blueLight';
+                    background = 'bg-color-green';
                 }
 
                 events[i] = {

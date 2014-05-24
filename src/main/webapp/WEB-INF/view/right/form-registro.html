@@ -3,7 +3,7 @@
 
 <div class="row" th:inline="text">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <h2 class="page-title txt-color-blueDark" ><i class="icon-textfield"></i> [[${registro.id_orden_compra} ? #{registro-id(${#numbers.formatInteger(registro.id_orden_compra,3,'NONE')})} : #{nuevo-registro}]]</h2>
+        <h2 class="page-title" ><i class="icon-textfield"></i> [[${registro.id_orden_compra} ? #{registro-id(${#numbers.formatInteger(registro.id_orden_compra,3,'NONE')})} : #{nuevo-registro}]]</h2>
     </div>
 </div>
     

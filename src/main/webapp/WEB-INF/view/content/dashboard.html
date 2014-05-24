@@ -204,11 +204,13 @@
 
                  for (var i=0; i<labores.length; i++){
 
-                    var background = 'bg-color-darken';
+                    var background = 'bg-color-grey';
+                    if('abonado'===labores[i].grupo) background = 'bg-color-red-magenta';
                     if('tratamiento'===labores[i].grupo) background = 'bg-color-red';
                     if('preparacion'===labores[i].grupo) background = 'bg-color-magenta';
-                    if('cultivo'===labores[i].grupo) background = 'bg-color-orange';
-                    if('otros'===labores[i].grupo) background = 'bg-color-blueDark';
+                    if('siembra'===labores[i].grupo) background = 'bg-color-orange';
+                    if('mano de obra'===labores[i].grupo) background = 'bg-color-yellow-green';
+                    if('otros'===labores[i].grupo) background = 'bg-color-yellow';
                     if('riego'===labores[i].grupo) background = 'bg-color-blue';
                     if('recoleccion'===labores[i].grupo) background = 'bg-color-green';
 

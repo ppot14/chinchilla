@@ -37,7 +37,7 @@ Util.getRainbowColors = function(num){
         
         var i = Math.round(360*h/num);
         
-        colors[h] = tinycolor('hsl(' + i + ',' + '60' + '%,' + '60' + '%)').toHexString();
+        colors[h] = tinycolor('hsl(' + i + ',' + '90' + '%,' + '60' + '%)').toHexString();
     }
     
     return colors;
