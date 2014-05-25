@@ -2,6 +2,8 @@ package com.chinchilla.controller;
 
 import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.component.Auditor;
+import com.chinchilla.persistence.objects.Auditoria;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -49,9 +51,21 @@ public class IndexController extends AbstractController{
         
         model.addAllAttributes(modelMap);
         
-//        if(true==true) throw new NullPointerException("BOOOMMMMM!!!!!");
-        
         return "portal";
+    }
+    
+    @RequestMapping("/configuracion.html")
+    public String configuracion(Model model) throws Exception {
+
+        List<Auditoria> auditoria = auditoriaDAO.getAll();
+
+        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
+
+        modelMap.put("auditoria", auditoria);
+        
+        model.addAllAttributes(modelMap);
+        
+        return "configuracion";
     }
     
     // Error page

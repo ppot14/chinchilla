@@ -24,6 +24,7 @@
 package com.chinchilla.controller;
 
 import com.chinchilla.component.Notificador;
+import com.chinchilla.persistence.dao.AuditoriaDAO;
 import com.chinchilla.persistence.dao.CoordenadaDAO;
 import com.chinchilla.persistence.dao.CostePersonalDAO;
 import com.chinchilla.persistence.dao.CultivoDAO;
@@ -57,7 +58,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  * @author Pepe
  */
 @SessionAttributes({"parcelas","coordenadas","producciones","cultivos","ordenesCompra",
-                    "labores","maquinaria","costesPersonal","productos","meteo","electricidad"})
+                    "labores","maquinaria","costesPersonal","productos","meteo","electricidad",
+                    "auditoria"})
 public abstract class AbstractController {
 
     private static Logger log = (Logger) LoggerFactory.getLogger(AbstractController.class);
@@ -65,6 +67,10 @@ public abstract class AbstractController {
     @Autowired
     @Qualifier("notificador")
     Notificador notificador;
+    
+    @Autowired
+    @Qualifier("auditoriaDAO")
+    protected AuditoriaDAO auditoriaDAO; 
     
     @Autowired
     @Qualifier("produccionDAO")

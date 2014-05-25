@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script>/*<![CDATA[*/
+  
+    $(window).load(function () {
+        
+        tabla_opciones.aaSorting = [[ 1, "desc" ]];
+    
+        $('#tabla_auditoria').dataTable(tabla_opciones);
+        
+    });
+    
+    
+/*]]>*/</script> 
+
+<div class="row" th:inline="text">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title" ><i class="icon-menu"></i> [[#{menu}]]</h1>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+    </div>
+</div>
+
+   <!-- row -->
+    <div class="row" th:inline="text">
+
+        <!-- NEW WIDGET START -->
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#configuracion" data-toggle="tab"><i class="icon-cog"></i> [[#{configuracion}]]</a></li>
+              <li><a href="#auditoria" data-toggle="tab"><i class="icon-rawaccesslogs"></i> [[#{auditoria}]]</a></li>
+              <li><a href="#sobre" data-toggle="tab"><i class="icon-info-sign"></i> [[#{sobre}]]</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="configuracion">
+                    <div class="well">Ninguna configuración disponible</div>
+                </div>
+                <div class="tab-pane fade" id="auditoria">
+                    <table id="tabla_auditoria" class="table table-striped table-hover table-condensed">
+                        <!--class="table table-stripped table-bordered table-hover table-condensed"-->
+                        <thead>
+                            <tr>
+                              <th>[[#{id-auditoria}]]</th>
+                              <th>[[#{fecha}]]</th>
+                              <th>[[#{tipo}]]</th>
+                              <th>[[#{codigo}]]</th>
+                              <th>[[#{mensaje}]]</th>
+                              <th>[[#{descripcion}]]</th>
+                              <th>[[#{log}]]</th>
+                              <th>[[#{elemento}]]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr  th:each="auditoria_item : ${auditoria}">
+                              <td>[[${auditoria_item.id_auditoria}]]</td>
+                              <td>[[${#dates.format(auditoria_item.fecha_evento,'dd/MM/yyyy')}]]</td>
+                              <td>[[${auditoria_item.tipo_evento}]]</td>
+                              <td>[[${auditoria_item.codigo}]]</td>
+                              <td>[[${auditoria_item.mensaje}]]</td>
+                              <td>[[${auditoria_item.descripcion}]]</td>
+                              <td>[[${auditoria_item.log}]]</td>
+                              <td>[[${auditoria_item.id_objeto}]]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="sobre"><div class="jumbotron" th:inline="text">
+                    <div class="container">
+                      <h1>[[#{chinchilla}]]</h1>
+                      <p>[[#{aplicacion-gestion-agricola}]]</p>
+                      <p>
+                          <a class="btn btn-primary btn-lg" th:href="@{/portal.html}" id="menu-parcelas">
+                          <span class="glyphicon glyphicon-home"></span> [[#{comenzar}]]
+                        </a>
+
+                      </p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+</html>

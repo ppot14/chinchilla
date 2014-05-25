@@ -22,6 +22,10 @@
 		<put-attribute name="inc_content" value="content/dashboard"/>
 	</definition>
 
+	<definition name="configuracion" extends="template">
+		<put-attribute name="inc_content" value="content/configuracion"/>
+	</definition>
+
 	<definition name="error" extends="template">
 		<put-attribute name="inc_content" value="content/error"/>
 	</definition>
