@@ -29,6 +29,12 @@ Util.randomRange = function(min, max) {
     
 };
 
+Util.getRandomColor = function(){
+    
+    return tinycolor('hsl(' + Math.round(360*Math.random()) + ',' + '90' + '%,' + '60' + '%)').toHexString();
+    
+};
+
 Util.getRainbowColors = function(num){
     
     var colors = new Array();

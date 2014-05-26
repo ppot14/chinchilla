@@ -29,7 +29,7 @@ public class MeteorologiaController extends AbstractController{
     @RequestMapping("/calendario.html")
     public String calendario(Model model) throws Exception {
         
-        //TODO obtener datos de la base de datos
+        long startTime = System.currentTimeMillis();
 
         List<Meteorologia> meteo = meteorologiaDAO.getAll();
 
@@ -38,7 +38,10 @@ public class MeteorologiaController extends AbstractController{
         modelMap.put("meteo", meteo);
         
         model.addAllAttributes(modelMap);
-        
+       
+        long endTime = System.currentTimeMillis();
+       
+        log.info(getClass()+".calendario execution time: " + (endTime-startTime) + "ms");
 
         return "meteorologia-calendario";
     }

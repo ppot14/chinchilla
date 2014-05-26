@@ -43,6 +43,8 @@ public class ProduccionesController extends AbstractController{
     
     @RequestMapping("/tabla.html")
     public String tabla(Model model) throws Exception {
+        
+        long startTime = System.currentTimeMillis();
 
         List<Produccion> producciones = produccionDAO.getAll();
 
@@ -59,6 +61,10 @@ public class ProduccionesController extends AbstractController{
         modelMap.put("parcelas", parcelas);
         
         model.addAllAttributes(modelMap);
+       
+        long endTime = System.currentTimeMillis();
+       
+        log.info(getClass()+".tabla execution time: " + (endTime-startTime) + "ms");
 
         return "producciones-tabla";
     }

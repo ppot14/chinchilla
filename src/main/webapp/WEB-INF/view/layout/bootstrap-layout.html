@@ -3,6 +3,7 @@
       xmlns:tiles="http://www.thymeleaf.org">
     <head>
         <!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>-->
+        <!--CDN-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
         <script src="/resources/js/i18next-1.7.2.min.js" th:src="@{/resources/js/i18next-1.7.2.min.js}"></script>
@@ -20,27 +21,76 @@
         /*]]>*/</script>
         <script src="/resources/js/jquery.ui.datepicker-es.js" th:src="@{/resources/js/jquery.ui.datepicker-es.js}"></script> 
 <!--        <script src="/resources/js/datatable/jquery.dataTables.min.js" th:src="@{/resources/js/datatable/jquery.dataTables.min.js}"></script> -->
+	<script src="http://cdn.jsdelivr.net/jquery.datatables/1.9.4/js/jquery.dataTables.min.js"></script>
+        <!--<script src="/resources/js/datatable/dataTables.colReorder.min.js" th:src="@{/resources/js/datatable/dataTables.colReorder.min.js}"></script>--> 
+        <!--<script src="/resources/js/datatable/dataTables.colVis.min.js" th:src="@{/resources/js/datatable/dataTables.colVis.min.js}"></script>--> 
+        <!--<script src="/resources/js/datatable/dataTables.fixedColumns.min.js" th:src="@{/resources/js/datatable/dataTables.fixedColumns.min.js}"></script>--> 
+        <!--<script src="/resources/js/datatable/dataTables.tableTools.min.js" th:src="@{/resources/js/datatable/dataTables.tableTools.min.js}"></script>-->
+        <script src="/resources/js/datatable/dataTables.bootstrap.js" th:src="@{/resources/js/datatable/dataTables.bootstrap.js}"></script> 
+        <script src="/resources/js/datatable/dataTables.extended.es.js" th:src="@{/resources/js/datatable/dataTables.extended.es.js}"></script> 
+        <script src="http://cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.min.js"></script>
+        <!--<script th:src="@{/resources/js/flot/jquery.flot.fillbetween.min.js}"></script>-->
+        <!--<script th:src="@{/resources/js/flot/jquery.flot.orderBar.min.js}"></script>-->
+        <script src="http://cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.pie.min.js"></script>
+        <script src="http://cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.time.min.js"></script>
+        <!--<script th:src="@{/resources/js/flot/jquery.flot.resize.min.js}"></script>-->
+        <!--<script th:src="@{/resources/js/flot/jquery.flot.tooltip.min.js}"></script>-->
+        <script src="http://cdn.jsdelivr.net/jquery.validation/1.12.0/jquery.validate.min.js"></script> 
+        <script src="http://cdn.jsdelivr.net/jquery.validation/1.12.0/additional-methods.min.js"></script> 
+        <script src="http://cdn.jsdelivr.net/select2/3.4.8/select2.min.js"></script> 
+        <script src="http://cdn.jsdelivr.net/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="http://cdn.jsdelivr.net/globalize/0.1.1/globalize.min.js"></script> 
+        <script src="http://cdn.jsdelivr.net/globalize/0.1.1/cultures/globalize.culture.es-ES.js"></script>
+        <script src="http://cdn.jsdelivr.net/pnotify/1.3.1/jquery.pnotify.min.js"></script>
+	<script src="http://cdn.jsdelivr.net/tinycolor/0.9.16/tinycolor-min.js"></script>
+	<script src="/resources/js/utilities.js" th:src="@{/resources/js/utilities.js}"></script>
+        
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootswatch/3.1.1/lumen/bootstrap.min.css"/>
+        <link rel="stylesheet" href="http://cdn.jsdelivr.net/fontawesome/4.1.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/resources/css/whhg.css" th:href="@{/resources/css/whhg.css}" media="all"/>
+        <!--<link rel="stylesheet" type="text/css" href="/resources/css/dataTables.tableTools.css" th:href="@{/resources/css/dataTables.tableTools.css}" media="screen"/>-->
+        <link rel="stylesheet" type="text/css" href="/resources/css/dataTables.bootstrap.css" th:href="@{/resources/css/dataTables.bootstrap.css}" media="screen"/>
+        <!--<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/e9421181788/integration/bootstrap/3/dataTables.bootstrap.css"/>-->
+        <link rel="stylesheet" href="http://cdn.jsdelivr.net/pnotify/1.3.1/jquery.pnotify.default.css"/>
+        <link rel="stylesheet" type="text/css" href="/resources/css/jquery.pnotify.default.icons.css" th:href="@{/resources/css/jquery.pnotify.default.icons.css}"/>
+        <link rel="stylesheet" type="text/css" href="/resources/css/specific.css" th:href="@{/resources/css/specific.css}"/>
+        <link rel="icon" type="image/ico" href="/resources/favicon.ico" th:href="@{/resources/favicon.ico}"/>
+        
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700"/>
+        
+        <!--LOCAL-->
+<!--	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        <script src="/resources/js/i18next-1.7.2.min.js" th:src="@{/resources/js/i18next-1.7.2.min.js}"></script>
+        <script th:inline="javascript">/*<![CDATA[*/
+            /*
+             * i18next for javascript
+             */
+            var lang = navigator.language || navigator.userLanguage;
+
+//            console.debug("lang: "+lang);
+            var clientSideResources = /*[[@{/resources/}]]*/null;
+            i18n.init({resGetPath: clientSideResources+'__ns__-__lng__.json',
+                         ns: 'messages',
+                         lng: lang });
+        /*]]>*/</script>
+        <script src="/resources/js/jquery.ui.datepicker-es.js" th:src="@{/resources/js/jquery.ui.datepicker-es.js}"></script> 
+        <script src="/resources/js/datatable/jquery.dataTables.min.js" th:src="@{/resources/js/datatable/jquery.dataTables.min.js}"></script> 
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/jquery.dataTables.min.js"></script>
         <script src="/resources/js/datatable/dataTables.colReorder.min.js" th:src="@{/resources/js/datatable/dataTables.colReorder.min.js}"></script> 
         <script src="/resources/js/datatable/dataTables.colVis.min.js" th:src="@{/resources/js/datatable/dataTables.colVis.min.js}"></script> 
         <script src="/resources/js/datatable/dataTables.fixedColumns.min.js" th:src="@{/resources/js/datatable/dataTables.fixedColumns.min.js}"></script> 
         <script src="/resources/js/datatable/dataTables.tableTools.min.js" th:src="@{/resources/js/datatable/dataTables.tableTools.min.js}"></script>
         <script src="/resources/js/datatable/dataTables.bootstrap.js" th:src="@{/resources/js/datatable/dataTables.bootstrap.js}"></script> 
-        <!-- Datatabel 1.10-->
-<!--	<script src="http://cdn.datatables.net/1.10.0/js/jquery.dataTables.min.js"></script>
-	<script src="http://cdn.datatables.net/colvis/1.1.0/js/dataTables.colVis.min.js"></script>
-	<script src="http://cdn.datatables.net/fixedcolumns/3.0.1/js/dataTables.fixedColumns.min.js"></script>
-	<script src="http://cdn.datatables.net/fixedheader/2.1.1/js/dataTables.fixedHeader.min.js"></script>
-	<script src="http://cdn.datatables.net/tabletools/2.2.1/js/dataTables.tableTools.min.js"></script>
-        <script src="http://cdn.datatables.net/plug-ins/e9421181788/integration/bootstrap/3/dataTables.bootstrap.js"></script>-->
+         Datatabel 1.10
         <script src="/resources/js/datatable/dataTables.extended.es.js" th:src="@{/resources/js/datatable/dataTables.extended.es.js}"></script> 
         <script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.min.js"></script>
-        <!--<script th:src="@{/resources/js/flot/jquery.flot.fillbetween.min.js}"></script>-->
-        <!--<script th:src="@{/resources/js/flot/jquery.flot.orderBar.min.js}"></script>-->
+        <script th:src="@{/resources/js/flot/jquery.flot.fillbetween.min.js}"></script>
+        <script th:src="@{/resources/js/flot/jquery.flot.orderBar.min.js}"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.pie.min.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.time.min.js"></script>
-        <!--<script th:src="@{/resources/js/flot/jquery.flot.resize.min.js}"></script>-->
-        <!--<script th:src="@{/resources/js/flot/jquery.flot.tooltip.min.js}"></script>-->
+        <script th:src="@{/resources/js/flot/jquery.flot.resize.min.js}"></script>
+        <script th:src="@{/resources/js/flot/jquery.flot.tooltip.min.js}"></script>
         <script src="/resources/js/jquery.validate.js" th:src="@{/resources/js/jquery.validate.js}"></script> 
         <script src="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.6/select2.min.js"></script> 
         <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -56,13 +106,14 @@
         <link rel="stylesheet" type="text/css" href="/resources/css/whhg.css" th:href="@{/resources/css/whhg.css}" media="all"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/dataTables.tableTools.css" th:href="@{/resources/css/dataTables.tableTools.css}" media="screen"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/dataTables.bootstrap.css" th:href="@{/resources/css/dataTables.bootstrap.css}" media="screen"/>
-        <!--<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/e9421181788/integration/bootstrap/3/dataTables.bootstrap.css"/>-->
+        <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/e9421181788/integration/bootstrap/3/dataTables.bootstrap.css"/>
         <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/pnotify/1.3.1/jquery.pnotify.default.min.css"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/jquery.pnotify.default.icons.css" th:href="@{/resources/css/jquery.pnotify.default.icons.css}"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/specific.css" th:href="@{/resources/css/specific.css}"/>
         <link rel="icon" type="image/ico" href="/resources/favicon.ico" th:href="@{/resources/favicon.ico}"/>
         
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700"/>
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700"/>-->
+        <!--LOCAL-->
         
         <title>Chinchilla</title>
     </head>

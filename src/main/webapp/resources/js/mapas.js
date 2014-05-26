@@ -315,4 +315,154 @@ MenuOverlay.prototype.toggle = function() {
     }
 };
 
+
+function createGradientMap(map, parcelas, coordenadas, data) {
+
+    var parcela;
+
+//    console.debug("parcelas_json.length " + parcelas_json.length);
+
+//    var colors = Util.getRainbowColors(parcelas_json.length);
+
+    var highestValue = 0, lowestValue = Number.MAX_VALUE;
+
+    for (var i = 0; i < data.length; i++) {
+        
+        if(data[i].value>highestValue) highestValue = data[i].value;
+        
+        if(data[i].value<lowestValue) lowestValue = data[i].value;
+
+        for (var j = 0; j < parcelas.length; j++) {
+            
+            if(parcelas[j].id_parcela === data[i].id_parcela) parcelas[j].gradientValue = data[i].value;
+
+        }
+        
+    }
+
+    for (var i = 0; i < parcelas.length; i++) {
+
+        parcela = parcelas[i];
+
+//        console.debug("parcela.nombre " + parcela.nombre);
+
+        parcela.coordenadas = extraerCoordenadas(parcela);
+
+//        console.debug("parcela.coordenadas.length " + parcela.coordenadas.length);
+
+//        console.debug("parcela.color " + parcela.color);
+
+        var color = Util.getRandomColor(parcelas[j].gradientValue);
+
+        parcela.poligono = new google.maps.Polygon({
+            paths: parcela.coordenadas,
+            strokeColor: color,
+            strokeOpacity: 0.8,
+            strokeWeight: 1,
+            fillColor: color,
+            fillOpacity: 0.35
+        });
+
+        parcela.poligono.setMap(map);
+
+        parcela.area = google.maps.geometry.spherical.computeArea(parcela.coordenadas);
+
+        parcela.perimetro = google.maps.geometry.spherical.computeLength(parcela.coordenadas);
+
+//        console.debug(parcela.nombre + ": Superficie " + (Math.round(parcela.area, 2) / 10000) + " he. Perimetro: " + (Math.round(parcela.perimetro, 2) / 1000) + " km");
+
+//        console.debug(parcela.nombre + ": Superficie " + parcela.extension + " he");
+
+        parcela.menu = crearMenuParcela(parcela);
+
+//        console.debug("menu: " + parcela.menu);
+
+        google.maps.event.addListener(parcela.poligono, 'click', function(event) {
+
+//            console.debug("menuOverlay " + menuOverlay);
+
+//            console.debug("menuOverlayParcela " + menuOverlayParcela);
+
+//            console.debug("this " + this);
+
+            var temp;
+
+            for (k = 0; k < parcelasCoordenadas.length; k++) {
+
+                temp = parcelasCoordenadas[k];
+
+//                console.debug("parcelasCoordenadas " + k + " " + temp.nombre + " " + temp.id_parcela);
+
+                if (temp.poligono === this) {
+
+                    break;
+
+                }
+
+            }
+
+//            console.debug("temp.id_parcela " + temp.id_parcela);
+
+            if (menuOverlay === null || menuOverlayParcela !== temp.id_parcela) {
+
+                if (menuOverlayParcela !== null && menuOverlayParcela !== temp.id_parcela) {
+
+                    menuOverlay.hide();
+
+                    menuOverlay = null;
+
+                    $('#menu').remove();
+
+                }
+
+                $('body').append(temp.menu);
+
+                //$('#menu').menu();
+
+//                console.debug("menu filled: " + $('#menu').html());
+
+//                var posicionM = posicionMenu(temp.coordenadas);
+
+//                console.debug("posicion menu: " + posicionM);
+
+                menuOverlay = new MenuOverlay(document.getElementById('menu'), /*posicionM*/event.latLng, map);
+
+                menuOverlayParcela = temp.id_parcela;
+
+                /*google.maps.event.addListener(menuOverlay, 'mouseout', function() {
+                 
+                 menuOverlay.hide();
+                 
+                 google.maps.event.clearListeners(menuOverlay,'mouseout');
+                 
+                 });*/
+
+//                console.debug("menu showing...");
+
+                menuOverlay.show();
+
+            } else {
+
+//                console.debug("menu hiding...");
+
+                menuOverlay.hide();
+
+                menuOverlay = null;
+
+                menuOverlayParcela = null;
+
+                $('#menu').remove();
+
+                //google.maps.event.clearListeners(menuOverlay,'mouseout');
+
+            }
+
+        });
+
+        parcelasCoordenadas[i] = parcela;
+
+    }
+    
+}
+
 /*]]>*/
