@@ -316,9 +316,29 @@ MenuOverlay.prototype.toggle = function() {
 };
 
 
-function createGradientMap(map, parcelas, coordenadas, data) {
+function extractCoordinates(parcela, coordenadas) {
 
-    var parcela;
+    var coordenadasParcela;
+
+    for (var j = 0; j < coordenadas.length; j++) {
+
+        var coordenada = coordenadas[j];
+
+        if (coordenada.id_parcela === parcela.id_parcela) {
+
+            coordenadasParcela[coordenada.orden - 1] = new google.maps.LatLng(coordenada.latitud, coordenada.longitud);
+
+        }
+
+    }
+
+    return coordenadasParcela;
+
+}
+
+function createGradientMap(map, parcelas, coordenadas, data) {
+    
+    var granularidadValores = 10;
 
 //    console.debug("parcelas_json.length " + parcelas_json.length);
 
@@ -326,140 +346,60 @@ function createGradientMap(map, parcelas, coordenadas, data) {
 
     var highestValue = 0, lowestValue = Number.MAX_VALUE;
 
-    for (var i = 0; i < data.length; i++) {
+    for (var i in data) {
         
-        if(data[i].value>highestValue) highestValue = data[i].value;
+        if(data[i]>highestValue) highestValue = data[i];
         
-        if(data[i].value<lowestValue) lowestValue = data[i].value;
+        if(data[i]<lowestValue) lowestValue = data[i];
 
         for (var j = 0; j < parcelas.length; j++) {
             
-            if(parcelas[j].id_parcela === data[i].id_parcela) parcelas[j].gradientValue = data[i].value;
+            if(parcelas[j].id_parcela === i) parcelas[j].gradientValue = data[i];
 
         }
         
     }
 
+    var colors = Util.getGradientColors(granularidadValores);
+    
+
+    console.debug("parcelas " + parcelas);
+
+    console.debug("colors " + colors);
+
     for (var i = 0; i < parcelas.length; i++) {
 
-        parcela = parcelas[i];
+        var parcela = parcelas[i];
 
 //        console.debug("parcela.nombre " + parcela.nombre);
 
-        parcela.coordenadas = extraerCoordenadas(parcela);
+        parcela.coordenadas = extractCoordinates(parcela, coordenadas);
 
 //        console.debug("parcela.coordenadas.length " + parcela.coordenadas.length);
 
 //        console.debug("parcela.color " + parcela.color);
-
-        var color = Util.getRandomColor(parcelas[j].gradientValue);
+        var color = '#888';
+        if(parcelas[i].gradientValue)
+          color = (parcelas[i].gradientValue - lowestValue)*granularidadValores/(highestValue - lowestValue);
 
         parcela.poligono = new google.maps.Polygon({
             paths: parcela.coordenadas,
             strokeColor: color,
-            strokeOpacity: 0.8,
+            strokeOpacity: 1,
             strokeWeight: 1,
             fillColor: color,
-            fillOpacity: 0.35
+            fillOpacity: 0.9
         });
 
         parcela.poligono.setMap(map);
 
-        parcela.area = google.maps.geometry.spherical.computeArea(parcela.coordenadas);
+//        parcela.area = google.maps.geometry.spherical.computeArea(parcela.coordenadas);
 
-        parcela.perimetro = google.maps.geometry.spherical.computeLength(parcela.coordenadas);
+//        parcela.perimetro = google.maps.geometry.spherical.computeLength(parcela.coordenadas);
 
 //        console.debug(parcela.nombre + ": Superficie " + (Math.round(parcela.area, 2) / 10000) + " he. Perimetro: " + (Math.round(parcela.perimetro, 2) / 1000) + " km");
 
 //        console.debug(parcela.nombre + ": Superficie " + parcela.extension + " he");
-
-        parcela.menu = crearMenuParcela(parcela);
-
-//        console.debug("menu: " + parcela.menu);
-
-        google.maps.event.addListener(parcela.poligono, 'click', function(event) {
-
-//            console.debug("menuOverlay " + menuOverlay);
-
-//            console.debug("menuOverlayParcela " + menuOverlayParcela);
-
-//            console.debug("this " + this);
-
-            var temp;
-
-            for (k = 0; k < parcelasCoordenadas.length; k++) {
-
-                temp = parcelasCoordenadas[k];
-
-//                console.debug("parcelasCoordenadas " + k + " " + temp.nombre + " " + temp.id_parcela);
-
-                if (temp.poligono === this) {
-
-                    break;
-
-                }
-
-            }
-
-//            console.debug("temp.id_parcela " + temp.id_parcela);
-
-            if (menuOverlay === null || menuOverlayParcela !== temp.id_parcela) {
-
-                if (menuOverlayParcela !== null && menuOverlayParcela !== temp.id_parcela) {
-
-                    menuOverlay.hide();
-
-                    menuOverlay = null;
-
-                    $('#menu').remove();
-
-                }
-
-                $('body').append(temp.menu);
-
-                //$('#menu').menu();
-
-//                console.debug("menu filled: " + $('#menu').html());
-
-//                var posicionM = posicionMenu(temp.coordenadas);
-
-//                console.debug("posicion menu: " + posicionM);
-
-                menuOverlay = new MenuOverlay(document.getElementById('menu'), /*posicionM*/event.latLng, map);
-
-                menuOverlayParcela = temp.id_parcela;
-
-                /*google.maps.event.addListener(menuOverlay, 'mouseout', function() {
-                 
-                 menuOverlay.hide();
-                 
-                 google.maps.event.clearListeners(menuOverlay,'mouseout');
-                 
-                 });*/
-
-//                console.debug("menu showing...");
-
-                menuOverlay.show();
-
-            } else {
-
-//                console.debug("menu hiding...");
-
-                menuOverlay.hide();
-
-                menuOverlay = null;
-
-                menuOverlayParcela = null;
-
-                $('#menu').remove();
-
-                //google.maps.event.clearListeners(menuOverlay,'mouseout');
-
-            }
-
-        });
-
-        parcelasCoordenadas[i] = parcela;
 
     }
     

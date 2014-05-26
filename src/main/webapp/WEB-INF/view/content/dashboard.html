@@ -3,7 +3,6 @@
 
     <script type="text/javascript" 
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0&amp;sensor=true&amp;libraries=geometry"></script>
-    <!--th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0(sensor=true)(libraries=geometry)}"></script>-->
     <script src="/resources/js/mapas.js" th:src="@{/resources/js/mapas.js}" th:inline="javascript"></script> 
     <script src="http://cdn.jsdelivr.net/fullcalendar/1.6.4/fullcalendar.min.js"></script>
     <style type="text/css">
@@ -47,10 +46,32 @@
                 };
 
                 var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+                
+                console.debug("map "+map);
+                
+                var producciones = /*[[${producciones}]]*/null;
+                
+                var parcelas = /*[[${parcelas}]]*/null;
+                
+                var coordenadas = /*[[${coordenadas}]]*/null;
+                
+                var data = new Array();
+                
+                for(var i = 0; i < producciones.length ; i++){
+                    if(producciones[i].id_parcela in data){
+                        data[producciones[i].id_parcela] = data[producciones[i].id_parcela] + producciones[i].kilos;
+                    }else{
+                        data[producciones[i].id_parcela] = producciones[i].kilos;
+                    }
+                }
+                
+                console.debug("data "+data);
+                
+                createGradientMap(map, parcelas, coordenadas, data);
 
             } catch (e) {
 
-                alert("Error al cargar mapa");
+                console.debug("Error al cargar mapa: "+e);
 
             }
             

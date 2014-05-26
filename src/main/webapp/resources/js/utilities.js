@@ -35,6 +35,25 @@ Util.getRandomColor = function(){
     
 };
 
+
+
+Util.getGradientColors = function(num, hue){
+    
+    var colors = new Array();
+    
+    if(!hue) hue = Math.round(Math.random()*360);
+    
+    for(var h=0 ; h < num; h++){
+        
+        var i = Math.round(100*h/num);
+        
+        colors[h] = tinycolor('hsv(' + hue + ',' + '90' + '%,' + i + '%)').toHexString();
+    }
+    
+    return colors;
+    
+};
+
 Util.getRainbowColors = function(num){
     
     var colors = new Array();

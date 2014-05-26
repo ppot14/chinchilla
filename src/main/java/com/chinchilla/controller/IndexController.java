@@ -3,6 +3,9 @@ package com.chinchilla.controller;
 import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.component.Auditor;
 import com.chinchilla.persistence.objects.Auditoria;
+import com.chinchilla.persistence.objects.Coordenada;
+import com.chinchilla.persistence.objects.Parcela;
+import com.chinchilla.persistence.objects.Produccion;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -42,14 +45,32 @@ public class IndexController extends AbstractController{
     
     @RequestMapping("/portal.html")
     public String portal(Model model) throws Exception {
-
-        List<Labor> labores = laborDAO.getAll();
+        
+        long startTime = System.currentTimeMillis();
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
+        List<Labor> labores = laborDAO.getAll();
+
+        List<Parcela> parcelas = parcelaDAO.getAll();
+        
+        List<Coordenada> coordenadas = coordenadaDAO.getAll();
+
+        List<Produccion> producciones = produccionDAO.getAll();
+
         modelMap.put("labores", labores);
+
+        modelMap.put("parcelas", parcelas);
+        
+        modelMap.put("coordenadas", coordenadas);
+
+        modelMap.put("producciones", producciones);
         
         model.addAllAttributes(modelMap);
+       
+        long endTime = System.currentTimeMillis();
+       
+        log.info(getClass()+".portal execution time: " + (endTime-startTime) + "ms");
         
         return "portal";
     }
