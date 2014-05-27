@@ -11,7 +11,7 @@
         fecha as "fecha",
         kilos as "kilos",
         precio_kilo as "precio_kilo"
-        from gonzalol_chinchilla.t_producciones 
+        from t_producciones 
         where id_produccion = #{id_produccion}
     </select>
 	
@@ -23,7 +23,7 @@
         fecha as "fecha",
         kilos as "kilos",
         precio_kilo as "precio_kilo"
-        from gonzalol_chinchilla.t_producciones 
+        from t_producciones 
         order by id_produccion
     </select>
 	
@@ -35,17 +35,17 @@
         fecha as "fecha",
         kilos as "kilos",
         precio_kilo as "precio_kilo"
-        from gonzalol_chinchilla.t_producciones 
+        from t_producciones 
         where fecha = #{fecha}
     </select>
 	
     <insert id="createProduccion" keyColumn="id_produccion" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.Produccion">
-        insert into gonzalol_chinchilla.t_producciones (id_cultivo,id_parcela,fecha,kilos,precio_kilo)
+        insert into t_producciones (id_cultivo,id_parcela,fecha,kilos,precio_kilo)
         values (#{id_cultivo},#{id_parcela},#{fecha},#{kilos},#{precio_kilo})		
     </insert>
 	
     <update id="updateProduccion" parameterType="com.chinchilla.persistence.objects.Produccion">
-        update gonzalol_chinchilla.t_producciones set id_cultivo = #{id_cultivo},
+        update t_producciones set id_cultivo = #{id_cultivo},
         id_parcela = #{id_parcela},
         fecha =#{fecha},
         kilos = #{kilos},
@@ -54,7 +54,7 @@
     </update>
 	
     <delete id="deleteProduccion" parameterType="java.lang.Integer">
-        delete from gonzalol_chinchilla.t_producciones where id_produccion = #{id_produccion}		
+        delete from t_producciones where id_produccion = #{id_produccion}		
     </delete>
 	
 	

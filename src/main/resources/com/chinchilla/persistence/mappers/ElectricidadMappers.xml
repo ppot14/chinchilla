@@ -13,7 +13,7 @@
         precio_potencia	as "precio_potencia",
         iva	as "iva",
         impuesto_electricidad	as "impuesto_electricidad"
-        from gonzalol_chinchilla.t_electricidad 
+        from t_electricidad 
         where id_electricidad = #{id_electricidad}
     </select>
 	
@@ -27,7 +27,7 @@
         precio_potencia	as "precio_potencia",
         iva	as "iva",
         impuesto_electricidad	as "impuesto_electricidad"
-        from gonzalol_chinchilla.t_electricidad 
+        from t_electricidad 
         order by id_electricidad
     </select>
 	
@@ -41,17 +41,17 @@
         precio_potencia	as "precio_potencia",
         iva	as "iva",
         impuesto_electricidad	as "impuesto_electricidad"
-        from gonzalol_chinchilla.t_electricidad 
+        from t_electricidad 
         where consumo = #{consumo}
     </select>
 	
     <insert id="createElectricidad" keyColumn="id_electricidad" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.Electricidad">
-        insert into gonzalol_chinchilla.t_electricidad (fecha_inicio, fecha_fin, consumo, precio_kw, precio_potencia, iva, impuesto_electricidad)
+        insert into t_electricidad (fecha_inicio, fecha_fin, consumo, precio_kw, precio_potencia, iva, impuesto_electricidad)
         values (#{fecha_inicio}, #{fecha_fin}, #{consumo}, #{precio_kw}, #{precio_potencia}, #{iva}, #{impuesto_electricidad})		
     </insert>
 	
     <update id="updateElectricidad" parameterType="com.chinchilla.persistence.objects.Electricidad">
-        update gonzalol_chinchilla.t_electricidad set 
+        update t_electricidad set 
         fecha_inicio	=#{fecha_inicio},
         fecha_fin	=#{fecha_fin},
         consumo	=#{consumo},
@@ -63,7 +63,7 @@
     </update>
 	
     <delete id="deleteElectricidad" parameterType="java.lang.Integer">
-        delete from gonzalol_chinchilla.t_electricidad where id_electricidad = #{id_electricidad}		
+        delete from t_electricidad where id_electricidad = #{id_electricidad}		
     </delete>
 	
 	

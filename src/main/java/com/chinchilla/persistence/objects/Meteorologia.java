@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author Pepe
  */
-public class Meteorologia implements Serializable{
+public class Meteorologia implements Serializable, Comparable{
 
     private int id_meteorologia;
     private Date fecha;
@@ -137,6 +137,11 @@ public class Meteorologia implements Serializable{
     @Override
     public String toString() {
         return "Meteorologia{" + "id_meteorologia=" + id_meteorologia + ", fecha=" + fecha + ", publio_chinchilla=" + publio_chinchilla + ", publio_osuna=" + publio_osuna + ", viento=" + viento + ", estado=" + estado + ", temp_max=" + temp_max + ", temp_min=" + temp_min + '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.fecha.compareTo(((Meteorologia)o).getFecha());
     }
     
 }

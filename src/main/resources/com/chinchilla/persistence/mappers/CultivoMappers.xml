@@ -9,7 +9,7 @@
         variedad as "variedad",
         especie as "especie",
         destino as "destino"
-        from gonzalol_chinchilla.t_cultivos 
+        from t_cultivos 
         where id_cultivo = #{id_cultivo}
     </select>
 	
@@ -19,7 +19,7 @@
         variedad as "variedad",
         especie as "especie",
         destino as "destino"
-        from gonzalol_chinchilla.t_cultivos 
+        from t_cultivos 
         order by id_cultivo
     </select>
 	
@@ -29,24 +29,24 @@
         variedad as "variedad",
         especie as "especie",
         destino as "destino"
-        from gonzalol_chinchilla.t_cultivos 
+        from t_cultivos 
         where especie = #{especie}
     </select>
 	
     <insert id="createCultivo" keyColumn="id_cultivo" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.Cultivo">
-        insert into gonzalol_chinchilla.t_cultivos (variedad,especie,destino)
+        insert into t_cultivos (variedad,especie,destino)
         values (#{variedad},#{especie},#{destino})		
     </insert>
 	
     <update id="updateCultivo" parameterType="com.chinchilla.persistence.objects.Cultivo">
-        update gonzalol_chinchilla.t_cultivos set variedad = #{variedad},
+        update t_cultivos set variedad = #{variedad},
         especie = #{especie},
         destino =#{destino}
         where id_cultivo = #{id_cultivo}		
     </update>
 	
     <delete id="deleteCultivo" parameterType="java.lang.Integer">
-        delete from gonzalol_chinchilla.t_cultivos where id_cultivo = #{id_cultivo}		
+        delete from t_cultivos where id_cultivo = #{id_cultivo}		
     </delete>
 	
 	

@@ -235,26 +235,26 @@
         pe.nombre	as "lpe_pe_nombre",
         pe.apellidos	as "lpe_pe_apellidos"
         
-        from gonzalol_chinchilla.t_labores  l
-            left join gonzalol_chinchilla.t_labores_parcelas lpa
+        from t_labores  l
+            left join t_labores_parcelas lpa
                 on l.id_labor = lpa.id_labor
-            left join gonzalol_chinchilla.t_parcelas pa
+            left join t_parcelas pa
                 on lpa.id_parcela = pa.id_parcela
         
-            left join gonzalol_chinchilla.t_l_costes_maquinaria lcm
+            left join t_l_costes_maquinaria lcm
                 on l.id_labor = lcm.id_labor
-            left join gonzalol_chinchilla.t_costes_maquinaria cm
+            left join t_costes_maquinaria cm
                 on lcm.id_coste_maquinaria = cm.id_coste_maquinaria
-            left join gonzalol_chinchilla.t_l_productos lp
+            left join t_l_productos lp
                 on l.id_labor = lp.id_labor
-            left join gonzalol_chinchilla.t_productos tp
+            left join t_productos tp
                 on lp.id_producto = tp.id_producto
         
-            left join gonzalol_chinchilla.t_l_costes_personal lpe
+            left join t_l_costes_personal lpe
                 on l.id_labor = lpe.id_labor
-            left join gonzalol_chinchilla.t_costes_personal cpe
+            left join t_costes_personal cpe
                 on lpe.id_coste_personal = cpe.id_coste_personal
-            left join gonzalol_chinchilla.t_personal pe
+            left join t_personal pe
                 on lpe.id_personal = pe.id_personal
         where l.id_labor = #{id_labor}
     </select>
@@ -268,7 +268,7 @@
         cantidad_dosis_por_ha as "cantidad_dosis_por_ha", 
         duracion as "duracion", 
         litros_gasoil as "litros_gasoil"
-        from gonzalol_chinchilla.t_labores 
+        from t_labores 
         order by id_labor
     </select>-->
     
@@ -357,26 +357,26 @@
         pe.nombre	as "lpe_pe_nombre",
         pe.apellidos	as "lpe_pe_apellidos"
         
-        from gonzalol_chinchilla.t_labores  l
-            left join gonzalol_chinchilla.t_labores_parcelas lpa
+        from t_labores  l
+            left join t_labores_parcelas lpa
                 on l.id_labor = lpa.id_labor
-            left join gonzalol_chinchilla.t_parcelas pa
+            left join t_parcelas pa
                 on lpa.id_parcela = pa.id_parcela
         
-            left join gonzalol_chinchilla.t_l_costes_maquinaria lcm
+            left join t_l_costes_maquinaria lcm
                 on l.id_labor = lcm.id_labor
-            left join gonzalol_chinchilla.t_costes_maquinaria cm
+            left join t_costes_maquinaria cm
                 on lcm.id_coste_maquinaria = cm.id_coste_maquinaria
-            left join gonzalol_chinchilla.t_l_productos lp
+            left join t_l_productos lp
                 on l.id_labor = lp.id_labor
-            left join gonzalol_chinchilla.t_productos tp
+            left join t_productos tp
                 on lp.id_producto = tp.id_producto
         
-            left join gonzalol_chinchilla.t_l_costes_personal lpe
+            left join t_l_costes_personal lpe
                 on l.id_labor = lpe.id_labor
-            left join gonzalol_chinchilla.t_costes_personal cpe
+            left join t_costes_personal cpe
                 on lpe.id_coste_personal = cpe.id_coste_personal
-            left join gonzalol_chinchilla.t_personal pe
+            left join t_personal pe
                 on lpe.id_personal = pe.id_personal
     </select>
 	
@@ -392,8 +392,8 @@
         litros_gasoil as "litros_gasoil",
         coste_fijo_total as "l_coste_fijo_total",
         descripcion as "l_descripcion"
-        FROM gonzalol_chinchilla.t_labores tl
-        LEFT JOIN gonzalol_chinchilla.t_labores_parcelas lp 
+        FROM t_labores tl
+        LEFT JOIN t_labores_parcelas lp 
         ON tl.id_labor = lp.id_labor
         WHERE id_parcela =  #{id_parcela}
     </select>
@@ -410,7 +410,7 @@
         extension as "litros_gasoil",
         coste_fijo_total as "l_coste_fijo_total",
         descripcion as "l_descripcion"
-        from gonzalol_chinchilla.t_labores 
+        from t_labores 
         where nombre = #{nombre}
     </select>
 	
@@ -438,8 +438,8 @@
         cm.horas_cambio_aceite	as	"cm_horas_cambio_aceite"	,
         cm.litros_aceite	as	"cm_litros_aceite"	
         
-        from gonzalol_chinchilla.t_l_costes_maquinaria lcm
-            left join gonzalol_chinchilla.t_costes_maquinaria cm
+        from t_l_costes_maquinaria lcm
+            left join t_costes_maquinaria cm
                 on lcm.id_coste_maquinaria = cm.id_coste_maquinaria
         
         order by id_labor, posicion_formula        
@@ -449,12 +449,12 @@
         <selectKey resultType="int" keyProperty="id_labor" order="AFTER" >
             SELECT LAST_INSERT_ID() as id_labor
           </selectKey>
-          insert into gonzalol_chinchilla.t_labores (grupo, nombre, fecha_comienzo, fecha_fin, cantidad_dosis_por_ha, duracion, litros_gasoil, coste_fijo_total, descripcion)
+          insert into t_labores (grupo, nombre, fecha_comienzo, fecha_fin, cantidad_dosis_por_ha, duracion, litros_gasoil, coste_fijo_total, descripcion)
         values (#{grupo}, #{nombre}, #{fecha_comienzo}, #{fecha_fin}, #{cantidad_dosis_por_ha}, #{duracion}, #{litros_gasoil}, #{coste_fijo_total}, #{descripcion})		
     </insert>
 	
     <update id="updateLabor" parameterType="com.chinchilla.persistence.objects.Labor">
-        update gonzalol_chinchilla.t_labores set 
+        update t_labores set 
         grupo = #{grupo}, 
         nombre = #{nombre}, 
         fecha_comienzo = #{fecha_comienzo}, 
@@ -468,11 +468,11 @@
     </update>
 	
     <delete id="deleteLabor" parameterType="java.lang.Integer">
-        delete from gonzalol_chinchilla.t_labores where id_labor = #{id_labor}		
+        delete from t_labores where id_labor = #{id_labor}		
     </delete>
 	
     <insert id="createLaborMaquinaria" parameterType="java.util.List">
-        insert into gonzalol_chinchilla.t_l_costes_maquinaria (id_labor, id_coste_maquinaria, posicion_formula)
+        insert into t_l_costes_maquinaria (id_labor, id_coste_maquinaria, posicion_formula)
         values
         <foreach item="item"  index="index" collection="list" separator=","> 
                (#{item.id_labor}, #{item.maquinaria.id_coste_maquinaria}, #{item.posicion_formula})
@@ -480,11 +480,11 @@
     </insert>
 	
     <delete id="deleteLaborMaquinaria" parameterType="java.lang.Integer">
-        delete from gonzalol_chinchilla.t_l_costes_maquinaria where id_labor = #{id_labor}		
+        delete from t_l_costes_maquinaria where id_labor = #{id_labor}		
     </delete>
 	
     <insert id="createLaborPersonal" parameterType="java.util.List">
-        insert into gonzalol_chinchilla.t_l_costes_personal (id_labor, id_coste_personal, posicion_formula)
+        insert into t_l_costes_personal (id_labor, id_coste_personal, posicion_formula)
         values
         <foreach item="item"  index="index" collection="list" separator=","> 
                (#{item.id_labor}, #{item.coste_personal.id_coste_personal}, #{item.posicion_formula})
@@ -492,11 +492,11 @@
     </insert>
 	
     <delete id="deleteLaborPersonal" parameterType="java.lang.Integer">
-        delete from gonzalol_chinchilla.t_l_costes_personal where id_labor = #{id_labor}		
+        delete from t_l_costes_personal where id_labor = #{id_labor}		
     </delete>
 	
     <insert id="createLaborParcela" parameterType="java.util.List">
-        insert into gonzalol_chinchilla.t_labores_parcelas (id_labor, id_parcela, posicion_formula)
+        insert into t_labores_parcelas (id_labor, id_parcela, posicion_formula)
         values
         <foreach item="item"  index="index" collection="list" separator=","> 
                (#{item.id_labor}, #{item.parcela.id_parcela}, #{item.posicion_formula})
@@ -504,11 +504,11 @@
     </insert>
 	
     <delete id="deleteLaborParcela" parameterType="java.lang.Integer">
-        delete from gonzalol_chinchilla.t_labores_parcelas where id_labor = #{id_labor}		
+        delete from t_labores_parcelas where id_labor = #{id_labor}		
     </delete>
 	
     <insert id="createLaborProducto" parameterType="java.util.List">
-        insert into gonzalol_chinchilla.t_l_productos (id_labor, id_producto, multiplicador, posicion_formula)
+        insert into t_l_productos (id_labor, id_producto, multiplicador, posicion_formula)
         values
         <foreach item="item"  index="index" collection="list" separator=","> 
                (#{item.id_labor}, #{item.producto.id_producto}, #{item.multiplicador}, #{item.posicion_formula})
@@ -516,7 +516,7 @@
     </insert>
 	
     <delete id="deleteLaborProducto" parameterType="java.lang.Integer">
-        delete from gonzalol_chinchilla.t_l_productos where id_labor = #{id_labor}		
+        delete from t_l_productos where id_labor = #{id_labor}		
     </delete>
 	
 	

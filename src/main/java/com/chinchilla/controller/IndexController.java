@@ -4,9 +4,11 @@ import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.component.Auditor;
 import com.chinchilla.persistence.objects.Auditoria;
 import com.chinchilla.persistence.objects.Coordenada;
+import com.chinchilla.persistence.objects.Meteorologia;
 import com.chinchilla.persistence.objects.Parcela;
 import com.chinchilla.persistence.objects.Produccion;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -58,6 +60,10 @@ public class IndexController extends AbstractController{
 
         List<Produccion> producciones = produccionDAO.getAll();
 
+        List<Meteorologia> meteo = meteorologiaDAO.getAll();
+        
+        Collections.sort(meteo);
+
         modelMap.put("labores", labores);
 
         modelMap.put("parcelas", parcelas);
@@ -65,6 +71,8 @@ public class IndexController extends AbstractController{
         modelMap.put("coordenadas", coordenadas);
 
         modelMap.put("producciones", producciones);
+
+        modelMap.put("meteo", meteo);
         
         model.addAllAttributes(modelMap);
        

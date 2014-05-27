@@ -52,7 +52,7 @@ html {
 #map_canvas{
     height:400px;
     width:100%;
-    min-width: 280px;
+    min-width: 200px;
     /*-moz-border-radius: 5px;
     border-radius: 5px;
     border: 1px solid #888;

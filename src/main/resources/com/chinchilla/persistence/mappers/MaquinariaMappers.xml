@@ -20,7 +20,7 @@
         litros_cv_y_hora	as	"litros_cv_y_hora"	,
         horas_cambio_aceite	as	"horas_cambio_aceite"	,
         litros_aceite	as	"litros_aceite"	
-        from gonzalol_chinchilla.t_costes_maquinaria 
+        from t_costes_maquinaria 
         where id_coste_maquinaria = #{id_coste_maquinaria}
     </select>
 	
@@ -41,7 +41,7 @@
         litros_cv_y_hora	as	"litros_cv_y_hora"	,
         horas_cambio_aceite	as	"horas_cambio_aceite"	,
         litros_aceite	as	"litros_aceite"	
-        from gonzalol_chinchilla.t_costes_maquinaria 
+        from t_costes_maquinaria 
         order by id_coste_maquinaria
     </select>
 	
@@ -62,17 +62,17 @@
         litros_cv_y_hora	as	"litros_cv_y_hora"	,
         horas_cambio_aceite	as	"horas_cambio_aceite"	,
         litros_aceite	as	"litros_aceite"	
-        from gonzalol_chinchilla.t_costes_maquinaria 
+        from t_costes_maquinaria 
         where nombre = #{nombre}
     </select>
 	
     <insert id="createMaquinaria" keyColumn="id_coste_maquinaria" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.Maquinaria">
-        insert into gonzalol_chinchilla.t_costes_maquinaria (id_tipo_coste_maquinaria, nombre, tipo, valor_compra, valor_desecho, horas_trabajo, interes, anyos_mas_1, reparacion_variable, alojamiento_variable, prima_seguro, cv, litros_cv_y_hora, horas_cambio_aceite, litros_aceite)
+        insert into t_costes_maquinaria (id_tipo_coste_maquinaria, nombre, tipo, valor_compra, valor_desecho, horas_trabajo, interes, anyos_mas_1, reparacion_variable, alojamiento_variable, prima_seguro, cv, litros_cv_y_hora, horas_cambio_aceite, litros_aceite)
         values (#{id_tipo_coste_maquinaria}, #{nombre}, #{tipo}, #{valor_compra}, #{valor_desecho}, #{horas_trabajo}, #{interes}, #{anyos_mas_1}, #{reparacion_variable}, #{alojamiento_variable}, #{prima_seguro}, #{cv}, #{litros_cv_y_hora}, #{horas_cambio_aceite}, #{litros_aceite})		
     </insert>
 	
     <update id="updateMaquinaria" parameterType="com.chinchilla.persistence.objects.Maquinaria">
-        update gonzalol_chinchilla.t_costes_maquinaria set 
+        update t_costes_maquinaria set 
         nombre	=	#{nombre}, 
         tipo	=	#{tipo}, 
         valor_compra	=	#{valor_compra}, 
@@ -91,7 +91,7 @@
     </update>
 	
     <delete id="deleteMaquinaria" parameterType="java.lang.Integer">
-        delete from gonzalol_chinchilla.t_costes_maquinaria where id_coste_maquinaria = #{id_coste_maquinaria}		
+        delete from t_costes_maquinaria where id_coste_maquinaria = #{id_coste_maquinaria}		
     </delete>
 	
 	

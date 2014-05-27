@@ -41,13 +41,15 @@ Util.getGradientColors = function(num, hue){
     
     var colors = new Array();
     
-    if(!hue) hue = Math.round(Math.random()*360);
+    if(!hue) hue = Math.round(Math.random()*18)*20+6;
+    
+    if(hue>360) hue = hue - 360;
     
     for(var h=0 ; h < num; h++){
         
         var i = Math.round(100*h/num);
         
-        colors[h] = tinycolor('hsv(' + hue + ',' + '90' + '%,' + i + '%)').toHexString();
+        colors[h] = tinycolor('hsv(' + hue + ',' + i + '%,' + '100' + '%)').toHexString();
     }
     
     return colors;

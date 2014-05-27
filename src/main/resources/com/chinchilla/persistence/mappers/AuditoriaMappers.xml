@@ -13,7 +13,7 @@
         descripcion as "descripcion",
         log as "log",
         id_objeto as "id_objeto"
-        from gonzalol_chinchilla.t_auditoria 
+        from t_auditoria 
         where id_auditoria = #{id_auditoria}
     </select>
 	
@@ -27,7 +27,7 @@
         descripcion as "descripcion",
         log as "log",
         id_objeto as "id_objeto"
-        from gonzalol_chinchilla.t_auditoria 
+        from t_auditoria 
     </select>
 	
     <select id="getAuditoriaPorNombre" parameterType="int" resultType="com.chinchilla.persistence.objects.Auditoria">
@@ -40,17 +40,17 @@
         descripcion as "descripcion",
         log as "log",
         id_objeto as "id_objeto"
-        from gonzalol_chinchilla.t_auditoria 
+        from t_auditoria 
         where fecha_evento = #{fecha_evento}
     </select>
 	
     <insert id="createAuditoria" keyColumn="id_auditoria" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.Auditoria">
-        insert into gonzalol_chinchilla.t_auditoria (fecha_evento,tipo_evento,codigo,mensaje,descripcion,log,id_objeto)
+        insert into t_auditoria (fecha_evento,tipo_evento,codigo,mensaje,descripcion,log,id_objeto)
         values (#{fecha_evento},#{tipo_evento},#{codigo},#{mensaje},#{descripcion},#{log},#{id_objeto})		
     </insert>
 	
     <update id="updateAuditoria" parameterType="com.chinchilla.persistence.objects.Auditoria">
-        update gonzalol_chinchilla.t_auditoria set fecha_evento = #{fecha_evento},
+        update t_auditoria set fecha_evento = #{fecha_evento},
         tipo_evento = #{tipo_evento},
         codigo =#{codigo},
         mensaje = #{mensaje},
@@ -61,7 +61,7 @@
     </update>
 	
     <delete id="deleteAuditoria" parameterType="java.lang.Integer">
-        delete from gonzalol_chinchilla.t_auditoria where id_auditoria = #{id_auditoria}		
+        delete from t_auditoria where id_auditoria = #{id_auditoria}		
     </delete>
 	
 	

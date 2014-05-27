@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-    <script type="text/javascript" 
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0&amp;sensor=true&amp;libraries=geometry"></script>
+<head>  
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0&amp;sensor=true&amp;libraries=geometry"></script>
     <script src="/resources/js/mapas.js" th:src="@{/resources/js/mapas.js}" th:inline="javascript"></script> 
     <script src="http://cdn.jsdelivr.net/fullcalendar/1.6.4/fullcalendar.min.js"></script>
     <style type="text/css">
@@ -38,16 +39,18 @@
             //Mapa Widget
             
             try {
+                
+                //Señorio new google.maps.LatLng(37.326381, -5.208788)
 
                 var mapOptions = {
-                    center: new google.maps.LatLng(37.326381, -5.208788),
-                    zoom: 18,
+                    center: new google.maps.LatLng(37.323677, -5.200524),
+                    zoom: 13,
                     mapTypeId: google.maps.MapTypeId.SATELLITE
                 };
 
                 var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
                 
-                console.debug("map "+map);
+//                console.debug("map "+map);
                 
                 var producciones = /*[[${producciones}]]*/null;
                 
@@ -55,17 +58,28 @@
                 
                 var coordenadas = /*[[${coordenadas}]]*/null;
                 
-                var data = new Array();
+//                console.debug("producciones "+JSON.stringify(producciones));
+                
+//                console.debug("parcelas "+JSON.stringify(parcelas));
+                
+                var data = new Object();
                 
                 for(var i = 0; i < producciones.length ; i++){
-                    if(producciones[i].id_parcela in data){
-                        data[producciones[i].id_parcela] = data[producciones[i].id_parcela] + producciones[i].kilos;
+                    var idParcelaString = "";
+                    for(var j = 0; j < parcelas.length ; j++){
+                        if(parcelas[j].id_parcela === producciones[i].id_parcela){
+                            idParcelaString = parcelas[j].nombre; break;
+                        }
+                    }
+//                    console.debug(idParcelaString+" {"+data+"}");
+                    if(idParcelaString in data){
+                        data[idParcelaString] = data[idParcelaString] + producciones[i].kilos;
                     }else{
-                        data[producciones[i].id_parcela] = producciones[i].kilos;
+                        data[idParcelaString] = producciones[i].kilos;
                     }
                 }
                 
-                console.debug("data "+data);
+//                console.debug("data "+JSON.stringify(data));
                 
                 createGradientMap(map, parcelas, coordenadas, data);
 
@@ -281,10 +295,63 @@
                              agenda: 'H:mm{ - H:mm}'
                      }
                  });
+                 
+                 
+                    //Temperatura y Lluvias Widget
+                    
+                    var meteo = /*[[${meteo}]]*/null;
+
+                    var today=new Date();
+                    today.setDate(today.getDate()+1);
+                    var lastXdays=new Date();
+                    lastXdays.setDate(today.getDate()-365);
+
+                   var publioData = new Array();
+                   var tempMaxData = new Array();
+                   var tempMinData = new Array();
+
+                   for(var i=0; i<meteo.length; i++){
+                       var tempDay = new Date(meteo[i].fecha.time);
+                        if(lastXdays < tempDay && tempDay < today){
+                             publioData.push([tempDay, meteo[i].publio_chinchilla]);
+                             tempMaxData.push([tempDay, meteo[i].temp_max]);
+                             tempMinData.push([tempDay, meteo[i].temp_min]);
+                        }
+                   }     
+
+                    var opciones_tiempo = {
+                                                xaxis : {
+                                                    mode : "time",
+                                                    timeformat: "%m-%y",
+        //                                                tickLength : 5,
+                                                        min: lastXdays.getTime(),
+                                                        max: today.getTime()
+                                                },
+                                                yaxes: [ { min: 0 }, { position: "right" } ],
+                                                grid : {
+                                                        hoverable : true,
+                                                        clickable : true,
+                                                        tickColor : "#efefef",
+                                                        borderWidth : 0,
+                                                        borderColor : "#efefef",
+                                                },
+                                                colors : ["#50CE35","#EF3E4F","#365FA4"]
+                                            };
+
+                    var plot = $.plot($("#raintemperaturetimebarchart"), [
+                                        { data: publioData, label: "Litros", bars : {show : true, barWidth : 24 * 60 * 60 * 1000, fill : true} , yaxis:1 },
+                                        { data: tempMaxData, label: "TempMax", lines: { show: true } , yaxis:2 },
+                                        { data: tempMinData, label: "TempMin", lines: { show: true } , yaxis:2 }
+                                ], opciones_tiempo); 
 
           });
 
     /*]]>*/</script> 
+    
+        <title>Dashboard</title>
+    
+</head>
+<body>
 
     <div class="row" th:inline="text">
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
@@ -307,7 +374,7 @@
                     </div>
 
                     <div class="panel-body">
-                        <div id="map_canvas" ></div>
+                        <div id="map_canvas" style="height:200px;"></div>
                     </div>
 
                 </div>
@@ -330,6 +397,17 @@
 
                     <div class="panel-body">
                         <div id="gasoiltimebarchart" class="chart" ></div>
+                    </div>
+
+                </div>
+
+                <div class="panel panel-primary panel-module">
+                    <div class="panel-heading">
+                        <h2 class="pull-left"><i class="icon-rain"></i> [[#{meteorologia}]]</h2>
+                    </div>
+
+                    <div class="panel-body">
+                        <div id="raintemperaturetimebarchart" class="chart" ></div>
                     </div>
 
                 </div>
@@ -362,5 +440,7 @@
     
     <!--<script src="/resources/js/salvattore.min.js" th:src="@{/resources/js/salvattore.min.js}" th:inline="javascript"></script>--> 
     <script src="/resources/js/salvattore.js" th:src="@{/resources/js/salvattore.js}" th:inline="javascript"></script> 
+
+</body>
 
 </html>

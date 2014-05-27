@@ -16,7 +16,7 @@
         fecha	as "fecha",
         fecha_albaran	as "fecha_albaran",
         nota	as "nota"	
-        from gonzalol_chinchilla.t_ordenes_compra 
+        from t_ordenes_compra 
         where id_orden_compra = #{id_orden_compra}
     </select>
 	
@@ -33,7 +33,7 @@
         fecha	as "fecha",
         fecha_albaran	as "fecha_albaran",
         nota	as "nota"	
-        from gonzalol_chinchilla.t_ordenes_compra 
+        from t_ordenes_compra 
         order by id_orden_compra
     </select>
 	
@@ -50,17 +50,17 @@
         fecha	as "fecha",
         fecha_albaran	as "fecha_albaran",
         nota	as "nota"	
-        from gonzalol_chinchilla.t_ordenes_compra 
+        from t_ordenes_compra 
         where nombre = #{nombre}
     </select>
 	
     <insert id="createOrdenCompra" keyColumn="id_orden_compra" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.OrdenCompra">
-        insert into gonzalol_chinchilla.t_ordenes_compra ( id_elemento, num_factura, cantidad, precio, total, marca, proveedor, fecha, fecha_albaran, nota)
+        insert into t_ordenes_compra ( id_elemento, num_factura, cantidad, precio, total, marca, proveedor, fecha, fecha_albaran, nota)
         values ( #{id_elemento}, #{num_factura}, #{cantidad}, #{precio}, #{total}, #{marca}, #{proveedor}, #{fecha}, #{fecha_albaran}, #{nota})		
     </insert>
 	
     <update id="updateOrdenCompra" parameterType="com.chinchilla.persistence.objects.OrdenCompra">
-        update gonzalol_chinchilla.t_ordenes_compra set  
+        update t_ordenes_compra set  
         id_elemento	= #{id_elemento},
         num_factura	= #{num_factura},
         cantidad	= #{cantidad},
@@ -75,7 +75,7 @@
     </update>
 	
     <delete id="deleteOrdenCompra" parameterType="java.lang.Integer">
-        delete from gonzalol_chinchilla.t_ordenes_compra where id_orden_compra = #{id_orden_compra}		
+        delete from t_ordenes_compra where id_orden_compra = #{id_orden_compra}		
     </delete>
 	
 	

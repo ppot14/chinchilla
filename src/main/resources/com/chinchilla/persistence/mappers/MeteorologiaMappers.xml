@@ -13,7 +13,7 @@
         estado as "estado",
         temp_max as "temp_max",
         temp_min as "temp_min"
-        from gonzalol_chinchilla.t_meteo 
+        from t_meteo 
         where id_meteo = #{id_meteo}
     </select>
 	
@@ -27,7 +27,7 @@
         estado as "estado",
         temp_max as "temp_max",
         temp_min as "temp_min"
-        from gonzalol_chinchilla.t_meteo 
+        from t_meteo 
     </select>
 	
     <select id="getMeteorologiaPorNombre" parameterType="int" resultType="com.chinchilla.persistence.objects.Meteorologia">
@@ -40,17 +40,17 @@
         estado as "estado",
         temp_max as "temp_max",
         temp_min as "temp_min"
-        from gonzalol_chinchilla.t_meteo 
+        from t_meteo 
         where fecha = #{fecha}
     </select>
 	
     <insert id="createMeteorologia" keyColumn="id_meteo" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.Meteorologia">
-        insert into gonzalol_chinchilla.t_meteo (fecha,publio_chinchilla,publio_osuna,viento,estado,temp_max,temp_min)
+        insert into t_meteo (fecha,publio_chinchilla,publio_osuna,viento,estado,temp_max,temp_min)
         values (#{fecha},#{publio_chinchilla},#{publio_osuna},#{viento},#{estado},#{temp_max},#{temp_min})		
     </insert>
 	
     <update id="updateMeteorologia" parameterType="com.chinchilla.persistence.objects.Meteorologia">
-        update gonzalol_chinchilla.t_meteo set fecha = #{fecha},
+        update t_meteo set fecha = #{fecha},
         publio_chinchilla = #{publio_chinchilla},
         publio_osuna =#{publio_osuna},
         viento = #{viento},
@@ -61,7 +61,7 @@
     </update>
 	
     <delete id="deleteMeteorologia" parameterType="java.lang.Integer">
-        delete from gonzalol_chinchilla.t_meteo where id_meteo = #{id_meteo}		
+        delete from t_meteo where id_meteo = #{id_meteo}		
     </delete>
 	
 	

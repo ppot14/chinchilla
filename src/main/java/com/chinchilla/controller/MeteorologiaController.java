@@ -1,6 +1,7 @@
 package com.chinchilla.controller;
 
 import com.chinchilla.persistence.objects.Meteorologia;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,8 @@ public class MeteorologiaController extends AbstractController{
         long startTime = System.currentTimeMillis();
 
         List<Meteorologia> meteo = meteorologiaDAO.getAll();
+        
+        Collections.sort(meteo);
 
         Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 

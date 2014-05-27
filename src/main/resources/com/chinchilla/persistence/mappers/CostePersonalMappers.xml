@@ -18,7 +18,7 @@
         horas_dia	as "horas_dia",
         validez_inicio	as "validez_inicio",
         validez_fin	as "validez_fin"	
-        from gonzalol_chinchilla.t_costes_personal 
+        from t_costes_personal 
         where id_coste_personal = #{id_coste_personal}
     </select>
 	
@@ -37,7 +37,7 @@
         horas_dia	as "horas_dia",
         validez_inicio	as "validez_inicio",
         validez_fin	as "validez_fin"	
-        from gonzalol_chinchilla.t_costes_personal 
+        from t_costes_personal 
         order by id_coste_personal
     </select>
 	
@@ -56,17 +56,17 @@
         horas_dia	as "horas_dia",
         validez_inicio	as "validez_inicio",
         validez_fin	as "validez_fin"	
-        from gonzalol_chinchilla.t_costes_personal 
+        from t_costes_personal 
         where nombre = #{nombre}
     </select>
 	
     <insert id="createCostePersonal" keyColumn="id_coste_personal" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.CostePersonal">
-        insert into gonzalol_chinchilla.t_costes_personal (id_coste_personal, tipo, funcion, salario_base, paga_extra, horas_anuales, base_ssp, desempleo_pc, plus_distancia, km, horas_dia, validez_inicio, validez_fin)
+        insert into t_costes_personal (id_coste_personal, tipo, funcion, salario_base, paga_extra, horas_anuales, base_ssp, desempleo_pc, plus_distancia, km, horas_dia, validez_inicio, validez_fin)
         values (#{id_coste_personal}, #{tipo}, #{funcion}, #{salario_base}, #{paga_extra}, #{horas_anuales}, #{base_ssp}, #{desempleo_pc}, #{plus_distancia}, #{km}, #{horas_dia}, #{validez_inicio}, #{validez_fin})		
     </insert>
 	
     <update id="updateCostePersonal" parameterType="com.chinchilla.persistence.objects.CostePersonal">
-        update gonzalol_chinchilla.t_costes_personal set  
+        update t_costes_personal set  
         tipo	= #{tipo},
         funcion	= #{funcion},
         salario_base	= #{salario_base},
@@ -83,7 +83,7 @@
     </update>
 	
     <delete id="deleteCostePersonal" parameterType="java.lang.Integer">
-        delete from gonzalol_chinchilla.t_costes_personal where id_coste_personal = #{id_coste_personal}		
+        delete from t_costes_personal where id_coste_personal = #{id_coste_personal}		
     </delete>
 	
 	

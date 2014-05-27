@@ -44,27 +44,6 @@
         
 //        console.debug('events '+JSON.stringify(events));
         
-//        var events = [{
-//                        title: 'All Day Event',
-//                        start: new Date(y, m, 1),
-//                        description: 'long description',
-//                        className: ["event", "bg-color-greenLight"],
-//                        icon: 'fa-check'
-//                    }, {
-//                        id: 999,
-//                        title: 'Repeating Event',
-//                        start: new Date(y, m, d + 4, 16, 0),
-//                        allDay: false,
-//                        className: ["event", "bg-color-blue"],
-//                        icon: 'fa-clock-o'
-//                    }, {
-//                        title: 'Lunch',
-//                        start: new Date(y, m, d, 12, 0),
-//                        end: new Date(y, m, d, 14, 0),
-//                        allDay: false,
-//                        className: ["event", "bg-color-darken"]
-//                    }];
-        
         $('#calendar').fullCalendar({
                 events: events,
                 firstDay :1,
@@ -99,6 +78,57 @@
 			agenda: 'H:mm{ - H:mm}'
 		}
             });
+            
+            
+            
+            
+            
+            //Temperatura y Lluvias Widget
+            
+            var today=new Date();
+            today.setDate(today.getDate()+1);
+            var lastXdays=new Date();
+            lastXdays.setDate(today.getDate()-365);
+            
+           var publioData = new Array();
+           var tempMaxData = new Array();
+           var tempMinData = new Array();
+           
+           for(var i=0; i<meteo.length; i++){
+               var tempDay = new Date(meteo[i].fecha.time);
+                if(lastXdays < tempDay && tempDay < today){
+                     publioData.push([tempDay, meteo[i].publio_chinchilla]);
+                     tempMaxData.push([tempDay, meteo[i].temp_max]);
+                     tempMinData.push([tempDay, meteo[i].temp_min]);
+                }
+           }     
+           
+            var opciones_tiempo = {
+                                        xaxis : {
+                                            mode : "time",
+                                            timeformat: "%m-%y",
+//                                                tickLength : 5,
+                                                min: lastXdays.getTime(),
+                                                max: today.getTime()
+                                        },
+                                        yaxes: [ { min: 0 }, { position: "right" } ],
+                                        grid : {
+                                                hoverable : true,
+                                                clickable : true,
+                                                tickColor : "#efefef",
+                                                borderWidth : 0,
+                                                borderColor : "#efefef",
+                                        },
+                                        colors : ["#50CE35","#EF3E4F","#365FA4"]
+                                    };
+                
+            var plot = $.plot($("#raintemperaturetimebarchart"), [
+				{ data: publioData, label: "Litros", bars : {show : true, barWidth : 24 * 60 * 60 * 1000, fill : true} , yaxis:1 },
+				{ data: tempMaxData, label: "TempMax", lines: { show: true } , yaxis:2 },
+				{ data: tempMinData, label: "TempMin", lines: { show: true } , yaxis:2 }
+			], opciones_tiempo); 
+            
+            
         
     });
     
@@ -128,6 +158,26 @@
             <div class="panel-body">
 
                     <div id="calendar"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <div class="panel panel-primary panel-module">
+            
+            <div class="panel-heading">
+
+                    <h2><i class="icon-statistics"></i> [[#{estadisticas}]]</h2>	
+
+            </div>
+
+            <div class="panel-body">
+
+                    <div id="raintemperaturetimebarchart" class="chart" style="height:400px"></div>
 
             </div>
 

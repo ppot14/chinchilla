@@ -12,7 +12,7 @@
         extension as "extension",
         cultivo_fijo as "cultivo_fijo",
         color as "color"
-        from gonzalol_chinchilla.t_parcelas 
+        from t_parcelas 
         where id_parcela = #{id_parcela}
     </select>
 	
@@ -25,7 +25,7 @@
         extension as "extension",
         cultivo_fijo as "cultivo_fijo",
         color as "color"
-        from gonzalol_chinchilla.t_parcelas 
+        from t_parcelas 
     </select>
 	
     <select id="getParcelaPorNombre" parameterType="int" resultType="com.chinchilla.persistence.objects.Parcela">
@@ -37,17 +37,17 @@
         extension as "extension",
         cultivo_fijo as "cultivo_fijo",
         color as "color"
-        from gonzalol_chinchilla.t_parcelas 
+        from t_parcelas 
         where nombre = #{nombre}
     </select>
 	
     <insert id="createParcela" keyColumn="id_parcela" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.Parcela">
-        insert into gonzalol_chinchilla.t_parcelas (nombre,nombre_corto,zona,extension,cultivo_fijo,color)
+        insert into t_parcelas (nombre,nombre_corto,zona,extension,cultivo_fijo,color)
         values (#{nombre},#{nombre_corto},#{zona},#{extension},#{cultivo_fijo},#{color})		
     </insert>
 	
     <update id="updateParcela" parameterType="com.chinchilla.persistence.objects.Parcela">
-        update gonzalol_chinchilla.t_parcelas set nombre = #{nombre},
+        update t_parcelas set nombre = #{nombre},
         nombre_corto = #{nombre_corto},
         zona =#{zona},
         extension = #{extension},
@@ -57,7 +57,7 @@
     </update>
 	
     <delete id="deleteParcela" parameterType="java.lang.Integer">
-        delete from gonzalol_chinchilla.t_parcelas where id_parcela = #{id_parcela}		
+        delete from t_parcelas where id_parcela = #{id_parcela}		
     </delete>
 	
 	

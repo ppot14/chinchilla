@@ -318,7 +318,7 @@ MenuOverlay.prototype.toggle = function() {
 
 function extractCoordinates(parcela, coordenadas) {
 
-    var coordenadasParcela;
+    var coordenadasParcela = new Array();
 
     for (var j = 0; j < coordenadas.length; j++) {
 
@@ -354,18 +354,20 @@ function createGradientMap(map, parcelas, coordenadas, data) {
 
         for (var j = 0; j < parcelas.length; j++) {
             
-            if(parcelas[j].id_parcela === i) parcelas[j].gradientValue = data[i];
+            if(parcelas[j].nombre === i) parcelas[j].gradientValue = data[i];
 
         }
         
     }
 
+//    console.debug("highestValue " + highestValue + ", lowestValue " + lowestValue);
+
     var colors = Util.getGradientColors(granularidadValores);
     
 
-    console.debug("parcelas " + parcelas);
+//    console.debug("parcelas " + JSON.stringify(parcelas));
 
-    console.debug("colors " + colors);
+//    console.debug("colors " + colors);
 
     for (var i = 0; i < parcelas.length; i++) {
 
@@ -378,9 +380,12 @@ function createGradientMap(map, parcelas, coordenadas, data) {
 //        console.debug("parcela.coordenadas.length " + parcela.coordenadas.length);
 
 //        console.debug("parcela.color " + parcela.color);
-        var color = '#888';
-        if(parcelas[i].gradientValue)
-          color = (parcelas[i].gradientValue - lowestValue)*granularidadValores/(highestValue - lowestValue);
+        var color = '#333';
+        if(parcelas[i].gradientValue){
+            var index = ((parcelas[i].gradientValue - lowestValue)*(granularidadValores-1))/(highestValue - lowestValue);
+            color = colors[Math.round(index)];
+//            console.debug("nombre "+parcelas[i].nombre+", gradientValue "+parcelas[i].gradientValue+", index " + index+ ", color " + color);
+        }
 
         parcela.poligono = new google.maps.Polygon({
             paths: parcela.coordenadas,
