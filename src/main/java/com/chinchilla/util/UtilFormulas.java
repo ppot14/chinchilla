@@ -27,6 +27,7 @@ import com.chinchilla.persistence.objects.CostePersonal;
 import com.chinchilla.persistence.objects.Electricidad;
 import com.chinchilla.persistence.objects.Labor;
 import com.chinchilla.persistence.objects.LaborMaquinaria;
+import com.chinchilla.persistence.objects.LaborParcela;
 import com.chinchilla.persistence.objects.LaborPersonal;
 import com.chinchilla.persistence.objects.LaborProducto;
 import com.chinchilla.persistence.objects.Maquinaria;
@@ -384,6 +385,59 @@ public class UtilFormulas {
         
         return costeHora;
         
+    }
+    
+    public static double costeParcela(int id_parcela, List<Labor> labores, List<OrdenCompra> registros, List<Electricidad> electricidad){
+        return costeParcela(id_parcela, labores, registros, electricidad, null, null);
+    }
+    
+    public static double costeParcela(int id_parcela, List<Labor> labores, List<OrdenCompra> registros, List<Electricidad> electricidad, Date fecha_ini, Date fecha_fin){
+        
+        double costeParcela = 0;
+        
+        try{
+                
+        double extensionParcela = 0;
+        
+        for(Labor labor: labores){
+            
+            if ( (fecha_ini==null || fecha_ini.after(labor.getFecha_comienzo()) ) &&
+                  (fecha_fin==null || fecha_fin.before(labor.getFecha_comienzo()) )  ){
+            
+                double extensionTotal = 0;
+
+                double costeLabor = 0;
+                
+                boolean found = false;
+
+                for(LaborParcela laborParcela: labor.getLabor_parcela()){
+
+                    extensionTotal += laborParcela.getParcela().getExtension();
+
+                    if(laborParcela.getParcela().getId_parcela() == id_parcela){
+
+                        costeLabor = costeLabor(registros, electricidad, labor, labores);
+
+                        extensionParcela = laborParcela.getParcela().getExtension();
+                        
+                        found = true;
+
+                    }
+                }
+
+                if(found) costeParcela += (costeLabor*extensionParcela)/extensionTotal;
+            
+            }
+        }
+        log.trace("costeParcela - "+id_parcela+" costeParcela: "+costeParcela+" extensionParcela: "+extensionParcela);
+        
+        }catch(Exception e){
+            
+            log.error("Imposible calcular costeParcela, valor por defecto 0: "+e);
+            
+        }
+        
+        return costeParcela;
     }
     
 }

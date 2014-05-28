@@ -48,18 +48,36 @@ public class ParcelasController extends AbstractController{
     
     @RequestMapping("/mapa.html")
     public String mapa(Model model) throws Exception {
+        
+        long startTime = System.currentTimeMillis();
+
+        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
         List<Parcela> parcelas = parcelaDAO.getAll();
         
         List<Coordenada> coordenadas = coordenadaDAO.getAll();
-
-        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
+        
+        List<Labor> labores = laborDAO.getAll();
+        
+       List<Electricidad> electricidad = electricidadDAO.getAll();
+        
+       List<OrdenCompra> ordenesCompra = ordenCompraDAO.getAll();
 
         modelMap.put("parcelas", parcelas);
         
         modelMap.put("coordenadas", coordenadas);
+
+        modelMap.put("ordenesCompra", ordenesCompra);
+
+        modelMap.put("electricidad", electricidad);
+
+        modelMap.put("labores", labores);
         
         model.addAllAttributes(modelMap);
+       
+        long endTime = System.currentTimeMillis();
+       
+        log.info(getClass()+".mapa execution time: " + (endTime-startTime) + "ms");
 
         return "parcelas-mapa";
     }
@@ -74,6 +92,8 @@ public class ParcelasController extends AbstractController{
     
     @RequestMapping(value = "/mapa/labores/tabla.html",params = {"id"}, method=RequestMethod.GET)
     public String mapaLaboresTabla(@RequestParam(value = "id") Integer id_parcela, Model model) throws Exception {
+
+        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
         
         List<Parcela> parcelas = parcelaDAO.getAll();
         
@@ -84,8 +104,6 @@ public class ParcelasController extends AbstractController{
        List<Electricidad> electricidad = electricidadDAO.getAll();
         
        List<OrdenCompra> ordenesCompra = ordenCompraDAO.getAll();
-
-        Map<String, Object> modelMap = new LinkedHashMap<String, Object>();
 
         modelMap.put("ordenesCompra", ordenesCompra);
 

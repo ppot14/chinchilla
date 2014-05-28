@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
+    <head>
+        
     <script type="text/javascript" 
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0&amp;sensor=true&amp;libraries=geometry"></script>
     <!--th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyCpAR-D51JR7dd4EXPDxp0j7gUv6kXpSP0(sensor=true)(libraries=geometry)}"></script>-->
@@ -122,6 +124,10 @@
         });
 
         /*]]>*/</script> 
+    
+        <title>Mapa Parcelas</title>
+    </head>
+    <body>
 
     <div class="row" th:inline="text">
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
@@ -175,6 +181,7 @@
                                 <th>[[#{extension}]]</th>
                                 <th>[[#{cultivo-fijo}]]</th>
                                 <th>[[#{color}]]</th>
+                                <th>[[#{coste}]]</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -186,6 +193,7 @@
                                 <td class="text-align-right">[[${#numbers.formatDecimal(parcela_item.extension,1,'POINT',2,'COMMA')}]]</td>
                                 <td>[[${parcela_item.cultivo_fijo}]]</td>
                                 <td th:style="${'color: #'+parcela_item.color}">[[${parcela_item.color}]]</td>
+                                <td class="text-align-right txt-color-red">[[${#numbers.formatDecimal(T(com.chinchilla.util.UtilFormulas).costeParcela(parcela_item.id_parcela, labores, ordenesCompra, electricidad),1,'POINT',2,'COMMA')}]]</td>
                             </tr>
                         </tbody>
                             <tfoot>
@@ -197,6 +205,7 @@
                                   <th class="text-align-right"></th>
                                   <th></th>
                                   <th></th>
+                                  <th class="text-align-right"></th>
                                 </tr>
                             </tfoot>
                     </table>
@@ -206,5 +215,7 @@
             </div>
         </div>
     </div>
+    
+    </body>
 
 </html>

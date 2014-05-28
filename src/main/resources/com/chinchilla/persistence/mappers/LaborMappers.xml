@@ -54,6 +54,7 @@
         <id property="id_parcela" column="id_parcela"/>
         <result property="nombre" column="nombre"/>
         <result property="nombre_corto" column="nombre_corto"/>
+        <result property="zona" column="zona"/>
         <result property="extension" column="extension"/>
         <result property="cultivo_fijo" column="cultivo_fijo"/>
         <result property="color" column="color"/>
@@ -170,7 +171,8 @@
         pa.id_parcela as "lpa_pa_id_parcela",         
         pa.nombre	as	"lpa_pa_nombre"	,
         pa.nombre_corto	as	"lpa_pa_nombre_corto"	,
-        pa.extension	as	"lpa_pa_valor_extension"	,
+        pa.zona 	as	"lpa_pa_zona"	,
+        pa.extension	as	"lpa_pa_extension"	,
         pa.cultivo_fijo	as	"lpa_pa_cultivo_fijo"	,
         pa.color	as	"lpa_pa_color"	,
         
@@ -292,7 +294,8 @@
         pa.id_parcela as "lpa_pa_id_parcela",         
         pa.nombre	as	"lpa_pa_nombre"	,
         pa.nombre_corto	as	"lpa_pa_nombre_corto"	,
-        pa.extension	as	"lpa_pa_valor_extension"	,
+        pa.zona	as	"lpa_pa_zona"	,
+        pa.extension	as	"lpa_pa_extension"	,
         pa.cultivo_fijo	as	"lpa_pa_cultivo_fijo"	,
         pa.color	as	"lpa_pa_color"	,
         
