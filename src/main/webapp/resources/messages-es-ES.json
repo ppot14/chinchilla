@@ -1,18 +1,75 @@
-{
-"equals" : "Igual",
-"not-equals" : "Distinto",
-"contains" : "Contiene",
-"not-contains" : "No contiene",
-"starts" : "Empieza con",
-"ends" : "Termina con",
-"less" : "Menor que",
-"before" : "Antes de",
-"greater" : "Mayor que",
-"after" : "Despues de",
-"less-equal" : "Menor o igual que",
-"before-and" : "Antes de/Y",
-"greater-equal" : "Mayor o igual que",
-"after-and" : "Despues de/Y",
-"between" : "Entre",
-"not-between" : "Fuera de"
+{    "dataTablesLanguage" : {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ registros",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ning&uacute;n dato disponible en esta tabla",
+            "sInfo":           "Mostrando del _START_ al _END_ , Total _TOTAL_ registros",
+            "sInfoEmpty":      "Mostrando del 0 al 0 , Total 0 registros",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sAdvancedFilter": "Filtro Avanzado",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "&lsaquo;&lsaquo;",
+                "sLast":     "&rsaquo;&rsaquo;",
+                "sNext":     "&rsaquo;",
+                "sPrevious": "&lsaquo;"
+            },
+            "oAria": {
+                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        },
+    "equals" : "Igual",
+    "not-equals" : "Distinto",
+    "contains" : "Contiene",
+    "not-contains" : "No contiene",
+    "starts" : "Empieza con",
+    "ends" : "Termina con",
+    "less" : "Menor que",
+    "before" : "Antes de",
+    "greater" : "Mayor que",
+    "after" : "Despues de",
+    "less-equal" : "Menor o igual que",
+    "before-and" : "Antes de/Y",
+    "greater-equal" : "Mayor o igual que",
+    "after-and" : "Despues de/Y",
+    "between" : "Entre",
+    "not-between" : "Fuera de",
+    "fullCalendar" : {
+        "firstDay" :1,
+        "monthNames": ["Enero", "Febrero", "Marzo", "Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+        "monthNamesShort": ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],
+        "dayNames": ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sabado"],
+        "dayNamesShort": ["Dom","Lun","Mar","Mié","Jue","Vie","Sab"],
+        "buttonText": {
+                "prev": "&nbsp;&#9668;&nbsp;",
+                "next": "&nbsp;&#9658;&nbsp;",
+                "prevYear": "&nbsp;&lt;&lt;&nbsp;",
+                "nextYear": "&nbsp;&gt;&gt;&nbsp;", 
+                "today": "hoy",
+                "month": "mes",
+                "week": "semana",
+                "day": "dia"
+        },		
+        "titleFormat": {
+                "month": "MMMM yyyy",
+                "week": "d [ yyyy]{ '&#8212;'[ MMM] d MMM yyyy}",
+                "day": "dddd, d MMM, yyyy"
+        },
+        "columnFormat": {
+                "month": "ddd",
+                "week": "ddd d/M",
+                "day": "dddd d/M"
+        },
+        "allDayText": "dia todo",
+        "axisFormat": "H:mm",
+        "timeFormat": {
+                "": "H(:mm)",
+                "agenda": "H:mm{ - H:mm}"
+        }
+    }
 }

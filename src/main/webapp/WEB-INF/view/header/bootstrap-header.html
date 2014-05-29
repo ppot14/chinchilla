@@ -25,8 +25,10 @@ THE SOFTWARE.
 <html>
     
     <script>
+            
+            var wuCountry = (country === "ES")?"SP":((country === "GB")?"UK":"US");
 
-        var url_wunderground = "http://api.wunderground.com/api/b7c6967273eb1adf/geolookup/conditions/lang:SP/q/37.3258,-5.2061.json";
+        var url_wunderground = "http://api.wunderground.com/api/b7c6967273eb1adf/geolookup/conditions/lang:"+wuCountry+"/q/37.3258,-5.2061.json";
 
         var weather;
 

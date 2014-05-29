@@ -22,72 +22,80 @@
  * THE SOFTWARE.
  */
 
-var currentOptions;
+var tabla_opciones;
 
-//    var dataTablesLanguage = /*[[@{/resources/json/dataTables.spanish.txt}]]*/null;
-var dataTablesLanguage = {
-        "sProcessing":     "Procesando...",
-        "sLengthMenu":     "Mostrar _MENU_ registros",
-        "sZeroRecords":    "No se encontraron resultados",
-        "sEmptyTable":     "Ning&uacute;n dato disponible en esta tabla",
-        "sInfo":           "Mostrando del _START_ al _END_ , Total _TOTAL_ registros",
-        "sInfoEmpty":      "Mostrando del 0 al 0 , Total 0 registros",
-        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-        "sInfoPostFix":    "",
-        "sSearch":         "Buscar:",
-        "sAdvancedFilter": "Filtro Avanzado",
-        "sUrl":            "",
-        "sInfoThousands":  ",",
-        "sLoadingRecords": "Cargando...",
-        "oPaginate": {
-            "sFirst":    "&lsaquo;&lsaquo;",
-            "sLast":     "&rsaquo;&rsaquo;",
-            "sNext":     "&rsaquo;",
-            "sPrevious": "&lsaquo;"
-        },
-        "oAria": {
-            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-        }
-};
-    
-var tabla_opciones = {
-//    "sPaginationType": "full_numbers",
-    "sPaginationType": "bootstrap",
-    "iDisplayLength": 10,
-    "oLanguage": dataTablesLanguage,
-    "bProcessing": true,
-//    "bAutoWidth": true,
-//    "sScrollX": "100%",
-//    "sScrollXInner": "150%",
-//    "bScrollCollapse": true,
-    "bStateSave": true,       
-    "sDom": "<'row header'<'col-xs-6'l><'col-xs-6'fA>>" + "<'row tableContent'<'col-xs-12'rt>>" + "<'row footer'<'col-xs-6'i><'col-xs-6'p>>",
-//            "fnInitComplete" : function(oSettings, json) {
-//                $('.ColVis_Button').addClass('btn btn-default btn-sm').html('Columnas <i class="icon-arrow-down"></i>');
-//            }
-    "fnStateSaveParams": 	function ( oSettings, sValue ) {
-//        console.log('fnStateSaveParams sValue: '+JSON.stringify(sValue));
-        sValue.aoAdvancedFilter = oSettings.aoAdvancedFilter;
-//        console.log('fnStateSaveParams oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.aoAdvancedFilter,null,'\t'));
-//        console.log('fnStateSaveParams sValue: '+JSON.stringify(sValue));
-        return sValue;
-    },
-    "fnStateLoadParams"	: function ( oSettings, oData ) {
-        //TODO
-//          console.log('fnStateLoadParams this '+JSON.stringify(this,null,'\t'));
-//        console.log('fnStateLoadParams oData: '+JSON.stringify(oData));
+var setUpDataTableOptions = function(msgs){
 
-//        console.log('fnStateLoadParams oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.oInit.aoAdvancedFilter,null,'\t'));
-        if(oData.aoAdvancedFilter){ 
-//            oSettings.oInstance.fnSettings().aoAdvancedFilter = oData.aoAdvancedFilter; 
-//            oSettings.oInit.aoAdvancedFilter = oData.aoAdvancedFilter; 
-          AdvancedFilter.fnSetAdvancedFilter(oData.aoAdvancedFilter,this);
-        }
-//        console.log('fnStateLoadParams oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.oInit.aoAdvancedFilter,null,'\t'));
-//        console.log('fnStateLoadParams oData: '+JSON.stringify(oData,null,'\t'));
-        return true;
+if(msgs && msgs.oLanguage){
+    dataTablesLanguage = msgs.oLanguage;
+}else{
+
+    dataTablesLanguage = {
+          "sProcessing":     "Procesando...",
+          "sLengthMenu":     "Mostrar _MENU_ registros",
+          "sZeroRecords":    "No se encontraron resultados",
+          "sEmptyTable":     "Ning&uacute;n dato disponible en esta tabla",
+          "sInfo":           "Mostrando del _START_ al _END_ , Total _TOTAL_ registros",
+          "sInfoEmpty":      "Mostrando del 0 al 0 , Total 0 registros",
+          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+          "sInfoPostFix":    "",
+          "sSearch":         "Buscar:",
+          "sAdvancedFilter": "Filtro Avanzado",
+          "sUrl":            "",
+          "sInfoThousands":  ",",
+          "sLoadingRecords": "Cargando...",
+          "oPaginate": {
+              "sFirst":    "&lsaquo;&lsaquo;",
+              "sLast":     "&rsaquo;&rsaquo;",
+              "sNext":     "&rsaquo;",
+              "sPrevious": "&lsaquo;"
+          },
+          "oAria": {
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+          }
+      };
     }
+
+   tabla_opciones = {
+  //    "sPaginationType": "full_numbers",
+      "sPaginationType": "bootstrap",
+      "iDisplayLength": 10,
+      "oLanguage": dataTablesLanguage,
+      "bProcessing": true,
+  //    "bAutoWidth": true,
+  //    "sScrollX": "100%",
+  //    "sScrollXInner": "150%",
+  //    "bScrollCollapse": true,
+      "bStateSave": true,       
+      "sDom": "<'row header'<'col-xs-6'l><'col-xs-6'fA>>" + "<'row tableContent'<'col-xs-12'rt>>" + "<'row footer'<'col-xs-6'i><'col-xs-6'p>>",
+  //            "fnInitComplete" : function(oSettings, json) {
+  //                $('.ColVis_Button').addClass('btn btn-default btn-sm').html('Columnas <i class="icon-arrow-down"></i>');
+  //            }
+      "fnStateSaveParams": 	function ( oSettings, sValue ) {
+  //        console.log('fnStateSaveParams sValue: '+JSON.stringify(sValue));
+          sValue.aoAdvancedFilter = oSettings.aoAdvancedFilter;
+  //        console.log('fnStateSaveParams oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.aoAdvancedFilter,null,'\t'));
+  //        console.log('fnStateSaveParams sValue: '+JSON.stringify(sValue));
+          return sValue;
+      },
+      "fnStateLoadParams"	: function ( oSettings, oData ) {
+          //TODO
+  //          console.log('fnStateLoadParams this '+JSON.stringify(this,null,'\t'));
+  //        console.log('fnStateLoadParams oData: '+JSON.stringify(oData));
+
+  //        console.log('fnStateLoadParams oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.oInit.aoAdvancedFilter,null,'\t'));
+          if(oData.aoAdvancedFilter){ 
+  //            oSettings.oInstance.fnSettings().aoAdvancedFilter = oData.aoAdvancedFilter; 
+  //            oSettings.oInit.aoAdvancedFilter = oData.aoAdvancedFilter; 
+            AdvancedFilter.fnSetAdvancedFilter(oData.aoAdvancedFilter,this);
+          }
+  //        console.log('fnStateLoadParams oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.oInit.aoAdvancedFilter,null,'\t'));
+  //        console.log('fnStateLoadParams oData: '+JSON.stringify(oData,null,'\t'));
+          return true;
+      }
+   };
+
 };
         
 //FILTER JSON FORMAT, include into $.fn.dataTableExt

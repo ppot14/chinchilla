@@ -43,14 +43,22 @@
         }
         
 //        console.debug('events '+JSON.stringify(events));
+
+        var calendarOptions;
         
-        $('#calendar').fullCalendar({
-                events: events,
+//        console.debug('calendarOptions messages '+messages);
+        
+        if(messages){
+        
+            calendarOptions = messages.fullCalendar;
+        
+        }else{
+            calendarOptions = {
                 firstDay :1,
                 monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
 		monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
-		dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','Sabado'],
-		dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Jue','Vie','Sab'],
+		dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sabado'],
+		dayNamesShort: ['Dom','Lun','Mar','Mié','Jue','Vie','Sab'],
 		buttonText: {
 			prev: '&nbsp;&#9668;&nbsp;',
 			next: '&nbsp;&#9658;&nbsp;',
@@ -77,7 +85,12 @@
 			'': 'H(:mm)',
 			agenda: 'H:mm{ - H:mm}'
 		}
-            });
+            };
+        }
+        
+        calendarOptions.events = events;
+        
+        $('#calendar').fullCalendar(calendarOptions);
             
             
             
@@ -111,7 +124,10 @@
                                                 min: lastXdays.getTime(),
                                                 max: today.getTime()
                                         },
-                                        yaxes: [ { min: 0 }, { position: "right" } ],
+                                        yaxes: [ { min: 0 ,
+                                                   tickFormatter: function(v, axis) { return v + " l"; }}, 
+                                                 { position: "right" ,
+                                                   tickFormatter: function(v, axis) { return v + "\u00BAC"; }} ],
                                         grid : {
                                                 hoverable : true,
                                                 clickable : true,
@@ -122,10 +138,13 @@
                                         colors : ["#50CE35","#EF3E4F","#365FA4"]
                                     };
                 
+            var litrosLoc =  /*[[#{litros}]]*/null; 
+            var tempMaxLoc =  /*[[#{temp-max}]]*/null; 
+            var tempMinLoc =  /*[[#{temp-min}]]*/null;  
             var plot = $.plot($("#raintemperaturetimebarchart"), [
-				{ data: publioData, label: "Litros", bars : {show : true, barWidth : 24 * 60 * 60 * 1000, fill : true} , yaxis:1 },
-				{ data: tempMaxData, label: "TempMax", lines: { show: true } , yaxis:2 },
-				{ data: tempMinData, label: "TempMin", lines: { show: true } , yaxis:2 }
+				{ data: publioData, label: litrosLoc, bars : {show : true, barWidth : 24 * 60 * 60 * 1000, fill : true} , yaxis:1 },
+				{ data: tempMaxData, label: tempMaxLoc, lines: { show: true } , yaxis:2 },
+				{ data: tempMinData, label: tempMinLoc, lines: { show: true } , yaxis:2 }
 			], opciones_tiempo); 
             
             

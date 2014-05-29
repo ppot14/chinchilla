@@ -1,18 +1,76 @@
 {
-"equals" : "Equals",
-"not-equals" : "Not Equals",
-"contains" : "Contains",
-"not-contains" : "Not Contains",
-"starts" : "Starts",
-"ends" : "Ends",
-"less" : "Less than",
-"before" : "Before",
-"greater" : "Greater than",
-"after" : "After",
-"less-equal" : "Less or Equals",
-"before-and" : "Before and",
-"greater-equal" : "Greater or Equals",
-"after-and" : "After and",
-"between" : "Between",
-"not-between" : "Not Between"
+    "oLanguage": {
+            "oAria": {
+                    "sSortAscending": ": activate to sort column ascending",
+                    "sSortDescending": ": activate to sort column descending"
+            },
+            "oPaginate": {
+                "sFirst":    "&lsaquo;&lsaquo;",
+                "sLast":     "&rsaquo;&rsaquo;",
+                "sNext":     "&rsaquo;",
+                "sPrevious": "&lsaquo;"
+            },
+            "sAdvancedFilter": "Advanced Filter",
+            "sEmptyTable": "No data available in table",
+            "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+            "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+            "sInfoFiltered": "(filtered from _MAX_ total entries)",
+            "sInfoPostFix": "",
+            "sInfoThousands": ",",
+            "sLengthMenu": "Show _MENU_ entries",
+            "sLoadingRecords": "Loading...",
+            "sProcessing": "Processing...",
+            "sSearch": "Search:",
+            "sUrl": "",
+            "sZeroRecords": "No matching records found"
+    },
+    "equals" : "Equals",
+    "not-equals" : "Not Equals",
+    "contains" : "Contains",
+    "not-contains" : "Not Contains",
+    "starts" : "Starts",
+    "ends" : "Ends",
+    "less" : "Less than",
+    "before" : "Before",
+    "greater" : "Greater than",
+    "after" : "After",
+    "less-equal" : "Less or Equals",
+    "before-and" : "Before and",
+    "greater-equal" : "Greater or Equals",
+    "after-and" : "After and",
+    "between" : "Between",
+    "not-between" : "Not Between",
+    "fullCalendar" : {
+        "firstDay" :1,
+	"monthNames": ["January","February","March","April","May","June","July","August","September","October","November","December"],
+	"monthNamesShort": ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+	"dayNames": ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+	"dayNamesShort": ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+        "buttonText": {
+                "prev": "&nbsp;&#9668;&nbsp;",
+                "next": "&nbsp;&#9658;&nbsp;",
+                "prevYear": "&nbsp;&lt;&lt;&nbsp;",
+                "nextYear": "&nbsp;&gt;&gt;&nbsp;", 
+		"today": "today",
+		"month": "month",
+		"week": "week",
+		"day": "day"
+        },		
+        "titleFormat": {
+                "month": "MMMM yyyy",
+                "week": "d [ yyyy]{ '&#8212;'[ MMM] d MMM yyyy}",
+                "day": "dddd, d MMM, yyyy"
+        },
+        "columnFormat": {
+                "month": "ddd",
+                "week": "ddd d/M",
+                "day": "dddd d/M"
+        },
+        "allDayText": "all-day",
+        "axisFormat": "H:mm",
+        "timeFormat": {
+                "": "H(:mm)",
+                "agenda": "H:mm{ - H:mm}"
+        }
+    }
 }

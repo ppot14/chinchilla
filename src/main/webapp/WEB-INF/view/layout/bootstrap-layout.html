@@ -12,13 +12,37 @@
             /*
              * i18next for javascript
              */
-            var lang = navigator.language || navigator.userLanguage;
+            var locale = navigator.language || navigator.userLanguage;
+            
+            var country = (locale.indexOf("-")>0)?locale.substr(3,2):"";
+            
+            var language = locale.substr(0,2);
+            
+//            console.debug("locale: "+locale+", country: "+country+", language: "+language);
 
-//            console.debug("lang: "+lang);
             var clientSideResources = /*[[@{/resources/}]]*/null;
+                
+            var messages;
+
+            $.getJSON( clientSideResources+"messages-"+locale+".json", function( data ) {
+                messages = data;
+            
+//            console.log("locale messages: "+JSON.stringify(messages));
+                setUpDataTableOptions(messages);
+            }).fail(function() {
+                $.getJSON( clientSideResources+"messages-dev.json", function( data ) {
+                    messages = data;
+            
+//            console.log("default messages: "+JSON.stringify(messages));
+                setUpDataTableOptions(messages);
+                });
+            });
+            
+//            console.log("messages: "+JSON.stringify(messages));
+            
             i18n.init({resGetPath: clientSideResources+'__ns__-__lng__.json',
                          ns: 'messages',
-                         lng: lang });
+                         lng: locale });
         /*]]>*/</script>
         <script src="/resources/js/jquery.ui.datepicker-es.js" th:src="@{/resources/js/jquery.ui.datepicker-es.js}"></script> 
 <!--        <script src="/resources/js/datatable/jquery.dataTables.min.js" th:src="@{/resources/js/datatable/jquery.dataTables.min.js}"></script> -->

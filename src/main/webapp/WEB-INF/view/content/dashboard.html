@@ -91,7 +91,11 @@
             
             //Tiempo Widget
             
-            var url_forecast_wunderground = "http://api.wunderground.com/api/b7c6967273eb1adf/forecast/lang:SP/q/37.3258,-5.2061.json";
+            var wuCountry = (country === "ES")?"SP":((country === "GB")?"UK":"US");
+
+                console.debug("wuCountry: "+wuCountry);
+            
+            var url_forecast_wunderground = "http://api.wunderground.com/api/b7c6967273eb1adf/forecast/lang:"+wuCountry+"/q/37.3258,-5.2061.json";
 
             var forecast4days;
 
@@ -245,7 +249,7 @@
                     if('preparacion'===labores[i].grupo) background = 'bg-color-magenta';
                     if('siembra'===labores[i].grupo) background = 'bg-color-orange';
                     if('mano de obra'===labores[i].grupo) background = 'bg-color-yellow-green';
-                    if('otros'===labores[i].grupo) background = 'bg-color-yellow';
+                    if('otros'===labores[i].grupo) background = 'bg-color-blue-green';
                     if('riego'===labores[i].grupo) background = 'bg-color-blue';
                     if('recoleccion'===labores[i].grupo) background = 'bg-color-green';
 
@@ -261,88 +265,104 @@
 
              }
 
-             $('#laborescalendario').fullCalendar({
-                     events: events,
-                     firstDay :1,
-                     monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
-                     monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
-                     dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','Sabado'],
-                     dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Jue','Vie','Sab'],
-                     buttonText: {
-                             prev: '&nbsp;&#9668;&nbsp;',
-                             next: '&nbsp;&#9658;&nbsp;',
-                             prevYear: '&nbsp;&lt;&lt;&nbsp;',
-                             nextYear: '&nbsp;&gt;&gt;&nbsp;', 
-                             today: 'hoy',
-                             month: 'mes',
-                             week: 'semana',
-                             day: 'dia'
-                     },		
-                     titleFormat: {
-                             month: 'MMMM yyyy',
-                             week: "d [ yyyy]{ '&#8212;'[ MMM] d MMM yyyy}",
-                             day: 'dddd, d MMM, yyyy'
-                     },
-                     columnFormat: {
-                             month: 'ddd',
-                             week: 'ddd d/M',
-                             day: 'dddd d/M'
-                     },
-                     allDayText: 'dia todo',
-                     axisFormat: 'H:mm',
-                     timeFormat: {
-                             '': 'H(:mm)',
-                             agenda: 'H:mm{ - H:mm}'
-                     }
-                 });
+            var calendarOptions;
+
+            if(messages){
+
+                calendarOptions = messages.fullCalendar;
+
+            }else{
+                calendarOptions = {
+                    firstDay :1,
+                    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+                    monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+                    dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sabado'],
+                    dayNamesShort: ['Dom','Lun','Mar','Mié','Jue','Vie','Sab'],
+                    buttonText: {
+                            prev: '&nbsp;&#9668;&nbsp;',
+                            next: '&nbsp;&#9658;&nbsp;',
+                            prevYear: '&nbsp;&lt;&lt;&nbsp;',
+                            nextYear: '&nbsp;&gt;&gt;&nbsp;', 
+                            today: 'hoy',
+                            month: 'mes',
+                            week: 'semana',
+                            day: 'dia'
+                    },		
+                    titleFormat: {
+                            month: 'MMMM yyyy',
+                            week: "d [ yyyy]{ '&#8212;'[ MMM] d MMM yyyy}",
+                            day: 'dddd, d MMM, yyyy'
+                    },
+                    columnFormat: {
+                            month: 'ddd',
+                            week: 'ddd d/M',
+                            day: 'dddd d/M'
+                    },
+                    allDayText: 'dia todo',
+                    axisFormat: 'H:mm',
+                    timeFormat: {
+                            '': 'H(:mm)',
+                            agenda: 'H:mm{ - H:mm}'
+                    }
+                };
+            }
+
+            calendarOptions.events = events;
+
+            $('#laborescalendario').fullCalendar(calendarOptions);   
                  
                  
-                    //Temperatura y Lluvias Widget
-                    
-                    var meteo = /*[[${meteo}]]*/null;
+            //Temperatura y Lluvias Widget
 
-                    var today=new Date();
-                    today.setDate(today.getDate()+1);
-                    var lastXdays=new Date();
-                    lastXdays.setDate(today.getDate()-365);
+            var meteo = /*[[${meteo}]]*/null;
 
-                   var publioData = new Array();
-                   var tempMaxData = new Array();
-                   var tempMinData = new Array();
+            var today=new Date();
+            today.setDate(today.getDate()+1);
+            var lastXdays=new Date();
+            lastXdays.setDate(today.getDate()-365);
 
-                   for(var i=0; i<meteo.length; i++){
-                       var tempDay = new Date(meteo[i].fecha.time);
-                        if(lastXdays < tempDay && tempDay < today){
-                             publioData.push([tempDay, meteo[i].publio_chinchilla]);
-                             tempMaxData.push([tempDay, meteo[i].temp_max]);
-                             tempMinData.push([tempDay, meteo[i].temp_min]);
-                        }
-                   }     
+           var publioData = new Array();
+           var tempMaxData = new Array();
+           var tempMinData = new Array();
 
-                    var opciones_tiempo = {
-                                                xaxis : {
-                                                    mode : "time",
-                                                    timeformat: "%m-%y",
-        //                                                tickLength : 5,
-                                                        min: lastXdays.getTime(),
-                                                        max: today.getTime()
-                                                },
-                                                yaxes: [ { min: 0 }, { position: "right" } ],
-                                                grid : {
-                                                        hoverable : true,
-                                                        clickable : true,
-                                                        tickColor : "#efefef",
-                                                        borderWidth : 0,
-                                                        borderColor : "#efefef",
-                                                },
-                                                colors : ["#50CE35","#EF3E4F","#365FA4"]
-                                            };
+           for(var i=0; i<meteo.length; i++){
+               var tempDay = new Date(meteo[i].fecha.time);
+                if(lastXdays < tempDay && tempDay < today){
+                     publioData.push([tempDay, meteo[i].publio_chinchilla]);
+                     tempMaxData.push([tempDay, meteo[i].temp_max]);
+                     tempMinData.push([tempDay, meteo[i].temp_min]);
+                }
+           }     
 
-                    var plot = $.plot($("#raintemperaturetimebarchart"), [
-                                        { data: publioData, label: "Litros", bars : {show : true, barWidth : 24 * 60 * 60 * 1000, fill : true} , yaxis:1 },
-                                        { data: tempMaxData, label: "TempMax", lines: { show: true } , yaxis:2 },
-                                        { data: tempMinData, label: "TempMin", lines: { show: true } , yaxis:2 }
-                                ], opciones_tiempo); 
+            var opciones_tiempo = {
+                                        xaxis : {
+                                            mode : "time",
+                                            timeformat: "%m-%y",
+//                                                tickLength : 5,
+                                                min: lastXdays.getTime(),
+                                                max: today.getTime()
+                                        },
+                                        yaxes: [ { min: 0 ,
+                                                   tickFormatter: function(v, axis) { return v + " l"; }}, 
+                                                 { position: "right" ,
+                                                   tickFormatter: function(v, axis) { return v + "\u00BAC"; }} ],
+                                        grid : {
+                                                hoverable : true,
+                                                clickable : true,
+                                                tickColor : "#efefef",
+                                                borderWidth : 0,
+                                                borderColor : "#efefef",
+                                        },
+                                        colors : ["#50CE35","#EF3E4F","#365FA4"]
+                                    };
+            var litrosLoc =  /*[[#{litros}]]*/null; 
+            var tempMaxLoc =  /*[[#{temp-max}]]*/null; 
+            var tempMinLoc =  /*[[#{temp-min}]]*/null;                       
+            var plot = $.plot($("#raintemperaturetimebarchart"), [
+                                { data: publioData, label: litrosLoc, bars : {show : true, barWidth : 24 * 60 * 60 * 1000, fill : true} , yaxis:1 },
+                                { data: tempMaxData, label: tempMaxLoc, lines: { show: true } , yaxis:2 },
+                                { data: tempMinData, label: tempMinLoc, lines: { show: true } , yaxis:2 }
+                        ], opciones_tiempo); 
 
           });
 
