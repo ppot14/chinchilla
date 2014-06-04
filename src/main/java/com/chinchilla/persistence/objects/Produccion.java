@@ -14,6 +14,7 @@ import java.util.Date;
 public class Produccion  implements Serializable{
     
     private int id_produccion;
+    private String campana;
     private int id_cultivo;
     private int id_parcela;
     private Date fecha;
@@ -26,6 +27,7 @@ public class Produccion  implements Serializable{
     
     public Produccion(Produccion produccion){
         id_produccion = produccion.getId_produccion();
+        campana = produccion.getCampana();
         id_cultivo = produccion.getId_cultivo();
         id_parcela = produccion.getId_parcela();
         fecha = produccion.getFecha();
@@ -135,11 +137,26 @@ public class Produccion  implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "Produccion [id_produccion=" + id_produccion + ", id_cultivo="
+		return "Produccion [id_produccion=" + id_produccion + ", campana="
+				+ campana+ ", id_cultivo="
 				+ id_cultivo + ", id_parcela=" + id_parcela + ", fecha="
 				+ fecha + ", kilos=" + kilos + ", precio_kilo=" + precio_kilo
 				+ "]";
 	}
+
+    /**
+     * @return the campana
+     */
+    public String getCampana() {
+        return campana;
+    }
+
+    /**
+     * @param campana the campana to set
+     */
+    public void setCampana(String campana) {
+        this.campana = campana;
+    }
     
     
     

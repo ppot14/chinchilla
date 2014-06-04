@@ -1029,6 +1029,9 @@ disabled look for disabled choices in the results dropdown
   height: 100px;
   overflow: scroll;
 }
+.select2-hidden-accessible{
+    display:none;
+}
 
 /*
 * Bootstrap extend

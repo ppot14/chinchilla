@@ -18,6 +18,19 @@
                id="id_labor"  
                 type="hidden"/>   
         
+      
+    <div class="form-group">
+    <label for="campana" class="col-md-5 control-label">[[#{campana}]]</label>
+        <div class="col-md-7">
+            <select id="campana" 
+                    class="form-control input-sm select2"  style="width:100%"
+                    th:field="*{campana}">
+                <option  value="2012-2013">2012-2013</option>
+                <option  value="2013-2014">2013-2014</option>
+            </select>
+        </div>
+    </div>
+        
     <div class="form-group">
     <label for="grupo" class="col-md-5 control-label">[[#{grupo}]]</label>
         <div class="col-md-7">
@@ -311,6 +324,8 @@
             $('#boton_modificar').attr('disabled','disabled');
             $('#boton_eliminar').attr('disabled','disabled');
         }
+        
+        $( "#campana" ).select2();
         
         $( "#id_parcelas" ).select2();
         

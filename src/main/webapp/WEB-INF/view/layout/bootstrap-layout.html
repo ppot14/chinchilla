@@ -23,18 +23,20 @@
             var clientSideResources = /*[[@{/resources/}]]*/null;
                 
             var messages;
+            
+            var tabla_opciones = {"scrollX": true};
 
             $.getJSON( clientSideResources+"messages-"+locale+".json", function( data ) {
                 messages = data;
             
 //            console.log("locale messages: "+JSON.stringify(messages));
-                setUpDataTableOptions(messages);
+//                setUpDataTableOptions(messages);
             }).fail(function() {
                 $.getJSON( clientSideResources+"messages-dev.json", function( data ) {
                     messages = data;
             
 //            console.log("default messages: "+JSON.stringify(messages));
-                setUpDataTableOptions(messages);
+//                setUpDataTableOptions(messages);
                 });
             });
             
@@ -46,13 +48,15 @@
         /*]]>*/</script>
         <script src="/resources/js/jquery.ui.datepicker-es.js" th:src="@{/resources/js/jquery.ui.datepicker-es.js}"></script> 
 <!--        <script src="/resources/js/datatable/jquery.dataTables.min.js" th:src="@{/resources/js/datatable/jquery.dataTables.min.js}"></script> -->
-	<script src="http://cdn.jsdelivr.net/jquery.datatables/1.9.4/js/jquery.dataTables.min.js"></script>
+	<!--<script src="http://cdn.jsdelivr.net/jquery.datatables/1.9.4/js/jquery.dataTables.min.js"></script>-->
+	<script src="http://cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+	<script src="http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.js"></script>
         <!--<script src="/resources/js/datatable/dataTables.colReorder.min.js" th:src="@{/resources/js/datatable/dataTables.colReorder.min.js}"></script>--> 
         <!--<script src="/resources/js/datatable/dataTables.colVis.min.js" th:src="@{/resources/js/datatable/dataTables.colVis.min.js}"></script>--> 
         <!--<script src="/resources/js/datatable/dataTables.fixedColumns.min.js" th:src="@{/resources/js/datatable/dataTables.fixedColumns.min.js}"></script>--> 
         <!--<script src="/resources/js/datatable/dataTables.tableTools.min.js" th:src="@{/resources/js/datatable/dataTables.tableTools.min.js}"></script>-->
-        <script src="/resources/js/datatable/dataTables.bootstrap.js" th:src="@{/resources/js/datatable/dataTables.bootstrap.js}"></script> 
-        <script src="/resources/js/datatable/dataTables.extended.es.js" th:src="@{/resources/js/datatable/dataTables.extended.es.js}"></script> 
+        <!--<script src="/resources/js/datatable/dataTables.bootstrap.js" th:src="@{/resources/js/datatable/dataTables.bootstrap.js}"></script>--> 
+        <!--<script src="/resources/js/datatable/dataTables.extended.es.js" th:src="@{/resources/js/datatable/dataTables.extended.es.js}"></script>--> 
         <script src="http://cdn.jsdelivr.net/jquery.flot/0.8.3/jquery.flot.min.js"></script>
         <!--<script th:src="@{/resources/js/flot/jquery.flot.fillbetween.min.js}"></script>-->
         <!--<script th:src="@{/resources/js/flot/jquery.flot.orderBar.min.js}"></script>-->
@@ -73,8 +77,10 @@
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootswatch/3.1.1/lumen/bootstrap.min.css"/>
         <link rel="stylesheet" href="http://cdn.jsdelivr.net/fontawesome/4.1.0/css/font-awesome.min.css"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/whhg.css" th:href="@{/resources/css/whhg.css}" media="all"/>
+        <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.css"/>
+        <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.0/css/jquery.dataTables.css"/>
         <!--<link rel="stylesheet" type="text/css" href="/resources/css/dataTables.tableTools.css" th:href="@{/resources/css/dataTables.tableTools.css}" media="screen"/>-->
-        <link rel="stylesheet" type="text/css" href="/resources/css/dataTables.bootstrap.css" th:href="@{/resources/css/dataTables.bootstrap.css}" media="screen"/>
+        <!--<link rel="stylesheet" type="text/css" href="/resources/css/dataTables.bootstrap.css" th:href="@{/resources/css/dataTables.bootstrap.css}" media="screen"/>-->
         <!--<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/e9421181788/integration/bootstrap/3/dataTables.bootstrap.css"/>-->
         <link rel="stylesheet" href="http://cdn.jsdelivr.net/pnotify/1.3.1/jquery.pnotify.default.css"/>
         <link rel="stylesheet" type="text/css" href="/resources/css/jquery.pnotify.default.icons.css" th:href="@{/resources/css/jquery.pnotify.default.icons.css}"/>

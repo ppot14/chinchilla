@@ -5,6 +5,7 @@
     
     <resultMap id="laborResultMap" type="Labor">
         <id property="id_labor" column="l_id_labor"/>
+        <result property="campana" column="l_campana"/>
         <result property="grupo" column="l_grupo"/>
         <result property="nombre" column="l_nombre"/>
         <result property="fecha_comienzo" column="l_fecha_comienzo"/>
@@ -154,6 +155,7 @@
     <select id="getLabor" parameterType="java.lang.Integer" resultMap="laborResultMap">        
         select 
         l.id_labor as "l_id_labor", 
+        l.campana as "l_campana",
         l.grupo as "l_grupo",
         l.nombre as "l_nombre", 
         l.fecha_comienzo as "l_fecha_comienzo", 
@@ -277,6 +279,7 @@
     <select id="getAllLabor" parameterType="int" resultMap="laborResultMap">
         select 
         l.id_labor as "l_id_labor", 
+        l.campana as "l_campana",
         l.grupo as "l_grupo",
         l.nombre as "l_nombre", 
         l.fecha_comienzo as "l_fecha_comienzo", 
@@ -386,6 +389,7 @@
     <select id="getLaborFilteredByIdParcela" parameterType="int" resultType="com.chinchilla.persistence.objects.Labor">
         select 
         tl.id_labor as "id_labor", 
+        campana as "campana",
         grupo as "grupo",
         nombre as "nombre",
         fecha_comienzo as "fecha_comienzo", 
@@ -404,6 +408,7 @@
     <select id="getLaborPorNombre" parameterType="int" resultType="com.chinchilla.persistence.objects.Labor">
         select 
         id_labor as "id_labor", 
+        campana as "campana",
         grupo as "grupo",
         nombre as "nombre",
         fecha_comienzo as "fecha_comienzo", 
@@ -452,12 +457,13 @@
         <selectKey resultType="int" keyProperty="id_labor" order="AFTER" >
             SELECT LAST_INSERT_ID() as id_labor
           </selectKey>
-          insert into t_labores (grupo, nombre, fecha_comienzo, fecha_fin, cantidad_dosis_por_ha, duracion, litros_gasoil, coste_fijo_total, descripcion)
-        values (#{grupo}, #{nombre}, #{fecha_comienzo}, #{fecha_fin}, #{cantidad_dosis_por_ha}, #{duracion}, #{litros_gasoil}, #{coste_fijo_total}, #{descripcion})		
+          insert into t_labores (campana,grupo, nombre, fecha_comienzo, fecha_fin, cantidad_dosis_por_ha, duracion, litros_gasoil, coste_fijo_total, descripcion)
+        values (#{campana}, #{grupo}, #{nombre}, #{fecha_comienzo}, #{fecha_fin}, #{cantidad_dosis_por_ha}, #{duracion}, #{litros_gasoil}, #{coste_fijo_total}, #{descripcion})		
     </insert>
 	
     <update id="updateLabor" parameterType="com.chinchilla.persistence.objects.Labor">
-        update t_labores set 
+        update t_labores set
+        campana = #{campana}, 
         grupo = #{grupo}, 
         nombre = #{nombre}, 
         fecha_comienzo = #{fecha_comienzo}, 

@@ -26,7 +26,7 @@ THE SOFTWARE.
     
     <script>
             
-            var wuCountry = (country === "ES")?"SP":((country === "GB")?"UK":"US");
+        var wuCountry = (country === "ES")?"SP":((country === "GB")?"UK":"US");
 
         var url_wunderground = "http://api.wunderground.com/api/b7c6967273eb1adf/geolookup/conditions/lang:"+wuCountry+"/q/37.3258,-5.2061.json";
 
@@ -124,6 +124,13 @@ THE SOFTWARE.
                     <li id="weather-precip" class="font-xs txt-color-white" style=""></li>
                 </ul>
             </div>
+            
+            <div class="navbar-form navbar-right" id="campana-select" style="margin-right: 0px;">
+                <select id="campana_header" class="form-control input-md select2">
+                    <option value="2012-2013">2012-2013</option>
+                    <option value="2013-2014">2013-2014</option>
+                </select>
+            </div>
 
         </div>
 
@@ -133,6 +140,14 @@ THE SOFTWARE.
 <script th:inline="javascript">/*<![CDATA[*/
 
 $(window).load(function () {
+    
+    if(localStorage["campana.actual"]){
+        
+         $("#campana_header").val(localStorage["campana.actual"]);
+        
+    }
+    
+//    console.log('localStorage["campana.actual"] '+localStorage["campana.actual"]);
 
     var ruta = window.location.pathname;
     
@@ -153,6 +168,13 @@ $(window).load(function () {
             }
         }
         
+    });
+        
+    $( "#campana_header" ).select2();
+    
+    $( "#campana_header" ).on("change", function(e) {  
+        localStorage["campana.actual"] = e.val;
+//        console.log('changed to '+e.val);
     });
     
 });

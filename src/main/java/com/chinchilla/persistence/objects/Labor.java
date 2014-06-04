@@ -36,6 +36,7 @@ import java.util.List;
 public class Labor implements Serializable{
 
     private int id_labor;
+    private String campana;
     private String grupo;
     private String nombre;
     private Date fecha_comienzo;
@@ -55,6 +56,7 @@ public class Labor implements Serializable{
 
     public Labor(Labor labor) {
         id_labor = labor.getId_labor();
+        campana = labor.getCampana();
         grupo = labor.getGrupo();
         nombre = labor.getNombre();
         fecha_comienzo = labor.getFecha_comienzo();
@@ -167,6 +169,7 @@ public class Labor implements Serializable{
 	@Override
 	public String toString() {
 		return "Labor{id_labor=" + id_labor 
+                                + ", campana=" + campana
                                 + ", grupo=" + grupo
                                 + ", nombre=" + nombre
                                 + ", fecha_comienzo=" + fecha_comienzo
@@ -307,6 +310,20 @@ public class Labor implements Serializable{
      */
     public void setFecha_fin(Date fecha_fin) {
         this.fecha_fin = fecha_fin;
+    }
+
+    /**
+     * @return the campana
+     */
+    public String getCampana() {
+        return campana;
+    }
+
+    /**
+     * @param campana the campana to set
+     */
+    public void setCampana(String campana) {
+        this.campana = campana;
     }
     
 }

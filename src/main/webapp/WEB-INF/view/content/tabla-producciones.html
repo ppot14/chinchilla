@@ -4,7 +4,7 @@
   
     $(window).load(function () {
         
-        tabla_opciones.aaSorting = [[ 3, "desc" ]];
+        tabla_opciones.aaSorting = [[ 4, "desc" ]];
         
         tabla_opciones.fnFooterCallback = function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
                     
@@ -13,8 +13,8 @@
 
             for ( var i=0 ; i<aaData.length ; i++ )
             {
-                totalKg += parseFloat( aaData[i][4].replace( /\./, "" ).replace( /,/, "." ) );
-                totalCost += parseFloat( aaData[i][6].replace( /\./, "" ).replace( /,/, "." ) );
+                totalKg += parseFloat( aaData[i][5].replace( /\./, "" ).replace( /,/, "." ) );
+                totalCost += parseFloat( aaData[i][7].replace( /\./, "" ).replace( /,/, "." ) );
             }
 
             var pageKg = 0;
@@ -22,15 +22,15 @@
 
             for ( var i=iStart ; i<iEnd ; i++ )
             {
-                pageKg += parseFloat( aaData[ aiDisplay[i] ][4].replace( /\./, "" ).replace( /,/, "." ) );
-                pageCost += parseFloat( aaData[ aiDisplay[i] ][6].replace( /\./, "" ).replace( /,/, "." ) );
+                pageKg += parseFloat( aaData[ aiDisplay[i] ][5].replace( /\./, "" ).replace( /,/, "." ) );
+                pageCost += parseFloat( aaData[ aiDisplay[i] ][7].replace( /\./, "" ).replace( /,/, "." ) );
             }
 
             var kgSumarize = parseInt(pageKg * 100)/100 + ' ('+ parseInt(totalKg * 100)/100 +' Total)';
             var costSumarize = parseInt(pageCost * 100)/100 + ' ('+ parseInt(totalCost * 100)/100 +' Total)';
 
-            $(nRow).find('th').eq(4).html( kgSumarize );
-            $(nRow).find('th').eq(6).html( costSumarize );
+            $(nRow).find('th').eq(5).html( kgSumarize );
+            $(nRow).find('th').eq(7).html( costSumarize );
         };
         
         
@@ -181,6 +181,24 @@
         
         var aoAdvancedFilter = /*[[${aoAdvancedFilter}]]*/null;
         
+        console.debug('campanaActual '+campanaActual );
+        
+        if(campanaActual){ 
+        
+            if(!aoAdvancedFilter) aoAdvancedFilter = new Array();
+
+            var campanaLocale = /*[[#{campana}]]*/null;
+                
+            aoAdvancedFilter.push({
+                sTitle:campanaLocale,
+                aoOperations:[{
+                        sOperation:"equal",
+                        sValue1:campanaActual,
+                        sValue2:""
+                        }]
+                });
+        
+        }
 //        console.debug('aoAdvancedFilter '+JSON.stringify(aoAdvancedFilter,null,'\t') );
         
         if(aoAdvancedFilter){
@@ -250,6 +268,7 @@
                     <thead>
                         <tr>
                           <th>[[#{id-produccion}]]</th>
+                          <th>[[#{campana}]]</th>
                           <th>[[#{cultivo}]]</th>
                           <th>[[#{parcela}]]</th>
                           <th>[[#{fecha}]]</th>
@@ -265,6 +284,7 @@
                                   [[${producciones_item.id_produccion}]]
                               </a>
                           </td>
+                          <td>[[${producciones_item.campana}]]</td>
                               <!--<a th:href="@{/cultivos/tabla/form/cultivo.html(id=${cultivos_item.id_cultivo})}">-->
                               <!--</a>-->
                           <td th:each="cultivos_item : ${cultivos}" 
@@ -284,6 +304,7 @@
                 
                     <tfoot>
                         <tr>
+                          <th></th>
                           <th></th>
                           <th></th>
                           <th></th>

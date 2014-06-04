@@ -6,6 +6,7 @@
     <select id="getProduccion" parameterType="java.lang.Integer" resultType="com.chinchilla.persistence.objects.Produccion">
         select 
         id_produccion as "id_produccion",
+        campana as "campana",
         id_cultivo as "id_cultivo",
         id_parcela as "id_parcela",
         fecha as "fecha",
@@ -18,6 +19,7 @@
     <select id="getAllProduccion" parameterType="int" resultType="com.chinchilla.persistence.objects.Produccion">
         select 
         id_produccion as "id_produccion",
+        campana as "campana",
         id_cultivo as "id_cultivo",
         id_parcela as "id_parcela",
         fecha as "fecha",
@@ -30,6 +32,7 @@
     <select id="getProduccionPorNombre" parameterType="int" resultType="com.chinchilla.persistence.objects.Produccion">
         select 
         id_produccion as "id_produccion",
+        campana as "campana",
         id_cultivo as "id_cultivo",
         id_parcela as "id_parcela",
         fecha as "fecha",
@@ -40,12 +43,13 @@
     </select>
 	
     <insert id="createProduccion" keyColumn="id_produccion" useGeneratedKeys="true" parameterType="com.chinchilla.persistence.objects.Produccion">
-        insert into t_producciones (id_cultivo,id_parcela,fecha,kilos,precio_kilo)
-        values (#{id_cultivo},#{id_parcela},#{fecha},#{kilos},#{precio_kilo})		
+        insert into t_producciones (id_cultivo,campana,id_parcela,fecha,kilos,precio_kilo)
+        values (#{id_cultivo},#{campana},#{id_parcela},#{fecha},#{kilos},#{precio_kilo})		
     </insert>
 	
     <update id="updateProduccion" parameterType="com.chinchilla.persistence.objects.Produccion">
         update t_producciones set id_cultivo = #{id_cultivo},
+        campana = #{campana},
         id_parcela = #{id_parcela},
         fecha =#{fecha},
         kilos = #{kilos},
