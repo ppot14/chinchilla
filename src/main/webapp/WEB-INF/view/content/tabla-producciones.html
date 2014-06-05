@@ -181,9 +181,7 @@
         
         var aoAdvancedFilter = /*[[${aoAdvancedFilter}]]*/null;
         
-        console.debug('campanaActual '+campanaActual );
-        
-        if(campanaActual){ 
+        if(localStorage["campana.actual"]){ 
         
             if(!aoAdvancedFilter) aoAdvancedFilter = new Array();
 
@@ -192,9 +190,9 @@
             aoAdvancedFilter.push({
                 sTitle:campanaLocale,
                 aoOperations:[{
-                        sOperation:"equal",
-                        sValue1:campanaActual,
-                        sValue2:""
+                        sOperation: "equal",
+                        sValue1: localStorage["campana.actual"],
+                        sValue2: ""
                         }]
                 });
         
@@ -211,11 +209,11 @@
 
             for ( var i = 0 ; i < aoAdvancedFilter.length ; i++){
                 
-                var sTitleKey = aoAdvancedFilter[i].sTitleKey;
+                var sTitleKey = aoAdvancedFilter[i].titleKey;
                 
                 if(titleKey[sTitleKey] && titleKey[sTitleKey]!==''){
                     
-                    aoAdvancedFilter[i].sTitle = titleKey[sTitleKey];
+                    aoAdvancedFilter[i].title = titleKey[sTitleKey];
                 }
             }
             

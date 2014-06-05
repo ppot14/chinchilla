@@ -22,7 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:tiles="http://www.thymeleaf.org">
+    <head>
     
     <script>
             
@@ -67,8 +70,12 @@ THE SOFTWARE.
 
         });
     </script>
+        
+    </head>
+    
+    <body>
 
-    <div class="container-fluid">
+    <div class="container-fluid" th:inline="text">
         
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
@@ -126,9 +133,11 @@ THE SOFTWARE.
             </div>
             
             <div class="navbar-form navbar-right" id="campana-select" style="margin-right: 0px;">
-                <select id="campana_header" class="form-control input-md select2">
-                    <option value="2012-2013">2012-2013</option>
+                [[#{campana}]]
+                <select id="campana_header" class="form-control input-md select2" style="min-width: 8em;">
+                    <option value="all">[[#{todas}]]</option>
                     <option value="2013-2014">2013-2014</option>
+                    <option value="2012-2013">2012-2013</option>
                 </select>
             </div>
 
@@ -175,11 +184,14 @@ $(window).load(function () {
     $( "#campana_header" ).on("change", function(e) {  
         localStorage["campana.actual"] = e.val;
 //        console.log('changed to '+e.val);
+//      Aplicar a todas las tablas que contengan campana como columna el filtro avanzado
     });
     
 });
 
-/*]]>*/</script>    
+/*]]>*/</script>  
+        
+    </body>
     
 </html>
 
