@@ -109,6 +109,7 @@ if(msgs && msgs.language){
  * @returns {unresolved}
  */
 var AdvancedFilter = function( oDTSettings, oInit ) {
+        console.debug("AdvancedFilter oDTSettings: "+JSON.stringify(oDTSettings,null,"\t"));
 	/* Santiy check that we are a new instance */
 	if ( !this.CLASS || this.CLASS !== "AdvancedFilter" )
 	{
@@ -139,7 +140,6 @@ var AdvancedFilter = function( oDTSettings, oInit ) {
         this.s.oDataTable = $.fn.dataTable.Api ?
 		new $.fn.dataTable.Api( oDTSettings ).settings()[0] :
 		oDTSettings;
-//        console.debug("AdvancedFilter oDTSettings: "+JSON.stringify(oDTSettings,null,"\t"));
         
         this._fnConstruct( oDTSettings, oInit );
         
@@ -502,15 +502,17 @@ AdvancedFilter.prototype.CLASS = "AdvancedFilter";
 */
 
 //Register a new feature AdvancedFilter with DataTables
+//        console.debug('Pushing new feature AdvancedFilter...');
 if ( typeof $.fn.dataTable === "function" &&
      typeof $.fn.dataTableExt.fnVersionCheck === "function" ){
  
-//        console.debug('Pushing new feature AdvancedFilter...');
+//        console.debug('Pushing new feature AdvancedFilter aoFeatures: '+JSON.stringify($.fn.dataTableExt,null,'\t'));
 	$.fn.dataTableExt.aoFeatures.push( {
-		"fnInit": function( settings ) {
-			var init = settings.init;
+		"fnInit": function( oDTSettings ) {
+                        console.debug('Pushing new feature AdvancedFilter, settings: '+JSON.stringify(oDTSettings,null,"\t"));
+			var init = oDTSettings.init;
                         console.debug('Pushing new feature AdvancedFilter, init: '+JSON.stringify(init,null,"\t"));
-			var advancedFilter = new AdvancedFilter( settings, init.advancedFilter || [] );
+			var advancedFilter = new AdvancedFilter( oDTSettings, init.advancedFilter || [] );
 //                        console.debug('Pushing new feature AdvancedFilter, advancedFilter: '+JSON.stringify(advancedFilter));
 //                        console.debug('Pushing new feature AdvancedFilter, advancedFilter.getButton(): '+JSON.stringify(advancedFilter.getButton()));
 			return advancedFilter.fnGetButton();
@@ -617,7 +619,6 @@ $.fn.dataTableExt.afnFiltering.push( function( settings, data, iDataIndex ) {
     return result;
 });
         
-        
 /*
  * advancedFilter sample TO DELETE
  */      
@@ -635,7 +636,13 @@ $.fn.dataTableExt.afnFiltering.push( function( settings, data, iDataIndex ) {
 //
 //        "equal";"notEqual";"contains";"notContains";"starts";"ends";"less/before";"greater/after";"lessEqual/beforeAnd";"greaterEqual/afterThan"
 //        "=";"!=";"~";"!~";"^";"$";"<";">";"<=";">="
-        
+  
+
+/*
+ * 
+ * Sort and Data types definitions
+ * 
+ */
 
 /*
  * Columns data types for datatable, Comma decimal separator
@@ -723,4 +730,4 @@ $.extend( $.fn.dataTableExt.oSort, {
         return b - a;
     }
  }); 
-
+ 
