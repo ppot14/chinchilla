@@ -28,81 +28,90 @@ var setUpDataTableOptions = function(msgs){
     
     var dataTablesLanguage;
 
-    if(msgs && msgs.oLanguage){
-        dataTablesLanguage = msgs.oLanguage;
+    if(msgs && msgs.language){
+        dataTablesLanguage = msgs.language;
     }else{
 
         dataTablesLanguage = {
-              "sProcessing":     "Procesando...",
-              "sLengthMenu":     "Mostrar _MENU_ registros",
-              "sZeroRecords":    "No se encontraron resultados",
-              "sEmptyTable":     "Ning&uacute;n dato disponible en esta tabla",
-              "sInfo":           "Mostrando del _START_ al _END_ , Total _TOTAL_ registros",
-              "sInfoEmpty":      "Mostrando del 0 al 0 , Total 0 registros",
-              "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-              "sInfoPostFix":    "",
-              "sSearch":         "Buscar:",
-              "sAdvancedFilter": "Filtro Avanzado",
-              "sUrl":            "",
-              "sInfoThousands":  ",",
-              "sLoadingRecords": "Cargando...",
-              "oPaginate": {
-                  "sFirst":    "&lsaquo;&lsaquo;",
-                  "sLast":     "&rsaquo;&rsaquo;",
-                  "sNext":     "&rsaquo;",
-                  "sPrevious": "&lsaquo;"
+          "sProcessing":     "Procesando...",
+          "sLengthMenu":     "Mostrar _MENU_ registros",
+          "sZeroRecords":    "No se encontraron resultados",
+          "sEmptyTable":     "Ning&uacute;n dato disponible en esta tabla",
+          "sInfo":           "Mostrando del _START_ al _END_ , Total _TOTAL_ registros",
+          "sInfoEmpty":      "Mostrando del 0 al 0 , Total 0 registros",
+          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+          "sInfoPostFix":    "",
+          "sSearch":         "Buscar:",
+          "sAdvancedFilter": "Filtro Avanzado",
+          "sUrl":            "",
+          "sInfoThousands":  ",",
+          "sLoadingRecords": "Cargando...",
+          "oPaginate": {
+              "sFirst":    "&lsaquo;&lsaquo;",
+              "sLast":     "&rsaquo;&rsaquo;",
+              "sNext":     "&rsaquo;",
+              "sPrevious": "&lsaquo;"
               },
-              "oAria": {
-                  "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                  "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+          "oAria": {
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
               }
           };
-     }
+    }
 
-    tabla_opciones = {
-   //    "sPaginationType": "full_numbers",
-       "sPaginationType": "bootstrap",
-       "iDisplayLength": 10,
-       "oLanguage": dataTablesLanguage,
-       "bProcessing": true,
-   //    "bAutoWidth": true,
-   //    "sScrollX": "100%",
-   //    "sScrollXInner": "150%",
-   //    "bScrollCollapse": true,
-       "bStateSave": true,       
-       "sDom": "<'row header'<'col-xs-6'l><'col-xs-6'fA>>" + "<'row tableContent'<'col-xs-12'rt>>" + "<'row footer'<'col-xs-6'i><'col-xs-6'p>>",
-   //            "fnInitComplete" : function(oSettings, json) {
-   //                $('.ColVis_Button').addClass('btn btn-default btn-sm').html('Columnas <i class="icon-arrow-down"></i>');
-   //            }
-       "fnStateSaveParams": 	function ( oSettings, sValue ) {
-   //        console.log('fnStateSaveParams sValue: '+JSON.stringify(sValue));
-           sValue.aoAdvancedFilter = oSettings.aoAdvancedFilter;
-   //        console.log('fnStateSaveParams oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.aoAdvancedFilter,null,'\t'));
-   //        console.log('fnStateSaveParams sValue: '+JSON.stringify(sValue));
-           return sValue;
-       },
-       "fnStateLoadParams"	: function ( oSettings, oData ) {
-           //TODO
-   //          console.log('fnStateLoadParams this '+JSON.stringify(this,null,'\t'));
-   //        console.log('fnStateLoadParams oData: '+JSON.stringify(oData));
+   tabla_opciones = {
+    //    "sPaginationType": "full_numbers",
+  //      "sPaginationType": "bootstrap",
+        iDisplayLength: 10,
+        oLanguage: dataTablesLanguage,
+        bProcessing: true,
+        sPaginationType: "full_numbers",
+    //    "bAutoWidth": true,
+    //    "sScrollX": "100%",
+    //    "sScrollXInner": "150%",
+    //    "bScrollCollapse": true,
+        bStateSave: true,       
+        sDom: "<'row'<'col-xs-6'l><'col-xs-6'fA>r>"+"t"+"<'row'<'col-xs-6'i><'col-xs-6'p>>",
+  //      dom: "<'row header'<'col-xs-6'l><'col-xs-6'fA>>" + "<'row tableContent'<'col-xs-12'rt>>" + "<'row footer'<'col-xs-6'i><'col-xs-6'p>>",
+    //            "fnInitComplete" : function(settings, json) {
+    //                $('.ColVis_Button').addClass('btn btn-default btn-sm').html('Columnas <i class="icon-arrow-down"></i>');
+    //            }
+        fnStateSaveParams: 	function ( settings, value ) {
+    //        console.log('fnStateSaveParams sValue: '+JSON.stringify(sValue));
+            value.aoAdvancedFilter = settings.aoAdvancedFilter;
+    //        console.log('fnStateSaveParams settings.advancedFilter: '+JSON.stringify(settings.advancedFilter,null,'\t'));
+    //        console.log('fnStateSaveParams sValue: '+JSON.stringify(sValue));
+            return value;
+        },
+        fnStateLoadParams: function ( settings, data ) {
+            //TODO
+    //          console.log('fnStateLoadParams this '+JSON.stringify(this,null,'\t'));
+    //        console.log('fnStateLoadParams oData: '+JSON.stringify(oData));
 
-   //        console.log('fnStateLoadParams oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.oInit.aoAdvancedFilter,null,'\t'));
-           if(oData.aoAdvancedFilter){ 
-   //            oSettings.oInstance.fnSettings().aoAdvancedFilter = oData.aoAdvancedFilter; 
-   //            oSettings.oInit.aoAdvancedFilter = oData.aoAdvancedFilter; 
-             AdvancedFilter.fnSetAdvancedFilter(oData.aoAdvancedFilter,this);
-           }
-   //        console.log('fnStateLoadParams oSettings.aoAdvancedFilter: '+JSON.stringify(oSettings.oInit.aoAdvancedFilter,null,'\t'));
-   //        console.log('fnStateLoadParams oData: '+JSON.stringify(oData,null,'\t'));
-           return true;
-       }
-    };
-
+    //        console.log('fnStateLoadParams settings.advancedFilter: '+JSON.stringify(settings.init.advancedFilter,null,'\t'));
+            if(data.aoAdvancedFilter){ 
+    //            settings.instance.settings().advancedFilter = oData.advancedFilter; 
+    //            settings.init.advancedFilter = oData.advancedFilter; 
+              AdvancedFilter.fnSetAdvancedFilter(data.aoAdvancedFilter,this);
+            }
+    //        console.log('fnStateLoadParams settings.advancedFilter: '+JSON.stringify(settings.init.advancedFilter,null,'\t'));
+    //        console.log('fnStateLoadParams oData: '+JSON.stringify(oData,null,'\t'));
+            return true;
+        }
+     };
+     
 };
+
         
 //FILTER JSON FORMAT, include into $.fn.dataTableExt
-//https://datatables.net/docs/DataTables/1.9.4/DataTable.models.ext.html#aoFeatures 
+//https://datatables.net/docs/DataTables/1.9.4/DataTable.models.ext.html#features 
+(function(window, document, undefined) {
 
+
+var factory = function( $, DataTable ) {
+"use strict";
+
+setUpDataTableOptions();
 /*
  * AdvancedFilter Main Constructor CLASS
  * 
@@ -123,16 +132,16 @@ var AdvancedFilter = function( oDTSettings, oInit ) {
 	}
         
         this.s = {
-            "oDataTable": null,
-            "oInit": oInit
+            oDataTable: null,
+            oInit: oInit
         };
             
         
         this.dom = {
-            "wrapper": null,
-            "button": null,
-            "active":null,
-            "foot":null
+            wrapper: null,
+            button: null,
+            active: null,
+            foot: null
         };
         
 	/* Store global reference */
@@ -141,7 +150,8 @@ var AdvancedFilter = function( oDTSettings, oInit ) {
         this.s.oDataTable = $.fn.dataTable.Api ?
 		new $.fn.dataTable.Api( oDTSettings ).settings()[0] :
 		oDTSettings;
-//        console.debug("AdvancedFilter oDTSettings: "+JSON.stringify(oDTSettings,null,"\t"));
+        
+//        console.debug('AdvancedFilter settings.aoColumns: '+JSON.stringify(oDTSettings.aoColumns));
         
         this._fnConstruct( oDTSettings, oInit );
         
@@ -207,7 +217,7 @@ AdvancedFilter.prototype = {
         settings.oInstance.fnDraw();
         
     },
-    "_fnConstruct": function ( settings, init ) {
+    _fnConstruct: function ( settings, init ) {
         var that = this;
         this.dom.wrapper =document.createElement('div');
 	this.dom.wrapper.className = "dataTables_advancedFilter";
@@ -229,12 +239,12 @@ AdvancedFilter.prototype = {
                 } )
                 .appendTo( this.dom.wrapper )[0];
         
-//      console.debug('AdvancedFilter._fnConstruct, init: '+JSON.stringify(init,null,"\t"));
+//      console.debug('AdvancedFilter._fnConstruct, this.dom.button: '+this.dom.button);
         
         settings.oInstance.fnDraw(); 
         
     },
-    "_fnCreateFilterForm": function ( settings, init ) {
+    _fnCreateFilterForm: function ( settings, init ) {
         
         var that = this;
         
@@ -278,7 +288,7 @@ AdvancedFilter.prototype = {
 			});
             
             
-            if(sTypeTemp){
+//            if(sTypeTemp){
                 
                 //Only one operation from now
                 if(filter && filter.aoOperations[0]){
@@ -286,15 +296,17 @@ AdvancedFilter.prototype = {
                     value2FieldElement.val(filter.aoOperations[0].sValue2);
                 }
                 var optionsList;
-                if(sTypeTemp.indexOf("date")!==-1){
+                if(sTypeTemp && sTypeTemp.indexOf("date")!==-1){
                     //TODO
     //                value1FieldElement.datepicker();
     //                value2FieldElement.datepicker();
                     optionsList = ["equals","not-equals","before","after","before-and","after-and","between","not-between"];
-                }else if(sTypeTemp.indexOf("numeric")!==-1){
+                }else if(sTypeTemp && sTypeTemp.indexOf("numeric")!==-1){
                     optionsList = ["equals","not-equals","less","greater","less-equal","greater-equal","between","not-between"];
-                }else {
-                    optionsList = ["equals","not-equals","contains","not-contains","starts","ends","before","after","before-and","after-and","between","not-between"];
+                }else if(sTypeTemp && (sTypeTemp.indexOf("string")!==-1 || sTypeTemp.indexOf("html")!==-1)){
+                    optionsList = ["contains","not-contains","equals","not-equals","starts","ends","before","after","before-and","after-and","between","not-between"];
+                }else{
+                    optionsList = ["contains","not-contains","equals","not-equals"];
                 }
                 for(var j=0; j<optionsList.length; j++){
 //                console.debug(optionsList[j]+': '+$.t(optionsList[j]));
@@ -302,11 +314,12 @@ AdvancedFilter.prototype = {
                     operationSelectElement.append('<option value="'+optionsList[j]+'" ' +selected+'>'+ $.t(optionsList[j])+'</option>');;
                 }
             
-            }
+//            }
             
             var thFoot = $('<th/>');
             
-            if(sTypeTemp) thFoot.append(operationSelectElement).append(value1FieldElement).append(value2FieldElement);
+//            if(sTypeTemp) thFoot.append(operationSelectElement).append(value1FieldElement).append(value2FieldElement);
+            thFoot.append(operationSelectElement).append(value1FieldElement).append(value2FieldElement);
             
             trFoot.append(thFoot);
             
@@ -339,7 +352,9 @@ AdvancedFilter.prototype = {
 //            var nTFoot = settings.nTFoot;
 //            console.debug("AdvancedFilter._fnCreateFilterForm nTFoot: "+JSON.stringify(nTFoot));
             
-        settings.nTFoot = tFoot;
+        settings.nTFoot = document.getElementById(settings.sTableId).getElementsByTagName("tfoot")[0];
+	
+//        settings.nTFoot = tFoot;
         
 //        console.debug("AdvancedFilter._fnCreateFilterForm tFoot: "+tFoot.html());
         
@@ -350,7 +365,7 @@ AdvancedFilter.prototype = {
 //        $('#'+settings.sTableId+"_ShowHideFilter").removeClass("active");
         
     },
-    "_fnToggle": function ( settings, init ) {
+    _fnToggle: function ( settings, init ) {
         
 //        var that = this;
         
@@ -379,7 +394,7 @@ AdvancedFilter.prototype = {
         }
         
     },
-    "_fnApplyAdvancedFilter": function (value1, value2, operation, settings, init, mDataTemp  ) {
+    _fnApplyAdvancedFilter: function (value1, value2, operation, settings, init, mDataTemp  ) {
         var sTitleTemp;
         for (var j=0; j<settings.aoColumns.length; j++){
             if(settings.aoColumns[j].mData===mDataTemp){
@@ -416,7 +431,7 @@ AdvancedFilter.prototype = {
                 break;
             }
         }
-//    console.debug('_fnApplyAdvancedFilter found: '+found);
+//    console.debug('_applyAdvancedFilter found: '+found);
         
         if(!found && value1!==""){
 //    console.debug('_fnApplyAdvancedFilter mTitleTemp: '+JSON.stringify(sTitleTemp,null,"\t"));
@@ -504,17 +519,22 @@ AdvancedFilter.prototype.CLASS = "AdvancedFilter";
 */
 
 //Register a new feature AdvancedFilter with DataTables
+//        console.debug('Pushing new feature AdvancedFilter...');
 if ( typeof $.fn.dataTable === "function" &&
-     typeof $.fn.dataTableExt.fnVersionCheck === "function" ){
- 
+     typeof $.fn.dataTable.fnVersionCheck === "function" &&
+     $.fn.dataTable.fnVersionCheck("1.10.0") ){
+        console.debug('Pushing new feature $.fn.dataTable.ext: '+JSON.stringify($.fn.dataTable.ext ,null,"\t"));
+//        console.debug('Pushing new feature AdvancedFilter DataTable: '+JSON.stringify($.fn.dataTableExt,null,'  '));
+//                        console.debug('Pushing new feature AdvancedFilter, settings: '+JSON.stringify(oDTSettings,null,"\t"));
 //        console.debug('Pushing new feature AdvancedFilter...');
 	$.fn.dataTableExt.aoFeatures.push( {
-		"fnInit": function( oDTSettings ) {
-			var init = oDTSettings.oInit;
+		"fnInit": function( oSettings  ) {
+                        console.debug('Pushing new feature AdvancedFilter, settings: '+JSON.stringify(oSettings ,null,"\t"));
+			var init = oSettings.oInit;
 //                        console.debug('Pushing new feature AdvancedFilter, init: '+JSON.stringify(init,null,"\t"));
-			var advancedFilter = new AdvancedFilter( oDTSettings, init.aoAdvancedFilter || [] );
+			var advancedFilter = new AdvancedFilter( oSettings, init.advancedFilter || [] );
 //                        console.debug('Pushing new feature AdvancedFilter, advancedFilter: '+JSON.stringify(advancedFilter));
-//                        console.debug('Pushing new feature AdvancedFilter, advancedFilter.fnGetButton(): '+JSON.stringify(advancedFilter.fnGetButton()));
+//                        console.debug('Pushing new feature AdvancedFilter, advancedFilter.getButton(): '+JSON.stringify(advancedFilter.getButton()));
 			return advancedFilter.fnGetButton();
 		},
 		"cFeature": "A",
@@ -528,10 +548,23 @@ else {
 // Make AdvancedFilter accessible from the DataTables instance
 $.fn.dataTable.AdvancedFilter = AdvancedFilter;
 $.fn.DataTable.AdvancedFilter = AdvancedFilter;
-        
+     
+     
+}; // /factory
+
+// Define as an AMD module if possible
+if ( typeof define === 'function' && define.amd ) {
+	define( 'datatables-colvis', ['jquery', 'datatables'], factory );
+}
+else if ( jQuery && !jQuery.fn.dataTable.ColVis ) {
+	// Otherwise simply initialise as normal, stopping multiple evaluation
+	factory( jQuery, jQuery.fn.dataTable );
+}
+
+})(window, document);
         
 /*
- * Insert new Filtering function to process aoAdvancedFilter
+ * Insert new Filtering function to process advancedFilter
  * 
  * @param {type} param
  */
@@ -561,19 +594,19 @@ $.fn.dataTableExt.afnFiltering.push( function( oSettings, aData, iDataIndex ) {
                 value2temp = oSettings.aoAdvancedFilter[i].aoOperations[j].sValue2;
 //                console.debug('['+aData[mDataTemp]+'],['+value1temp+'],['+value2temp+']');                
                 //Prepare values
-                if(sTypeTemp==="date-spain"){
+                if(sTypeTemp && sTypeTemp==="date-spain"){
                     var partsCompareTo = aData[mDataTemp].split('/');
                     compareTo = partsCompareTo[2] + partsCompareTo[1] + partsCompareTo[0];
                     var partsValue1 = value1temp.split('/');
                     if(typeof value2temp !== 'undefined') var partsValue2 = value2temp.split('/');
                     value1 = partsValue1[2] + partsValue1[1] + partsValue1[0];
                     if(typeof value2temp !== 'undefined') value2 = partsValue2[2] + partsValue2[1] + partsValue2[0];
-                }else if(sTypeTemp==="numeric-comma"){
+                }else if(sTypeTemp && sTypeTemp==="numeric-comma"){
                     var replacedValue = aData[mDataTemp].replace( /\./, "" ).replace( /,/, "." );
                     compareTo = parseFloat( replacedValue );
                     value1 = parseFloat( value1temp.replace( /\./, "" ).replace( /,/, "." ));
                     if(typeof value2temp !== 'undefined') value2 = parseFloat( value2temp.replace( /\./, "" ).replace( /,/, "." ));
-                }else if(sTypeTemp==="html"){
+                }else if(sTypeTemp && sTypeTemp==="html"){
                     compareTo = $( aData[mDataTemp] ).text().toLowerCase().trim();
                     value1 = value1temp?value1temp.toLowerCase():value1temp;
                     if(typeof value2temp !== 'undefined') value2 = value2temp?value2temp.toLowerCase():value2temp;
@@ -619,25 +652,30 @@ $.fn.dataTableExt.afnFiltering.push( function( oSettings, aData, iDataIndex ) {
     return result;
 });
         
-        
 /*
- * aoAdvancedFilter sample TO DELETE
+ * advancedFilter sample TO DELETE
  */      
-//        oSettings.aoAdvancedFilter = [{
-//                sTitle:"columnName",
-//                iIndex:1,
-////                sType: ["date","string","numeric","boolean"],
-//                aoOperations:[{
-//                        sOperation:["equal","notEqual","contains","notContains","starts","ends","less/before","greater/after","lessEqual/beforeAnd","greaterEqual/afterThan"],
-//                        sValue1:"",
-//                        sValue2:"",
+//        settings.advancedFilter = [{
+//                title:"columnName",
+//                index:1,
+////                type: ["date","string","numeric","boolean"],
+//                operations:[{
+//                        operation:["equal","notEqual","contains","notContains","starts","ends","less/before","greater/after","lessEqual/beforeAnd","greaterEqual/afterThan"],
+//                        value1:"",
+//                        value2:"",
 //                        }]
 //                }];
         
 //
 //        "equal";"notEqual";"contains";"notContains";"starts";"ends";"less/before";"greater/after";"lessEqual/beforeAnd";"greaterEqual/afterThan"
 //        "=";"!=";"~";"!~";"^";"$";"<";">";"<=";">="
-        
+  
+
+/*
+ * 
+ * Sort and Data types definitions
+ * 
+ */
 
 /*
  * Columns data types for datatable, Comma decimal separator
@@ -725,4 +763,4 @@ $.extend( $.fn.dataTableExt.oSort, {
         return b - a;
     }
  }); 
-
+ 

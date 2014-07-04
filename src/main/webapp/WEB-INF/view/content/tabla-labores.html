@@ -58,7 +58,7 @@
                     $(nRow).find('th').eq(15).html( costSumarize );
                 };
                 
-                console.log("creando tabla labores");
+//                console.log("creando tabla labores");
 
                 var tabla_labores = $('#tabla_labores').dataTable(tabla_opciones);
 
@@ -66,9 +66,9 @@
 
         //        console.debug('aoAdvancedFilter '+JSON.stringify(aoAdvancedFilter,null,'\t') );
         
-                console.debug('campanaActual '+campanaActual );
+//                console.debug('localStorage["campana.actual"] '+localStorage["campana.actual"] );
 
-                if(campanaActual){ 
+                if(localStorage["campana.actual"] && localStorage["campana.actual"] !== 'all'){ 
 
                     if(!aoAdvancedFilter) aoAdvancedFilter = new Array();
 
@@ -77,9 +77,9 @@
                     aoAdvancedFilter.push({
                         sTitle:campanaLocale,
                         aoOperations:[{
-                                sOperation:"equal",
-                                sValue1:campanaActual,
-                                sValue2:""
+                                sOperation: "equal",
+                                sValue1: localStorage["campana.actual"],
+                                sValue2: ""
                                 }]
                         });
 

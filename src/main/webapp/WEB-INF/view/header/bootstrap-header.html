@@ -185,6 +185,53 @@ $(window).load(function () {
         localStorage["campana.actual"] = e.val;
 //        console.log('changed to '+e.val);
 //      Aplicar a todas las tablas que contengan campana como columna el filtro avanzado
+
+//        var aoAdvancedFilter = /*[[${aoAdvancedFilter}]]*/null;
+
+        var tablesWithCampana = new Array();
+
+        var campanaLocale = /*[[#{campana}]]*/null;
+        
+        var tablesNum = $.fn.dataTable.settings.length;
+        
+        console.log('tablesNum '+tablesNum);
+        
+        //find tables with column campana
+        for (var i=0; i<tablesNum; i++){
+            var columnsNum = $.fn.dataTable.settings[i].aoColumns.length;
+        
+            for (var j=0; j<columnsNum; j++){
+                if ($.fn.dataTable.settings[i].aoColumns[j].sTitle === campanaLocale){
+                    tablesWithCampana.push(i);
+                }
+            }
+        }
+        
+        console.log('tablesWithCampana '+tablesWithCampana);
+        
+        //add filter to tables with campana
+        for (var i=0; i<tablesWithCampana.length; i++){
+            var aoAdvancedFilter = $.fn.dataTable.settings[tablesWithCampana[i]].aoAdvancedFilter;
+        
+            console.log('i '+i+' aoAdvancedFilter '+aoAdvancedFilter);
+            
+            var nTable = $.fn.dataTable.settings[tablesWithCampana[i]].nTable;
+            console.log('i '+i+' nTable '+nTable);
+
+            if(!aoAdvancedFilter) aoAdvancedFilter = new Array();
+
+            aoAdvancedFilter.push({
+                sTitle:campanaLocale,
+                aoOperations:[{
+                        sOperation: "equal",
+                        sValue1: localStorage["campana.actual"],
+                        sValue2: ""
+                        }]
+                });
+            console.log('i '+i+' aoAdvancedFilter '+aoAdvancedFilter);
+            
+            AdvancedFilter.fnSetAdvancedFilter(aoAdvancedFilter,nTable);
+        }
     });
     
 });
