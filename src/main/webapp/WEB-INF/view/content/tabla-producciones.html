@@ -180,22 +180,36 @@
         var tabla_producciones = $('#tabla_producciones').dataTable(tabla_opciones);
         
         var aoAdvancedFilter = /*[[${aoAdvancedFilter}]]*/null;
-        
-        if(localStorage["campana.actual"]){ 
-        
-            if(!aoAdvancedFilter) aoAdvancedFilter = new Array();
 
-            var campanaLocale = /*[[#{campana}]]*/null;
+        var campanaLocale = /*[[#{campana}]]*/null;
+        
+        if(!aoAdvancedFilter) aoAdvancedFilter = new Array();
+        
+        if(localStorage["campana.actual"] && localStorage["campana.actual"] !== 'all'){ 
                 
             aoAdvancedFilter.push({
                 sTitle:campanaLocale,
                 aoOperations:[{
-                        sOperation: "equal",
+                        sOperation: "equals",
                         sValue1: localStorage["campana.actual"],
                         sValue2: ""
                         }]
                 });
         
+        }else if(localStorage["campana.actual"] && localStorage["campana.actual"] === 'all'){
+                
+            for (var j=0; j<aoAdvancedFilter.length; j++){
+
+                if(aoAdvancedFilter[j].sTitle === campanaLocale){
+
+                    aoAdvancedFilter.splice(j, 1);
+
+                    break;
+
+                }
+
+            }
+
         }
 //        console.debug('aoAdvancedFilter '+JSON.stringify(aoAdvancedFilter,null,'\t') );
         

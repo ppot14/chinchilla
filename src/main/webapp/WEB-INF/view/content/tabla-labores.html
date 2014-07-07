@@ -68,21 +68,35 @@
         
 //                console.debug('localStorage["campana.actual"] '+localStorage["campana.actual"] );
 
+                var campanaLocale = /*[[#{campana}]]*/null;
+
+                if(!aoAdvancedFilter) aoAdvancedFilter = new Array();
+
                 if(localStorage["campana.actual"] && localStorage["campana.actual"] !== 'all'){ 
-
-                    if(!aoAdvancedFilter) aoAdvancedFilter = new Array();
-
-                    var campanaLocale = /*[[#{campana}]]*/null;
 
                     aoAdvancedFilter.push({
                         sTitle:campanaLocale,
                         aoOperations:[{
-                                sOperation: "equal",
+                                sOperation: "equals",
                                 sValue1: localStorage["campana.actual"],
                                 sValue2: ""
                                 }]
                         });
 
+                }else if(localStorage["campana.actual"] && localStorage["campana.actual"] === 'all'){
+                
+                    for (var j=0; j<aoAdvancedFilter.length; j++){
+
+                        if(aoAdvancedFilter[j].sTitle === campanaLocale){
+
+                            aoAdvancedFilter.splice(j, 1);
+
+                            break;
+
+                        }
+
+                    }
+                    
                 }
 
                 if(aoAdvancedFilter){

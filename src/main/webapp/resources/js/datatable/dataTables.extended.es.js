@@ -175,14 +175,17 @@ AdvancedFilter.prototype = {
 //        console.debug("setAdvancedFilter aoAdvancedFilter: "+JSON.stringify(aoAdvancedFilter));
         
 //        var footer = settings.nTFoot;
+            
+        for (var j=0; j<settings.aoColumns.length; j++){
+                
+            var mDataTemp = settings.aoColumns[j].mData;
+            var sTitleTemp = settings.aoColumns[j].sTitle;
+            
+            var found = false;
         
-        for (var i=0; i<aoAdvancedFilter.length; i++){
+            for (var i=0; i<aoAdvancedFilter.length && !found; i++){
             
-            var advFilterTitle = aoAdvancedFilter[i].sTitle;
-            
-            for (var j=0; j<settings.aoColumns.length; j++){
-                var mDataTemp = settings.aoColumns[j].mData;
-                var sTitleTemp = settings.aoColumns[j].sTitle;
+                var advFilterTitle = aoAdvancedFilter[i].sTitle;
             
                 if(advFilterTitle === sTitleTemp){
         
@@ -193,8 +196,20 @@ AdvancedFilter.prototype = {
                     $('#value1_'+mDataTemp).val(aoAdvancedFilter[i].aoOperations[0].sValue1);
                     
                     $('#value2_'+mDataTemp).val(aoAdvancedFilter[i].aoOperations[0].sValue2);
+                    
+                    found = true;
 
                 }
+                
+            }
+            
+            if(!found){
+                    
+                $('#operation_'+mDataTemp).val("equals");
+
+                $('#value1_'+mDataTemp).val("");
+
+                $('#value2_'+mDataTemp).val("");
                 
             }
             

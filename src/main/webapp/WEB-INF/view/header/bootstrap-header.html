@@ -194,7 +194,7 @@ $(window).load(function () {
         
         var tablesNum = $.fn.dataTable.settings.length;
         
-        console.log('tablesNum '+tablesNum);
+//        console.log('tablesNum '+tablesNum);
         
         //find tables with column campana
         for (var i=0; i<tablesNum; i++){
@@ -202,33 +202,78 @@ $(window).load(function () {
         
             for (var j=0; j<columnsNum; j++){
                 if ($.fn.dataTable.settings[i].aoColumns[j].sTitle === campanaLocale){
-                    tablesWithCampana.push(i);
+                    tablesWithCampana.push([i,$.fn.dataTable.settings[i].nTable.id]);
                 }
             }
         }
         
-        console.log('tablesWithCampana '+tablesWithCampana);
+//        console.log('tablesWithCampana '+JSON.stringify(tablesWithCampana));
         
         //add filter to tables with campana
         for (var i=0; i<tablesWithCampana.length; i++){
-            var aoAdvancedFilter = $.fn.dataTable.settings[tablesWithCampana[i]].aoAdvancedFilter;
+            var aoAdvancedFilter = $.fn.dataTable.settings[tablesWithCampana[i][0]].aoAdvancedFilter;
         
-            console.log('i '+i+' aoAdvancedFilter '+aoAdvancedFilter);
+//            console.log('i '+i+' aoAdvancedFilter '+aoAdvancedFilter);
             
-            var nTable = $.fn.dataTable.settings[tablesWithCampana[i]].nTable;
-            console.log('i '+i+' nTable '+nTable);
+            var nTable = $('#'+tablesWithCampana[i][1]).dataTable();
+//            console.log('i '+i+' nTable '+nTable);
 
             if(!aoAdvancedFilter) aoAdvancedFilter = new Array();
+            
+            if(localStorage["campana.actual"] === "all"){
+                
+                for (var j=0; j<aoAdvancedFilter.length; j++){
+                    
+                    if(aoAdvancedFilter[j].sTitle === campanaLocale){
+                        
+                        aoAdvancedFilter.splice(j, 1);
+                        
+                        break;
+                        
+                    }
+                    
+                }
+                
+            }else{
+                
+                var inserted = false;
+                
+                for (var j=0; j<aoAdvancedFilter.length; j++){
+                    
+                    if(aoAdvancedFilter[j].sTitle === campanaLocale){
 
-            aoAdvancedFilter.push({
-                sTitle:campanaLocale,
-                aoOperations:[{
-                        sOperation: "equal",
-                        sValue1: localStorage["campana.actual"],
-                        sValue2: ""
-                        }]
-                });
-            console.log('i '+i+' aoAdvancedFilter '+aoAdvancedFilter);
+                        aoAdvancedFilter[j] ={
+                            sTitle:campanaLocale,
+                            aoOperations:[{
+                                    sOperation: "equals",
+                                    sValue1: localStorage["campana.actual"],
+                                    sValue2: ""
+                                    }]
+                            };
+                            
+                        inserted = true;
+                        
+                        break;
+                        
+                    }
+                    
+                }
+                
+                if(!inserted){
+
+                    aoAdvancedFilter.push({
+                        sTitle:campanaLocale,
+                        aoOperations:[{
+                                sOperation: "equals",
+                                sValue1: localStorage["campana.actual"],
+                                sValue2: ""
+                                }]
+                        });
+                    
+                }
+                
+            }
+//            console.log('i '+i+' aoAdvancedFilter '+JSON.stringify(aoAdvancedFilter));
             
             AdvancedFilter.fnSetAdvancedFilter(aoAdvancedFilter,nTable);
         }
